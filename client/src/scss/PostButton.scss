@@ -1,0 +1,48 @@
+.post--button {
+  position: fixed;
+  outline: none;
+  bottom: 8%;
+  right: 5%;
+  background: white;
+  border: none;
+  border-radius: 50%;
+
+  button {
+    width: 50px;
+    height: 50px;
+    background: inherit;
+    border-radius: 50%;
+    font-size: 30px;
+    border: solid 1px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+  }
+
+  #file_input {
+    display: none;
+  }
+
+  label {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  label:hover {
+    background: rgba(0, 0, 0, 0.08);
+    cursor: pointer;
+  }
+}
+
+@media (max-width: 750px) {
+  .post--button {
+    display: none;
+  }
+}
