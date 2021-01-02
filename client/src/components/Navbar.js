@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import * as Icons from "../Icons/CustomIcons";
 
-const Navbar = (props) => {
+const Navbar = ({ currentUsername, currentUserProfileimage }) => {
   const [searchQuery, setSearchQuery] = useState("");
   return (
     <div className="navbar">
@@ -37,9 +37,9 @@ const Navbar = (props) => {
           <Icons.ActivityIcon />
         </Link>
 
-        <Link to={`/${props?.currentUsername}`}>
+        <Link to={`/${currentUsername}`}>
           <img
-            src={props?.currentUserProfileimage || "https://bit.ly/3pc96tw"}
+            src={currentUserProfileimage || "https://bit.ly/3pc96tw"}
             alt="profile_image"
           />
         </Link>
@@ -51,7 +51,6 @@ const Navbar = (props) => {
 const mapStateToProps = (state) => {
   return {
     currentUsername: state.user.currentUserData.username,
-    currentUserUid: state.user.currentUserData.uid,
     currentUserProfileimage: state.user.currentUserData.profile_image_url,
   };
 };

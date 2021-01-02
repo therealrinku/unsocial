@@ -73,7 +73,7 @@ export const deletePost = async (post_uid) => {
 
 export const uploadPost = async (data) => {
   try {
-    return new Compressor(data.image, {
+    new Compressor(data.image, {
       quality: 0.6,
       success(result) {
         const uploadedImage = storage

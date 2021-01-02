@@ -7,6 +7,7 @@ import PostButton from "../components/PostButton";
 import overflowToggler from "../utilities/overflowToggler";
 import AddPostModal from "../components/AddPostModal";
 import Backdrop from "../components/Backdrop";
+import MobileNavbar from "../components/MobileNavbar";
 
 const Homepage = ({
   currentUserProfileImage,
@@ -61,6 +62,7 @@ const Homepage = ({
       />
       <Navbar />
       <Feed feed={feed} />
+      <MobileNavbar />
     </div>
   );
 };
