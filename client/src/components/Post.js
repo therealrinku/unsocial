@@ -23,6 +23,7 @@ const Post = ({
   haveILiked,
   currentUsername,
   currentUserUid,
+  currentUserProfileimage,
   LIKE_POST,
   UNLIKE_POST,
   UNSAVE_POST,
@@ -131,7 +132,7 @@ const Post = ({
         <Fragment>
           <LikersModal
             loading={likersLoading}
-            likers={thisPostLikers || []}
+            likers={thisPostLikers}
             toggle={() => toggleModal(setShowLikers)}
           />
           <Backdrop
@@ -165,6 +166,7 @@ const mapStateToProps = (state) => {
     feedPosts: state.feed.posts,
     currentUsername: state.user.currentUserData.username,
     currentUserUid: state.user.currentUserData.uid,
+    currentUserProfileimage: state.user.profile_image_url,
   };
 };
 
