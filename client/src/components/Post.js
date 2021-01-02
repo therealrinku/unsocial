@@ -72,57 +72,59 @@ const Post = ({
   };
 
   return (
-    <div className="post--card">
-      <div>
-        <ul>
-          <img src={poster_profileImage} alt="post_user_image" />
-          <Link to={`/${poster_username}`}>{poster_username}</Link>
-        </ul>
-
-        <ul>
-          <button onClick={() => toggleModal(setShowPostOptionsModal)}>
-            <BiDotsHorizontal />
-          </button>
-        </ul>
-      </div>
-
-      <div>
-        <img src={post_image} alt="post_main_img" />
-      </div>
-
-      <div>
+    <Fragment>
+      <div className="post--card">
         <div>
-          <button onClick={likeUnlikePost}>
-            {haveILiked ? <Icons.LovedIcon /> : <Icons.LoveIcon />}
-          </button>
+          <ul>
+            <img src={poster_profileImage} alt="post_user_image" />
+            <Link to={`/${poster_username}`}>{poster_username}</Link>
+          </ul>
 
-          <button>
-            <Icons.CommentIcon />
-          </button>
-
-          <button>
-            <Icons.ShareIcon />
-          </button>
+          <ul>
+            <button onClick={() => toggleModal(setShowPostOptionsModal)}>
+              <BiDotsHorizontal />
+            </button>
+          </ul>
         </div>
 
         <div>
-          <button onClick={saveUnsavePost}>
-            {haveISaved ? <Icons.SavedIcon /> : <Icons.SaveIcon />}
-          </button>
+          <img src={post_image} alt="post_main_img" />
         </div>
-      </div>
 
-      <div>
-        <p>{post_status}</p>
-      </div>
+        <div>
+          <div>
+            <button onClick={likeUnlikePost}>
+              {haveILiked ? <Icons.LovedIcon /> : <Icons.LoveIcon />}
+            </button>
 
-      <div>
-        <button onClick={getLikers}>{post_likesCount || "No"} likes</button>
-        <p>{post_commentsCount} comments</p>
-      </div>
+            <button>
+              <Icons.CommentIcon />
+            </button>
 
-      <div>
-        <p>{post_postedDate}</p>
+            <button>
+              <Icons.ShareIcon />
+            </button>
+          </div>
+
+          <div>
+            <button onClick={saveUnsavePost}>
+              {haveISaved ? <Icons.SavedIcon /> : <Icons.SaveIcon />}
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <p>{post_status}</p>
+        </div>
+
+        <div>
+          <button onClick={getLikers}>{post_likesCount || "No"} likes</button>
+          <p>{post_commentsCount} comments</p>
+        </div>
+
+        <div>
+          <p>{post_postedDate}</p>
+        </div>
       </div>
 
       {showLikers ? (
@@ -153,7 +155,7 @@ const Post = ({
           />
         </Fragment>
       ) : null}
-    </div>
+    </Fragment>
   );
 };
 
