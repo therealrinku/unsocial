@@ -2,7 +2,24 @@ import React from "react";
 import { VscClose } from "react-icons/vsc";
 import { NavLink } from "react-router-dom";
 
-const LikersModal = ({ loading, toggle, likers }) => {
+const LikersModal = ({
+  filteringUsername,
+  pushingUserdata,
+  loading,
+  toggle,
+  likers,
+}) => {
+  const myIndex = pushingUserdata
+    ? likers.findIndex(
+        (liker) => liker.username === pushingUserdata.currentUsername
+      )
+    : -1;
+  const updatedLikersList =
+    myIndex < 0 && pushingUserdata ? [...likers, pushingUserdata] : likers;
+  const updatedFilteredLikersList = updatedLikersList.filter(
+    (liker) => liker.username !== filteringUsername
+  );
+
   return (
     <div className="view--likers-modal">
       <div>
@@ -16,8 +33,8 @@ const LikersModal = ({ loading, toggle, likers }) => {
         <div style={{ textAlign: "center", fontSize: "14px" }}>Loading....</div>
       ) : (
         <div>
-          {likers.length > 0 ? (
-            likers.map((liker) => {
+          {updatedFilteredLikersList.length > 0 ? (
+            updatedFilteredLikersList.map((liker) => {
               return (
                 <div key={new Date() * Math.random()}>
                   <img src={liker.profile_image_url} alt="profile_img" />

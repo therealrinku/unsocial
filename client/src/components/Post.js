@@ -132,8 +132,17 @@ const Post = ({
         <Fragment>
           <LikersModal
             loading={likersLoading}
-            likers={thisPostLikers}
+            likers={thisPostLikers || []}
             toggle={() => toggleModal(setShowLikers)}
+            filteringUsername={!haveILiked ? currentUsername : null}
+            pushingUserdata={
+              haveILiked
+                ? {
+                    username: currentUsername,
+                    profile_image_url: currentUserProfileimage,
+                  }
+                : null
+            }
           />
           <Backdrop
             show={showLikers}
@@ -166,7 +175,7 @@ const mapStateToProps = (state) => {
     feedPosts: state.feed.posts,
     currentUsername: state.user.currentUserData.username,
     currentUserUid: state.user.currentUserData.uid,
-    currentUserProfileimage: state.user.profile_image_url,
+    currentUserProfileimage: state.user.currentUserData.profile_image_url,
   };
 };
 
