@@ -134,15 +134,6 @@ const Post = ({
             loading={likersLoading}
             likers={thisPostLikers || []}
             toggle={() => toggleModal(setShowLikers)}
-            filteringUsername={!haveILiked ? currentUsername : null}
-            pushingUserdata={
-              haveILiked
-                ? {
-                    username: currentUsername,
-                    profile_image_url: currentUserProfileimage,
-                  }
-                : null
-            }
           />
           <Backdrop
             show={showLikers}
