@@ -1,7 +1,12 @@
 import React, { Fragment } from "react";
-import { BiDotsHorizontal } from "react-icons/all";
+import { BiDotsHorizontal, BiUserCheck } from "react-icons/all";
 
-const ProfileSummary = ({ profileData, isMyProfile, toggleProfileOptions }) => {
+const ProfileSummary = ({
+  profileData,
+  isMyProfile,
+  toggleProfileOptions,
+  toggleUnfollowPrompt,
+}) => {
   return (
     <Fragment>
       <div className="profile--summary-page">
@@ -21,14 +26,15 @@ const ProfileSummary = ({ profileData, isMyProfile, toggleProfileOptions }) => {
               Edit Profile
             </button>
             <button
-              className="follow--button"
+              className="unfollow--button"
               style={
                 !isMyProfile && profileData.followed_by_me
                   ? null
                   : { display: "none" }
               }
+              onClick={toggleUnfollowPrompt}
             >
-              Follow
+              <BiUserCheck />
             </button>
             <button
               className="profile--options-button"
@@ -82,14 +88,15 @@ const ProfileSummary = ({ profileData, isMyProfile, toggleProfileOptions }) => {
               Edit Profile
             </button>
             <button
-              className="follow--button"
+              onClick={toggleUnfollowPrompt}
+              className="unfollow--button"
               style={
                 !isMyProfile && profileData.followed_by_me
                   ? null
                   : { display: "none" }
               }
             >
-              Follow
+              <BiUserCheck />
             </button>
           </div>
         </section>
