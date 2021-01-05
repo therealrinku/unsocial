@@ -1,9 +1,9 @@
 .profile--summary-page {
-  width: 85%;
+  width: 100%;
   margin: auto;
   display: flex;
-  justify-content: flex-start;
-  padding-left: 10%;
+  justify-content: center;
+  margin-left: -30px;
 
   img {
     width: 120px;
@@ -13,7 +13,7 @@
   }
 
   section:last-child {
-    padding-left: 8%;
+    padding-left: 5%;
 
     div:nth-child(2) {
       display: flex;
@@ -25,6 +25,10 @@
         background: inherit;
         outline: none;
         font-size: 15px;
+      }
+
+      button:first-child:hover {
+        cursor: unset;
       }
     }
 
@@ -51,5 +55,108 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+  }
+}
+
+.profile--summary-page-mobile {
+  display: none;
+
+  .username {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 80%;
+    overflow: hidden;
+  }
+
+  section {
+    padding-left: 5%;
+  }
+
+  img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .profile--edit-button {
+    border: solid 1px rgba(0, 0, 0, 0.4);
+    border-radius: 5px;
+    padding: 5px 20px;
+    background: inherit;
+    width: 55vw;
+  }
+
+  .profile--options-button {
+    border: none;
+    background: inherit;
+    outline: none;
+    font-size: 20px;
+    vertical-align: middle;
+  }
+
+  section:first-child {
+    display: flex;
+    align-items: center;
+
+    div:last-child {
+      padding-left: 4%;
+      margin-top: -20px;
+
+      div {
+        display: flex;
+        align-items: center;
+        width: 50vw;
+      }
+    }
+  }
+
+  section:nth-child(2) {
+    font-size: 14px;
+  }
+
+  section:last-child {
+    border-top: solid 1px rgba(0, 0, 0, 0.4);
+    border-bottom: solid 1px rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0;
+    height: 40px;
+
+    button:first-child:hover {
+      cursor: unset;
+    }
+
+    button {
+      border: none;
+      background: inherit;
+      outline: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+
+      b {
+        margin-top: 10px;
+        margin-bottom: 5px;
+      }
+
+      p {
+        margin-top: -1px;
+        color: rgba(0, 0, 0, 0.5);
+      }
+    }
+  }
+}
+
+@media (max-width: 750px) {
+  .profile--summary-page {
+    display: none;
+  }
+
+  .profile--summary-page-mobile {
+    display: block;
   }
 }
