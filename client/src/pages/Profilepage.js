@@ -7,6 +7,7 @@ import { connect } from "react-redux";
 import overflowToggler from "../utilities/overflowToggler";
 import ProfileOptModal from "../components/ProfileOptModal";
 import Backdrop from "../components/Backdrop";
+import UnfollowPrompt from "../components/UnfollowPrompt";
 
 const Profilepage = ({
   history,
@@ -54,6 +55,20 @@ const Profilepage = ({
           <Backdrop
             show={showProfileOptionsModal}
             toggle={() => toggleModal(setShowProfileOptionsModal)}
+          />
+        </Fragment>
+      ) : null}
+
+      {showUnfollowPrompt ? (
+        <Fragment>
+          <Backdrop
+            show={showUnfollowPrompt}
+            toggle={() => toggleModal(setShowUnfollowPrompt)}
+          />
+          <UnfollowPrompt
+            profileUsername={profileUsername}
+            profileImage={profileData[0]?.profile_image_url}
+            toggle={() => toggleModal(setShowUnfollowPrompt)}
           />
         </Fragment>
       ) : null}
