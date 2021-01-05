@@ -16,9 +16,7 @@ const ProfileSummary = ({
 
         <section>
           <div>
-            <p className="username">
-              {profileData.username}dskksfkdkfdkfkdfkdfk
-            </p>
+            <p className="username">{profileData.username}</p>
             <button
               className="profile--edit-button"
               style={!isMyProfile ? { display: "none" } : null}
@@ -70,9 +68,7 @@ const ProfileSummary = ({
 
           <div>
             <div>
-              <p className="username">
-                {profileData.username}dskksfkdkfdkfkdfkdfk
-              </p>
+              <p className="username">{profileData.username}</p>
               <button
                 className="profile--options-button"
                 onClick={toggleProfileOptions}
