@@ -9,6 +9,7 @@ import ProfileOptModal from "../components/ProfileOptModal";
 import Backdrop from "../components/Backdrop";
 import UnfollowPrompt from "../components/UnfollowPrompt";
 import ProfileButtonLine from "../components/ProfileButtonLine";
+import PostsGrid from "../components/PostsGrid";
 
 const Profilepage = ({
   history,
@@ -47,6 +48,7 @@ const Profilepage = ({
         isMyProfile={currentUsername === profileUsername}
       />
       <ProfileButtonLine />
+      <PostsGrid userPosts={profileData[0]?.posts || []} />
       <MobileNavbar />
       {showProfileOptionsModal ? (
         <Fragment>
