@@ -1,0 +1,57 @@
+.profile--button-line {
+  margin-top: 70px;
+  border-top: solid 1px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  div:first-child {
+    display: flex;
+    align-items: center;
+  }
+
+  button {
+    outline: none;
+    border: none;
+    background: inherit;
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+    font-size: 11px;
+    font-family: inherit;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+
+    p {
+      margin-left: 7px;
+    }
+  }
+
+  .active {
+    border-top: solid 1px black;
+  }
+}
+
+@media (max-width: 750px) {
+  .profile--button-line {
+    margin-top: -5px;
+    border-top: none;
+    border-bottom: solid 1px rgba(0, 0, 0, 0.4);
+    height: 45px;
+    display: flex;
+    align-items: center;
+
+    .active {
+      border: none;
+      background: coral;
+    }
+
+    button {
+      margin-right: 25px;
+
+      p {
+        display: none;
+      }
+    }
+  }
+}

@@ -8,6 +8,7 @@ import overflowToggler from "../utilities/overflowToggler";
 import ProfileOptModal from "../components/ProfileOptModal";
 import Backdrop from "../components/Backdrop";
 import UnfollowPrompt from "../components/UnfollowPrompt";
+import ProfileButtonLine from "../components/ProfileButtonLine";
 
 const Profilepage = ({
   history,
@@ -45,6 +46,7 @@ const Profilepage = ({
         toggleUnfollowPrompt={() => toggleModal(setShowUnfollowPrompt)}
         isMyProfile={currentUsername === profileUsername}
       />
+      <ProfileButtonLine />
       <MobileNavbar />
       {showProfileOptionsModal ? (
         <Fragment>
