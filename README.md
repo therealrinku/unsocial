@@ -1,9 +1,9 @@
-## Instagram clone app.
+# Instagram clone app.
 
-# Live Website
+## Live Website
 * https://instaclone.web.app
 
-# Used Technologies
+## Used Technologies
 * React and Redux
 * Sass
 * Firebase hosting
@@ -12,7 +12,7 @@
 * Image compressor
 * Postgresql
 
-# Features
+## Features
 * User creation and authentication
 * Add and remove image posts
 * Follow and unfollow users
