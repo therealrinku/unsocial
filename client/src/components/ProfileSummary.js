@@ -3,28 +3,36 @@ import { BiDotsHorizontal } from "react-icons/all";
 
 const ProfileSummary = ({ profileData, isMyProfile }) => {
   return (
-    <div className="profile_summary">
-      <div className="left">
+    <div className="profile--summary-page">
+      <section>
         <img src={profileData.profile_image_url} alt="profile_image" />
-      </div>
+      </section>
 
-      <div className="right">
-        <div className="layer_one">
+      <section>
+        <div>
           <p className="username">{profileData.username}</p>
-          <button
-            className="profile_edit_button"
-            style={!isMyProfile ? { display: "none" } : null}
-          >
-            Edit Profile
+          <button className="profile--edit-button">Edit Profile</button>
+          <button className="profile--options-button">
+            <BiDotsHorizontal />
           </button>
         </div>
 
-        <div className="layer_two"></div>
+        <div>
+          <button>
+            <b>{profileData.posts_count}</b> posts
+          </button>
+          <button>
+            <b>{profileData.followers_count}</b> followers
+          </button>
+          <button>
+            <b>{profileData.following_count}</b> following
+          </button>
+        </div>
 
-        <div className="layer_three">
+        <div>
           <p>I am a creator of instaclone app</p>
         </div>
-      </div>
+      </section>
     </div>
   );
 };
