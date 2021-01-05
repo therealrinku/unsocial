@@ -1,12 +1,14 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Homepage from "../pages/Homepage";
+import Profilepage from "../pages/Profilepage";
 
 const App = () => {
   return (
     <BrowserRouter>
       <Switch>
         <Route path="/" exact component={Homepage} />
+        <Route path="/:username" exact component={Profilepage} />
       </Switch>
     </BrowserRouter>
   );

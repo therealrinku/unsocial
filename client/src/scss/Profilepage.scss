@@ -1,0 +1,12 @@
+.profile--page {
+  width: 75%;
+  margin: auto;
+  margin-top: 80px;
+  font-family: arial;
+}
+
+@media (max-width: 750px) {
+  .profile--page {
+    width: 100%;
+  }
+}
