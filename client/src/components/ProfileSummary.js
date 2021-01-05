@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import { BiDotsHorizontal } from "react-icons/all";
 
-const ProfileSummary = ({ profileData, isMyProfile }) => {
+const ProfileSummary = ({ profileData, isMyProfile, toggleProfileOptions }) => {
   return (
     <Fragment>
       <div className="profile--summary-page">
@@ -14,8 +14,26 @@ const ProfileSummary = ({ profileData, isMyProfile }) => {
             <p className="username">
               {profileData.username}dskksfkdkfdkfkdfkdfk
             </p>
-            <button className="profile--edit-button">Edit Profile</button>
-            <button className="profile--options-button">
+            <button
+              className="profile--edit-button"
+              style={!isMyProfile ? { display: "none" } : null}
+            >
+              Edit Profile
+            </button>
+            <button
+              className="follow--button"
+              style={
+                !isMyProfile && profileData.followed_by_me
+                  ? null
+                  : { display: "none" }
+              }
+            >
+              Follow
+            </button>
+            <button
+              className="profile--options-button"
+              onClick={toggleProfileOptions}
+            >
               <BiDotsHorizontal />
             </button>
           </div>
@@ -49,12 +67,30 @@ const ProfileSummary = ({ profileData, isMyProfile }) => {
               <p className="username">
                 {profileData.username}dskksfkdkfdkfkdfkdfk
               </p>
-              <button className="profile--options-button">
+              <button
+                className="profile--options-button"
+                onClick={toggleProfileOptions}
+              >
                 <BiDotsHorizontal />
               </button>
             </div>
 
-            <button className="profile--edit-button">Edit Profile</button>
+            <button
+              className="profile--edit-button"
+              style={!isMyProfile ? { display: "none" } : null}
+            >
+              Edit Profile
+            </button>
+            <button
+              className="follow--button"
+              style={
+                !isMyProfile && profileData.followed_by_me
+                  ? null
+                  : { display: "none" }
+              }
+            >
+              Follow
+            </button>
           </div>
         </section>
 
