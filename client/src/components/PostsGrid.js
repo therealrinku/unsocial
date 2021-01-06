@@ -7,7 +7,7 @@ const PostsGrid = ({ userPosts }) => {
         })
         .map((e) => {
           return (
-            <div key={e.post_uid}>
+            <div key={e.post_id}>
               <img src={e.post_image} alt={e.status || "post"} />
             </div>
           );
