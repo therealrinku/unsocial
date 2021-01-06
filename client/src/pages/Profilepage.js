@@ -52,7 +52,6 @@ const Profilepage = ({
         toggleUnfollowPrompt={() => toggleModal(setShowUnfollowPrompt)}
         isMyProfile={currentUsername === profileUsername}
         FOLLOW={() => FOLLOW(profileData[0]?.uid, currentUserUid)}
-        UNFOLLOW={() => UNFOLLOW(profileData[0].uid, currentUserUid)}
       />
       <ProfileButtonLine
         showSavedPosts={showSavedPosts}
@@ -92,6 +91,7 @@ const Profilepage = ({
             profileUsername={profileUsername}
             profileImage={profileData[0]?.profile_image_url}
             toggle={() => toggleModal(setShowUnfollowPrompt)}
+            UNFOLLOW={() => UNFOLLOW(profileData[0].uid, currentUserUid)}
           />
         </Fragment>
       ) : null}

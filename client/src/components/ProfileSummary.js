@@ -6,6 +6,7 @@ const ProfileSummary = ({
   isMyProfile,
   toggleProfileOptions,
   toggleUnfollowPrompt,
+  FOLLOW,
 }) => {
   return (
     <Fragment>

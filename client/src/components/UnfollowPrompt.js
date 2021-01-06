@@ -4,6 +4,10 @@ const UnfollowPrompt = ({
   profileImage,
   profileUsername,
 }) => {
+  const unfollow = () => {
+    UNFOLLOW();
+    toggle();
+  };
   return (
     <div className="unfollow--confirmation-modal">
       <div>
@@ -11,7 +15,7 @@ const UnfollowPrompt = ({
         <p>Unfollow {profileUsername}?</p>
       </div>
 
-      <button style={{ color: "red" }} onClick={UNFOLLOW}>
+      <button style={{ color: "red" }} onClick={unfollow}>
         Unfollow
       </button>
       <button onClick={toggle}>Cancel</button>
