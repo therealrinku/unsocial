@@ -12,7 +12,7 @@ const NewPostBtn = ({ setSelectedImage, toggleAddPostModal }) => {
   return (
     <div className="post--button">
       <button>
-        <form enctype="multipart/form-data">
+        <form>
           <input
             type="file"
             id="file_input"
