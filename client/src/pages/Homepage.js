@@ -38,7 +38,9 @@ const Homepage = ({
   };
 
   useEffect(() => {
-    GET_FEED(currentUserUid);
+    if (feed.length <= 0) {
+      GET_FEED(currentUserUid);
+    }
   }, [currentUserUid]);
 
   return (
