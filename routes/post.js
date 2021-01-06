@@ -1,6 +1,19 @@
 const router = require("express").Router();
 const db = require("../database/db");
 
+//get saved posts
+router.get("/savedposts/:current_user_uid", (req, res) => {
+  db.query(
+    `SELECT post_id,image_url as post_image FROM posts WHERE (post_uid)::text
+    IN (SELECT unnest(saved_posts_uids) 
+    FROM users WHERE (uid)::text='${req.params.username}')`,
+    (err, res1) => {
+      if (!err) res.send(res1.rows);
+      else throw err;
+    }
+  );
+});
+
 //get visited profile posts
 router.get("/posts/:current_user_uid/:owner_uid", (req, res) => {
   db.query(
