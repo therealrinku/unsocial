@@ -25,6 +25,17 @@ const ProfileSummary = ({
               Edit Profile
             </button>
             <button
+              className="follow--button"
+              style={
+                !isMyProfile && !profileData.followed_by_me
+                  ? null
+                  : { display: "none" }
+              }
+              onClick={FOLLOW}
+            >
+              Follow
+            </button>
+            <button
               className="unfollow--button"
               style={
                 !isMyProfile && profileData.followed_by_me
@@ -83,6 +94,17 @@ const ProfileSummary = ({
               style={!isMyProfile ? { display: "none" } : null}
             >
               Edit Profile
+            </button>
+            <button
+              className="follow--button"
+              style={
+                !isMyProfile && !profileData.followed_by_me
+                  ? null
+                  : { display: "none" }
+              }
+              onClick={FOLLOW}
+            >
+              Follow
             </button>
             <button
               onClick={toggleUnfollowPrompt}
