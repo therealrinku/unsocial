@@ -1,10 +1,45 @@
 import {
+  followUser,
   getProfileData,
   getProfilePosts,
   getProfileSavedPosts,
+  unfollowUser,
 } from "../../services/profileServices";
 import profileActionTypes from "./profileActionTypes";
 
+export const UNFOLLOW = (unfollowing_user_uid, unfollower_user_uid) => async (
+  dispatch
+) => {
+  try {
+    dispatch({
+      type: profileActionTypes.UNFOLLOW,
+      payload: unfollowing_user_uid,
+    });
+    await unfollowUser(unfollowing_user_uid, unfollower_user_uid);
+  } catch (err) {
+    dispatch({
+      type: profileActionTypes.ERROR_IN_PROFILE,
+      payload: err.message,
+    });
+  }
+};
+
+export const FOLLOW = (following_user_uid, follower_user_uid) => async (
+  dispatch
+) => {
+  try {
+    dispatch({
+      type: profileActionTypes.FOLLOW,
+      payload: following_user_uid,
+    });
+    await followUser(following_user_uid, follower_user_uid);
+  } catch (err) {
+    dispatch({
+      type: profileActionTypes.ERROR_IN_PROFILE,
+      payload: err.message,
+    });
+  }
+};
 
 export const GET_PROFILE_DATA = (profile_username, current_user_uid) => async (
   dispatch
