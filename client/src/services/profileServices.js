@@ -1,6 +1,31 @@
 import axios from "axios";
 import server_url from "../server_url";
 
+export const followUser = async (following_user_uid, follower_user_uid) => {
+  try {
+    await axios.post(server_url + "/user/follow", {
+      following_user_uid,
+      follower_user_uid,
+    });
+  } catch (err) {
+    throw new Error(err.message);
+  }
+};
+
+export const unfollowUser = async (
+  unfollowing_user_uid,
+  unfollower_user_uid
+) => {
+  try {
+    await axios.post(server_url + "/user/unfollow", {
+      unfollowing_user_uid,
+      unfollower_user_uid,
+    });
+  } catch (err) {
+    throw new Error(err.message);
+  }
+};
+
 export const getProfileSavedPosts = async (current_user_uid) => {
   try {
     const profileSavedPosts = await axios

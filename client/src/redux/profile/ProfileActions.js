@@ -5,6 +5,7 @@ import {
 } from "../../services/profileServices";
 import profileActionTypes from "./profileActionTypes";
 
+
 export const GET_PROFILE_DATA = (profile_username, current_user_uid) => async (
   dispatch
 ) => {
