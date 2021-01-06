@@ -47,7 +47,7 @@ const Profilepage = ({
         toggleUnfollowPrompt={() => toggleModal(setShowUnfollowPrompt)}
         isMyProfile={currentUsername === profileUsername}
       />
-      <ProfileButtonLine />
+      <ProfileButtonLine isMyProfile={currentUsername === profileUsername} />
       <PostsGrid userPosts={profileData[0]?.posts || []} />
       <MobileNavbar />
       {showProfileOptionsModal ? (

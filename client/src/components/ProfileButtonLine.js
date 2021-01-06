@@ -4,7 +4,7 @@ const ProfileButtonLine = ({
   viewMode = "posts",
   no_posts,
   setViewMode,
-  showSavedPostsButton,
+  isMyProfile,
 }) => {
   return (
     <div className="profile--button-line">
@@ -20,7 +20,7 @@ const ProfileButtonLine = ({
 
           <button
             onClick={() => setViewMode("saved_posts")}
-            style={!showSavedPostsButton ? { display: "none" } : null}
+            style={!isMyProfile ? { display: "none" } : null}
             className={viewMode === "saved_posts" ? "active" : null}
           >
             <Icons.PostActionBarSaveIcon />
