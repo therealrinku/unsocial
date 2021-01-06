@@ -17,6 +17,8 @@ const Profilepage = ({
   profiles,
   GET_PROFILE_DATA,
   currentUsername,
+  FOLLOW,
+  UNFOLLOW,
 }) => {
   const profileUsername = history.location.pathname.slice(1);
   const profileData = profiles.filter(
@@ -49,6 +51,8 @@ const Profilepage = ({
         toggleProfileOptions={() => toggleModal(setShowProfileOptionsModal)}
         toggleUnfollowPrompt={() => toggleModal(setShowUnfollowPrompt)}
         isMyProfile={currentUsername === profileUsername}
+        FOLLOW={() => FOLLOW(profileData[0]?.uid, currentUserUid)}
+        UNFOLLOW={() => UNFOLLOW(profileData[0].uid, currentUserUid)}
       />
       <ProfileButtonLine
         showSavedPosts={showSavedPosts}
@@ -106,6 +110,12 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    UNFOLLOW: (unfollowing_user_uid, unfollower_user_uid) =>
+      dispatch(
+        profileActions.UNFOLLOW(unfollowing_user_uid, unfollower_user_uid)
+      ),
+    FOLLOW: (following_user_uid, follower_user_uid) =>
+      dispatch(profileActions.FOLLOW(following_user_uid, follower_user_uid)),
     GET_PROFILE_DATA: (profile_username, current_user_uid) =>
       dispatch(
         profileActions.GET_PROFILE_DATA(profile_username, current_user_uid)
