@@ -59,10 +59,10 @@ const ProfileSummary = ({
               <b>{profileData.posts_count}</b> posts
             </button>
             <button>
-              <b>{profileData.followers_count}</b> followers
+              <b>{profileData.followers_count || 0}</b> followers
             </button>
             <button>
-              <b>{profileData.following_count}</b> following
+              <b>{profileData.following_count || 0}</b> following
             </button>
           </div>
 
@@ -130,11 +130,11 @@ const ProfileSummary = ({
             <p>posts</p>
           </button>
           <button>
-            <b>{profileData.followers_count}</b>
+            <b>{profileData.followers_count || 0}</b>
             <p>followers</p>
           </button>
           <button>
-            <b>{profileData.following_count}</b>
+            <b>{profileData.following_count || 0}</b>
             <p>following</p>
           </button>
         </section>
