@@ -27,6 +27,9 @@ const Profilepage = ({
   const [showProfileOptionsModal, setShowProfileOptionsModal] = useState(false);
   const [showUnfollowPrompt, setShowUnfollowPrompt] = useState(false);
 
+  //
+  const [showSavedPosts, setShowSavedPosts] = useState(false);
+
   const toggleModal = (setModal) => {
     setModal((prev) => !prev);
     overflowToggler();
@@ -47,8 +50,20 @@ const Profilepage = ({
         toggleUnfollowPrompt={() => toggleModal(setShowUnfollowPrompt)}
         isMyProfile={currentUsername === profileUsername}
       />
-      <ProfileButtonLine isMyProfile={currentUsername === profileUsername} />
-      <PostsGrid userPosts={profileData[0]?.posts || []} />
+      <ProfileButtonLine
+        showSavedPosts={showSavedPosts}
+        isMyProfile={currentUsername === profileUsername}
+        viewSavedPosts={() => setShowSavedPosts(true)}
+        hideSavedPosts={() => setShowSavedPosts(false)}
+        no_posts={profileData[0]?.posts.length <= 0}
+      />
+      <PostsGrid
+        userPosts={
+          showSavedPosts
+            ? profileData[0]?.savedPosts
+            : profileData[0]?.posts || []
+        }
+      />
       <MobileNavbar />
       {showProfileOptionsModal ? (
         <Fragment>

@@ -1,9 +1,10 @@
 import * as Icons from "../Icons/CustomIcons";
 
 const ProfileButtonLine = ({
-  viewMode = "posts",
+  showSavedPosts,
   no_posts,
-  setViewMode,
+  hideSavedPosts,
+  viewSavedPosts,
   isMyProfile,
 }) => {
   return (
@@ -11,17 +12,17 @@ const ProfileButtonLine = ({
       {!no_posts ? (
         <div>
           <button
-            onClick={() => setViewMode("posts")}
-            className={viewMode === "posts" ? "active" : null}
+            onClick={hideSavedPosts}
+            className={!showSavedPosts ? "active" : null}
           >
             <Icons.GridIcon />
             <p>Posts</p>
           </button>
 
           <button
-            onClick={() => setViewMode("saved_posts")}
+            onClick={viewSavedPosts}
             style={!isMyProfile ? { display: "none" } : null}
-            className={viewMode === "saved_posts" ? "active" : null}
+            className={showSavedPosts ? "active" : null}
           >
             <Icons.PostActionBarSaveIcon />
             <p>Saved</p>
