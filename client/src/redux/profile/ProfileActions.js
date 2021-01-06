@@ -1,6 +1,7 @@
 import {
   getProfileData,
   getProfilePosts,
+  getProfileSavedPosts,
 } from "../../services/profileServices";
 import profileActionTypes from "./profileActionTypes";
 
@@ -17,9 +18,16 @@ export const GET_PROFILE_DATA = (profile_username, current_user_uid) => async (
       current_user_uid,
       profileData[0]?.uid || null
     );
+
+    const profileSavedPosts = await getProfileSavedPosts(current_user_uid);
+
     dispatch({
       type: profileActionTypes.SET_PROFILE,
-      payload: { ...profileData[0], posts: profilePosts },
+      payload: {
+        ...profileData[0],
+        posts: profilePosts,
+        savedPosts: profileSavedPosts,
+      },
     });
   } catch (err) {
     dispatch({

@@ -6,7 +6,7 @@ router.get("/savedposts/:current_user_uid", (req, res) => {
   db.query(
     `SELECT post_id,image_url as post_image FROM posts WHERE (post_uid)::text
     IN (SELECT unnest(saved_posts_uids) 
-    FROM users WHERE (uid)::text='${req.params.username}')`,
+    FROM users WHERE (uid)::text='${req.params.current_user_uid}')`,
     (err, res1) => {
       if (!err) res.send(res1.rows);
       else throw err;
