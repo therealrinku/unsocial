@@ -10,7 +10,6 @@ import profileActionTypes from "./profileActionTypes";
 export const UNFOLLOW = (unfollowing_user_uid, unfollower_user_uid) => async (
   dispatch
 ) => {
-  console.log(unfollowing_user_uid);
   try {
     dispatch({
       type: profileActionTypes.UNFOLLOW,

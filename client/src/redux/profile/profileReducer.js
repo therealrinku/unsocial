@@ -25,10 +25,12 @@ const profileReducer = (state = initialState, action) => {
 
     case profileActionTypes.FOLLOW:
       const profileCopyA = [...state.profiles];
-      const unfollowedUserIndexA = profileCopyA.findIndex(
+      const followedUserIndexA = profileCopyA.findIndex(
         (profile) => profile.uid === action.payload
       );
-      profileCopyA[unfollowedUserIndexA].followed_by_me = true;
+      profileCopyA[followedUserIndexA].followed_by_me = true;
+      profileCopyA[followedUserIndexA].followers_count =
+        profileCopyA[followedUserIndexA].followers_count + 1;
       return {
         ...state,
         profiles: profileCopyA,
@@ -40,6 +42,8 @@ const profileReducer = (state = initialState, action) => {
         (profile) => profile.uid === action.payload
       );
       profileCopyB[unfollowedUserIndexB].followed_by_me = false;
+      profileCopyB[unfollowedUserIndexB].followers_count =
+        profileCopyB[unfollowedUserIndexB].followers_count - 1;
       return {
         ...state,
         profiles: profileCopyB,
