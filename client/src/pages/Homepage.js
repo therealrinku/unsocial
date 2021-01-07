@@ -8,6 +8,7 @@ import overflowToggler from "../utilities/overflowToggler";
 import AddPostModal from "../components/AddPostModal";
 import Backdrop from "../components/Backdrop";
 import MobileNavbar from "../components/MobileNavbar";
+import Loader from "../components/Loader";
 
 const Homepage = ({
   currentUsername,
@@ -16,6 +17,7 @@ const Homepage = ({
   feed,
   GET_FEED,
   UPLOAD_POST,
+  loading,
 }) => {
   const [selectedImage, setSelectedImage] = useState("");
   const [showAddPostModal, setShowAddPostModal] = useState(false);
@@ -48,6 +50,7 @@ const Homepage = ({
 
   return (
     <div className="homepage">
+      {loading ? <Loader /> : null}
       {showAddPostModal ? (
         <Fragment>
           <Backdrop show={showAddPostModal} toggle={toggleAddPostModal} />
@@ -74,6 +77,7 @@ const Homepage = ({
 
 const mapStateToProps = (state) => {
   return {
+    loading: state.feed.loading_feed,
     feed: state.feed.posts,
     currentUsername: state.user.currentUserData.username,
     currentUserUid: state.user.currentUserData.uid,

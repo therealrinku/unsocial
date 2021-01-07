@@ -1,0 +1,21 @@
+.loader {
+  position: fixed;
+  top: 48px;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  animation: animate linear 1s infinite;
+  background: linear-gradient(to right, crimson, yellow);
+}
+
+@keyframes animate {
+  0% {
+    background: linear-gradient(to right, crimson, yellow);
+  }
+  50% {
+    background: linear-gradient(to right, yellow, crimson);
+  }
+  100% {
+    background: linear-gradient(to left, crimson, yellow);
+  }
+}
