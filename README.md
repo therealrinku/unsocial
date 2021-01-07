@@ -1,4 +1,4 @@
-# Instagram clone app.
+## Instagram clone app.
 
 ### Live Website
 * https://instaclone.web.app
