@@ -3,12 +3,12 @@ import server_url from "../server_url";
 
 export const getFollowingList = async (username) => {
   try {
-    const following = await axios
-      .post(server_url + `/user/followings/${username}`)
+    const followings = await axios
+      .get(server_url + `/user/followings/${username}`)
       .then((res) => {
         return res.data;
       });
-    return following;
+    return followings;
   } catch (err) {
     throw new Error(err.message);
   }
@@ -17,7 +17,7 @@ export const getFollowingList = async (username) => {
 export const getFollowersList = async (username) => {
   try {
     const followers = await axios
-      .post(server_url + `/user/followers/${username}`)
+      .get(server_url + `/user/followers/${username}`)
       .then((res) => {
         return res.data;
       });

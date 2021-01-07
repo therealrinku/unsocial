@@ -10,6 +10,7 @@ import Backdrop from "../components/Backdrop";
 import UnfollowPrompt from "../components/UnfollowPrompt";
 import ProfileButtonLine from "../components/ProfileButtonLine";
 import PostsGrid from "../components/PostsGrid";
+import UserListModal from "../components/UserListModal";
 
 const Profilepage = ({
   history,
@@ -19,6 +20,9 @@ const Profilepage = ({
   currentUsername,
   FOLLOW,
   UNFOLLOW,
+  FETCH_FOLLOWERS,
+  FETCH_FOLLOWINGS,
+  loading_followers_or_following,
 }) => {
   const profileUsername = history.location.pathname.slice(1);
   const profileData = profiles.filter(
@@ -28,9 +32,33 @@ const Profilepage = ({
   //modal handlers
   const [showProfileOptionsModal, setShowProfileOptionsModal] = useState(false);
   const [showUnfollowPrompt, setShowUnfollowPrompt] = useState(false);
+  const [showFollowers, setShowFollowers] = useState(false);
+  const [showFollowings, setShowFollowings] = useState(false);
 
   //
   const [showSavedPosts, setShowSavedPosts] = useState(false);
+
+  //followers and following list
+  const followersList = profiles.filter(
+    (profile) => profile.username === profileUsername
+  )[0]?.followers;
+  const followingList = profiles.filter(
+    (profile) => profile.username === profileUsername
+  )[0]?.followings;
+
+  const LOAD_FOLLOWERS = () => {
+    if (!followersList) {
+      FETCH_FOLLOWERS(profileUsername);
+    }
+    toggleModal(setShowFollowers);
+  };
+
+  const LOAD_FOLLOWINGS = () => {
+    if (!followingList) {
+      FETCH_FOLLOWINGS(profileUsername);
+    }
+    toggleModal(setShowFollowings);
+  };
 
   const toggleModal = (setModal) => {
     setModal((prev) => !prev);
@@ -52,6 +80,8 @@ const Profilepage = ({
         toggleUnfollowPrompt={() => toggleModal(setShowUnfollowPrompt)}
         isMyProfile={currentUsername === profileUsername}
         FOLLOW={() => FOLLOW(profileData[0]?.uid, currentUserUid)}
+        LOAD_FOLLOWERS={LOAD_FOLLOWERS}
+        LOAD_FOLLOWINGS={LOAD_FOLLOWINGS}
       />
       <ProfileButtonLine
         showSavedPosts={showSavedPosts}
@@ -95,6 +125,29 @@ const Profilepage = ({
           />
         </Fragment>
       ) : null}
+
+      {showFollowers || showFollowings ? (
+        <Fragment>
+          <Backdrop
+            toggle={() =>
+              showFollowers
+                ? toggleModal(setShowFollowers)
+                : toggleModal(setShowFollowings)
+            }
+            show={showFollowers || showFollowings}
+          />
+          <UserListModal
+            title={showFollowers ? "Followers" : "Following"}
+            loading={loading_followers_or_following}
+            users={(showFollowers ? followersList : followingList) || []}
+            toggle={() =>
+              showFollowers
+                ? toggleModal(setShowFollowers)
+                : toggleModal(setShowFollowings)
+            }
+          />
+        </Fragment>
+      ) : null}
     </div>
   );
 };
@@ -105,11 +158,17 @@ const mapStateToProps = (state) => {
     currentUserUid: state.user.currentUserData.uid,
     profiles: state.profile.profiles,
     loading: state.profile.loading,
+    loading_followers_or_following:
+      state.profile.loading_followers_or_following,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    FETCH_FOLLOWERS: (username) =>
+      dispatch(profileActions.FETCH_FOLLOWERS(username)),
+    FETCH_FOLLOWINGS: (username) =>
+      dispatch(profileActions.FETCH_FOLLOWINGS(username)),
     UNFOLLOW: (unfollowing_user_uid, unfollower_user_uid) =>
       dispatch(
         profileActions.UNFOLLOW(unfollowing_user_uid, unfollower_user_uid)

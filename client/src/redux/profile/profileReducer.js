@@ -4,10 +4,45 @@ const initialState = {
   profiles: [],
   loading: false,
   error: null,
+  loading_followers_or_following: false,
 };
 
 const profileReducer = (state = initialState, action) => {
   switch (action.type) {
+    case profileActionTypes.SET_FOLLOWERS:
+      const profileCopy0 = [...state.profiles];
+      const userIndex0 = profileCopy0.findIndex(
+        (profile) => profile.username === action.payload.username
+      );
+      profileCopy0[userIndex0].followers = action.payload.followers;
+      return {
+        ...state,
+        profiles: profileCopy0,
+        loading_followers_or_following: false,
+        error: false,
+      };
+
+    case profileActionTypes.SET_FOLLOWINGS:
+      const profileCopy1 = [...state.profiles];
+      const userIndex1 = profileCopy1.findIndex(
+        (profile) => profile.username === action.payload.username
+      );
+      profileCopy1[userIndex1].followings = action.payload.followings;
+      return {
+        ...state,
+        profiles: profileCopy1,
+        loading_followers_or_following: false,
+        error: false,
+      };
+
+    case profileActionTypes.LOADING_FOLLOWERS_OR_FOLLOWING_LIST:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        loading_followers_or_following: true,
+      };
+
     case profileActionTypes.LOADING_PROFILE:
       return {
         ...state,
@@ -21,6 +56,7 @@ const profileReducer = (state = initialState, action) => {
         profiles: [...state.profiles, action.payload],
         loading: false,
         error: null,
+        loading_followers_or_following: false,
       };
 
     case profileActionTypes.FOLLOW:

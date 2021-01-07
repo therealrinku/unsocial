@@ -7,6 +7,8 @@ const ProfileSummary = ({
   toggleProfileOptions,
   toggleUnfollowPrompt,
   FOLLOW,
+  LOAD_FOLLOWERS,
+  LOAD_FOLLOWINGS,
 }) => {
   return (
     <Fragment>
@@ -58,10 +60,10 @@ const ProfileSummary = ({
             <button>
               <b>{profileData.posts_count}</b> posts
             </button>
-            <button>
+            <button onClick={LOAD_FOLLOWERS}>
               <b>{profileData.followers_count || 0}</b> followers
             </button>
-            <button>
+            <button onClick={LOAD_FOLLOWINGS}>
               <b>{profileData.following_count || 0}</b> following
             </button>
           </div>
@@ -129,11 +131,11 @@ const ProfileSummary = ({
             <b>{profileData.posts_count}</b>
             <p>posts</p>
           </button>
-          <button>
+          <button onClick={LOAD_FOLLOWERS}>
             <b>{profileData.followers_count || 0}</b>
             <p>followers</p>
           </button>
-          <button>
+          <button onClick={LOAD_FOLLOWINGS}>
             <b>{profileData.following_count || 0}</b>
             <p>following</p>
           </button>
