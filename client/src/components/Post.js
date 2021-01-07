@@ -150,6 +150,7 @@ const Post = ({
             isMyPost={poster_username === currentUsername}
             post_uid={post_uid}
             deletePost={deletePost}
+            post_id={post_id}
           />
           <Backdrop
             show={showPostOptionsModal}
