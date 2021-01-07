@@ -71,7 +71,7 @@ export const deletePost = async (post_uid) => {
   }
 };
 
-export const uploadPost = async (data) => {
+export const uploadPost = async (data, callMeAfterUploadDone) => {
   try {
     new Compressor(data.image, {
       quality: 0.6,
@@ -96,7 +96,11 @@ export const uploadPost = async (data) => {
                     status: data.status,
                   })
                   .then((res) => {
-                    return res.data;
+                    callMeAfterUploadDone(
+                      image_url,
+                      res.data[0].post_uid,
+                      res.data[0].post_id
+                    );
                   });
               });
           }

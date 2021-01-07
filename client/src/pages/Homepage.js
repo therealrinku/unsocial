@@ -10,6 +10,7 @@ import Backdrop from "../components/Backdrop";
 import MobileNavbar from "../components/MobileNavbar";
 
 const Homepage = ({
+  currentUsername,
   currentUserProfileImage,
   currentUserUid,
   feed,
@@ -26,8 +27,10 @@ const Homepage = ({
       UPLOAD_POST({
         owner_uid: currentUserUid,
         status: status,
+        currentUsername: currentUsername,
         image: selectedImage,
         posted_date: new Date(),
+        currentUserProfileImage: currentUserProfileImage,
       });
     }
   };
@@ -72,6 +75,7 @@ const Homepage = ({
 const mapStateToProps = (state) => {
   return {
     feed: state.feed.posts,
+    currentUsername: state.user.currentUserData.username,
     currentUserUid: state.user.currentUserData.uid,
     currentUserProfileImage: state.user.currentUserData.profile_image_url,
   };

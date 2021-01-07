@@ -116,7 +116,7 @@ const feedReducer = (state = initial_state, action) => {
     case feedActionTypes.UPLOAD_POST:
       return {
         ...state,
-        posts: [...state.posts, action.payload.data],
+        posts: [...state.posts, action.payload],
       };
 
     default:

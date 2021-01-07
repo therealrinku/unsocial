@@ -113,9 +113,24 @@ export const DELETE_POST = (post_uid) => async (dispatch) => {
 
 export const UPLOAD_POST = (post_data) => async (dispatch) => {
   try {
-    const response = await uploadPost(post_data);
-    console.log(response);
-    //dispatch({ type: feedActionTypes.UPLOAD_POST, payload: {} });
+    const callMeAfterUploadDone = (post_image, post_uid, post_id) => {
+      return dispatch({
+        type: feedActionTypes.UPLOAD_POST,
+        payload: {
+          post_image: post_image,
+          post_uid: post_uid,
+          post_id: post_id,
+          i_have_saved: false,
+          liked_by_me: false,
+          post_likes_count: 0,
+          post_posted_date: `${post_data.posted_date}`,
+          post_status: post_data.status,
+          poster_username: post_data.currentUsername,
+          poster_profileimage: post_data.currentUserProfileImage,
+        },
+      });
+    };
+    await uploadPost(post_data, callMeAfterUploadDone);
   } catch (err) {
     dispatch({
       type: feedActionTypes.SOMETHING_WENT_WRONG,
@@ -130,6 +145,7 @@ export const UPLOAD_POST = (post_data) => async (dispatch) => {
 i_have_saved: false
 liked_by_me:false
 post_likes_count:0 
+
 post_posted_date: 
 post_status: 
 poster_profileimage: 
