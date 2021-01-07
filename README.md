@@ -1,7 +1,7 @@
 ## Instagram clone app.
 
 ### Live Website
-* https://instaclone.web.app
+* https://instacloone.web.app
 
 ### Used Technologies
 * React and Redux
