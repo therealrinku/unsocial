@@ -1,6 +1,30 @@
 const db = require("../database/db");
 const router = require("express").Router();
 
+//get following
+router.get("/followings/:username", (req, res) => {
+  db.query(
+    `SELECT username,profile_image_url FROM users WHERE (uid)::text
+    IN (SELECT unnest(following) FROM users WHERE username='${req.params.username}')`,
+    (err, res1) => {
+      if (!err) res.send(res1.rows);
+      else throw err;
+    }
+  );
+});
+
+//get followers
+router.get("/followers/:username", (req, res) => {
+  db.query(
+    `SELECT username,profile_image_url FROM users WHERE (uid)::text
+    IN (SELECT unnest(followers) FROM users WHERE username='${req.params.username}')`,
+    (err, res1) => {
+      if (!err) res.send(res1.rows);
+      else throw err;
+    }
+  );
+});
+
 //unfollow
 const RemoveFollowing = (unfollowing_user_uid, unfollower_user_uid) => {
   return new Promise((resolve) => {
