@@ -2,11 +2,11 @@ import React from "react";
 import { VscClose } from "react-icons/vsc";
 import { NavLink } from "react-router-dom";
 
-const LikersModal = ({ loading, toggle, likers }) => {
+const UserListModal = ({ title, loading, toggle, users }) => {
   return (
-    <div className="view--likers-modal">
+    <div className="view--users-modal">
       <div>
-        <p>Likes</p>
+        <p>{title}</p>
         <button onClick={toggle}>
           <VscClose />
         </button>
@@ -16,19 +16,19 @@ const LikersModal = ({ loading, toggle, likers }) => {
         <div style={{ textAlign: "center", fontSize: "14px" }}>Loading....</div>
       ) : (
         <div>
-          {likers.length > 0 ? (
-            likers.map((liker) => {
+          {users.length > 0 ? (
+            users.map((user) => {
               return (
                 <div key={new Date() * Math.random()}>
-                  <img src={liker.profile_image_url} alt="profile_img" />
-                  <NavLink to={`/${liker.username}`} onClick={toggle}>
-                    {liker.username}
+                  <img src={user.profile_image_url} alt="profile_img" />
+                  <NavLink to={`/${user.username}`} onClick={toggle}>
+                    {user.username}
                   </NavLink>
                 </div>
               );
             })
           ) : (
-            <p>No any likes atm.</p>
+            <p>No any {title} atm.</p>
           )}
         </div>
       )}
@@ -36,4 +36,4 @@ const LikersModal = ({ loading, toggle, likers }) => {
   );
 };
 
-export default LikersModal;
+export default UserListModal;

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import * as Icons from "../Icons/CustomIcons";
 import * as feedActions from "../redux/feed/feedActions";
 import { BiDotsHorizontal } from "react-icons/all";
-import LikersModal from "./LikersModal";
+import UserListModal from "./UserListModal";
 import Backdrop from "./Backdrop";
 import overflowToggler from "../utilities/overflowToggler";
 import PostOptModal from "./PostOptModal";
@@ -130,9 +130,10 @@ const Post = ({
 
       {showLikers ? (
         <Fragment>
-          <LikersModal
+          <UserListModal
+            title="Likes"
             loading={likersLoading}
-            likers={thisPostLikers || []}
+            users={thisPostLikers || []}
             toggle={() => toggleModal(setShowLikers)}
           />
           <Backdrop
