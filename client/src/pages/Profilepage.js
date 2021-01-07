@@ -11,6 +11,7 @@ import UnfollowPrompt from "../components/UnfollowPrompt";
 import ProfileButtonLine from "../components/ProfileButtonLine";
 import PostsGrid from "../components/PostsGrid";
 import UserListModal from "../components/UserListModal";
+import Loader from "../components/Loader";
 
 const Profilepage = ({
   history,
@@ -22,6 +23,7 @@ const Profilepage = ({
   UNFOLLOW,
   FETCH_FOLLOWERS,
   FETCH_FOLLOWINGS,
+  loading,
   loading_followers_or_following,
 }) => {
   const profileUsername = history.location.pathname.slice(1);
@@ -72,88 +74,95 @@ const Profilepage = ({
   }, [profileUsername]);
 
   return (
-    <div className="profile--page">
+    <Fragment>
       <Navbar />
-      <ProfileSummary
-        profileData={profileData[0] || []}
-        toggleProfileOptions={() => toggleModal(setShowProfileOptionsModal)}
-        toggleUnfollowPrompt={() => toggleModal(setShowUnfollowPrompt)}
-        isMyProfile={currentUsername === profileUsername}
-        FOLLOW={() => FOLLOW(profileData[0]?.uid, currentUserUid)}
-        LOAD_FOLLOWERS={LOAD_FOLLOWERS}
-        LOAD_FOLLOWINGS={LOAD_FOLLOWINGS}
-      />
-      <ProfileButtonLine
-        showSavedPosts={showSavedPosts}
-        isMyProfile={currentUsername === profileUsername}
-        viewSavedPosts={() => setShowSavedPosts(true)}
-        hideSavedPosts={() => setShowSavedPosts(false)}
-        no_posts={profileData[0]?.posts.length <= 0}
-      />
-      <PostsGrid
-        userPosts={
-          showSavedPosts
-            ? profileData[0]?.savedPosts
-            : profileData[0]?.posts || []
-        }
-      />
-      <MobileNavbar />
-      {showProfileOptionsModal ? (
-        <Fragment>
-          <ProfileOptModal
-            toggle={() => toggleModal(setShowProfileOptionsModal)}
+      {loading ? (
+        <Loader height="2px" />
+      ) : (
+        <div className="profile--page">
+          <ProfileSummary
+            profileData={profileData[0] || []}
+            toggleProfileOptions={() => toggleModal(setShowProfileOptionsModal)}
+            toggleUnfollowPrompt={() => toggleModal(setShowUnfollowPrompt)}
             isMyProfile={currentUsername === profileUsername}
+            FOLLOW={() => FOLLOW(profileData[0]?.uid, currentUserUid)}
+            LOAD_FOLLOWERS={LOAD_FOLLOWERS}
+            LOAD_FOLLOWINGS={LOAD_FOLLOWINGS}
           />
-          <Backdrop
-            show={showProfileOptionsModal}
-            toggle={() => toggleModal(setShowProfileOptionsModal)}
+          <ProfileButtonLine
+            showSavedPosts={showSavedPosts}
+            isMyProfile={currentUsername === profileUsername}
+            viewSavedPosts={() => setShowSavedPosts(true)}
+            hideSavedPosts={() => setShowSavedPosts(false)}
+            no_posts={profileData[0]?.posts.length <= 0}
           />
-        </Fragment>
-      ) : null}
-
-      {showUnfollowPrompt ? (
-        <Fragment>
-          <Backdrop
-            show={showUnfollowPrompt}
-            toggle={() => toggleModal(setShowUnfollowPrompt)}
-          />
-          <UnfollowPrompt
-            profileUsername={profileUsername}
-            profileImage={profileData[0]?.profile_image_url}
-            toggle={() => toggleModal(setShowUnfollowPrompt)}
-            UNFOLLOW={() => UNFOLLOW(profileData[0].uid, currentUserUid)}
-          />
-        </Fragment>
-      ) : null}
-
-      {showFollowers || showFollowings ? (
-        <Fragment>
-          <Backdrop
-            toggle={() =>
-              showFollowers
-                ? toggleModal(setShowFollowers)
-                : toggleModal(setShowFollowings)
-            }
-            show={showFollowers || showFollowings}
-          />
-          <UserListModal
-            title={showFollowers ? "Followers" : "Following"}
-            loading={loading_followers_or_following}
-            users={(showFollowers ? followersList : followingList) || []}
-            toggle={() =>
-              showFollowers
-                ? toggleModal(setShowFollowers)
-                : toggleModal(setShowFollowings)
+          <PostsGrid
+            userPosts={
+              showSavedPosts
+                ? profileData[0]?.savedPosts
+                : profileData[0]?.posts || []
             }
           />
-        </Fragment>
-      ) : null}
-    </div>
+          <MobileNavbar />
+          {showProfileOptionsModal ? (
+            <Fragment>
+              <ProfileOptModal
+                toggle={() => toggleModal(setShowProfileOptionsModal)}
+                isMyProfile={currentUsername === profileUsername}
+              />
+              <Backdrop
+                show={showProfileOptionsModal}
+                toggle={() => toggleModal(setShowProfileOptionsModal)}
+              />
+            </Fragment>
+          ) : null}
+
+          {showUnfollowPrompt ? (
+            <Fragment>
+              <Backdrop
+                show={showUnfollowPrompt}
+                toggle={() => toggleModal(setShowUnfollowPrompt)}
+              />
+              <UnfollowPrompt
+                profileUsername={profileUsername}
+                profileImage={profileData[0]?.profile_image_url}
+                toggle={() => toggleModal(setShowUnfollowPrompt)}
+                UNFOLLOW={() => UNFOLLOW(profileData[0].uid, currentUserUid)}
+              />
+            </Fragment>
+          ) : null}
+
+          {showFollowers || showFollowings ? (
+            <Fragment>
+              <Backdrop
+                toggle={() =>
+                  showFollowers
+                    ? toggleModal(setShowFollowers)
+                    : toggleModal(setShowFollowings)
+                }
+                show={showFollowers || showFollowings}
+              />
+              <UserListModal
+                title={showFollowers ? "Followers" : "Following"}
+                loading={loading_followers_or_following}
+                users={(showFollowers ? followersList : followingList) || []}
+                toggle={() =>
+                  showFollowers
+                    ? toggleModal(setShowFollowers)
+                    : toggleModal(setShowFollowings)
+                }
+              />
+            </Fragment>
+          ) : null}
+        </div>
+      )}
+    </Fragment>
   );
 };
 
 const mapStateToProps = (state) => {
   return {
+    loading: state.profile.loading,
     currentUsername: state.user.currentUserData.username,
     currentUserUid: state.user.currentUserData.uid,
     profiles: state.profile.profiles,

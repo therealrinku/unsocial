@@ -1,5 +1,5 @@
-const Loader = () => {
-  return <div className="loader"></div>;
+const Loader = ({ height }) => {
+  return <div className="loader" style={{ height: height }}></div>;
 };
 
 export default Loader;
