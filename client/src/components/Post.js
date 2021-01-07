@@ -120,7 +120,7 @@ const Post = ({
 
         <div>
           <button onClick={getLikers}>{post_likesCount || "No"} likes</button>
-          <p>{post_commentsCount} comments</p>
+          <button>{post_commentsCount} comments</button>
         </div>
 
         <div>
