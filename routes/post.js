@@ -1,6 +1,31 @@
 const router = require("express").Router();
 const db = require("../database/db");
 
+//get selected post
+router.get("/getpost/:post_id/:current_user_uid", (req, res) => {
+  db.query(
+    `SELECT 
+    '${req.params.current_user_uid}' = ANY (likers) AS liked_by_me,
+    (post_uid)::text=ANY(SELECT unnest(saved_posts_uids) FROM users WHERE uid='${req.params.current_user_uid}') 
+    AS i_have_saved,
+    post_uid,username as poster_username,
+    post_id,
+    profile_image_url as poster_profileImage,
+    image_url as post_image,
+    array_length(likers,1) as post_likes_count,
+    posted_date as post_posted_date,
+    status as post_status
+    FROM posts INNER JOIN users ON (posts.owner_uid)=(users.uid)::text 
+    WHERE posts.owner_uid=ANY(SELECT unnest(array_append(following,'${req.params.current_user_uid}')) 
+    FROM users WHERE uid='${req.params.current_user_uid}')
+    WHERE (post_id)::text='${req.params.post_id}'`,
+    (err, res1) => {
+      if (!err) res.send(res1.rows);
+      else throw err;
+    }
+  );
+});
+
 //get saved posts
 router.get("/savedposts/:current_user_uid", (req, res) => {
   db.query(
