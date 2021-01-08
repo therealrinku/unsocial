@@ -5,6 +5,11 @@ const PostOptModal = ({ post_id, post_uid, isMyPost, toggle, deletePost }) => {
   const [showDeleteConfirmer, setShowDeleteConfirmer] = useState(false);
   const history = useHistory();
 
+  const goToPost = () => {
+    toggle();
+    history.push(`/p/${post_id}`);
+  };
+
   return (
     <div className="post--options-modal">
       {showDeleteConfirmer ? (
@@ -26,9 +31,7 @@ const PostOptModal = ({ post_id, post_uid, isMyPost, toggle, deletePost }) => {
         </div>
       ) : (
         <div className="post--options">
-          <button onClick={() => history.push(`/p/${post_id}`)}>
-            Go to post
-          </button>
+          <button onClick={goToPost}>Go to post</button>
           <button
             style={isMyPost ? { display: "none" } : { color: "red" }}
             onClick={toggle}
