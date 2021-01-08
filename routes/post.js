@@ -16,8 +16,6 @@ router.get("/getpost/:post_id/:current_user_uid", (req, res) => {
     posted_date as post_posted_date,
     status as post_status
     FROM posts INNER JOIN users ON (posts.owner_uid)=(users.uid)::text 
-    WHERE posts.owner_uid=ANY(SELECT unnest(array_append(following,'${req.params.current_user_uid}')) 
-    FROM users WHERE uid='${req.params.current_user_uid}')
     WHERE (post_id)::text='${req.params.post_id}'`,
     (err, res1) => {
       if (!err) res.send(res1.rows);
