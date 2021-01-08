@@ -18,7 +18,7 @@ const postsReducer = (state = initialState, action) => {
     case postActionTypes.SET_POST:
       return {
         ...state,
-        posts: [...state.posts, action.payload],
+        posts: [...state.posts, ...action.payload],
         loading_post: false,
         error: null,
       };
