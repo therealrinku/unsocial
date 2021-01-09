@@ -9,6 +9,7 @@ import { connect } from "react-redux";
 import Loader from "../components/Loader";
 
 const PostView = ({
+  feedPosts,
   currentUsername,
   currentUserUid,
   posts,
@@ -28,20 +29,24 @@ const PostView = ({
   const post_uid = currentPost[0]?.post_uid;
   const haveILiked = currentPost[0]?.liked_by_me;
   const haveISaved = currentPost[0]?.i_have_saved;
+  const postExistsInFeed =
+    feedPosts.findIndex((post) => post.post_id === post_id) >= 0;
+
+  console.log(postExistsInFeed);
 
   const likeUnlikePost = () => {
     if (haveILiked) {
-      UNLIKE_POST(post_uid, currentUserUid);
+      UNLIKE_POST(post_uid, currentUserUid, postExistsInFeed);
     } else {
-      LIKE_POST(post_uid, currentUserUid);
+      LIKE_POST(post_uid, currentUserUid, postExistsInFeed);
     }
   };
 
   const saveUnsavePost = () => {
     if (haveISaved) {
-      UNSAVE_POST(post_uid, currentUsername);
+      UNSAVE_POST(post_uid, currentUsername, postExistsInFeed);
     } else {
-      SAVE_POST(post_uid, currentUsername);
+      SAVE_POST(post_uid, currentUsername, postExistsInFeed);
     }
   };
 
@@ -131,6 +136,7 @@ const PostView = ({
 
 const mapStateToProps = (state) => {
   return {
+    feedPosts: state.feed.posts,
     currentUsername: state.user.currentUserData.username,
     currentUserUid: state.user.currentUserData.uid,
     posts: state.posts.posts,
@@ -140,14 +146,26 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    SAVE_POST: (post_uid, saver_username) =>
-      dispatch(PostsActions.SAVE_POST(post_uid, saver_username)),
-    UNSAVE_POST: (post_uid, unsaver_username) =>
-      dispatch(PostsActions.UNSAVE_POST(post_uid, unsaver_username)),
-    LIKE_POST: (post_uid, liker_uid) =>
-      dispatch(PostsActions.LIKE_POST(post_uid, liker_uid)),
-    UNLIKE_POST: (post_uid, unliker_uid) =>
-      dispatch(PostsActions.UNLIKE_POST(post_uid, unliker_uid)),
+    SAVE_POST: (post_uid, saver_username, post_exists_in_feed) =>
+      dispatch(
+        PostsActions.SAVE_POST(post_uid, saver_username, post_exists_in_feed)
+      ),
+    UNSAVE_POST: (post_uid, unsaver_username, post_exists_in_feed) =>
+      dispatch(
+        PostsActions.UNSAVE_POST(
+          post_uid,
+          unsaver_username,
+          post_exists_in_feed
+        )
+      ),
+    LIKE_POST: (post_uid, liker_uid, post_exists_in_feed) =>
+      dispatch(
+        PostsActions.LIKE_POST(post_uid, liker_uid, post_exists_in_feed)
+      ),
+    UNLIKE_POST: (post_uid, unliker_uid, post_exists_in_feed) =>
+      dispatch(
+        PostsActions.UNLIKE_POST(post_uid, unliker_uid, post_exists_in_feed)
+      ),
     LOAD_POST: (post_id, current_user_uid) =>
       dispatch(PostsActions.LOAD_POST(post_id, current_user_uid)),
   };
