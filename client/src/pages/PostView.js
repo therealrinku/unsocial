@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { BiDotsHorizontal } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import * as Icons from "../Icons/CustomIcons";
@@ -7,6 +7,7 @@ import MobileNavbar from "../components/MobileNavbar";
 import * as PostsActions from "../redux/posts/postsActions";
 import { connect } from "react-redux";
 import Loader from "../components/Loader";
+import overflowToggler from "../utilities/overflowToggler";
 
 const PostView = ({
   feedPosts,
@@ -85,8 +86,6 @@ const PostView = ({
                 <Link to={`/${currentPost[0]?.poster_username}`}>
                   {currentPost[0]?.poster_username || "rinku"}
                 </Link>
-
-                <button>Follow</button>
               </ul>
 
               <ul>
