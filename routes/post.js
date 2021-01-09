@@ -8,6 +8,7 @@ router.get("/getpost/:post_id/:current_user_uid", (req, res) => {
     '${req.params.current_user_uid}' = ANY (likers) AS liked_by_me,
     (post_uid)::text=ANY(SELECT unnest(saved_posts_uids) FROM users WHERE uid='${req.params.current_user_uid}') 
     AS i_have_saved,
+    '${req.params.current_user_uid}'=ANY(followers) AS followed_by_me,
     post_uid,username as poster_username,
     post_id,
     profile_image_url as poster_profileImage,
