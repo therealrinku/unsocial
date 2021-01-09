@@ -65,51 +65,53 @@ const PostView = ({
 
             <div className="comment--view-section"></div>
 
-            <div className="buttons">
-              <div className="buttons--section-one">
-                <button onClick={likeUnlikePost}>
-                  {currentPost[0]?.liked_by_me ? (
-                    <Icons.LovedIcon />
-                  ) : (
-                    <Icons.LoveIcon />
-                  )}
-                </button>
+            <div className="absolute--bottom">
+              <div className="buttons">
+                <div className="buttons--section-one">
+                  <button onClick={likeUnlikePost}>
+                    {currentPost[0]?.liked_by_me ? (
+                      <Icons.LovedIcon />
+                    ) : (
+                      <Icons.LoveIcon />
+                    )}
+                  </button>
 
-                <button>
-                  <Icons.CommentIcon />
-                </button>
+                  <button>
+                    <Icons.CommentIcon />
+                  </button>
 
-                <button>
-                  <Icons.ShareIcon />
-                </button>
+                  <button>
+                    <Icons.ShareIcon />
+                  </button>
+                </div>
+
+                <div>
+                  <button onClick={saveUnsavePost}>
+                    {currentPost[0]?.i_have_saved ? (
+                      <Icons.SavedIcon />
+                    ) : (
+                      <Icons.SaveIcon />
+                    )}
+                  </button>
+                </div>
               </div>
 
               <div>
-                <button onClick={saveUnsavePost}>
-                  {currentPost[0]?.i_have_saved ? (
-                    <Icons.SavedIcon />
-                  ) : (
-                    <Icons.SaveIcon />
-                  )}
+                <p>{currentPost[0]?.post_status}</p>
+              </div>
+
+              <div>
+                <button onClick={getLikers}>
+                  {currentPost[0]?.post_likes_count || "No"} likes
+                </button>
+                <button>
+                  {currentPost[0]?.post_comments_count || 0} comments
                 </button>
               </div>
-            </div>
 
-            <div>
-              <p>{currentPost[0]?.post_status}</p>
-            </div>
-
-            <div>
-              <button onClick={getLikers}>
-                {currentPost[0]?.post_likes_count || "No"} likes
-              </button>
-              <button>
-                {currentPost[0]?.post_comments_count || 0} comments
-              </button>
-            </div>
-
-            <div className="date">
-              <p>{currentPost[0]?.post_posted_date}</p>
+              <div className="date">
+                <p>{currentPost[0]?.post_posted_date}</p>
+              </div>
             </div>
           </section>
         </div>

@@ -5,11 +5,18 @@
   display: grid;
   grid-template-columns: 0.65fr 0.35fr;
   font-family: arial;
+  background: white;
 
   .date {
     padding-left: 8px;
-    font-size: 14px;
-    color: rgba(0, 0, 0, 0.6);
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.5);
+  }
+
+  .absolute--bottom {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
   }
 
   .buttons {
@@ -37,6 +44,8 @@
   }
 
   section:last-child {
+    position: relative;
+
     .comment--view-section {
       height: 58%;
     }
