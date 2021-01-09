@@ -1,7 +1,11 @@
-const postActionTypes={
-    LOADING_POST:"LOADING_POST",
-    SET_POST:"SET_POST",
-    ERROR_LOADING_POST:"ERROR_LOADING_POST"
-}
+const postActionTypes = {
+  LOADING_POST: "LOADING_POST",
+  SET_POST: "SET_POST",
+  ERROR_IN_POST: "ERROR_IN_POST",
+  LIKE_P_POST: "LIKE_P_POST",
+  UNLIKE_P_POST: "UNLIKE_P_POST",
+  SAVE_P_POST: "SAVE_P_POST",
+  UNSAVE_P_POST: "UNSAVE_P_POST",
+};
 
 export default postActionTypes;

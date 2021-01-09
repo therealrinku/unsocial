@@ -9,20 +9,41 @@ import { connect } from "react-redux";
 import Loader from "../components/Loader";
 
 const PostView = ({
+  currentUsername,
   currentUserUid,
   posts,
   setShowPostOptionsModal,
   toggleModal,
-  likeUnlikePost,
   getLikers,
-  saveUnsavePost,
   match,
   LOAD_POST,
   loading,
+  LIKE_POST,
+  UNLIKE_POST,
+  SAVE_POST,
+  UNSAVE_POST,
 }) => {
   const post_id = match.params.post_id;
   const currentPost = posts.filter((post) => post.post_id === post_id);
-  console.log(currentPost);
+  const post_uid = currentPost[0]?.post_uid;
+  const haveILiked = currentPost[0]?.liked_by_me;
+  const haveISaved = currentPost[0]?.i_have_saved;
+
+  const likeUnlikePost = () => {
+    if (haveILiked) {
+      UNLIKE_POST(post_uid, currentUserUid);
+    } else {
+      LIKE_POST(post_uid, currentUserUid);
+    }
+  };
+
+  const saveUnsavePost = () => {
+    if (haveISaved) {
+      UNSAVE_POST(post_uid, currentUsername);
+    } else {
+      SAVE_POST(post_uid, currentUsername);
+    }
+  };
 
   useEffect(() => {
     if (currentPost.length < 1) {
@@ -69,11 +90,7 @@ const PostView = ({
               <div className="buttons">
                 <div className="buttons--section-one">
                   <button onClick={likeUnlikePost}>
-                    {currentPost[0]?.liked_by_me ? (
-                      <Icons.LovedIcon />
-                    ) : (
-                      <Icons.LoveIcon />
-                    )}
+                    {haveILiked ? <Icons.LovedIcon /> : <Icons.LoveIcon />}
                   </button>
 
                   <button>
@@ -87,11 +104,7 @@ const PostView = ({
 
                 <div>
                   <button onClick={saveUnsavePost}>
-                    {currentPost[0]?.i_have_saved ? (
-                      <Icons.SavedIcon />
-                    ) : (
-                      <Icons.SaveIcon />
-                    )}
+                    {haveISaved ? <Icons.SavedIcon /> : <Icons.SaveIcon />}
                   </button>
                 </div>
               </div>
@@ -118,6 +131,7 @@ const PostView = ({
 
 const mapStateToProps = (state) => {
   return {
+    currentUsername: state.user.currentUserData.username,
     currentUserUid: state.user.currentUserData.uid,
     posts: state.posts.posts,
     loading: state.posts.loading_post,
@@ -126,6 +140,14 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    SAVE_POST: (post_uid, saver_username) =>
+      dispatch(PostsActions.SAVE_POST(post_uid, saver_username)),
+    UNSAVE_POST: (post_uid, unsaver_username) =>
+      dispatch(PostsActions.UNSAVE_POST(post_uid, unsaver_username)),
+    LIKE_POST: (post_uid, liker_uid) =>
+      dispatch(PostsActions.LIKE_POST(post_uid, liker_uid)),
+    UNLIKE_POST: (post_uid, unliker_uid) =>
+      dispatch(PostsActions.UNLIKE_POST(post_uid, unliker_uid)),
     LOAD_POST: (post_id, current_user_uid) =>
       dispatch(PostsActions.LOAD_POST(post_id, current_user_uid)),
   };
