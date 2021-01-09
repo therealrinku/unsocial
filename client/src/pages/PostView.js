@@ -128,6 +128,13 @@ const PostView = ({
       <MobileNavbar />
       {loading ? (
         <Loader />
+      ) : //checking if post exiists
+      !loading && !currentPost[0]?.post_image ? (
+        <p
+          style={{ marginTop: "100px", textAlign: "center", fontSize: "15px" }}
+        >
+          Post deleted or something went wrong!
+        </p>
       ) : (
         <div className="post--view--">
           <section>
