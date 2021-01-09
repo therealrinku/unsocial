@@ -97,10 +97,6 @@ const PostView = ({
               </div>
 
               <div>
-                <p>{currentPost[0]?.post_status}</p>
-              </div>
-
-              <div>
                 <button onClick={getLikers}>
                   {currentPost[0]?.post_likes_count || "No"} likes
                 </button>
