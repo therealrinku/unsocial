@@ -68,9 +68,15 @@ const Profilepage = ({
   };
 
   useEffect(() => {
+    //set document title
+    document.title = `${profileUsername}-Instaclone`;
     if (profileData.length <= 0) {
       GET_PROFILE_DATA(profileUsername, currentUserUid);
     }
+
+    return () => {
+      document.title = "Instaclone";
+    };
   }, [profileUsername]);
 
   return (
