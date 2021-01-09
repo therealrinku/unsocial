@@ -6,6 +6,10 @@
   margin-bottom: 60px;
   grid-gap: 40px;
 
+  img:hover {
+    cursor: pointer;
+  }
+
   div {
     display: table;
     position: relative;
