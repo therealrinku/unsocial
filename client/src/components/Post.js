@@ -67,7 +67,7 @@ const Post = ({
     }
   };
 
-  const deletePost = (post_uid) => {
+  const deletePost = () => {
     toggleModal(setShowPostOptionsModal);
     DELETE_POST(post_uid);
   };

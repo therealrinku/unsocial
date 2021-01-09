@@ -1,4 +1,5 @@
 import {
+  deletePost,
   getLikers,
   likePost,
   loadPost,
@@ -136,6 +137,24 @@ export const GET_LIKERS = (post_uid) => async (dispatch) => {
       type: postActionTypes.SET_P_POST_LIKERS,
       payload: { likers, post_uid },
     });
+  } catch (err) {
+    dispatch({
+      type: postActionTypes.ERROR_IN_POST,
+      payload: err.message,
+    });
+  }
+};
+
+export const DELETE_POST = (post_uid, post_exists_in_feed) => async (
+  dispatch
+) => {
+  try {
+    await deletePost(post_uid);
+    dispatch({ type: postActionTypes.DELETE_P_POST, payload: { post_uid } });
+
+    if (post_exists_in_feed) {
+      dispatch({ type: feedActionTypes.DELETE_POST, payload: { post_uid } });
+    }
   } catch (err) {
     dispatch({
       type: postActionTypes.ERROR_IN_POST,

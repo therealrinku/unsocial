@@ -18,6 +18,7 @@ const PostView = ({
   currentUserUid,
   posts,
   match,
+  history,
   LOAD_POST,
   loading,
   LIKE_POST,
@@ -26,6 +27,7 @@ const PostView = ({
   UNSAVE_POST,
   GET_LIKERS,
   loadingLikers,
+  DELETE_POST,
 }) => {
   //modal
   const [showPostOptionsModal, setShowPostOptionsModal] = useState(false);
@@ -78,6 +80,12 @@ const PostView = ({
     }
   };
 
+  const deletePost = () => {
+    toggleModal(setShowPostOptionsModal);
+    DELETE_POST(post_uid, postExistsInFeed);
+    history.goBack();
+  };
+
   useEffect(() => {
     if (currentPost.length < 1) {
       LOAD_POST(post_id, currentUserUid);
@@ -110,8 +118,8 @@ const PostView = ({
           <PostOptModal
             isMyPost={currentPost[0].poster_username === currentUsername}
             toggle={() => toggleModal(setShowPostOptionsModal)}
-            post_uid={post_uid}
             post_id={post_id}
+            deletePost={deletePost}
           />
         </Fragment>
       ) : null}
@@ -203,6 +211,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    DELETE_POST: (post_uid, post_exists_in_feed) =>
+      dispatch(PostsActions.DELETE_POST(post_uid, post_exists_in_feed)),
     GET_LIKERS: (post_uid) => dispatch(PostsActions.GET_LIKERS(post_uid)),
     SAVE_POST: (post_uid, saver_username, post_exists_in_feed) =>
       dispatch(

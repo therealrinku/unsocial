@@ -8,6 +8,7 @@ const postActionTypes = {
   UNSAVE_P_POST: "UNSAVE_P_POST",
   GETTING_P_LIKERS: "GETTING_P_LIKERS",
   SET_P_POST_LIKERS: "SET_P_POST_LIKERS",
+  DELETE_P_POST: "DELETE_P_POST",
 };
 
 export default postActionTypes;

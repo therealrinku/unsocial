@@ -87,6 +87,7 @@ const postsReducer = (state = initialState, action) => {
       return {
         ...state,
         loading_post: false,
+        loading_likers: false,
         error: action.payload,
       };
 
@@ -100,6 +101,14 @@ const postsReducer = (state = initialState, action) => {
         ...state,
         posts: postsCopyE,
         loading_likers: false,
+      };
+
+    case postActionTypes.DELETE_P_POST:
+      return {
+        ...state,
+        posts: state.posts.filter(
+          (post) => post.post_uid !== action.payload.post_uid
+        ),
       };
 
     default:

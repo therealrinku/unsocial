@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { withRouter, useHistory } from "react-router-dom";
 
-const PostOptModal = ({ post_id, post_uid, isMyPost, toggle, deletePost }) => {
+const PostOptModal = ({ post_id, isMyPost, toggle, deletePost }) => {
   const [showDeleteConfirmer, setShowDeleteConfirmer] = useState(false);
   const history = useHistory();
 
@@ -20,10 +20,7 @@ const PostOptModal = ({ post_id, post_uid, isMyPost, toggle, deletePost }) => {
           </div>
 
           <div>
-            <button
-              style={{ color: "red" }}
-              onClick={() => deletePost(post_uid)}
-            >
+            <button style={{ color: "red" }} onClick={deletePost}>
               Delete
             </button>
             <button onClick={toggle}>Cancel</button>
