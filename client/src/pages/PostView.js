@@ -8,14 +8,14 @@ import * as PostsActions from "../redux/posts/postsActions";
 import { connect } from "react-redux";
 import Loader from "../components/Loader";
 import overflowToggler from "../utilities/overflowToggler";
+import Backdrop from "../components/Backdrop";
+import PostOptModal from "../components/PostOptModal";
 
 const PostView = ({
   feedPosts,
   currentUsername,
   currentUserUid,
   posts,
-  setShowPostOptionsModal,
-  toggleModal,
   getLikers,
   match,
   LOAD_POST,
@@ -25,6 +25,14 @@ const PostView = ({
   SAVE_POST,
   UNSAVE_POST,
 }) => {
+  //modal
+  const [showPostOptionsModal, setShowPostOptionsModal] = useState(false);
+
+  const toggleModal = (setModal) => {
+    setModal((prev) => !prev);
+    overflowToggler();
+  };
+
   const post_id = match.params.post_id;
   const currentPost = posts.filter((post) => post.post_id === post_id);
   const postExistsInFeed =
@@ -66,6 +74,21 @@ const PostView = ({
 
   return (
     <Fragment>
+      {showPostOptionsModal ? (
+        <Fragment>
+          <Backdrop
+            show={showPostOptionsModal}
+            toggle={() => toggleModal(setShowPostOptionsModal)}
+          />
+          <PostOptModal
+            isMyPost={currentPost[0].poster_username === currentUsername}
+            toggle={() => toggleModal(setShowPostOptionsModal)}
+            post_uid={post_uid}
+            post_id={post_id}
+          />
+        </Fragment>
+      ) : null}
+
       <Navbar />
       <MobileNavbar />
       {loading ? (
