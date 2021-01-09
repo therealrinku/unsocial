@@ -1,4 +1,5 @@
 import {
+  getLikers,
   likePost,
   loadPost,
   savePost,
@@ -119,6 +120,22 @@ export const LOAD_POST = (post_id, current_user_uid) => async (dispatch) => {
     dispatch({ type: postActionTypes.LOADING_POST });
     const postData = await loadPost(post_id, current_user_uid);
     dispatch({ type: postActionTypes.SET_POST, payload: postData });
+  } catch (err) {
+    dispatch({
+      type: postActionTypes.ERROR_IN_POST,
+      payload: err.message,
+    });
+  }
+};
+
+export const GET_LIKERS = (post_uid) => async (dispatch) => {
+  try {
+    dispatch({ type: postActionTypes.GETTING_P_LIKERS });
+    const likers = await getLikers(post_uid);
+    dispatch({
+      type: postActionTypes.SET_P_POST_LIKERS,
+      payload: { likers, post_uid },
+    });
   } catch (err) {
     dispatch({
       type: postActionTypes.ERROR_IN_POST,

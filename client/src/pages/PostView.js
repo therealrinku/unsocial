@@ -10,13 +10,13 @@ import Loader from "../components/Loader";
 import overflowToggler from "../utilities/overflowToggler";
 import Backdrop from "../components/Backdrop";
 import PostOptModal from "../components/PostOptModal";
+import UsersListModal from "../components/UserListModal";
 
 const PostView = ({
   feedPosts,
   currentUsername,
   currentUserUid,
   posts,
-  getLikers,
   match,
   LOAD_POST,
   loading,
@@ -24,9 +24,12 @@ const PostView = ({
   UNLIKE_POST,
   SAVE_POST,
   UNSAVE_POST,
+  GET_LIKERS,
+  loadingLikers,
 }) => {
   //modal
   const [showPostOptionsModal, setShowPostOptionsModal] = useState(false);
+  const [showLikersModal, setShowLikersModal] = useState(false);
 
   const toggleModal = (setModal) => {
     setModal((prev) => !prev);
@@ -38,6 +41,8 @@ const PostView = ({
   const postExistsInFeed =
     feedPosts.findIndex((post) => post.post_id === post_id) >= 0;
   const thisPostInFeed = feedPosts.filter((post) => post.post_id === post_id);
+
+  const thisPostLikers = currentPost[0]?.post_likers;
 
   const post_uid = currentPost[0]?.post_uid;
   const haveILiked = postExistsInFeed
@@ -66,6 +71,13 @@ const PostView = ({
     }
   };
 
+  const getLikers = () => {
+    toggleModal(setShowLikersModal);
+    if (!thisPostLikers) {
+      GET_LIKERS(post_uid);
+    }
+  };
+
   useEffect(() => {
     if (currentPost.length < 1) {
       LOAD_POST(post_id, currentUserUid);
@@ -74,6 +86,21 @@ const PostView = ({
 
   return (
     <Fragment>
+      {showLikersModal ? (
+        <Fragment>
+          <UsersListModal
+            users={thisPostLikers || []}
+            title="Likers"
+            toggle={() => toggleModal(setShowLikersModal)}
+            loading={loadingLikers}
+          />
+          <Backdrop
+            show={showLikersModal}
+            toggle={() => toggleModal(setShowLikersModal)}
+          />
+        </Fragment>
+      ) : null}
+
       {showPostOptionsModal ? (
         <Fragment>
           <Backdrop
@@ -165,6 +192,7 @@ const PostView = ({
 
 const mapStateToProps = (state) => {
   return {
+    loadingLikers: state.posts.loading_likers,
     feedPosts: state.feed.posts,
     currentUsername: state.user.currentUserData.username,
     currentUserUid: state.user.currentUserData.uid,
@@ -175,6 +203,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    GET_LIKERS: (post_uid) => dispatch(PostsActions.GET_LIKERS(post_uid)),
     SAVE_POST: (post_uid, saver_username, post_exists_in_feed) =>
       dispatch(
         PostsActions.SAVE_POST(post_uid, saver_username, post_exists_in_feed)

@@ -3,11 +3,19 @@ import postActionTypes from "./postsActionsTypes";
 const initialState = {
   posts: [],
   loading_post: false,
+  loading_likers: false,
   error: null,
 };
 
 const postsReducer = (state = initialState, action) => {
   switch (action.type) {
+    case postActionTypes.GETTING_P_LIKERS:
+      return {
+        ...state,
+        loading_likers: true,
+        error: null,
+      };
+
     case postActionTypes.LIKE_P_POST:
       const postsCopyA = [...state.posts];
       const indexToUpdateA = postsCopyA.findIndex(
@@ -80,6 +88,18 @@ const postsReducer = (state = initialState, action) => {
         ...state,
         loading_post: false,
         error: action.payload,
+      };
+
+    case postActionTypes.SET_P_POST_LIKERS:
+      const postsCopyE = [...state.posts];
+      const indexToUpdateE = postsCopyE.findIndex(
+        (post) => post.post_uid === action.payload.post_uid
+      );
+      postsCopyE[indexToUpdateE].post_likers = action.payload.likers;
+      return {
+        ...state,
+        posts: postsCopyE,
+        loading_likers: false,
       };
 
     default:
