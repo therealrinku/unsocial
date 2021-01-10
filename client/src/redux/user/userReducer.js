@@ -2,9 +2,10 @@ import userActionTypes from "./userActionTypes";
 
 const intialState = {
   currentUserData: {
-    uid: "d8883ab6-67de-4c8f-a99d-992fd6dcf6ea",
-    username: "amy",
-    profile_image_url: "https://bit.ly/3huLWvT",
+    uid: "53637ece-4a3a-404c-9448-e8e5aff5a35e",
+    username: "rinku",
+    profile_image_url:
+      "https://images.unsplash.com/photo-1608176906358-808c28865e2e?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxMjJ8fHxlbnwwfHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
   },
   error: null,
   loading: false,

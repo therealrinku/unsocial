@@ -11,7 +11,6 @@ import overflowToggler from "../utilities/overflowToggler";
 import Backdrop from "../components/Backdrop";
 import PostOptModal from "../components/PostOptModal";
 import UsersListModal from "../components/UserListModal";
-import ImagePlaceholder from "../assets/imagePlaceholder.jpg";
 
 const PostView = ({
   feedPosts,
