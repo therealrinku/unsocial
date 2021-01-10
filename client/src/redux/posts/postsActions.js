@@ -1,5 +1,6 @@
 import {
   deletePost,
+  getExplorePosts,
   getLikers,
   likePost,
   loadPost,
@@ -9,6 +10,19 @@ import {
 } from "../../services/feedServices";
 import postActionTypes from "./postsActionsTypes";
 import feedActionTypes from "../feed/feedActionTypes";
+
+export const LOAD_EXPLORE_POSTS = () => async (dispatch) => {
+  try {
+    dispatch({ type: postActionTypes.LOADING_EXPLORE_POSTS });
+    const posts = await getExplorePosts();
+    dispatch({ type: postActionTypes.SET_EXPLORE_POSTS, payload: posts });
+  } catch (err) {
+    dispatch({
+      type: postActionTypes.ERROR_IN_POST,
+      payload: err.message,
+    });
+  }
+};
 
 export const LIKE_POST = (post_uid, liker_uid, post_exists_in_feed) => async (
   dispatch

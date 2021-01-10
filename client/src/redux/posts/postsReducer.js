@@ -2,6 +2,8 @@ import postActionTypes from "./postsActionsTypes";
 
 const initialState = {
   posts: [],
+  explore_posts: [],
+  loading_explore_posts: false,
   loading_post: false,
   loading_likers: false,
   error: null,
@@ -9,6 +11,19 @@ const initialState = {
 
 const postsReducer = (state = initialState, action) => {
   switch (action.type) {
+    case postActionTypes.LOADING_EXPLORE_POSTS:
+      return {
+        ...state,
+        loading_explore_posts: true,
+      };
+
+    case postActionTypes.SET_EXPLORE_POSTS:
+      return {
+        ...state,
+        loading_explore_posts: false,
+        explore_posts: [...action.payload],
+      };
+
     case postActionTypes.GETTING_P_LIKERS:
       return {
         ...state,
