@@ -11,6 +11,7 @@ import overflowToggler from "../utilities/overflowToggler";
 import Backdrop from "../components/Backdrop";
 import PostOptModal from "../components/PostOptModal";
 import UsersListModal from "../components/UserListModal";
+import ImagePlaceholder from "../assets/imagePlaceholder.jpg";
 
 const PostView = ({
   feedPosts,
@@ -32,6 +33,9 @@ const PostView = ({
   //modal
   const [showPostOptionsModal, setShowPostOptionsModal] = useState(false);
   const [showLikersModal, setShowLikersModal] = useState(false);
+
+  //checking image is loaded
+  const [imageIsLoaded, setImageIsLoaded] = useState(false);
 
   const toggleModal = (setModal) => {
     setModal((prev) => !prev);
@@ -136,9 +140,15 @@ const PostView = ({
           Post deleted or something went wrong!
         </p>
       ) : (
-        <div className="post--view--">
+        <div
+          className="post--view--"
+          style={!imageIsLoaded ? { display: "none" } : null}
+        >
           <section>
-            <img src={currentPost[0]?.post_image} alt="img" />
+            <img
+              onLoad={() => setImageIsLoaded(true)}
+              src={currentPost[0]?.post_image}
+            />
           </section>
 
           <section>
