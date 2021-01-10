@@ -1,0 +1,10 @@
+.explore--page {
+  width: 75%;
+  margin: 100px auto;
+}
+
+@media (max-width: 750px) {
+  .explore--page {
+    width: 100%;
+  }
+}

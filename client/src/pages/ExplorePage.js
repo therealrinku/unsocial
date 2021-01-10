@@ -18,10 +18,7 @@ const ExplorePage = ({ loading, explorePosts, loadExplorePosts }) => {
       {loading ? (
         <Loader />
       ) : (
-        <div
-          className="explore--page"
-          style={{ width: "75%", margin: "100px auto" }}
-        >
+        <div className="explore--page">
           <PostsGrid userPosts={explorePosts} />
         </div>
       )}
