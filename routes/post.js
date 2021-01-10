@@ -1,6 +1,17 @@
 const router = require("express").Router();
 const db = require("../database/db");
 
+//get posts for explore page
+router.get("/exploreposts", (req, res) => {
+  db.query(
+    `SELECT post_id,image_url as post_image FROM posts order BY posted_date`,
+    (err, res1) => {
+      if (!err) res.send(res1.rows);
+      else throw err;
+    }
+  );
+});
+
 //get selected post
 router.get("/getpost/:post_id/:current_user_uid", (req, res) => {
   db.query(
