@@ -83,7 +83,7 @@ const Profilepage = ({
     <Fragment>
       <Navbar />
       {loading ? (
-        <Loader height="2px" />
+        <Loader />
       ) : (
         <div className="profile--page">
           <ProfileSummary

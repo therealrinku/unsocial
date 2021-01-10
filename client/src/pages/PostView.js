@@ -11,6 +11,7 @@ import overflowToggler from "../utilities/overflowToggler";
 import Backdrop from "../components/Backdrop";
 import PostOptModal from "../components/PostOptModal";
 import UsersListModal from "../components/UserListModal";
+import Post from "../components/Post";
 
 const PostView = ({
   feedPosts,
@@ -139,76 +140,78 @@ const PostView = ({
           Post deleted or something went wrong!
         </p>
       ) : (
-        <div
-          className="post--view--"
-          style={!imageIsLoaded ? { display: "none" } : null}
-        >
-          <section>
-            <img
-              onLoad={() => setImageIsLoaded(true)}
-              src={currentPost[0]?.post_image}
-            />
-          </section>
+        <Fragment>
+          <div
+            className="post--view--"
+            style={!imageIsLoaded ? { display: "none" } : null}
+          >
+            <section>
+              <img
+                onLoad={() => setImageIsLoaded(true)}
+                src={currentPost[0]?.post_image}
+              />
+            </section>
 
-          <section>
-            <div className="top--section">
-              <ul>
-                <img
-                  src={currentPost[0]?.poster_profileimage}
-                  alt="post_user_image"
-                />
-                <Link to={`/${currentPost[0]?.poster_username}`}>
-                  {currentPost[0]?.poster_username || "rinku"}
-                </Link>
-              </ul>
+            <section>
+              <div className="top--section">
+                <ul>
+                  <img
+                    src={currentPost[0]?.poster_profileimage}
+                    alt="post_user_image"
+                  />
+                  <Link to={`/${currentPost[0]?.poster_username}`}>
+                    {currentPost[0]?.poster_username || "rinku"}
+                  </Link>
+                </ul>
 
-              <ul>
-                <button onClick={() => toggleModal(setShowPostOptionsModal)}>
-                  <BiDotsHorizontal />
-                </button>
-              </ul>
-            </div>
-
-            <div className="comment--view-section"></div>
-
-            <div className="absolute--bottom">
-              <div className="buttons">
-                <div className="buttons--section-one">
-                  <button onClick={likeUnlikePost}>
-                    {haveILiked ? <Icons.LovedIcon /> : <Icons.LoveIcon />}
+                <ul>
+                  <button onClick={() => toggleModal(setShowPostOptionsModal)}>
+                    <BiDotsHorizontal />
                   </button>
+                </ul>
+              </div>
 
-                  <button>
-                    <Icons.CommentIcon />
-                  </button>
+              <div className="comment--view-section"></div>
 
-                  <button>
-                    <Icons.ShareIcon />
-                  </button>
+              <div className="absolute--bottom">
+                <div className="buttons">
+                  <div className="buttons--section-one">
+                    <button onClick={likeUnlikePost}>
+                      {haveILiked ? <Icons.LovedIcon /> : <Icons.LoveIcon />}
+                    </button>
+
+                    <button>
+                      <Icons.CommentIcon />
+                    </button>
+
+                    <button>
+                      <Icons.ShareIcon />
+                    </button>
+                  </div>
+
+                  <div>
+                    <button onClick={saveUnsavePost}>
+                      {haveISaved ? <Icons.SavedIcon /> : <Icons.SaveIcon />}
+                    </button>
+                  </div>
                 </div>
 
                 <div>
-                  <button onClick={saveUnsavePost}>
-                    {haveISaved ? <Icons.SavedIcon /> : <Icons.SaveIcon />}
+                  <button onClick={getLikers}>
+                    {postLikesCount || "No"} likes
+                  </button>
+                  <button>
+                    {currentPost[0]?.post_comments_count || 0} comments
                   </button>
                 </div>
-              </div>
 
-              <div>
-                <button onClick={getLikers}>
-                  {postLikesCount || "No"} likes
-                </button>
-                <button>
-                  {currentPost[0]?.post_comments_count || 0} comments
-                </button>
+                <div className="date">
+                  <p>{currentPost[0]?.post_posted_date}</p>
+                </div>
               </div>
-
-              <div className="date">
-                <p>{currentPost[0]?.post_posted_date}</p>
-              </div>
-            </div>
-          </section>
-        </div>
+            </section>
+          </div>
+        </Fragment>
       )}
     </Fragment>
   );
