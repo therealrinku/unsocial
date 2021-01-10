@@ -4,7 +4,7 @@ import server_url from "../server_url";
 import storage from "../firebase/storage";
 import Compressor from "compressorjs";
 
-export const getExplorePosts=()=>{
+export const getExplorePosts = async () => {
   try {
     const posts = await axios
       .get(server_url + `/post/exploreposts`)
@@ -15,7 +15,7 @@ export const getExplorePosts=()=>{
   } catch (err) {
     throw new Error(err.message);
   }
-}
+};
 
 export const loadPost = async (post_id, current_user_uid) => {
   try {
