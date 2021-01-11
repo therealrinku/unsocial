@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getSearchedUsers } from "../services/userServices";
+import { Link } from "react-router-dom";
 
 const SearchView = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -23,12 +24,22 @@ const SearchView = () => {
       />
 
       <section className="search--bar">
-        {searchResults.map((user) => {
-          <div key={user.username}>
-            <img src={user.profile_image_url} alt="profileimage" />
-            <p>{user.username}</p>
-          </div>;
-        })}
+        {searchResults.length >= 1 ? (
+          searchResults.map((user) => {
+            return (
+              <Link
+                to={`/${user.username}`}
+                key={user.username}
+                className="searched--user"
+              >
+                <img src={user.profile_image_url} alt="profileimage" />
+                <p>{user.username}</p>
+              </Link>
+            );
+          })
+        ) : (
+          <p className="nothing--found">Nothing found</p>
+        )}
       </section>
     </div>
   );
