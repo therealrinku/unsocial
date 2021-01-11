@@ -23,7 +23,10 @@ const SearchView = () => {
         onChange={(e) => setSearchQuery(e.target.value)}
       />
 
-      <section className="search--bar">
+      <section
+        className="search--bar"
+        style={searchQuery.trim() === "" ? { display: "none" } : null}
+      >
         {searchResults.length >= 1 ? (
           searchResults.map((user) => {
             return (
