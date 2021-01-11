@@ -1,5 +1,54 @@
 import React from "react";
 
+export const ActivityActiveIcon = () => {
+  return (
+    <svg
+      aria-label="Activity Feed"
+      className="_8-yf5 "
+      fill="#262626"
+      height="22"
+      viewBox="0 0 48 48"
+      width="22"
+    >
+      <path d="M34.6 3.1c-4.5 0-7.9 1.8-10.6 5.6-2.7-3.7-6.1-5.5-10.6-5.5C6 3.1 0 9.6 0 17.6c0 7.3 5.4 12 10.6 16.5.6.5 1.3 1.1 1.9 1.7l2.3 2c4.4 3.9 6.6 5.9 7.6 6.5.5.3 1.1.5 1.6.5s1.1-.2 1.6-.5c1-.6 2.8-2.2 7.8-6.8l2-1.8c.7-.6 1.3-1.2 2-1.7C42.7 29.6 48 25 48 17.6c0-8-6-14.5-13.4-14.5z"></path>
+    </svg>
+  );
+};
+
+export const ExploreActiveIcon = () => {
+  return (
+    <svg
+      aria-label="Find People"
+      className="_8-yf5 "
+      fill="#262626"
+      height="22"
+      viewBox="0 0 48 48"
+      width="22"
+    >
+      <path
+        clip-rule="evenodd"
+        d="M24 0C10.8 0 0 10.8 0 24s10.8 24 24 24 24-10.8 24-24S37.2 0 24 0zm12.2 13.8l-7 14.8c-.1.3-.4.6-.7.7l-14.8 7c-.2.1-.4.1-.6.1-.4 0-.8-.2-1.1-.4-.4-.4-.6-1.1-.3-1.7l7-14.8c.1-.3.4-.6.7-.7l14.8-7c.6-.3 1.3-.2 1.7.3.5.4.6 1.1.3 1.7zm-15 7.4l-5 10.5 10.5-5-5.5-5.5z"
+        fill-rule="evenodd"
+      ></path>
+    </svg>
+  );
+};
+
+export const HomeActiveIcon = () => {
+  return (
+    <svg
+      aria-label="Home"
+      className="_8-yf5 "
+      fill="#262626"
+      height="22"
+      viewBox="0 0 48 48"
+      width="22"
+    >
+      <path d="M45.5 48H30.1c-.8 0-1.5-.7-1.5-1.5V34.2c0-2.6-2.1-4.6-4.6-4.6s-4.6 2.1-4.6 4.6v12.3c0 .8-.7 1.5-1.5 1.5H2.5c-.8 0-1.5-.7-1.5-1.5V23c0-.4.2-.8.4-1.1L22.9.4c.6-.6 1.6-.6 2.1 0l21.5 21.5c.3.3.4.7.4 1.1v23.5c.1.8-.6 1.5-1.4 1.5z"></path>
+    </svg>
+  );
+};
+
 export const SearchIcon = () => {
   return (
     <svg
