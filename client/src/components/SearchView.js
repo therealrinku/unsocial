@@ -31,6 +31,7 @@ const SearchView = () => {
           searchResults.map((user) => {
             return (
               <Link
+                onClick={() => setSearchQuery("")}
                 to={`/${user.username}`}
                 key={user.username}
                 className="searched--user"
