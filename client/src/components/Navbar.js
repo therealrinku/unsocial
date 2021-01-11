@@ -12,14 +12,8 @@ const Navbar = ({ currentUsername, currentUserProfileimage }) => {
         <Link to="/">Instaclone</Link>
       </ul>
 
-      <ul style={{ width: "280px" }}>
-        <input
-          type="text"
-          placeholder="Search"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
-        <SearchView users={[]} />
+      <ul>
+        <SearchView />
       </ul>
 
       <ul className="right">
