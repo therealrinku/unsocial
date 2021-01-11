@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import * as Icons from "../Icons/CustomIcons";
+import SearchView from "./SearchView";
 
 const Navbar = ({ currentUsername, currentUserProfileimage }) => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -11,13 +12,14 @@ const Navbar = ({ currentUsername, currentUserProfileimage }) => {
         <Link to="/">Instaclone</Link>
       </ul>
 
-      <ul>
+      <ul style={{ width: "280px" }}>
         <input
           type="text"
           placeholder="Search"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
+        <SearchView users={[]} />
       </ul>
 
       <ul className="right">
