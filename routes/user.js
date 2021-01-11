@@ -2,7 +2,7 @@ const db = require("../database/db");
 const router = require("express").Router();
 
 //get searched users
-router.get("/:search", (req, res) => {
+router.get("/search/:search_query", (req, res) => {
   db.query(
     `SELECT username,profile_image_url FROM users WHERE username LIKE '%${req.params.search_query}%' `,
     (err, res1) => {
