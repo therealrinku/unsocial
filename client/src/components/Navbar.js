@@ -3,9 +3,13 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import * as Icons from "../Icons/CustomIcons";
 import SearchView from "./SearchView";
+import { useHistory } from "react-router-dom";
 
 const Navbar = ({ currentUsername, currentUserProfileimage }) => {
   const [searchQuery, setSearchQuery] = useState("");
+  const history = useHistory();
+  const pathname = history.location.pathname;
+
   return (
     <div className="navbar">
       <ul>
@@ -18,7 +22,7 @@ const Navbar = ({ currentUsername, currentUserProfileimage }) => {
 
       <ul className="right">
         <Link to="/">
-          <Icons.HomeIcon />
+          {pathname === "/" ? <Icons.HomeActiveIcon /> : <Icons.HomeIcon />}
         </Link>
 
         <Link to="/chat">
@@ -26,7 +30,11 @@ const Navbar = ({ currentUsername, currentUserProfileimage }) => {
         </Link>
 
         <Link to="/explore">
-          <Icons.ExploreIcon />
+          {pathname === "/explore" ? (
+            <Icons.ExploreActiveIcon />
+          ) : (
+            <Icons.ExploreIcon />
+          )}
         </Link>
 
         <Link to="/activity">
@@ -35,6 +43,16 @@ const Navbar = ({ currentUsername, currentUserProfileimage }) => {
 
         <Link to={`/${currentUsername}`}>
           <img
+            style={
+              pathname === `/${currentUsername}`
+                ? {
+                    border: "solid 1px black",
+                    padding: "2px",
+                    width: "20px",
+                    height: "20px",
+                  }
+                : null
+            }
             src={currentUserProfileimage || "https://bit.ly/3pc96tw"}
             alt="profile_image"
           />
