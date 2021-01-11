@@ -1,6 +1,17 @@
 const db = require("../database/db");
 const router = require("express").Router();
 
+//get searched users
+router.get("/:search", (req, res) => {
+  db.query(
+    `SELECT username,profile_image_url FROM users WHERE username LIKE '%${req.params.search_query}%' `,
+    (err, res1) => {
+      if (!err) res.send(res1.rows);
+      else throw err;
+    }
+  );
+});
+
 //get following
 router.get("/followings/:username", (req, res) => {
   db.query(

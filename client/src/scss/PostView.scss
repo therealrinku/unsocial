@@ -1,6 +1,6 @@
 .post--view-- {
   width: 70%;
-  height: 450px;
+  height: auto;
   margin: 16vh auto;
   border: solid 1px rgba(0, 0, 0, 0.5);
   display: grid;
@@ -39,8 +39,9 @@
 
     img {
       width: 100%;
-      height: 100%;
+      height: inherit;
       object-fit: cover;
+      box-sizing: border-box;
       display: block;
     }
   }
