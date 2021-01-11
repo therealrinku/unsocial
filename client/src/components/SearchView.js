@@ -1,7 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getSearchedUsers } from "../services/userServices";
 
-const SearchView = ({ users = [] }) => {
+const SearchView = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+
+  useEffect(() => {
+    if (searchQuery.trim() !== "") {
+      getSearchedUsers(searchQuery).then((res) => {
+        setSearchResults(res);
+      });
+    }
+  }, [searchQuery]);
+
   return (
     <div className="search--bar-page">
       <input
@@ -12,8 +23,11 @@ const SearchView = ({ users = [] }) => {
       />
 
       <section className="search--bar">
-        {users.map((user) => {
-          <div className="user"></div>;
+        {searchResults.map((user) => {
+          <div key={user.username}>
+            <img src={user.profile_image_url} alt="profileimage" />
+            <p>{user.username}</p>
+          </div>;
         })}
       </section>
     </div>

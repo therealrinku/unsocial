@@ -3,10 +3,11 @@ import server_url from "../server_url";
 
 export const getSearchedUsers = async (query) => {
   try {
-    const users = await axios
-      .get(server_url + `/user/search/${query}`)
-      .then((res) => res.data);
-    return user;
+    return new Promise((resolve) => {
+      return axios.get(server_url + `/user/search/${query}`).then((res) => {
+        resolve(res.data);
+      });
+    });
   } catch (err) {
     throw new Error(err.message);
   }
@@ -24,7 +25,7 @@ export const loginUser = async (username, password) => {
   }
 };
 
-export const loginUser = async (email, username, password) => {
+export const signupUser = async (email, username, password) => {
   try {
     const response = await axios.post(server_url + "/auth/signup", {
       email,
