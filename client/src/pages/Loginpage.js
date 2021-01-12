@@ -40,7 +40,7 @@ const Login = ({ noFullPage }) => {
 
       <div>
         <FaGithub />
-        <a href="https://github.com/rinkuuu/instaclone" target="_blank">
+        <a href="https://github.com/therealrinku/instaclone" target="_blank">
           View on Github
         </a>
       </div>
