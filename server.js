@@ -13,10 +13,11 @@ const server = http.createServer(app);
 //routes
 const post = require("./routes/post");
 const user = require("./routes/user");
-
+const auth = require("./routes/auth");
 //redirection
 app.use("/post", post);
 app.use("/user", user);
+app.use("/auth", auth);
 
 //server running
 server.listen(port, () => {
