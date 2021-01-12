@@ -27,6 +27,8 @@ router.post("/signup", (req, res) => {
           throw err1;
         }
       });
+    } else {
+      res.send("username already taken!");
     }
   });
 });
