@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FaGithub } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 
-const Login = ({ noFullPage }) => {
+const Loginpage = ({ noFullPage }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -48,4 +48,4 @@ const Login = ({ noFullPage }) => {
   );
 };
 
-export default Login;
+export default Loginpage;
