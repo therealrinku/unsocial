@@ -25,7 +25,8 @@ const Signuppage = () => {
       trimmed.email !== "" &&
       trimmed.email.length >= 8 &&
       trimmed.email.length <= 40 &&
-      trimmed.email.includes("@")
+      trimmed.email.includes("@") &&
+      trimmed.email.includes(".com")
     ) {
       if (
         trimmed.username.length >= 5 &&
