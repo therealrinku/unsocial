@@ -6,16 +6,15 @@ import Homepage from "../pages/Homepage";
 import PostView from "../pages/PostView";
 import Profilepage from "../pages/Profilepage";
 import Auth from "../pages/Auth";
+import Loginpage from "../pages/Loginpage";
 
 const App = ({ currentUsername }) => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route
-          path="/"
-          exact
-          component={currentUsername ? Homepage : <Auth />}
-        />
+        <Route path="/" exact component={currentUsername ? Homepage : Auth} />
+        <Route path="/login" exact component={Loginpage} />
+        <Route path="/signup" exact component={Auth} />
         <Route path="/explore" exact component={ExplorePage} />
         <Route path="/:username" exact component={Profilepage} />
         <Route path="/p/:post_id" exact component={PostView} />
