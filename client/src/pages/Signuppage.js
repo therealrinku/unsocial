@@ -17,6 +17,7 @@ const Signuppage = () => {
             value={email}
             placeholder="Email"
             onChange={(e) => setEmail(e.target.value)}
+            autoFocus
           />
           <input
             type="text"

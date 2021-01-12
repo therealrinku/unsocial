@@ -17,6 +17,7 @@ const Loginpage = ({ noFullPage }) => {
             value={username}
             placeholder="Username"
             onChange={(e) => setUsername(e.target.value)}
+            autoFocus
           />
 
           <input
