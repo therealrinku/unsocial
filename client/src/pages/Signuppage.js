@@ -1,17 +1,31 @@
 import React, { useState } from "react";
 import { FaGithub } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
+import { signupUser } from "../services/userServices";
+import { useHistory } from "react-router-dom";
 
 const Signuppage = () => {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  const history = useHistory();
+
+  const SIGNUP = async (e) => {
+    e.preventDefault();
+    const response = await signupUser(email, username, password);
+    if (response !== "success") {
+      alert(response);
+    } else {
+      history.push("/login");
+    }
+  };
+
   return (
     <div className="auth--page">
       <div>
         <p>Instaclone</p>
-        <form>
+        <form onSubmit={SIGNUP}>
           <input
             type="email"
             value={email}
