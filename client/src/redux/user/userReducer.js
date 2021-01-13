@@ -35,7 +35,7 @@ const userReducer = (state = intialState, action) => {
     case userActionTypes.LOGOUT:
       return {
         ...state,
-        currentUsername: null,
+        currentUserData: { uid: null, profile_image_url: null, username: null },
         loading: false,
         error: null,
       };

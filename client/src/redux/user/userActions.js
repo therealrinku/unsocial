@@ -17,3 +17,7 @@ export const LOGIN = (username, password) => async (dispatch) => {
     });
   }
 };
+
+export const LOGOUT = () => (dispatch) => {
+  dispatch({ type: userActionTypes.LOGOUT });
+};
