@@ -4,7 +4,20 @@ const router = require("express").Router();
 
 //login
 router.post("/login", (req, res) => {
-  db.query(`SELECT`);
+  db.query(
+    `SELECT password FROM users WHERE username='${req.body.username}'`,
+    (err, res1) => {
+      if (res1.rows.length > 0) {
+        if (res1.rows[0].password === req.body.password) {
+          res.send("success");
+        } else {
+          res.send("invalid password");
+        }
+      } else {
+        res.send("invalid username");
+      }
+    }
+  );
 });
 
 //signup user
