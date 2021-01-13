@@ -8,12 +8,11 @@ router.post("/login", (req, res) => {
     `SELECT profile_image_url,username,uid,password FROM users WHERE username='${req.body.username}'`,
     (err, res1) => {
       if (res1.rows.length > 0) {
-        const { profile_image_url, uid, username } = res1.rows[0];
-        if (res1.rows[0].password === req.body.password) {
-          res.send({ profile_image_url, uid, username });
-        } else {
-          res.send("invalid password");
-        }
+        const { profile_image_url, uid, username, password } = res1.rows[0];
+        bcrypt.compare(req.body.password, password, (err, result) => {
+          if (result) res.send({ profile_image_url, uid, username });
+          else res.send("invalid password");
+        });
       } else {
         res.send("invalid username");
       }
