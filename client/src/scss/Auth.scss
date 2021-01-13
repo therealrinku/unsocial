@@ -63,6 +63,11 @@
         background: #0095f6;
       }
 
+      button:disabled {
+        opacity: 0.8;
+        cursor: unset;
+      }
+
       p {
         margin-top: 20px;
         font-size: 12px;
