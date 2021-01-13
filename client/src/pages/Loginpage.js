@@ -39,7 +39,7 @@ const Loginpage = ({ noFullPage, error, loading, currentUsername, LOGIN }) => {
             Login
           </button>
 
-          <p>{error}</p>
+          <p style={{ color: "red" }}>{error}</p>
         </form>
       </div>
 
