@@ -8,11 +8,16 @@ const Loginpage = ({ noFullPage, error, loading, currentUsername, LOGIN }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  const login = (e) => {
+    e.preventDefault();
+    LOGIN(username, password);
+  };
+
   return (
     <div className={!noFullPage ? `auth--page full--page` : "auth--page"}>
       <div>
         <p>Instaclone</p>
-        <form>
+        <form onSubmit={login}>
           <input
             type="text"
             id="username"
@@ -30,9 +35,11 @@ const Loginpage = ({ noFullPage, error, loading, currentUsername, LOGIN }) => {
             onChange={(e) => setPassword(e.target.value)}
           />
 
-          <button type="submit" className="signup_login_btn">
+          <button type="submit" disabled={loading}>
             Login
           </button>
+
+          <p>{error}</p>
         </form>
       </div>
 
