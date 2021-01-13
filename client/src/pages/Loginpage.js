@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FaGithub } from "react-icons/fa";
-import { NavLink } from "react-router-dom";
+import { NavLink, Redirect } from "react-router-dom";
 import * as userActions from "../redux/user/userActions";
 import { connect } from "react-redux";
 
@@ -54,6 +54,7 @@ const Loginpage = ({ noFullPage, error, loading, currentUsername, LOGIN }) => {
           View on Github
         </a>
       </div>
+      {currentUsername ? <Redirect to="/" /> : null}
     </div>
   );
 };
