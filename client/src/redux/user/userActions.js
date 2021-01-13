@@ -1,4 +1,4 @@
-import { loginUser } from "../../services/userServices";
+import { loginUser } from "../../services/authServices";
 import userActionTypes from "./userActionTypes";
 
 export const LOGIN = (username, password) => async (dispatch) => {
