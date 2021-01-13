@@ -22,6 +22,7 @@ const userReducer = (state = intialState, action) => {
       return {
         ...state,
         error: action.payload,
+        loading: false,
       };
 
     case userActionTypes.LOGIN:
