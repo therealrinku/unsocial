@@ -3,10 +3,12 @@ import server_url from "../server_url";
 
 export const loginUser = async (username, password) => {
   try {
-    const response = await axios.post(server_url + "/auth/login", {
-      username,
-      password,
-    });
+    const response = await axios
+      .post(server_url + "/auth/login", {
+        username,
+        password,
+      })
+      .then((res) => res.data);
     return response;
   } catch (err) {
     throw new Error(err.message);
