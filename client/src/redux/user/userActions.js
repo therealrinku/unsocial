@@ -1,7 +1,19 @@
-import { signupUser } from "../../services/userServices";
+import { loginUser } from "../../services/userServices";
 import userActionTypes from "./userActionTypes";
 
-export const LOGIN = (username) => async (dispatch) => {
+export const LOGIN = (username, password) => async (dispatch) => {
   try {
-  } catch {}
+    dispatch({ type: userActionTypes.LOADING });
+    const response = await loginUser(username, password);
+    if (typeof response === "object") {
+      dispatch({ type: userActionTypes.LOGIN, payload: response });
+    } else {
+      throw new Error(response);
+    }
+  } catch (err) {
+    dispatch({
+      type: userActionTypes.SOMETHING_WENT_WRONG,
+      payload: err.message,
+    });
+  }
 };
