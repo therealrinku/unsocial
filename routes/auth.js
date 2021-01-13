@@ -33,7 +33,7 @@ router.post("/signup", (req, res) => {
               `INSERT INTO users(email,username,password,joined_date,profile_image_url)
           VALUES('${req.body.email}','${
                 req.body.username
-              }','${hash}','${new Date()}','https://ddf.com')`,
+              }','${hash}','${new Date()}','https://bit.ly/3qhkh4y')`,
               (err2, res2) => {
                 if (!err2) res.send("success");
                 else throw err2;
