@@ -7,6 +7,7 @@ export const LOGIN = (username, password) => async (dispatch) => {
     const response = await loginUser(username, password);
     if (typeof response === "object") {
       dispatch({ type: userActionTypes.LOGIN, payload: response });
+      localStorage.setItem("token", response.uid);
     } else {
       throw new Error(response);
     }
