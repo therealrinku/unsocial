@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 const Recommended = ({ recommendedUsers }) => {
   return (
     <div className="recommended">
+      <p>People you may like to follow</p>
       {recommendedUsers.map((user) => {
         return (
           <div className="recommended--user" key={user.username}>
