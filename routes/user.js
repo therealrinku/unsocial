@@ -1,6 +1,17 @@
 const db = require("../database/db");
 const router = require("express").Router();
 
+//get recommended users
+router.get("/getrecommended", (req, res) => {
+  db.query(
+    `SELECT username,profile_image_url FROM users LIMIT 15 `,
+    (err, res1) => {
+      if (!err) res.send(res1.rows);
+      else throw err;
+    }
+  );
+});
+
 //get searched users
 router.get("/search/:search_query", (req, res) => {
   db.query(
