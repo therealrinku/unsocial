@@ -4,7 +4,8 @@ const router = require("express").Router();
 //get recommended users
 router.get("/getrecommended/:currentUserUid", (req, res) => {
   db.query(
-    `SELECT username,profile_image_url,uid
+    `SELECT username,profile_image_url,uid,
+    ${false} as i_am_following
     FROM users WHERE (uid)::text NOT IN (SELECT unnest(following) 
     FROM users WHERE (uid)::text='${req.params.currentUserUid}') 
     AND 
