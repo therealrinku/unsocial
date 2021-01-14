@@ -1,4 +1,4 @@
-const PostOptionsModal = ({ toggle, isMyProfile }) => {
+const PostOptionsModal = ({ toggle, isMyProfile, LOGOUT }) => {
   return (
     <div className="profile--options-modal">
       <button style={!isMyProfile ? { display: "none" } : null}>
@@ -20,7 +20,10 @@ const PostOptionsModal = ({ toggle, isMyProfile }) => {
       <button style={!isMyProfile ? { display: "none" } : null}>
         Change Password
       </button>
-      <button style={!isMyProfile ? { display: "none" } : { color: "red" }}>
+      <button
+        style={!isMyProfile ? { display: "none" } : { color: "red" }}
+        onClick={LOGOUT}
+      >
         Log Out
       </button>
 

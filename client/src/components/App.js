@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import ExplorePage from "../pages/ExplorePage";
@@ -10,12 +10,14 @@ import Loginpage from "../pages/Loginpage";
 import Signuppage from "../pages/Signuppage";
 import * as userActions from "../redux/user/userActions";
 
-const App = ({ currentUsername, LOGIN_WITH_UID }) => {
+const App = ({ loading, currentUsername, LOGIN_WITH_UID }) => {
   const token = localStorage.getItem("token");
 
-  if (token) {
-    LOGIN_WITH_UID(token);
-  }
+  useEffect(() => {
+    if (token) {
+      LOGIN_WITH_UID(token);
+    }
+  }, []);
 
   return (
     <BrowserRouter>
@@ -37,6 +39,7 @@ const App = ({ currentUsername, LOGIN_WITH_UID }) => {
 
 const mapStateToProps = (state) => {
   return {
+    loading: state.user.loading,
     currentUsername: state.user.currentUserData.username,
   };
 };

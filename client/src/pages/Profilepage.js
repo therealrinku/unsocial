@@ -12,6 +12,7 @@ import ProfileButtonLine from "../components/ProfileButtonLine";
 import PostsGrid from "../components/PostsGrid";
 import UserListModal from "../components/UserListModal";
 import Loader from "../components/Loader";
+import * as userActions from "../redux/user/userActions";
 
 const Profilepage = ({
   history,
@@ -25,6 +26,7 @@ const Profilepage = ({
   FETCH_FOLLOWINGS,
   loading,
   loading_followers_or_following,
+  LOGOUT,
 }) => {
   const profileUsername = history.location.pathname.slice(1);
   const profileData = profiles.filter(
@@ -65,6 +67,13 @@ const Profilepage = ({
   const toggleModal = (setModal) => {
     setModal((prev) => !prev);
     overflowToggler();
+  };
+
+  const Logout = () => {
+    toggleModal(setShowProfileOptionsModal);
+    LOGOUT();
+    history.push("/");
+    localStorage.removeItem("token");
   };
 
   useEffect(() => {
@@ -121,6 +130,7 @@ const Profilepage = ({
               <ProfileOptModal
                 toggle={() => toggleModal(setShowProfileOptionsModal)}
                 isMyProfile={currentUsername === profileUsername}
+                LOGOUT={Logout}
               />
               <Backdrop
                 show={showProfileOptionsModal}
@@ -186,6 +196,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    LOGOUT: () => dispatch(userActions.LOGOUT()),
     FETCH_FOLLOWERS: (username) =>
       dispatch(profileActions.FETCH_FOLLOWERS(username)),
     FETCH_FOLLOWINGS: (username) =>

@@ -3,6 +3,7 @@ import userActionTypes from "./userActionTypes";
 
 export const LOGIN_WITH_UID = (uid) => async (dispatch) => {
   try {
+    dispatch({ type: userActionTypes.LOADING });
     const data = await loginWithUid(uid);
     dispatch({ type: userActionTypes.LOGIN, payload: data[0] });
   } catch (err) {
