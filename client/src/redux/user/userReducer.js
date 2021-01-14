@@ -8,10 +8,18 @@ const intialState = {
   },
   error: null,
   loading: false,
+  recommendedUsers: [],
 };
 
 const userReducer = (state = intialState, action) => {
   switch (action.type) {
+    case userActionTypes.SET_RECOMMENDED_USERS:
+      return {
+        ...state,
+        loading: false,
+        recommendedUsers: action.payload,
+      };
+
     case userActionTypes.LOADING:
       return {
         ...state,
