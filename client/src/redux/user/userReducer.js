@@ -13,6 +13,28 @@ const intialState = {
 
 const userReducer = (state = intialState, action) => {
   switch (action.type) {
+    case userActionTypes.FOLLOW_RECOMMENDED:
+      const copyA = [...state.recommendedUsers];
+      const followedUserIndexA = copyA.findIndex(
+        (profile) => profile.uid === action.payload
+      );
+      copyA[followedUserIndexA].i_am_following = true;
+      return {
+        ...state,
+        recommendedUsers: copyA,
+      };
+
+    case userActionTypes.UNFOLLOW_RECOMMENDED:
+      const copyB = [...state.recommendedUsers];
+      const unfollowedUserIndexB = copyB.findIndex(
+        (profile) => profile.uid === action.payload
+      );
+      copyB[unfollowedUserIndexB].i_am_following = false;
+      return {
+        ...state,
+        recommendedUsers: copyB,
+      };
+
     case userActionTypes.SET_RECOMMENDED_USERS:
       return {
         ...state,

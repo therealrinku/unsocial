@@ -1,6 +1,42 @@
 import { loginUser, loginWithUid } from "../../services/authServices";
 import { getRecommendedUsers } from "../../services/userServices";
 import userActionTypes from "./userActionTypes";
+import { followUser, unfollowUser } from "../../services/profileServices";
+
+export const UNFOLLOW_RECOMMENDED = (
+  currentUserUid,
+  unfollowingUserUid
+) => async (dispatch) => {
+  try {
+    dispatch({
+      type: userActionTypes.UNFOLLOW_RECOMMENDED,
+      payload: unfollowingUserUid,
+    });
+    await unfollowUser(unfollowingUserUid, currentUserUid);
+  } catch (err) {
+    dispatch({
+      type: userActionTypes.SOMETHING_WENT_WRONG,
+      payload: err.message,
+    });
+  }
+};
+
+export const FOLLOW_RECOMMENDED = (currentUserUid, FollowingUserUid) => async (
+  dispatch
+) => {
+  try {
+    dispatch({
+      type: userActionTypes.FOLLOW_RECOMMENDED,
+      payload: FollowingUserUid,
+    });
+    await followUser(FollowingUserUid, currentUserUid);
+  } catch (err) {
+    dispatch({
+      type: userActionTypes.SOMETHING_WENT_WRONG,
+      payload: err.message,
+    });
+  }
+};
 
 export const GET_RECOMMENDED = (uid) => async (dispatch) => {
   try {
