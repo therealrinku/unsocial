@@ -146,7 +146,7 @@ router.post("/follow", (req, res) => {
 });
 
 //get current user data
-router.get("/loggeninuserinfo/:uid", (req, res) => {
+router.get("/loggedinuserinfo/:uid", (req, res) => {
   db.query(
     `SELECT username,uid,profile_image_url FROM users WHERE (uid)::text='${req.params.uid}'`,
     (err, res0) => {
