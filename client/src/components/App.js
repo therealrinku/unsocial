@@ -8,8 +8,15 @@ import Profilepage from "../pages/Profilepage";
 import Landingpage from "../pages/Landingpage";
 import Loginpage from "../pages/Loginpage";
 import Signuppage from "../pages/Signuppage";
+import * as userActions from "../redux/user/userActions";
 
-const App = ({ currentUsername }) => {
+const App = ({ currentUsername, LOGIN_WITH_UID }) => {
+  const token = localStorage.getItem("token");
+
+  if (token) {
+    LOGIN_WITH_UID(token);
+  }
+
   return (
     <BrowserRouter>
       <Switch>
@@ -34,4 +41,10 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    LOGIN_WITH_UID: (uid) => dispatch(userActions.LOGIN_WITH_UID(uid)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
