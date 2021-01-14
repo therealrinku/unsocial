@@ -1,6 +1,17 @@
 import axios from "axios";
 import server_url from "../server_url";
 
+export const loginWithUid = async (uid) => {
+  try {
+    const response = await axios
+      .get(server_url + `/user/loggedinuserinfo/${uid}`)
+      .then((res) => res.data);
+    return response;
+  } catch (err) {
+    throw new Error(err.message);
+  }
+};
+
 export const loginUser = async (username, password) => {
   try {
     const response = await axios
