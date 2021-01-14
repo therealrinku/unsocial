@@ -7,8 +7,17 @@ const Recommended = ({ recommendedUsers }) => {
       {recommendedUsers.map((user) => {
         return (
           <div className="recommended--user" key={user.username}>
-            <img src={user.profile_image_url} alt="profile_img" />
-            <NavLink to={`/${user.username}`}>{user.username}</NavLink>
+            <div>
+              <img src={user.profile_image_url} alt="profile_img" />
+              <NavLink to={`/${user.username}`}>{user.username}</NavLink>
+            </div>
+
+            <button
+              className="follow--button"
+              style={user.i_am_following ? { display: "none" } : null}
+            >
+              Follow
+            </button>
           </div>
         );
       })}
