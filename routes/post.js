@@ -165,6 +165,7 @@ router.get("/feed/:user_uid", (req, res) => {
     (post_uid)::text=ANY(SELECT unnest(saved_posts_uids) FROM users WHERE uid='${req.params.user_uid}') AS i_have_saved,
     post_uid,username as poster_username,
     post_id,
+    true as inFeed,
     profile_image_url as poster_profileImage,
     image_url as post_image,
     array_length(likers,1) as post_likes_count,
