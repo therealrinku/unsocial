@@ -5,6 +5,7 @@ const initial_state = {
   error: null,
   loading_feed: false,
   loading_likers: false,
+  feed_loaded: false,
 };
 
 const feedReducer = (state = initial_state, action) => {
@@ -76,6 +77,7 @@ const feedReducer = (state = initial_state, action) => {
         error: null,
         loading_likers: false,
         loading_feed: false,
+        feed_loaded: true,
       };
 
     case feedActionTypes.SET_POST_LIKERS:

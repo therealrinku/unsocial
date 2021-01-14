@@ -5,7 +5,7 @@ import userActionTypes from "./userActionTypes";
 export const GET_RECOMMENDED = () => async (dispatch) => {
   try {
     dispatch({ type: userActionTypes.LOADING });
-    const data = await getRecommendedUsers(uid);
+    const data = await getRecommendedUsers();
     dispatch({ type: userActionTypes.SET_RECOMMENDED_USERS, payload: data });
   } catch (err) {
     dispatch({

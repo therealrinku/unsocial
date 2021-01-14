@@ -8,6 +8,7 @@ import {
   unsavePost,
   uploadPost,
 } from "../../services/feedServices";
+import { GET_RECOMMENDED } from "../user/userActions";
 import feedActionTypes from "./feedActionTypes";
 
 export const GET_FEED = (user_uid) => async (dispatch) => {
