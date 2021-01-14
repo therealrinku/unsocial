@@ -78,11 +78,11 @@ const Homepage = ({
         toggleAddPostModal={toggleAddPostModal}
       />
       <Navbar />
-      {feed.length > 0 ? (
+      {feed.length > 0 && !loading ? (
         <Feed feed={feed} />
-      ) : (
+      ) : !loading ? (
         <Recommended recommendedUsers={recommendedUsers} />
-      )}
+      ) : null}
       <MobileNavbar />
     </div>
   );
