@@ -77,13 +77,19 @@ const Profilepage = ({
     return () => {
       document.title = "Instaclone";
     };
-  }, [profileUsername]);
+  }, [profileUsername, currentUserUid]);
 
   return (
     <Fragment>
       <Navbar />
       {loading ? (
         <Loader />
+      ) : !loading && profileData.length < 1 ? (
+        <p
+          style={{ marginTop: "100px", textAlign: "center", fontSize: "15px" }}
+        >
+          This link is broken
+        </p>
       ) : (
         <div className="profile--page">
           <ProfileSummary
