@@ -3,22 +3,52 @@ import {
   fetchFeed,
   getLikers,
   likePost,
+  loadPost,
   savePost,
   unlikePost,
   unsavePost,
   uploadPost,
+  getExplorePosts,
 } from "../../services/feedServices";
-import { GET_RECOMMENDED } from "../user/userActions";
-import feedActionTypes from "./feedActionTypes";
+import postActionTypes from "./postsActionTypes";
+
+export const LOAD_EXPLORE_POSTS = () => async (dispatch) => {
+  try {
+    dispatch({ type: postActionTypes.LOADING_EXPLORE_POSTS });
+    const explorePosts = await getExplorePosts();
+    dispatch({
+      type: postActionTypes.ADD_EXPLORE_POSTS,
+      payload: explorePosts,
+    });
+  } catch (err) {
+    dispatch({
+      type: postActionTypes.SOMETHING_WENT_WRONG,
+      payload: err.message,
+    });
+  }
+};
+
+export const GET_POST = (post_id, current_user_uid) => async (dispatch) => {
+  try {
+    dispatch({ type: postActionTypes.GETTING_POST });
+    const postData = await loadPost(post_id, current_user_uid);
+    dispatch({ type: postActionTypes.ADD_POST, payload: postData[0] });
+  } catch (err) {
+    dispatch({
+      type: postActionTypes.SOMETHING_WENT_WRONG,
+      payload: err.message,
+    });
+  }
+};
 
 export const GET_FEED = (user_uid) => async (dispatch) => {
   try {
-    dispatch({ type: feedActionTypes.GETTING_FEED });
+    dispatch({ type: postActionTypes.GETTING_FEED });
     const feed = await fetchFeed(user_uid);
-    dispatch({ type: feedActionTypes.SET_FEED, payload: feed });
+    dispatch({ type: postActionTypes.SET_FEED, payload: feed });
   } catch (err) {
     dispatch({
-      type: feedActionTypes.SOMETHING_WENT_WRONG,
+      type: postActionTypes.SOMETHING_WENT_WRONG,
       payload: err.message,
     });
   }
@@ -27,13 +57,13 @@ export const GET_FEED = (user_uid) => async (dispatch) => {
 export const LIKE_POST = (post_uid, liker_uid) => async (dispatch) => {
   try {
     dispatch({
-      type: feedActionTypes.LIKE_POST,
+      type: postActionTypes.LIKE_POST,
       payload: { post_uid },
     });
     await likePost(post_uid, liker_uid);
   } catch (err) {
     dispatch({
-      type: feedActionTypes.SOMETHING_WENT_WRONG,
+      type: postActionTypes.SOMETHING_WENT_WRONG,
       payload: err.message,
     });
   }
@@ -42,13 +72,13 @@ export const LIKE_POST = (post_uid, liker_uid) => async (dispatch) => {
 export const UNLIKE_POST = (post_uid, unliker_uid) => async (dispatch) => {
   try {
     dispatch({
-      type: feedActionTypes.UNLIKE_POST,
+      type: postActionTypes.UNLIKE_POST,
       payload: { post_uid },
     });
     await unlikePost(post_uid, unliker_uid);
   } catch (err) {
     dispatch({
-      type: feedActionTypes.SOMETHING_WENT_WRONG,
+      type: postActionTypes.SOMETHING_WENT_WRONG,
       payload: err.message,
     });
   }
@@ -57,13 +87,13 @@ export const UNLIKE_POST = (post_uid, unliker_uid) => async (dispatch) => {
 export const SAVE_POST = (post_uid, saver_username) => async (dispatch) => {
   try {
     dispatch({
-      type: feedActionTypes.SAVE_POST,
+      type: postActionTypes.SAVE_POST,
       payload: { post_uid },
     });
     await savePost(post_uid, saver_username);
   } catch (err) {
     dispatch({
-      type: feedActionTypes.SOMETHING_WENT_WRONG,
+      type: postActionTypes.SOMETHING_WENT_WRONG,
       payload: err.message,
     });
   }
@@ -72,13 +102,13 @@ export const SAVE_POST = (post_uid, saver_username) => async (dispatch) => {
 export const UNSAVE_POST = (post_uid, unsaver_username) => async (dispatch) => {
   try {
     dispatch({
-      type: feedActionTypes.UNSAVE_POST,
+      type: postActionTypes.UNSAVE_POST,
       payload: { post_uid },
     });
     await unsavePost(post_uid, unsaver_username);
   } catch (err) {
     dispatch({
-      type: feedActionTypes.SOMETHING_WENT_WRONG,
+      type: postActionTypes.SOMETHING_WENT_WRONG,
       payload: err.message,
     });
   }
@@ -86,15 +116,15 @@ export const UNSAVE_POST = (post_uid, unsaver_username) => async (dispatch) => {
 
 export const GET_LIKERS = (post_uid) => async (dispatch) => {
   try {
-    dispatch({ type: feedActionTypes.GETTING_LIKERS });
+    dispatch({ type: postActionTypes.GETTING_LIKERS });
     const likers = await getLikers(post_uid);
     dispatch({
-      type: feedActionTypes.SET_POST_LIKERS,
+      type: postActionTypes.SET_POST_LIKERS,
       payload: { likers, post_uid },
     });
   } catch (err) {
     dispatch({
-      type: feedActionTypes.SOMETHING_WENT_WRONG,
+      type: postActionTypes.SOMETHING_WENT_WRONG,
       payload: err.message,
     });
   }
@@ -103,10 +133,10 @@ export const GET_LIKERS = (post_uid) => async (dispatch) => {
 export const DELETE_POST = (post_uid) => async (dispatch) => {
   try {
     await deletePost(post_uid);
-    dispatch({ type: feedActionTypes.DELETE_POST, payload: { post_uid } });
+    dispatch({ type: postActionTypes.DELETE_POST, payload: { post_uid } });
   } catch (err) {
     dispatch({
-      type: feedActionTypes.SOMETHING_WENT_WRONG,
+      type: postActionTypes.SOMETHING_WENT_WRONG,
       payload: err.message,
     });
   }
@@ -116,7 +146,7 @@ export const UPLOAD_POST = (post_data) => async (dispatch) => {
   try {
     const callMeAfterUploadDone = (post_image, post_uid, post_id) => {
       return dispatch({
-        type: feedActionTypes.UPLOAD_POST,
+        type: postActionTypes.UPLOAD_POST,
         payload: {
           post_image: post_image,
           post_uid: post_uid,
@@ -134,7 +164,7 @@ export const UPLOAD_POST = (post_data) => async (dispatch) => {
     await uploadPost(post_data, callMeAfterUploadDone);
   } catch (err) {
     dispatch({
-      type: feedActionTypes.SOMETHING_WENT_WRONG,
+      type: postActionTypes.SOMETHING_WENT_WRONG,
       payload: err.message,
     });
   }

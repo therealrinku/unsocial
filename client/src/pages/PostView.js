@@ -4,17 +4,15 @@ import { Link } from "react-router-dom";
 import * as Icons from "../Icons/CustomIcons";
 import Navbar from "../components/Navbar";
 import MobileNavbar from "../components/MobileNavbar";
-import * as PostsActions from "../redux/posts/postsActions";
+import * as PostsActions from "../redux/post/postsActions";
 import { connect } from "react-redux";
 import Loader from "../components/Loader";
 import overflowToggler from "../utilities/overflowToggler";
 import Backdrop from "../components/Backdrop";
 import PostOptModal from "../components/PostOptModal";
 import UsersListModal from "../components/UserListModal";
-import Post from "../components/Post";
 
 const PostView = ({
-  feedPosts,
   currentUsername,
   currentUserUid,
   posts,
@@ -44,36 +42,26 @@ const PostView = ({
 
   const post_id = match.params.post_id;
   const currentPost = posts.filter((post) => post.post_id === post_id);
-  const postExistsInFeed =
-    feedPosts.findIndex((post) => post.post_id === post_id) >= 0;
-  const thisPostInFeed = feedPosts.filter((post) => post.post_id === post_id);
 
   const thisPostLikers = currentPost[0]?.post_likers;
 
   const post_uid = currentPost[0]?.post_uid;
-  const haveILiked = postExistsInFeed
-    ? thisPostInFeed[0]?.liked_by_me
-    : currentPost[0]?.liked_by_me;
-  const haveISaved = postExistsInFeed
-    ? thisPostInFeed[0]?.i_have_saved
-    : currentPost[0]?.i_have_saved;
-  const postLikesCount = postExistsInFeed
-    ? thisPostInFeed[0]?.post_likes_count
-    : currentPost[0]?.post_likes_count;
+  const haveILiked = currentPost[0]?.liked_by_me;
+  const haveISaved = currentPost[0]?.i_have_saved;
 
   const likeUnlikePost = () => {
     if (haveILiked) {
-      UNLIKE_POST(post_uid, currentUserUid, postExistsInFeed);
+      UNLIKE_POST(post_uid, currentUserUid);
     } else {
-      LIKE_POST(post_uid, currentUserUid, postExistsInFeed);
+      LIKE_POST(post_uid, currentUserUid);
     }
   };
 
   const saveUnsavePost = () => {
     if (haveISaved) {
-      UNSAVE_POST(post_uid, currentUsername, postExistsInFeed);
+      UNSAVE_POST(post_uid, currentUsername);
     } else {
-      SAVE_POST(post_uid, currentUsername, postExistsInFeed);
+      SAVE_POST(post_uid, currentUsername);
     }
   };
 
@@ -86,7 +74,7 @@ const PostView = ({
 
   const deletePost = () => {
     toggleModal(setShowPostOptionsModal);
-    DELETE_POST(post_uid, postExistsInFeed);
+    DELETE_POST(post_uid);
     history.goBack();
   };
 
@@ -198,7 +186,7 @@ const PostView = ({
 
                 <div>
                   <button onClick={getLikers}>
-                    {postLikesCount || "No"} likes
+                    {currentPost[0]?.post_likes_count || "No"} likes
                   </button>
                   <button>
                     {currentPost[0]?.post_comments_count || 0} comments
@@ -220,7 +208,6 @@ const PostView = ({
 const mapStateToProps = (state) => {
   return {
     loadingLikers: state.posts.loading_likers,
-    feedPosts: state.feed.posts,
     currentUsername: state.user.currentUserData.username,
     currentUserUid: state.user.currentUserData.uid,
     posts: state.posts.posts,
@@ -254,7 +241,7 @@ const mapDispatchToProps = (dispatch) => {
         PostsActions.UNLIKE_POST(post_uid, unliker_uid, post_exists_in_feed)
       ),
     LOAD_POST: (post_id, current_user_uid) =>
-      dispatch(PostsActions.LOAD_POST(post_id, current_user_uid)),
+      dispatch(PostsActions.GET_POST(post_id, current_user_uid)),
   };
 };
 

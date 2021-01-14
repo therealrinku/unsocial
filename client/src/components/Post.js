@@ -2,7 +2,7 @@ import { Fragment, useState } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import * as Icons from "../Icons/CustomIcons";
-import * as feedActions from "../redux/feed/feedActions";
+import * as postsActions from "../redux/post/postsActions";
 import { BiDotsHorizontal } from "react-icons/all";
 import UserListModal from "./UserListModal";
 import Backdrop from "./Backdrop";
@@ -164,8 +164,8 @@ const Post = ({
 
 const mapStateToProps = (state) => {
   return {
-    likersLoading: state.feed.loading_likers,
-    feedPosts: state.feed.posts,
+    likersLoading: state.posts.loading_likers,
+    feedPosts: state.posts.posts.filter((post) => post.infeed === true),
     currentUsername: state.user.currentUserData.username,
     currentUserUid: state.user.currentUserData.uid,
     currentUserProfileimage: state.user.currentUserData.profile_image_url,
@@ -174,16 +174,16 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    DELETE_POST: (post_uid) => dispatch(feedActions.DELETE_POST(post_uid)),
-    GET_LIKERS: (post_uid) => dispatch(feedActions.GET_LIKERS(post_uid)),
+    DELETE_POST: (post_uid) => dispatch(postsActions.DELETE_POST(post_uid)),
+    GET_LIKERS: (post_uid) => dispatch(postsActions.GET_LIKERS(post_uid)),
     SAVE_POST: (post_uid, saver_username) =>
-      dispatch(feedActions.SAVE_POST(post_uid, saver_username)),
+      dispatch(postsActions.SAVE_POST(post_uid, saver_username)),
     UNSAVE_POST: (post_uid, unsaver_username) =>
-      dispatch(feedActions.UNSAVE_POST(post_uid, unsaver_username)),
+      dispatch(postsActions.UNSAVE_POST(post_uid, unsaver_username)),
     LIKE_POST: (post_uid, liker_uid) =>
-      dispatch(feedActions.LIKE_POST(post_uid, liker_uid)),
+      dispatch(postsActions.LIKE_POST(post_uid, liker_uid)),
     UNLIKE_POST: (post_uid, unliker_uid) =>
-      dispatch(feedActions.UNLIKE_POST(post_uid, unliker_uid)),
+      dispatch(postsActions.UNLIKE_POST(post_uid, unliker_uid)),
   };
 };
 

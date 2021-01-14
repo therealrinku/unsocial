@@ -1,6 +1,5 @@
 import Feed from "../components/Feed";
 import Navbar from "../components/Navbar";
-import * as feedActions from "../redux/feed/feedActions";
 import { connect } from "react-redux";
 import { Fragment, useEffect, useState } from "react";
 import PostButton from "../components/PostButton";
@@ -9,6 +8,7 @@ import AddPostModal from "../components/AddPostModal";
 import Backdrop from "../components/Backdrop";
 import MobileNavbar from "../components/MobileNavbar";
 import Loader from "../components/Loader";
+import * as postsActions from "../redux/post/postsActions";
 import * as userActions from "../redux/user/userActions";
 import Recommended from "../components/Recommended";
 
@@ -90,10 +90,10 @@ const Homepage = ({
 
 const mapStateToProps = (state) => {
   return {
-    feedLoaded: state.feed.feed_loaded,
+    feedLoaded: state.posts.feed_loaded,
     recommendedUsers: state.user.recommendedUsers,
-    loading: state.feed.loading_feed,
-    feed: state.feed.posts,
+    loading: state.posts.loading_feed,
+    feed: state.posts.posts.filter((post) => post.infeed === true),
     currentUsername: state.user.currentUserData.username,
     currentUserUid: state.user.currentUserData.uid,
     currentUserProfileImage: state.user.currentUserData.profile_image_url,
@@ -103,8 +103,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     GET_RECOMMENDED_USERS: (uid) => dispatch(userActions.GET_RECOMMENDED(uid)),
-    UPLOAD_POST: (post_data) => dispatch(feedActions.UPLOAD_POST(post_data)),
-    GET_FEED: (user_uid) => dispatch(feedActions.GET_FEED(user_uid)),
+    UPLOAD_POST: (post_data) => dispatch(postsActions.UPLOAD_POST(post_data)),
+    GET_FEED: (user_uid) => dispatch(postsActions.GET_FEED(user_uid)),
   };
 };
 

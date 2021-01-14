@@ -1,6 +1,10 @@
-const feedActionTypes = {
+const postActionTypes = {
+  LOADING_EXPLORE_POSTS: "LOADING_EXPLORE_POSTS",
+  ADD_EXPLORE_POSTS: "ADD_EXPLORE_POSTS",
   GETTING_FEED: "GETTING_FEED",
   SET_FEED: "SET_FEED",
+  GETTING_POST: "GETTING_POST",
+  ADD_POST: "ADD_POST",
   SOMETHING_WENT_WRONG: "SOMETHING_WENT_WRONG",
   LIKE_POST: "LIKE_POST",
   UNLIKE_POST: "UNLIKE_POST",
@@ -12,4 +16,4 @@ const feedActionTypes = {
   UPLOAD_POST: "UPLOAD_POST",
 };
 
-export default feedActionTypes;
+export default postActionTypes;

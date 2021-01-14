@@ -1,37 +1,48 @@
-import postActionTypes from "./postsActionsTypes";
+import postActionTypes from "./postsActionTypes";
 
-const initialState = {
+const initial_state = {
   posts: [],
-  explore_posts: [],
-  loading_explore_posts: false,
-  loading_post: false,
-  loading_likers: false,
   error: null,
+  loading_feed: false,
+  loading_likers: false,
+  feed_loaded: false,
+  loading_post: false,
+  loading_explore_posts: false,
+  explore_posts: [],
 };
 
-const postsReducer = (state = initialState, action) => {
+const postsReducer = (state = initial_state, action) => {
   switch (action.type) {
     case postActionTypes.LOADING_EXPLORE_POSTS:
       return {
         ...state,
+        error: null,
         loading_explore_posts: true,
       };
 
-    case postActionTypes.SET_EXPLORE_POSTS:
+    case postActionTypes.ADD_EXPLORE_POSTS:
       return {
         ...state,
         loading_explore_posts: false,
-        explore_posts: [...action.payload],
-      };
-
-    case postActionTypes.GETTING_P_LIKERS:
-      return {
-        ...state,
-        loading_likers: true,
+        explore_posts: action.payload,
         error: null,
       };
 
-    case postActionTypes.LIKE_P_POST:
+    case postActionTypes.GETTING_POST:
+      return {
+        ...state,
+        loading_post: true,
+      };
+
+    case postActionTypes.ADD_POST:
+      return {
+        ...state,
+        posts: [...state.posts, action.payload],
+        loading_post: false,
+        error: null,
+      };
+
+    case postActionTypes.LIKE_POST:
       const postsCopyA = [...state.posts];
       const indexToUpdateA = postsCopyA.findIndex(
         (post) => post.post_uid === action.payload.post_uid
@@ -45,7 +56,7 @@ const postsReducer = (state = initialState, action) => {
         posts: postsCopyA,
       };
 
-    case postActionTypes.UNLIKE_P_POST:
+    case postActionTypes.UNLIKE_POST:
       const postsCopyB = [...state.posts];
       const indexToUpdateB = postsCopyB.findIndex(
         (post) => post.post_uid === action.payload.post_uid
@@ -59,7 +70,7 @@ const postsReducer = (state = initialState, action) => {
         posts: postsCopyB,
       };
 
-    case postActionTypes.SAVE_P_POST:
+    case postActionTypes.SAVE_POST:
       const postsCopyC = [...state.posts];
       const indexToUpdateC = postsCopyC.findIndex(
         (post) => post.post_uid === action.payload.post_uid
@@ -71,7 +82,7 @@ const postsReducer = (state = initialState, action) => {
         posts: postsCopyC,
       };
 
-    case postActionTypes.UNSAVE_P_POST:
+    case postActionTypes.UNSAVE_POST:
       const postsCopyD = [...state.posts];
       const indexToUpdateD = postsCopyD.findIndex(
         (post) => post.post_uid === action.payload.post_uid
@@ -83,30 +94,25 @@ const postsReducer = (state = initialState, action) => {
         posts: postsCopyD,
       };
 
-    case postActionTypes.LOADING_POST:
+    case postActionTypes.SOMETHING_WENT_WRONG:
       return {
         ...state,
-        loading_post: true,
-        error: null,
-      };
-
-    case postActionTypes.SET_POST:
-      return {
-        ...state,
-        posts: [...state.posts, ...action.payload],
-        loading_post: false,
-        error: null,
-      };
-
-    case postActionTypes.ERROR_IN_POST:
-      return {
-        ...state,
-        loading_post: false,
         loading_likers: false,
+        loading_feed: false,
         error: action.payload,
       };
 
-    case postActionTypes.SET_P_POST_LIKERS:
+    case postActionTypes.SET_FEED:
+      return {
+        ...state,
+        posts: action.payload,
+        error: null,
+        loading_likers: false,
+        loading_feed: false,
+        feed_loaded: true,
+      };
+
+    case postActionTypes.SET_POST_LIKERS:
       const postsCopyE = [...state.posts];
       const indexToUpdateE = postsCopyE.findIndex(
         (post) => post.post_uid === action.payload.post_uid
@@ -115,15 +121,36 @@ const postsReducer = (state = initialState, action) => {
       return {
         ...state,
         posts: postsCopyE,
+        loading_feed: false,
         loading_likers: false,
       };
 
-    case postActionTypes.DELETE_P_POST:
+    case postActionTypes.GETTING_FEED:
+      return {
+        ...state,
+        loading_feed: true,
+        error: null,
+      };
+
+    case postActionTypes.GETTING_LIKERS:
+      return {
+        ...state,
+        loading_likers: true,
+        error: null,
+      };
+
+    case postActionTypes.DELETE_POST:
       return {
         ...state,
         posts: state.posts.filter(
           (post) => post.post_uid !== action.payload.post_uid
         ),
+      };
+
+    case postActionTypes.UPLOAD_POST:
+      return {
+        ...state,
+        posts: [...state.posts, action.payload],
       };
 
     default:

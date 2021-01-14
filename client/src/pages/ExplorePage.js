@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import Loader from "../components/Loader";
 import Navbar from "../components/Navbar";
 import PostsGrid from "../components/PostsGrid";
-import * as PostsActions from "../redux/posts/postsActions";
+import * as PostsActions from "../redux/post/postsActions";
 
 const ExplorePage = ({ loading, explorePosts, loadExplorePosts }) => {
   useEffect(() => {
