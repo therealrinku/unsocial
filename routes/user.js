@@ -2,9 +2,12 @@ const db = require("../database/db");
 const router = require("express").Router();
 
 //get recommended users
-router.get("/getrecommended", (req, res) => {
+router.get("/getrecommended/:currentUsername", (req, res) => {
   db.query(
-    `SELECT username,profile_image_url FROM users LIMIT 15 `,
+    `SELECT username,profile_image_url FROM users WHERE (uid)::text NOT IN (SELECT unnest(following) 
+    FROM users WHERE username='${req.params.currentUsername}') 
+    AND 
+    username !='${req.params.currentUsername}' LIMIT 15 `,
     (err, res1) => {
       if (!err) res.send(res1.rows);
       else throw err;
