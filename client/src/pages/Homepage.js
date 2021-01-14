@@ -53,7 +53,7 @@ const Homepage = ({
     }
     if (feedLoaded && feed.length < 1) {
       console.log("s");
-      GET_RECOMMENDED_USERS();
+      GET_RECOMMENDED_USERS(currentUsername);
     }
   }, [currentUserUid, feedLoaded]);
 
@@ -102,7 +102,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    GET_RECOMMENDED_USERS: () => dispatch(userActions.GET_RECOMMENDED()),
+    GET_RECOMMENDED_USERS: (username) =>
+      dispatch(userActions.GET_RECOMMENDED(username)),
     UPLOAD_POST: (post_data) => dispatch(feedActions.UPLOAD_POST(post_data)),
     GET_FEED: (user_uid) => dispatch(feedActions.GET_FEED(user_uid)),
   };

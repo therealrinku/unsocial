@@ -1,12 +1,14 @@
 import axios from "axios";
 import server_url from "../server_url";
 
-export const getRecommendedUsers = async () => {
+export const getRecommendedUsers = async (username) => {
   try {
     return new Promise((resolve) => {
-      return axios.get(server_url + `/user/getrecommended`).then((res) => {
-        resolve(res.data);
-      });
+      return axios
+        .get(server_url + `/user/getrecommended/${username}`)
+        .then((res) => {
+          resolve(res.data);
+        });
     });
   } catch (err) {
     throw new Error(err.message);

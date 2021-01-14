@@ -2,10 +2,10 @@ import { loginUser, loginWithUid } from "../../services/authServices";
 import { getRecommendedUsers } from "../../services/userServices";
 import userActionTypes from "./userActionTypes";
 
-export const GET_RECOMMENDED = () => async (dispatch) => {
+export const GET_RECOMMENDED = (username) => async (dispatch) => {
   try {
     dispatch({ type: userActionTypes.LOADING });
-    const data = await getRecommendedUsers();
+    const data = await getRecommendedUsers(username);
     dispatch({ type: userActionTypes.SET_RECOMMENDED_USERS, payload: data });
   } catch (err) {
     dispatch({
