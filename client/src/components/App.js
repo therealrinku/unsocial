@@ -9,6 +9,7 @@ import Landingpage from "../pages/Landingpage";
 import Loginpage from "../pages/Loginpage";
 import Signuppage from "../pages/Signuppage";
 import * as userActions from "../redux/user/userActions";
+import { SiInstagram } from "react-icons/all";
 
 const App = ({ loading, currentUsername, LOGIN_WITH_UID }) => {
   const token = localStorage.getItem("token");
@@ -21,18 +22,35 @@ const App = ({ loading, currentUsername, LOGIN_WITH_UID }) => {
 
   return (
     <BrowserRouter>
-      <Switch>
-        <Route
-          path="/"
-          exact
-          component={currentUsername ? Homepage : Landingpage}
-        />
-        <Route path="/login" exact component={Loginpage} />
-        <Route path="/signup" exact component={Signuppage} />
-        <Route path="/explore" exact component={ExplorePage} />
-        <Route path="/:username" exact component={Profilepage} />
-        <Route path="/p/:post_id" exact component={PostView} />
-      </Switch>
+      {loading ? (
+        <div
+          style={{
+            width: "100vw",
+            height: "100vh",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            fontSize: "45px",
+            color: "rgba(0,0,0,0.5)",
+          }}
+        >
+          <SiInstagram />
+        </div>
+      ) : (
+        <Switch>
+          <Route
+            path="/"
+            exact
+            component={currentUsername ? Homepage : Landingpage}
+          />
+          <Route path="/login" exact component={Loginpage} />
+          <Route path="/signup" exact component={Signuppage} />
+          <Route path="/explore" exact component={ExplorePage} />
+          <Route path="/:username" exact component={Profilepage} />
+          <Route path="/p/:post_id" exact component={PostView} />
+        </Switch>
+      )}
     </BrowserRouter>
   );
 };
