@@ -146,9 +146,9 @@ router.post("/follow", (req, res) => {
 });
 
 //get current user data
-router.get("/loggeninuserinfo/:username", (req, res) => {
+router.get("/loggeninuserinfo/:uid", (req, res) => {
   db.query(
-    `SELECT username,uid,profile_image_url FROM users WHERE username='${req.params.username}'`,
+    `SELECT username,uid,profile_image_url FROM users WHERE (uid)::text='${req.params.uid}'`,
     (err, res0) => {
       if (err) {
         throw err;
