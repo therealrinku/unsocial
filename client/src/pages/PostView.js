@@ -12,6 +12,7 @@ import Backdrop from "../components/Backdrop";
 import PostOptModal from "../components/PostOptModal";
 import UsersListModal from "../components/UserListModal";
 import CommentBox from "../components/CommentBox";
+import CommentsView from "../components/CommentsView";
 
 const PostView = ({
   currentUsername,
@@ -169,7 +170,9 @@ const PostView = ({
                 </ul>
               </div>
 
-              <div className="comment--view-section"></div>
+              <div className="comment--view-section">
+                <CommentsView comments={thisPostComments || []} />
+              </div>
 
               <div className="absolute--bottom">
                 <div className="buttons">

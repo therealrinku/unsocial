@@ -1,6 +1,6 @@
 import React from "react";
 
-const CommentsView = (comments) => {
+const CommentsView = ({ comments }) => {
   return (
     <div className="comments--view">
       {comments.map((comment) => {
@@ -9,6 +9,7 @@ const CommentsView = (comments) => {
             <section>
               <img src={comment.poster_profile_image} alt="profile-image" />
               <p>{comment.poster_username}</p>
+              <p>{comment.comment}</p>
             </section>
 
             <section>
