@@ -99,6 +99,14 @@
     font-size: 12px;
     color: rgba(0, 0, 0, 0.6);
   }
+
+  .comment--box-pc {
+    margin: 0;
+    box-sizing: border-box;
+    margin-left: 10px;
+    width: 100%;
+    padding: 10px 0;
+  }
 }
 
 @media (max-width: 750px) {
@@ -106,5 +114,9 @@
     width: 100%;
     background: inherit;
     border: none;
+  }
+
+  .comment--box-pc {
+    display: none;
   }
 }

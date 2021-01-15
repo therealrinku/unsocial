@@ -127,6 +127,10 @@ const Post = ({
         <div>
           <p>{post_postedDate}</p>
         </div>
+
+        <section className="comment--box-pc">
+          <CommentBox />
+        </section>
       </div>
 
       {showLikers ? (
