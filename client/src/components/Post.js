@@ -8,6 +8,7 @@ import UserListModal from "./UserListModal";
 import Backdrop from "./Backdrop";
 import overflowToggler from "../utilities/overflowToggler";
 import PostOptModal from "./PostOptModal";
+import CommentBox from "./CommentBox";
 
 const Post = ({
   post_commentsCount,
