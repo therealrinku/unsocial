@@ -12,7 +12,7 @@ const CommentsView = ({ comments }) => {
             <div style={{ display: "flex", flexDirection: "column" }}>
               <div>
                 <p className="username--comment">
-                  <NavLink to={`${comment.poster_username}`}>
+                  <NavLink to={`/${comment.poster_username}`}>
                     {comment.poster_username}
                   </NavLink>{" "}
                   {comment.comment}
