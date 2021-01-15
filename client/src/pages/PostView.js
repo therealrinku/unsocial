@@ -11,6 +11,7 @@ import overflowToggler from "../utilities/overflowToggler";
 import Backdrop from "../components/Backdrop";
 import PostOptModal from "../components/PostOptModal";
 import UsersListModal from "../components/UserListModal";
+import CommentBox from "../components/CommentBox";
 
 const PostView = ({
   currentUsername,
@@ -196,6 +197,8 @@ const PostView = ({
                 <div className="date">
                   <p>{currentPost[0]?.post_posted_date}</p>
                 </div>
+
+                <CommentBox />
               </div>
             </section>
           </div>
