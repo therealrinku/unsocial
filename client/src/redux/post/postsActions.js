@@ -52,7 +52,8 @@ export const ADD_COMMENT = (
     dispatch({
       type: postActionTypes.ADD_COMMENT,
       payload: {
-        post_uid:post_uid,
+        liked_by_me: false,
+        post_uid: post_uid,
         comment_uid: response[0]?.comment_uid,
         poster_profile_image: currentUserProfileImage,
         poster_username: currentUsername,
