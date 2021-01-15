@@ -28,6 +28,7 @@ const PostView = ({
   GET_LIKERS,
   loadingLikers,
   DELETE_POST,
+  GET_COMMENTS,
 }) => {
   //modal
   const [showPostOptionsModal, setShowPostOptionsModal] = useState(false);
@@ -45,6 +46,7 @@ const PostView = ({
   const currentPost = posts.filter((post) => post.post_id === post_id);
 
   const thisPostLikers = currentPost[0]?.post_likers;
+  const thisPostComments = currentPost[0]?.comments;
 
   const post_uid = currentPost[0]?.post_uid;
   const haveILiked = currentPost[0]?.liked_by_me;
@@ -73,6 +75,12 @@ const PostView = ({
     }
   };
 
+  const getComments = () => {
+    if (!thisPostComments) {
+      GET_COMMENTS(post_uid, currentUserUid);
+    }
+  };
+
   const deletePost = () => {
     toggleModal(setShowPostOptionsModal);
     DELETE_POST(post_uid);
@@ -80,6 +88,7 @@ const PostView = ({
   };
 
   useEffect(() => {
+    getComments();
     if (currentPost.length < 1) {
       LOAD_POST(post_id, currentUserUid);
     }
@@ -223,6 +232,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    GET_COMMENTS: (post_uid, currentUserUid) =>
+      dispatch(PostsActions.GET_COMMENTS(post_uid, currentUserUid)),
     DELETE_POST: (post_uid) => dispatch(PostsActions.DELETE_POST(post_uid)),
     GET_LIKERS: (post_uid) => dispatch(PostsActions.GET_LIKERS(post_uid)),
     SAVE_POST: (post_uid, saver_username) =>

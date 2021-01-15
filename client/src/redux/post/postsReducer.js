@@ -24,7 +24,7 @@ const postsReducer = (state = initial_state, action) => {
     case postActionTypes.ADD_COMMENTS:
       const postsCopy = [...state.posts];
       const postIndex = postsCopy.findIndex(
-        (post) => post.uid === action.payload.post_uid
+        (post) => post.post_uid === action.payload.post_uid
       );
       postsCopy[postIndex].comments = action.payload.comments;
 

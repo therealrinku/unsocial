@@ -20,8 +20,8 @@ export const GET_COMMENTS = (post_uid, current_user_uid) => async (
     dispatch({ type: postActionTypes.GETTING_COMMENTS });
     const comments = await getComments(post_uid, current_user_uid);
     dispatch({
-      type: postActionTypes.ADD_COMMENT,
-      payload: { post_uid, comments: comments },
+      type: postActionTypes.ADD_COMMENTS,
+      payload: { post_uid: post_uid, comments: comments },
     });
   } catch (err) {
     dispatch({
