@@ -17,6 +17,7 @@ const Post = ({
   post_postedDate,
   post_status,
   post_id,
+  post_owner_uid,
   post_uid,
   poster_profileImage,
   poster_username,
@@ -129,7 +130,7 @@ const Post = ({
         </div>
 
         <section className="comment--box-pc">
-          <CommentBox />
+          <CommentBox post_uid={post_uid} post_owner_uid={post_owner_uid} />
         </section>
       </div>
 

@@ -198,7 +198,10 @@ const PostView = ({
                   <p>{currentPost[0]?.post_posted_date}</p>
                 </div>
 
-                <CommentBox />
+                <CommentBox
+                  post_uid={post_uid}
+                  post_owner_uid={currentPost[0]?.poster_uid}
+                />
               </div>
             </section>
           </div>

@@ -20,6 +20,7 @@ const Feed = ({ feed }) => {
               post_postedDate={post.post_posted_date}
               post_likesCount={post.post_likes_count}
               post_status={post.post_status}
+              post_owner_uid={post.poster_uid}
               post_commentsCount="1k"
               haveISaved={post.i_have_saved}
             />
