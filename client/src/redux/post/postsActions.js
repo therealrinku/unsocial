@@ -9,7 +9,7 @@ import {
   unsavePost,
   uploadPost,
   getExplorePosts,
-} from "../../services/feedServices";
+} from "../../services/postsServices";
 import postActionTypes from "./postsActionTypes";
 
 export const LOAD_EXPLORE_POSTS = () => async (dispatch) => {
