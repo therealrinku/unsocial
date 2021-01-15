@@ -10,7 +10,33 @@ import {
   uploadPost,
   getExplorePosts,
 } from "../../services/postsServices";
+import { addComment } from "../../services/commentServices";
 import postActionTypes from "./postsActionTypes";
+
+export const ADD_COMMENT = (
+  comment,
+  commenter_uid,
+  post_uid,
+  post_owner_uid,
+  posted_date
+) => async (dispatch) => {
+  try {
+    dispatch({ type: postActionTypes.ADDING_COMMENT });
+    await addComment(
+      comment,
+      commenter_uid,
+      post_uid,
+      post_owner_uid,
+      posted_date
+    );
+    // dispatch({ type: postActionTypes.ADD_COMMENT });
+  } catch (err) {
+    dispatch({
+      type: postActionTypes.SOMETHING_WENT_WRONG,
+      payload: err.message,
+    });
+  }
+};
 
 export const LOAD_EXPLORE_POSTS = () => async (dispatch) => {
   try {

@@ -9,10 +9,18 @@ const initial_state = {
   loading_post: false,
   loading_explore_posts: false,
   explore_posts: [],
+  adding_comment: false,
 };
 
 const postsReducer = (state = initial_state, action) => {
   switch (action.type) {
+    case postActionTypes.ADDING_COMMENT:
+      return {
+        ...state,
+        error: null,
+        adding_comment: true,
+      };
+
     case postActionTypes.LOADING_EXPLORE_POSTS:
       return {
         ...state,
