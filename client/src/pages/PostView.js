@@ -223,29 +223,16 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    DELETE_POST: (post_uid, post_exists_in_feed) =>
-      dispatch(PostsActions.DELETE_POST(post_uid, post_exists_in_feed)),
+    DELETE_POST: (post_uid) => dispatch(PostsActions.DELETE_POST(post_uid)),
     GET_LIKERS: (post_uid) => dispatch(PostsActions.GET_LIKERS(post_uid)),
-    SAVE_POST: (post_uid, saver_username, post_exists_in_feed) =>
-      dispatch(
-        PostsActions.SAVE_POST(post_uid, saver_username, post_exists_in_feed)
-      ),
-    UNSAVE_POST: (post_uid, unsaver_username, post_exists_in_feed) =>
-      dispatch(
-        PostsActions.UNSAVE_POST(
-          post_uid,
-          unsaver_username,
-          post_exists_in_feed
-        )
-      ),
-    LIKE_POST: (post_uid, liker_uid, post_exists_in_feed) =>
-      dispatch(
-        PostsActions.LIKE_POST(post_uid, liker_uid, post_exists_in_feed)
-      ),
-    UNLIKE_POST: (post_uid, unliker_uid, post_exists_in_feed) =>
-      dispatch(
-        PostsActions.UNLIKE_POST(post_uid, unliker_uid, post_exists_in_feed)
-      ),
+    SAVE_POST: (post_uid, saver_username) =>
+      dispatch(PostsActions.SAVE_POST(post_uid, saver_username)),
+    UNSAVE_POST: (post_uid, unsaver_username) =>
+      dispatch(PostsActions.UNSAVE_POST(post_uid, unsaver_username)),
+    LIKE_POST: (post_uid, liker_uid) =>
+      dispatch(PostsActions.LIKE_POST(post_uid, liker_uid)),
+    UNLIKE_POST: (post_uid, unliker_uid) =>
+      dispatch(PostsActions.UNLIKE_POST(post_uid, unliker_uid)),
     LOAD_POST: (post_id, current_user_uid) =>
       dispatch(PostsActions.GET_POST(post_id, current_user_uid)),
   };
