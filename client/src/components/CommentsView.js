@@ -6,7 +6,7 @@ const CommentsView = ({ comments }) => {
     <div className="comments--view">
       {comments.map((comment) => {
         return (
-          <div key={comment.comment_uid} className="comment">
+          <div key={new Date() * Math.random()} className="comment">
             <img src={comment.poster_profile_image} alt="profile-image" />
 
             <div style={{ display: "flex", flexDirection: "column" }}>
