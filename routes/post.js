@@ -22,6 +22,7 @@ router.get("/getpost/:post_id/:current_user_uid", (req, res) => {
     '${req.params.current_user_uid}'=ANY(followers) AS followed_by_me,
     post_uid,username as poster_username,
     post_id,
+    owner_uid as poster_uid,
     profile_image_url as poster_profileImage,
     image_url as post_image,
     array_length(likers,1) as post_likes_count,
@@ -168,6 +169,7 @@ router.get("/feed/:user_uid", (req, res) => {
     true as inFeed,
     profile_image_url as poster_profileImage,
     image_url as post_image,
+    owner_uid as poster_uid,
     array_length(likers,1) as post_likes_count,
     posted_date as post_posted_date,
     status as post_status
