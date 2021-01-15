@@ -41,6 +41,23 @@ const postsReducer = (state = initial_state, action) => {
         adding_comment: true,
       };
 
+    case postActionTypes.ADD_COMMENT:
+      const postsCopyX = [...state.posts];
+      const postIndexX = postsCopyX.findIndex(
+        (post) => post.post_uid === action.payload.post_uid
+      );
+      postsCopyX[postIndexX].comments = [
+        ...postsCopyX[postIndexX].comments,
+        action.payload,
+      ];
+
+      return {
+        ...state,
+        error: null,
+        adding_comment: false,
+        posts: postsCopyX,
+      };
+
     case postActionTypes.LOADING_EXPLORE_POSTS:
       return {
         ...state,
@@ -128,6 +145,8 @@ const postsReducer = (state = initial_state, action) => {
         loading_likers: false,
         loading_feed: false,
         error: action.payload,
+        adding_comment: false,
+        loading_post: false,
       };
 
     case postActionTypes.SET_FEED:

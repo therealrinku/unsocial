@@ -8,6 +8,8 @@ const CommentBox = ({
   ADD_COMMENT,
   currentUserUid,
   addingComment,
+  currentUserProfileImage,
+  currentUsername,
 }) => {
   const [comment, setComment] = useState("");
 
@@ -19,7 +21,9 @@ const CommentBox = ({
         currentUserUid,
         post_uid,
         post_owner_uid,
-        `${new Date()}`
+        `${new Date()}`,
+        currentUserProfileImage,
+        currentUsername
       );
       setComment("");
     }
@@ -44,6 +48,8 @@ const CommentBox = ({
 
 const mapStateToProps = (state) => {
   return {
+    currentUsername: state.user.currentUserData.username,
+    currentUserProfileImage: state.user.currentUserData.profile_image_url,
     currentUserUid: state.user.currentUserData.uid,
     addingComment: state.posts.adding_comment,
   };
@@ -56,7 +62,9 @@ const mapDispatchToProps = (dispatch) => {
       commenter_uid,
       post_uid,
       post_owner_uid,
-      posted_date
+      posted_date,
+      currentUserProfileImage,
+      currentUsername
     ) =>
       dispatch(
         postsActions.ADD_COMMENT(
@@ -64,7 +72,9 @@ const mapDispatchToProps = (dispatch) => {
           commenter_uid,
           post_uid,
           post_owner_uid,
-          posted_date
+          posted_date,
+          currentUserProfileImage,
+          currentUsername
         )
       ),
   };

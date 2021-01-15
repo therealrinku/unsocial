@@ -36,18 +36,31 @@ export const ADD_COMMENT = (
   commenter_uid,
   post_uid,
   post_owner_uid,
-  posted_date
+  posted_date,
+  currentUserProfileImage,
+  currentUsername
 ) => async (dispatch) => {
   try {
     dispatch({ type: postActionTypes.ADDING_COMMENT });
-    await addComment(
+    const response = await addComment(
       comment,
       commenter_uid,
       post_uid,
       post_owner_uid,
       posted_date
     );
-    // dispatch({ type: postActionTypes.ADD_COMMENT });
+    dispatch({
+      type: postActionTypes.ADD_COMMENT,
+      payload: {
+        post_uid:post_uid,
+        comment_uid: response[0]?.comment_uid,
+        poster_profile_image: currentUserProfileImage,
+        poster_username: currentUsername,
+        comment: comment,
+        comment_likes_count: 0,
+        comment_posted_date: posted_date,
+      },
+    });
   } catch (err) {
     dispatch({
       type: postActionTypes.SOMETHING_WENT_WRONG,
