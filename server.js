@@ -14,10 +14,12 @@ const server = http.createServer(app);
 const post = require("./routes/post");
 const user = require("./routes/user");
 const auth = require("./routes/auth");
+const comment = require("./routes/comment");
 //redirection
 app.use("/post", post);
 app.use("/user", user);
 app.use("/auth", auth);
+app.use("/comment", comment);
 
 //server running
 server.listen(port, () => {
