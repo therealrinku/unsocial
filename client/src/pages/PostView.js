@@ -89,7 +89,12 @@ const PostView = ({
   };
 
   useEffect(() => {
-    getComments();
+    if (post_uid) {
+      getComments();
+    }
+  }, [post_uid]);
+
+  useEffect(() => {
     if (currentPost.length < 1) {
       LOAD_POST(post_id, currentUserUid);
     }
