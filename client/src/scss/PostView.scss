@@ -49,10 +49,13 @@
 
   section:last-child {
     position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
 
     .comment--view-section {
-      height: 58%;
+      height: 55%;
       overflow: auto;
+      margin: 0;
     }
 
     .top--section {
