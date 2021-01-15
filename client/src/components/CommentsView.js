@@ -5,16 +5,20 @@ const CommentsView = ({ comments }) => {
     <div className="comments--view">
       {comments.map((comment) => {
         return (
-          <div key={comment.comment_uid}>
+          <div key={comment.comment_uid} className="comment">
             <section>
               <img src={comment.poster_profile_image} alt="profile-image" />
-              <p>{comment.poster_username}</p>
-              <p>{comment.comment}</p>
+              <p className="username">{comment.poster_username}</p>
             </section>
 
             <section>
-              <p>{comment.posted_date}</p>
-              <p>{comment.comment_likes_count || 0} likes</p>
+              <p className="comment_">{comment.comment}</p>
+
+              <div>
+                <p>1h</p>
+                <button>{comment.comment_likes_count || 0} likes</button>
+                <button>like</button>
+              </div>
             </section>
           </div>
         );

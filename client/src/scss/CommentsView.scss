@@ -1,7 +1,41 @@
 .comments--view {
-  height: inherit;
+  .comment {
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .comment_ {
+    word-break: break-all;
+    padding-right: 10px;
+  }
+
+  img {
+    margin: 0 5px;
+  }
 
   p {
-    font-size: 15px;
+    font-size: 13px;
+  }
+
+  .username {
+    font-weight: bold;
+    margin-right: 5px;
+  }
+
+  section:first-child {
+    display: flex;
+    align-items: center;
+    border: none;
+  }
+
+  section:last-child {
+    display: flex;
+    flex-direction: column;
+
+    div {
+      display: flex;
+      margin-top: -10px;
+      align-items: center;
+    }
   }
 }
