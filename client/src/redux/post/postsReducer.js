@@ -10,10 +10,30 @@ const initial_state = {
   loading_explore_posts: false,
   explore_posts: [],
   adding_comment: false,
+  getting_comments: false,
 };
 
 const postsReducer = (state = initial_state, action) => {
   switch (action.type) {
+    case postActionTypes.GETTING_COMMENTS:
+      return {
+        ...state,
+        getting_comments: true,
+      };
+
+    case postActionTypes.ADD_COMMENTS:
+      const postsCopy = [...state.posts];
+      const postIndex = postsCopy.findIndex(
+        (post) => post.uid === action.payload.post_uid
+      );
+      postsCopy[postIndex].comments = action.payload.comments;
+
+      return {
+        ...state,
+        posts: postsCopy,
+        getting_comments: false,
+      };
+
     case postActionTypes.ADDING_COMMENT:
       return {
         ...state,
