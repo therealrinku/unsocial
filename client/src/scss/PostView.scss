@@ -1,10 +1,10 @@
 .post--view-- {
   width: 70%;
-  height: 500px;
+  height: 550px;
   margin: 16vh auto;
   border: solid 1px rgba(0, 0, 0, 0.5);
   display: grid;
-  grid-template-columns: 0.6fr 0.4fr;
+  grid-template-columns: 0.65fr 0.35fr;
   font-family: arial;
   background: white;
 
@@ -40,7 +40,7 @@
     img {
       width: 100%;
       height: 100%;
-      max-height: 500px;
+      max-height: 550px;
       object-fit: cover;
       box-sizing: border-box;
       display: block;
