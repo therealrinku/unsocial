@@ -20,9 +20,10 @@ router.post("/addcomment", (req, res) => {
   db.query(
     `INSERT INTO comments(comment,commenter_uid,post_uid,post_owner_uid,posted_date)
     VALUES('${req.body.comment}','${req.body.commenter_uid}',
-    '${req.body.post_uid}','${req.body.post_owner_uid}','${req.body.posted_date}')`,
+    '${req.body.post_uid}','${req.body.post_owner_uid}','${req.body.posted_date}')
+    returning comment_uid`,
     (err, res1) => {
-      if (!err) res.send("success");
+      if (!err) res.send(res1.rows);
       else throw err;
     }
   );
