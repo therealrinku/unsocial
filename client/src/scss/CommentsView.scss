@@ -17,31 +17,25 @@
 
   img {
     margin: 0 5px;
+    margin-top: 6px;
   }
 
   p {
     font-size: 13px;
   }
 
-  .username {
+  a {
+    text-decoration: none;
+    color: black;
     font-weight: bold;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  .username--comment {
     margin-right: 5px;
-  }
-
-  section:first-child {
-    display: flex;
-    align-items: center;
-    border: none;
-  }
-
-  section:last-child {
-    display: flex;
-    flex-direction: column;
-
-    div {
-      display: flex;
-      margin-top: -15px;
-      align-items: center;
-    }
+    word-break: break-all;
   }
 }
