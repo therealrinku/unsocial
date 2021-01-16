@@ -12,6 +12,19 @@
   width: 100%;
   z-index: 1;
 
+  .login--btn,
+  .signup--btn {
+    border: none;
+    padding: 8px 20px;
+    margin-left: 5px;
+    border-radius: 5px;
+  }
+
+  .login--btn {
+    background: #2196f3;
+    color: white;
+  }
+
   ul:first-child {
     font-family: "Dancing Script";
     font-weight: bold;

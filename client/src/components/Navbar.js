@@ -20,7 +20,15 @@ const Navbar = ({ currentUsername, currentUserProfileimage }) => {
         <SearchView />
       </ul>
 
-      <ul className="right">
+      <ul style={currentUsername ? { display: "none" } : null}>
+        <button className="login--btn">Login</button>
+        <button className="signup--btn">Signup</button>
+      </ul>
+
+      <ul
+        className="right"
+        style={!currentUsername ? { display: "none" } : null}
+      >
         <Link to="/">
           {pathname === "/" ? <Icons.HomeActiveIcon /> : <Icons.HomeIcon />}
         </Link>
