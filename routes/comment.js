@@ -1,6 +1,19 @@
 const router = require("express").Router();
 const db = require("../database/db");
 
+//get comment likers
+router.get("/likers/:comment_uid", (req, res) => {
+  db.query(
+    `SELECT username,profile_image_url FROM users WHERE (uid)::text IN 
+    (SELECT unnest(likers) FROM comments WHERE (comment_uid)::text='${req.params.comment_uid}')
+  `,
+    (err, res1) => {
+      if (!err) res.send(res1.rows);
+      else throw err;
+    }
+  );
+});
+
 //delete comment
 router.post("/delete", (req, res) => {
   db.query(
