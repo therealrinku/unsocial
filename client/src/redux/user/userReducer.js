@@ -6,6 +6,7 @@ const intialState = {
     username: null,
     profile_image_url: null,
   },
+  token: localStorage.getItem("token"),
   error: null,
   loading: false,
   recommendedUsers: [],
