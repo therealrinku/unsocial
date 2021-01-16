@@ -1,6 +1,17 @@
 import axios from "axios";
 import server_url from "../server_url";
 
+
+export const getCommentLikers = async (comment_uid) => {
+  try {
+   const likers= await axios.gte(server_url + `/comment/likers/${comment_uid }`).then(res=>res.data);
+   return likers;
+  } catch (err) {
+    throw new Error(err.message);
+  }
+};
+
+
 export const deleteComment = async (comment_uid) => {
   try {
     await axios.post(server_url + "/comment/delete", { comment_uid });
