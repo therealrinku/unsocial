@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-const CommentsView = ({ comments }) => {
+const CommentsView = ({ comments, likeUnlikeComment }) => {
   return (
     <div className="comments--view">
       {comments.map((comment) => {
@@ -28,7 +28,16 @@ const CommentsView = ({ comments }) => {
               >
                 <p>1h</p>
                 <button>{comment.comment_likes_count || 0} likes</button>
-                <button>like</button>
+                <button
+                  onClick={() =>
+                    likeUnlikeComment(
+                      comment.liked_by_me ? "unlike" : "like",
+                      comment.comment_uid
+                    )
+                  }
+                >
+                  {comment.liked_by_me ? "unlike" : "like"}
+                </button>
               </div>
             </div>
           </div>

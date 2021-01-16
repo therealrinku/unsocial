@@ -30,6 +30,8 @@ const PostView = ({
   loadingLikers,
   DELETE_POST,
   GET_COMMENTS,
+  LIKE_COMMENT,
+  UNLIKE_COMMENT,
 }) => {
   //modal
   const [showPostOptionsModal, setShowPostOptionsModal] = useState(false);
@@ -86,6 +88,14 @@ const PostView = ({
     toggleModal(setShowPostOptionsModal);
     DELETE_POST(post_uid);
     history.goBack();
+  };
+
+  const likeUnlikeComment = (likeOrUnlike, comment_uid) => {
+    if (likeOrUnlike === "like") {
+      LIKE_COMMENT(comment_uid, currentUserUid, post_uid);
+    } else {
+      UNLIKE_COMMENT(comment_uid, currentUserUid, post_uid);
+    }
   };
 
   useEffect(() => {
@@ -176,7 +186,10 @@ const PostView = ({
               </div>
 
               <div className="comment--view-section">
-                <CommentsView comments={thisPostComments || []} />
+                <CommentsView
+                  comments={thisPostComments || []}
+                  likeUnlikeComment={likeUnlikeComment}
+                />
               </div>
 
               <div className="absolute--bottom">
@@ -240,6 +253,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    LIKE_COMMENT: (comment_uid, liker_uid, post_uid) =>
+      dispatch(PostsActions.LIKE_COMMENT(comment_uid, liker_uid, post_uid)),
+    UNLIKE_COMMENT: (comment_uid, unliker_uid, post_uid) =>
+      dispatch(PostsActions.UNLIKE_COMMENT(comment_uid, unliker_uid, post_uid)),
     GET_COMMENTS: (post_uid, currentUserUid) =>
       dispatch(PostsActions.GET_COMMENTS(post_uid, currentUserUid)),
     DELETE_POST: (post_uid) => dispatch(PostsActions.DELETE_POST(post_uid)),
