@@ -21,7 +21,7 @@ const Feed = ({ feed }) => {
               post_likesCount={post.post_likes_count}
               post_status={post.post_status}
               post_owner_uid={post.poster_uid}
-              post_commentsCount="1k"
+              post_commentsCount={post.post_comments_count}
               haveISaved={post.i_have_saved}
             />
           );
