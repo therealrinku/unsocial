@@ -228,9 +228,6 @@ const PostView = ({
                   <button onClick={getLikers}>
                     {currentPost[0]?.post_likes_count || "No"} likes
                   </button>
-                  <button>
-                    {currentPost[0]?.post_comments_count || 0} comments
-                  </button>
                 </div>
 
                 <div className="date">
