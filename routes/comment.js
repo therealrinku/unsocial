@@ -1,6 +1,17 @@
 const router = require("express").Router();
 const db = require("../database/db");
 
+//delete comment
+router.post("/delete", (req, res) => {
+  db.query(
+    `DELETE FROM comments WHERE (comment_uid)::text='${req.body.comment_uid}'`,
+    (err, res1) => {
+      if (!err) res.send("success");
+      else throw err;
+    }
+  );
+});
+
 //like comment
 router.post("/like", (req, res) => {
   db.query(
