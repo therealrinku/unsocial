@@ -3,7 +3,7 @@ import server_url from "../server_url";
 
 export const deleteComment = async (comment_uid) => {
   try {
-    await axios.post("/comment/delete", { comment_uid });
+    await axios.post(server_url + "/comment/delete", { comment_uid });
   } catch (err) {
     throw new Error(err.message);
   }
