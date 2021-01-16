@@ -266,6 +266,9 @@ const PostView = ({
                 <CommentBox
                   post_uid={post_uid}
                   post_owner_uid={currentPost[0]?.poster_uid}
+                  toggleLoginNeededPrompt={() =>
+                    toggleModal(setShowLoginNeededPrompt)
+                  }
                 />
               </div>
             </section>

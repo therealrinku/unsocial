@@ -10,21 +10,28 @@ const CommentBox = ({
   addingComment,
   currentUserProfileImage,
   currentUsername,
+  toggleLoginNeededPrompt,
 }) => {
   const [comment, setComment] = useState("");
 
   const addComment = (e) => {
     e.preventDefault();
-    if (comment.trim().length > 3) {
-      ADD_COMMENT(
-        comment,
-        currentUserUid,
-        post_uid,
-        post_owner_uid,
-        `${new Date()}`,
-        currentUserProfileImage,
-        currentUsername
-      );
+
+    if (currentUserUid) {
+      if (comment.trim().length > 3) {
+        ADD_COMMENT(
+          comment,
+          currentUserUid,
+          post_uid,
+          post_owner_uid,
+          `${new Date()}`,
+          currentUserProfileImage,
+          currentUsername
+        );
+        setComment("");
+      }
+    } else {
+      toggleLoginNeededPrompt();
       setComment("");
     }
   };
