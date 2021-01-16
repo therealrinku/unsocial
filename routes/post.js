@@ -19,6 +19,7 @@ router.get("/getpost/:post_id/:current_user_uid", (req, res) => {
     '${req.params.current_user_uid}' = ANY (likers) AS liked_by_me,
     (post_uid)::text=ANY(SELECT unnest(saved_posts_uids) FROM users WHERE uid='${req.params.current_user_uid}') 
     AS i_have_saved,
+    (SELECT COUNT(*) FROM comments WHERE (post_uid)::uuid=posts.post_uid) AS posts_comment_count,
     '${req.params.current_user_uid}'=ANY(followers) AS followed_by_me,
     post_uid,username as poster_username,
     post_id,
@@ -164,6 +165,7 @@ router.get("/feed/:user_uid", (req, res) => {
     `SELECT 
     '${req.params.user_uid}' = ANY (likers) AS liked_by_me,
     (post_uid)::text=ANY(SELECT unnest(saved_posts_uids) FROM users WHERE uid='${req.params.user_uid}') AS i_have_saved,
+    (SELECT COUNT(*) AS post_comments_count FROM comments WHERE (post_uid)::uuid=posts.post_uid) ,
     post_uid,username as poster_username,
     post_id,
     true as inFeed,
