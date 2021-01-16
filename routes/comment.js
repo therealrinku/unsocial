@@ -1,6 +1,30 @@
 const router = require("express").Router();
 const db = require("../database/db");
 
+//like comment
+router.post("/like", (req, res) => {
+  db.query(
+    `UPDATE comments SET likers=array_append(likers,'${req.body.liker_uid}') 
+  WHERE (comment_uid)::text='${req.body.comment_uid}'`,
+    (err, res1) => {
+      if (!err) res.send("success");
+      else throw err;
+    }
+  );
+});
+
+//unlike comment
+router.post("/unlike", (req, res) => {
+  db.query(
+    `UPDATE comments SET likers=array_remove(likers,'${req.body.unliker_uid}') 
+  WHERE (comment_uid)::text='${req.body.comment_uid}'`,
+    (err, res1) => {
+      if (!err) res.send("success");
+      else throw err;
+    }
+  );
+});
+
 //get comments for selected post
 router.get("/getcomments/:post_uid/:current_user_uid", (req, res) => {
   db.query(
