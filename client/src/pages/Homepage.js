@@ -80,7 +80,7 @@ const Homepage = ({
       <Navbar />
       {feed.length > 0 && !loading ? (
         <Feed feed={feed} />
-      ) : !loading ? (
+      ) : !loading && feedLoaded ? (
         <Recommended recommendedUsers={recommendedUsers} />
       ) : null}
       <MobileNavbar />
