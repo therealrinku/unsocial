@@ -14,6 +14,7 @@ import UsersListModal from "../components/UserListModal";
 import CommentBox from "../components/CommentBox";
 import CommentsView from "../components/CommentsView";
 import { deleteComment, getCommentLikers } from "../services/commentServices";
+import LoginNeededPrompt from "../components/LoginNeededPrompt";
 
 const PostView = ({
   currentUsername,
@@ -42,6 +43,7 @@ const PostView = ({
   //modal
   const [showPostOptionsModal, setShowPostOptionsModal] = useState(false);
   const [showLikersModal, setShowLikersModal] = useState(false);
+  const [showLoginNeededPrompt, setShowLoginNeededPrompt] = useState(false);
 
   //checking image is loaded
   const [imageIsLoaded, setImageIsLoaded] = useState(false);
@@ -62,18 +64,26 @@ const PostView = ({
   const haveISaved = currentPost[0]?.i_have_saved;
 
   const likeUnlikePost = () => {
-    if (haveILiked) {
-      UNLIKE_POST(post_uid, currentUserUid);
+    if (currentUserUid) {
+      if (haveILiked) {
+        UNLIKE_POST(post_uid, currentUserUid);
+      } else {
+        LIKE_POST(post_uid, currentUserUid);
+      }
     } else {
-      LIKE_POST(post_uid, currentUserUid);
+      toggleModal(setShowLoginNeededPrompt);
     }
   };
 
   const saveUnsavePost = () => {
-    if (haveISaved) {
-      UNSAVE_POST(post_uid, currentUsername);
+    if (currentUserUid) {
+      if (haveISaved) {
+        UNSAVE_POST(post_uid, currentUsername);
+      } else {
+        SAVE_POST(post_uid, currentUsername);
+      }
     } else {
-      SAVE_POST(post_uid, currentUsername);
+      toggleModal(setShowLoginNeededPrompt);
     }
   };
 
@@ -97,10 +107,14 @@ const PostView = ({
   };
 
   const likeUnlikeComment = (likeOrUnlike, comment_uid) => {
-    if (likeOrUnlike === "like") {
-      LIKE_COMMENT(comment_uid, currentUserUid, post_uid);
+    if (currentUserUid) {
+      if (likeOrUnlike === "like") {
+        LIKE_COMMENT(comment_uid, currentUserUid, post_uid);
+      } else {
+        UNLIKE_COMMENT(comment_uid, currentUserUid, post_uid);
+      }
     } else {
-      UNLIKE_COMMENT(comment_uid, currentUserUid, post_uid);
+      toggleModal(setShowLoginNeededPrompt);
     }
   };
 
@@ -258,6 +272,18 @@ const PostView = ({
           </div>
         </Fragment>
       )}
+
+      {showLoginNeededPrompt ? (
+        <Fragment>
+          <LoginNeededPrompt
+            toggle={() => toggleModal(setShowLoginNeededPrompt)}
+          />
+          <Backdrop
+            show={showLoginNeededPrompt}
+            toggle={() => toggleModal(setShowLoginNeededPrompt)}
+          />
+        </Fragment>
+      ) : null}
     </Fragment>
   );
 };

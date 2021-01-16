@@ -1,0 +1,28 @@
+.login--needed-prompt {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  background: white;
+  border-radius: 5px;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  padding: 20px;
+  font-size: 14px;
+
+  p {
+    margin-bottom: 20px;
+  }
+
+  .login--btn {
+    background: #2196f3;
+    color: white;
+  }
+
+  button {
+    padding: 8px 15px;
+    margin-right: 5px;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+  }
+}
