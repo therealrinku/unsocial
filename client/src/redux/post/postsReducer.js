@@ -59,6 +59,8 @@ const postsReducer = (state = initial_state, action) => {
       const commentsJ = [...postsCopyJ[postIndexJ].comments].filter(
         (comment) => comment.comment_uid !== action.payload.comment_uid
       );
+      postsCopyJ[postIndexJ].post_comments_count =
+        postsCopyJ[postIndexJ].post_comments_count - 1;
       postsCopyJ[postIndexJ].comments = commentsJ;
 
       return {
@@ -97,6 +99,8 @@ const postsReducer = (state = initial_state, action) => {
       const postIndexX = postsCopyX.findIndex(
         (post) => post.post_uid === action.payload.post_uid
       );
+      postsCopyX[postIndexX].post_comments_count =
+        postsCopyX[postIndexX].post_comments_count + 1;
       postsCopyX[postIndexX].comments = [
         ...postsCopyX[postIndexX].comments,
         action.payload,
