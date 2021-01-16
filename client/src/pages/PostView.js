@@ -95,7 +95,7 @@ const PostView = ({
   }, [post_uid]);
 
   useEffect(() => {
-    if (currentPost.length < 1) {
+    if (currentPost.length < 1 && currentUserUid) {
       LOAD_POST(post_id, currentUserUid);
     }
   }, [currentUserUid, post_id]);
