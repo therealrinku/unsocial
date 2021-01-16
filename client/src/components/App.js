@@ -11,8 +11,7 @@ import Signuppage from "../pages/Signuppage";
 import * as userActions from "../redux/user/userActions";
 import { SiInstagram } from "react-icons/all";
 
-const App = ({ loading, currentUsername, LOGIN_WITH_UID, token }) => {
-  console.log(token);
+const App = ({ currentUsername, LOGIN_WITH_UID, token, userDataLoaded }) => {
   useEffect(() => {
     if (token) {
       LOGIN_WITH_UID(token);
@@ -21,7 +20,7 @@ const App = ({ loading, currentUsername, LOGIN_WITH_UID, token }) => {
 
   return (
     <BrowserRouter>
-      {loading ? (
+      {token && !userDataLoaded ? (
         <div
           style={{
             width: "100vw",
@@ -56,8 +55,8 @@ const App = ({ loading, currentUsername, LOGIN_WITH_UID, token }) => {
 
 const mapStateToProps = (state) => {
   return {
+    userDataLoaded: state.user.user_data_loaded,
     token: state.user.token,
-    loading: state.user.loading,
     currentUsername: state.user.currentUserData.username,
   };
 };
