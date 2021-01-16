@@ -30,6 +30,7 @@ router.get("/getcomments/:post_uid/:current_user_uid", (req, res) => {
   db.query(
     `SELECT username as poster_username,
     comment_uid,
+    post_owner_uid,
     '${req.params.current_user_uid}'=ANY(likers) AS liked_by_me,
   profile_image_url as poster_profile_image,array_length(likers,1) as comment_likes_count,comment,posted_date
   FROM comments INNER JOIN users ON (comments.commenter_uid)=(users.uid)::text
