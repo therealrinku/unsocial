@@ -25,6 +25,8 @@ const postsReducer = (state = initial_state, action) => {
         (comment) => comment.comment_uid === action.payload.comment_uid
       );
       comments[commentIndex].liked_by_me = true;
+      comments[commentIndex].comment_likes_count =
+        comments[commentIndex].comment_likes_count + 1;
       postsCopyU[postIndexU].comments = comments;
       return {
         ...state,
@@ -41,7 +43,9 @@ const postsReducer = (state = initial_state, action) => {
         (comment) => comment.comment_uid === action.payload.comment_uid
       );
       commentsV[commentIndexV].liked_by_me = false;
-      postsCopyV[postIndexV].comments = comments;
+      commentsV[commentIndexV].comment_likes_count =
+        commentsV[commentIndexV].comment_likes_count - 1;
+      postsCopyV[postIndexV].comments = commentsV;
       return {
         ...state,
         posts: postsCopyV,
