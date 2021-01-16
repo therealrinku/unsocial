@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import * as Icons from "../Icons/CustomIcons";
@@ -6,7 +6,6 @@ import SearchView from "./SearchView";
 import { useHistory } from "react-router-dom";
 
 const Navbar = ({ currentUsername, currentUserProfileimage }) => {
-  const [searchQuery, setSearchQuery] = useState("");
   const history = useHistory();
   const pathname = history.location.pathname;
 
