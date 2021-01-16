@@ -1,6 +1,25 @@
 import axios from "axios";
 import server_url from "../server_url";
 
+export const likeComment = async (comment_uid, liker_uid) => {
+  try {
+    await axios.post(server_url + "/comment/like", { comment_uid, liker_uid });
+  } catch (err) {
+    throw new Error(err.message);
+  }
+};
+
+export const unlikeComment = async (comment_uid, unliker_uid) => {
+  try {
+    await axios.post(server_url + "/comment/unlike", {
+      comment_uid,
+      unliker_uid,
+    });
+  } catch (err) {
+    throw new Error(err.message);
+  }
+};
+
 export const getComments = async (post_uid, current_user_uid) => {
   try {
     const comments = await axios
