@@ -58,13 +58,15 @@ export const addComment = async (
   posted_date
 ) => {
   try {
-    const response = await axios.post(server_url + "/comment/addcomment", {
-      comment,
-      commenter_uid,
-      post_uid,
-      post_owner_uid,
-      posted_date,
-    });
+    const response = await axios
+      .post(server_url + "/comment/addcomment", {
+        comment,
+        commenter_uid,
+        post_uid,
+        post_owner_uid,
+        posted_date,
+      })
+      .then((res) => res.data);
     return response;
   } catch (err) {
     throw new Error(err.message);
