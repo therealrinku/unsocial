@@ -55,7 +55,8 @@ const Comment = ({
           >
             <p>1h</p>
             <button onClick={loadCommentLikers}>
-              {comment.comment_likes_count || 0} likes
+              {comment.comment_likes_count || 0}{" "}
+              {comment.comment_likes_count === 1 ? "like" : "likes"}
             </button>
             <button
               onClick={() =>
