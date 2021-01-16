@@ -13,6 +13,7 @@ import PostOptModal from "../components/PostOptModal";
 import UsersListModal from "../components/UserListModal";
 import CommentBox from "../components/CommentBox";
 import CommentsView from "../components/CommentsView";
+import { deleteComment } from "../services/commentServices";
 
 const PostView = ({
   currentUsername,
@@ -32,6 +33,7 @@ const PostView = ({
   GET_COMMENTS,
   LIKE_COMMENT,
   UNLIKE_COMMENT,
+  DELETE_COMMENT,
 }) => {
   //modal
   const [showPostOptionsModal, setShowPostOptionsModal] = useState(false);
@@ -96,6 +98,10 @@ const PostView = ({
     } else {
       UNLIKE_COMMENT(comment_uid, currentUserUid, post_uid);
     }
+  };
+
+  const deleteComment = (comment_uid) => {
+    DELETE_COMMENT(comment_uid, post_uid);
   };
 
   useEffect(() => {
@@ -189,6 +195,9 @@ const PostView = ({
                 <CommentsView
                   comments={thisPostComments || []}
                   likeUnlikeComment={likeUnlikeComment}
+                  currentUserUid={currentUserUid}
+                  deleteComment={deleteComment}
+                  currentUsername={currentUsername}
                 />
               </div>
 
@@ -253,6 +262,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    DELETE_COMMENT: (comment_uid, post_uid) =>
+      dispatch(PostsActions.DELETE_COMMENT(comment_uid, post_uid)),
     LIKE_COMMENT: (comment_uid, liker_uid, post_uid) =>
       dispatch(PostsActions.LIKE_COMMENT(comment_uid, liker_uid, post_uid)),
     UNLIKE_COMMENT: (comment_uid, unliker_uid, post_uid) =>

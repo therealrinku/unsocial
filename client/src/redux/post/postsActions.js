@@ -12,11 +12,27 @@ import {
 } from "../../services/postsServices";
 import {
   addComment,
+  deleteComment,
   getComments,
   likeComment,
   unlikeComment,
 } from "../../services/commentServices";
 import postActionTypes from "./postsActionTypes";
+
+export const DELETE_COMMENT = (comment_uid, post_uid) => async (dispatch) => {
+  try {
+    await deleteComment(comment_uid);
+    dispatch({
+      type: postActionTypes.DELETE_COMMENT,
+      payload: { comment_uid, post_uid },
+    });
+  } catch (err) {
+    dispatch({
+      type: postActionTypes.SOMETHING_WENT_WRONG,
+      payload: err.message,
+    });
+  }
+};
 
 export const LIKE_COMMENT = (comment_uid, liker_uid, post_uid) => async (
   dispatch

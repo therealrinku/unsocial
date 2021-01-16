@@ -1,7 +1,13 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-const CommentsView = ({ comments, likeUnlikeComment }) => {
+const CommentsView = ({
+  comments,
+  likeUnlikeComment,
+  currentUserUid,
+  deleteComment,
+  currentUsername,
+}) => {
   return (
     <div className="comments--view">
       {comments.map((comment) => {
@@ -37,6 +43,17 @@ const CommentsView = ({ comments, likeUnlikeComment }) => {
                   }
                 >
                   {comment.liked_by_me ? "unlike" : "like"}
+                </button>
+                <button
+                  style={
+                    currentUserUid === comment.post_owner_uid ||
+                    currentUsername === comment.poster_username
+                      ? { color: "red" }
+                      : { display: "none" }
+                  }
+                  onClick={() => deleteComment(comment.comment_uid)}
+                >
+                  delete
                 </button>
               </div>
             </div>

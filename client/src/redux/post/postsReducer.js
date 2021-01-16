@@ -51,6 +51,21 @@ const postsReducer = (state = initial_state, action) => {
         posts: postsCopyV,
       };
 
+    case postActionTypes.DELETE_COMMENT:
+      const postsCopyJ = [...state.posts];
+      const postIndexJ = postsCopyJ.findIndex(
+        (post) => post.post_uid === action.payload.post_uid
+      );
+      const commentsJ = [...postsCopyJ[postIndexJ].comments].filter(
+        (comment) => comment.comment_uid !== action.payload.comment_uid
+      );
+      postsCopyJ[postIndexJ].comments = commentsJ;
+
+      return {
+        ...state,
+        posts: postsCopyJ,
+      };
+
     case postActionTypes.GETTING_COMMENTS:
       return {
         ...state,
