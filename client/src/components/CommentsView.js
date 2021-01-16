@@ -1,5 +1,8 @@
-import React from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
+import overflowToggler from "../utilities/overflowToggler";
+import Backdrop from "./Backdrop";
+import UserListModal from "./UserListModal";
 
 const CommentsView = ({
   comments,
@@ -7,7 +10,37 @@ const CommentsView = ({
   currentUserUid,
   deleteComment,
   currentUsername,
+  getCommentLikers,
+  gettingCommentLikers,
 }) => {
+  const [showCommentLikers, setShowCommentLikers] = useState(false);
+  const [selectedCommentUid, setSelectedCommentUid] = useState(null);
+  const [commentIndex, setCommentIndex] = useState(null);
+  const [commentLikers, setCommentLikers] = useState(
+    comments[commentIndex]?.likers
+  );
+
+  const loadCommentLikers = (comment_uid) => {
+    setSelectedCommentUid(comment_uid);
+    toggleModal(setShowCommentLikers);
+  };
+
+  const toggleModal = (setModal) => {
+    setModal((prev) => !prev);
+    overflowToggler();
+  };
+
+  useEffect(() => {
+    setCommentIndex(
+      comments.findIndex(
+        (comment) => comment.comment_uid === selectedCommentUid
+      )
+    );
+    if (!commentLikers && selectedCommentUid) {
+      getCommentLikers(selectedCommentUid);
+    }
+  }, [selectedCommentUid]);
+
   return (
     <div className="comments--view">
       {comments.map((comment) => {
@@ -33,7 +66,9 @@ const CommentsView = ({
                 }}
               >
                 <p>1h</p>
-                <button>{comment.comment_likes_count || 0} likes</button>
+                <button onClick={() => loadCommentLikers(comment.comment_uid)}>
+                  {comment.comment_likes_count || 0} likes
+                </button>
                 <button
                   onClick={() =>
                     likeUnlikeComment(
@@ -60,6 +95,21 @@ const CommentsView = ({
           </div>
         );
       })}
+
+      {showCommentLikers ? (
+        <Fragment>
+          <UserListModal
+            title="Likes"
+            loading={gettingCommentLikers}
+            toggle={() => toggleModal(setShowCommentLikers)}
+            users={commentLikers || []}
+          />
+          <Backdrop
+            show={showCommentLikers}
+            toggle={() => toggleModal(setShowCommentLikers)}
+          />
+        </Fragment>
+      ) : null}
     </div>
   );
 };

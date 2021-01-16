@@ -13,11 +13,30 @@ import {
 import {
   addComment,
   deleteComment,
+  getCommentLikers,
   getComments,
   likeComment,
   unlikeComment,
 } from "../../services/commentServices";
 import postActionTypes from "./postsActionTypes";
+
+export const GET_COMMENT_LIKERS = (comment_uid, post_uid) => async (
+  dispatch
+) => {
+  try {
+    dispatch({ type: postActionTypes.GETTING_COMMENT_LIKERS });
+    const likers = await getCommentLikers(comment_uid);
+    dispatch({
+      type: postActionTypes.ADD_COMMENT_LIKERS,
+      payload: { likers, comment_uid, post_uid },
+    });
+  } catch (err) {
+    dispatch({
+      type: postActionTypes.SOMETHING_WENT_WRONG,
+      payload: err.message,
+    });
+  }
+};
 
 export const DELETE_COMMENT = (comment_uid, post_uid) => async (dispatch) => {
   try {

@@ -13,7 +13,7 @@ import PostOptModal from "../components/PostOptModal";
 import UsersListModal from "../components/UserListModal";
 import CommentBox from "../components/CommentBox";
 import CommentsView from "../components/CommentsView";
-import { deleteComment } from "../services/commentServices";
+import { deleteComment, getCommentLikers } from "../services/commentServices";
 
 const PostView = ({
   currentUsername,
@@ -34,6 +34,8 @@ const PostView = ({
   LIKE_COMMENT,
   UNLIKE_COMMENT,
   DELETE_COMMENT,
+  GET_COMMENT_LIKERS,
+  gettingCommentLikers,
 }) => {
   //modal
   const [showPostOptionsModal, setShowPostOptionsModal] = useState(false);
@@ -102,6 +104,10 @@ const PostView = ({
 
   const deleteComment = (comment_uid) => {
     DELETE_COMMENT(comment_uid, post_uid);
+  };
+
+  const getCommentLikers = (comment_uid) => {
+    GET_COMMENT_LIKERS(comment_uid, post_uid);
   };
 
   useEffect(() => {
@@ -198,6 +204,8 @@ const PostView = ({
                   currentUserUid={currentUserUid}
                   deleteComment={deleteComment}
                   currentUsername={currentUsername}
+                  getCommentLikers={getCommentLikers}
+                  gettingCommentLikers={gettingCommentLikers}
                 />
               </div>
 
@@ -250,6 +258,7 @@ const PostView = ({
 
 const mapStateToProps = (state) => {
   return {
+    gettingCommentLikers: state.posts.getting_comment_likers,
     loadingLikers: state.posts.loading_likers,
     currentUsername: state.user.currentUserData.username,
     currentUserUid: state.user.currentUserData.uid,
@@ -260,6 +269,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    GET_COMMENT_LIKERS: (comment_uid, post_uid) =>
+      dispatch(PostsActions.GET_COMMENT_LIKERS(comment_uid, post_uid)),
     DELETE_COMMENT: (comment_uid, post_uid) =>
       dispatch(PostsActions.DELETE_COMMENT(comment_uid, post_uid)),
     LIKE_COMMENT: (comment_uid, liker_uid, post_uid) =>

@@ -11,10 +11,34 @@ const initial_state = {
   explore_posts: [],
   adding_comment: false,
   getting_comments: false,
+  getting_comment_likers: false,
 };
 
 const postsReducer = (state = initial_state, action) => {
   switch (action.type) {
+    case postActionTypes.GETTING_COMMENT_LIKERS:
+      return {
+        ...state,
+        getting_comment_likers: true,
+      };
+
+    case postActionTypes.ADD_COMMENT_LIKERS:
+      console.log(action.payload.comment_uid);
+      const postsCopyR = [...state.posts];
+      const postIndexR = postsCopyR.findIndex(
+        (post) => post.post_uid === action.payload.post_uid
+      );
+      const commentsR = [...postsCopyR[postIndexR].comments];
+      const commentIndexR = commentsR.findIndex(
+        (comment) => comment.comment_uid === action.payload.comment_uid
+      );
+      commentsR[commentIndexR].likers = action.payload.likers;
+      return {
+        ...state,
+        posts: postsCopyR,
+        getting_comment_likers: false,
+      };
+
     case postActionTypes.LIKE_COMMENT:
       const postsCopyU = [...state.posts];
       const postIndexU = postsCopyU.findIndex(
