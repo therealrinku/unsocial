@@ -164,7 +164,7 @@ export const GET_POST = (post_id, current_user_uid) => async (dispatch) => {
   try {
     dispatch({ type: postActionTypes.GETTING_POST });
     const postData = await loadPost(post_id, current_user_uid);
-    dispatch({ type: postActionTypes.ADD_POST, payload: postData[0] });
+    dispatch({ type: postActionTypes.ADD_POST, payload: postData[0] || [] });
   } catch (err) {
     dispatch({
       type: postActionTypes.SOMETHING_WENT_WRONG,
