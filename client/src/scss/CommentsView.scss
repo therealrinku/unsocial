@@ -8,18 +8,8 @@
   .comment {
     display: flex;
     align-items: flex-start;
-  }
 
-  .comment_ {
-    word-break: break-all;
-    padding-right: 10px;
-  }
-
-  img {
-    margin: 0 5px;
-    margin-top: 6px;
-  }
-
+    
   p {
     font-size: 13px;
   }
@@ -38,4 +28,17 @@
     margin-right: 5px;
     word-break: break-all;
   }
+
+  img {
+    margin: 0 5px;
+    margin-top: 6px;
+  }
+  }
+
+  .comment_ {
+    word-break: break-all;
+    padding-right: 10px;
+  }
+
+  
 }
