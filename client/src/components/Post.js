@@ -1,6 +1,6 @@
 import { Fragment, useState } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import * as Icons from "../Icons/CustomIcons";
 import * as postsActions from "../redux/post/postsActions";
 import { BiDotsHorizontal } from "react-icons/all";
@@ -40,6 +40,8 @@ const Post = ({
   )[0].post_likers;
   const [showLikers, setShowLikers] = useState(false);
   const [showPostOptionsModal, setShowPostOptionsModal] = useState(false);
+
+  const history = useHistory();
 
   const likeUnlikePost = () => {
     if (haveILiked) {
@@ -100,7 +102,7 @@ const Post = ({
               {haveILiked ? <Icons.LovedIcon /> : <Icons.LoveIcon />}
             </button>
 
-            <button>
+            <button onClick={() => history.push(`/p/${post_id}`)}>
               <Icons.CommentIcon />
             </button>
 
@@ -122,7 +124,9 @@ const Post = ({
 
         <div>
           <button onClick={getLikers}>{post_likesCount || "No"} likes</button>
-          <button>{post_commentsCount} comments</button>
+          <button onClick={() => history.push(`/p/${post_id}`)}>
+            {post_commentsCount} comments
+          </button>
         </div>
 
         <div>
