@@ -36,6 +36,8 @@ const PostView = ({
   DELETE_COMMENT,
   GET_COMMENT_LIKERS,
   gettingCommentLikers,
+  userDataLoaded,
+  token,
 }) => {
   //modal
   const [showPostOptionsModal, setShowPostOptionsModal] = useState(false);
@@ -117,10 +119,14 @@ const PostView = ({
   }, [post_uid]);
 
   useEffect(() => {
-    if (currentPost.length < 1 && currentUserUid) {
+    if (token) {
+      if (currentUserUid && currentPost.length < 1) {
+        LOAD_POST(post_id, currentUserUid);
+      }
+    } else {
       LOAD_POST(post_id, currentUserUid);
     }
-  }, [currentUserUid, post_id]);
+  }, [token, currentUserUid, post_id]);
 
   return (
     <Fragment>
@@ -258,6 +264,8 @@ const PostView = ({
 
 const mapStateToProps = (state) => {
   return {
+    token: state.user.token,
+    userDataLoaded: state.user.user_data_loaded,
     gettingCommentLikers: state.posts.getting_comment_likers,
     loadingLikers: state.posts.loading_likers,
     currentUsername: state.user.currentUserData.username,
