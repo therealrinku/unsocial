@@ -123,9 +123,12 @@ const Post = ({
         </div>
 
         <div>
-          <button onClick={getLikers}>{post_likesCount || "No"} likes</button>
+          <button onClick={getLikers}>
+            {post_likesCount || "No"} {post_likesCount === 1 ? "like" : "likes"}
+          </button>
           <button onClick={() => history.push(`/p/${post_id}`)}>
-            {post_commentsCount} comments
+            {post_commentsCount}{" "}
+            {post_commentsCount === 1 ? "comment" : "comments"}
           </button>
         </div>
 
