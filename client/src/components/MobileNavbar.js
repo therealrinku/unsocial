@@ -5,7 +5,10 @@ import { connect } from "react-redux";
 
 const MobileNavbar = ({ currentUsername, currentUserProfileimage }) => {
   return (
-    <div className="navbar--mobile">
+    <div
+      className="navbar--mobile"
+      style={!currentUsername ? { display: "none" } : null}
+    >
       <Link to="/">
         <Icons.HomeIcon />
       </Link>
