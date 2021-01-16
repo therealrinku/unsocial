@@ -20,7 +20,12 @@ export const getExplorePosts = async () => {
 export const loadPost = async (post_id, current_user_uid) => {
   try {
     const postData = await axios
-      .get(server_url + `/post/getpost/${post_id}/${current_user_uid}`)
+      .get(
+        server_url +
+          `/post/getpost/${post_id}/${
+            current_user_uid || "56f6a34b-23b3-4daa-a53c-b4c364a6cad8"
+          }`
+      )
       .then((res) => {
         return res.data;
       });
