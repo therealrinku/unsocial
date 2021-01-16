@@ -21,8 +21,12 @@ const Navbar = ({ currentUsername, currentUserProfileimage }) => {
       </ul>
 
       <ul style={currentUsername ? { display: "none" } : null}>
-        <button className="login--btn">Login</button>
-        <button className="signup--btn">Signup</button>
+        <button className="login--btn" onClick={() => history.push("/login")}>
+          Login
+        </button>
+        <button className="signup--btn" onClick={() => history.push("/signup")}>
+          Signup
+        </button>
       </ul>
 
       <ul
