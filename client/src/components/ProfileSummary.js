@@ -74,7 +74,7 @@ const ProfileSummary = ({
           </div>
 
           <div>
-            <p>I am a creator of instaclone app</p>
+            <p>{profileData.bio}</p>
           </div>
         </section>
       </div>
@@ -129,7 +129,7 @@ const ProfileSummary = ({
         </section>
 
         <section>
-          <p>I am a creator of instaclone app</p>
+          <p>{profileData.bio}</p>
         </section>
 
         <section>
