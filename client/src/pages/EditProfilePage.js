@@ -41,8 +41,8 @@ const EditProfilePage = ({
           bio || "",
           currentUserName
         ).then((res) => {
-          setUpdating(false);
           if (res !== "success") {
+            setUpdating(false);
             setError(res);
           } else {
             setSuccessMsg("Profile updated...page will reload in 3 seconds.");

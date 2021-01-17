@@ -73,6 +73,11 @@
       border-radius: 5px;
       color: white;
     }
+
+    button:disabled {
+      cursor: unset;
+      opacity: 0.6;
+    }
   }
 }
 
