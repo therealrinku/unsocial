@@ -74,7 +74,7 @@ const ProfileSummary = ({
           </div>
 
           <div>
-            <p>{profileData.bio}</p>
+            <p className="bio">{profileData.bio}</p>
           </div>
         </section>
       </div>
@@ -129,7 +129,7 @@ const ProfileSummary = ({
         </section>
 
         <section>
-          <p>{profileData.bio}</p>
+          <p className="bio">{profileData.bio}</p>
         </section>
 
         <section>
