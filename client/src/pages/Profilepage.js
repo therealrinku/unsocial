@@ -13,6 +13,7 @@ import PostsGrid from "../components/PostsGrid";
 import UserListModal from "../components/UserListModal";
 import Loader from "../components/Loader";
 import * as userActions from "../redux/user/userActions";
+import LoginNeededPrompt from "../components/LoginNeededPrompt";
 
 const Profilepage = ({
   history,
@@ -38,6 +39,7 @@ const Profilepage = ({
   const [showUnfollowPrompt, setShowUnfollowPrompt] = useState(false);
   const [showFollowers, setShowFollowers] = useState(false);
   const [showFollowings, setShowFollowings] = useState(false);
+  const [showLoginNeededPrompt, setShowLoginNeededPrompt] = useState(false);
 
   //
   const [showSavedPosts, setShowSavedPosts] = useState(false);
@@ -76,6 +78,14 @@ const Profilepage = ({
     localStorage.removeItem("token");
   };
 
+  const follow = () => {
+    if (currentUserUid) {
+      FOLLOW(profileData[0]?.uid, currentUserUid);
+    } else {
+      toggleModal(setShowLoginNeededPrompt);
+    }
+  };
+
   useEffect(() => {
     //set document title
     document.title = `${profileUsername} at Instaclone`;
@@ -106,7 +116,7 @@ const Profilepage = ({
             toggleProfileOptions={() => toggleModal(setShowProfileOptionsModal)}
             toggleUnfollowPrompt={() => toggleModal(setShowUnfollowPrompt)}
             isMyProfile={currentUsername === profileUsername}
-            FOLLOW={() => FOLLOW(profileData[0]?.uid, currentUserUid)}
+            FOLLOW={follow}
             LOAD_FOLLOWERS={LOAD_FOLLOWERS}
             LOAD_FOLLOWINGS={LOAD_FOLLOWINGS}
           />
@@ -178,6 +188,19 @@ const Profilepage = ({
           ) : null}
         </div>
       )}
+
+      {showLoginNeededPrompt ? (
+        <Fragment>
+          <LoginNeededPrompt
+          profilePage={true}
+            toggle={() => toggleModal(setShowLoginNeededPrompt)}
+          />
+          <Backdrop
+            show={showLoginNeededPrompt}
+            toggle={() => toggleModal(setShowLoginNeededPrompt)}
+          />
+        </Fragment>
+      ) : null}
     </Fragment>
   );
 };
