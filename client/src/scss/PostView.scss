@@ -104,8 +104,24 @@
   }
 }
 
+.post--card-mobile {
+  display: none;
+}
+
 @media (max-width: 1000px) {
   .post--view-- {
     width: 90%;
+  }
+}
+
+@media (max-width: 750px) {
+  .post--view-- {
+    display: none;
+  }
+
+  .post--card-mobile {
+    display: block;
+    margin-top: 50px;
+    margin-bottom: 60px;
   }
 }

@@ -187,6 +187,78 @@ const PostView = ({
         </p>
       ) : (
         <Fragment>
+          <div className="post--card post--card-mobile">
+            <div>
+              <ul>
+                <img
+                  src={currentPost[0].poster_profileimage}
+                  alt="post_user_image"
+                />
+                <Link to={`/${currentPost[0]?.poster_username}`}>
+                  {currentPost[0]?.poster_username}
+                </Link>
+              </ul>
+
+              <ul>
+                <button onClick={() => toggleModal(setShowPostOptionsModal)}>
+                  <BiDotsHorizontal />
+                </button>
+              </ul>
+            </div>
+
+            <div>
+              <img src={currentPost[0]?.post_image} alt="post_main_img" />
+            </div>
+
+            <div>
+              <div>
+                <button onClick={likeUnlikePost}>
+                  {haveILiked ? <Icons.LovedIcon /> : <Icons.LoveIcon />}
+                </button>
+
+                <button onClick={() => history.push(`/p/${post_id}`)}>
+                  <Icons.CommentIcon />
+                </button>
+
+                <button>
+                  <Icons.ShareIcon />
+                </button>
+              </div>
+
+              <div>
+                <button onClick={saveUnsavePost}>
+                  {haveISaved ? <Icons.SavedIcon /> : <Icons.SaveIcon />}
+                </button>
+              </div>
+            </div>
+
+            <div>
+              <p>{currentPost[0]?.post_status}</p>
+            </div>
+
+            <div>
+              <button onClick={getLikers}>
+                {currentPost[0]?.post_likes_count || "No"}{" "}
+                {currentPost[0]?.post_likes_count === 1 ? "like" : "likes"}
+              </button>
+              <button onClick={() => history.push(`/p/${post_id}`)}>
+                {currentPost[0]?.post_comments_count}{" "}
+                {currentPost[0]?.post_comments_count === 1
+                  ? "comment"
+                  : "comments"}
+              </button>
+            </div>
+
+            <div>
+              <p>{currentPost[0]?.post_posted_date}</p>
+            </div>
+
+            <CommentBox
+              post_uid={post_uid}
+              post_owner_uid={currentPost[0]?.poster_uid}
+            />
+          </div>
+
           <div
             className="post--view--"
             style={!imageIsLoaded ? { display: "none" } : null}
@@ -287,6 +359,18 @@ const PostView = ({
           />
         </Fragment>
       ) : null}
+
+      <div className="comment--view-section--mobile">
+        <CommentsView
+          comments={thisPostComments || []}
+          likeUnlikeComment={likeUnlikeComment}
+          currentUserUid={currentUserUid}
+          deleteComment={deleteComment}
+          currentUsername={currentUsername}
+          getCommentLikers={getCommentLikers}
+          gettingCommentLikers={gettingCommentLikers}
+        />
+      </div>
     </Fragment>
   );
 };
