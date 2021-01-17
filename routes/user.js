@@ -203,6 +203,7 @@ router.get("/loggedinuserinfo/:uid", (req, res) => {
 router.get("/visiteduserinfo/:username/:current_user_uid", (req, res) => {
   db.query(
     `SELECT username,uid,profile_image_url,
+    bio,
     (SELECT COUNT(*) FROM posts WHERE owner_uid=(uid)::text)::int AS posts_count,
     '${req.params.current_user_uid}'=ANY(followers) AS followed_by_me,
     array_length(followers,1) as followers_count,
