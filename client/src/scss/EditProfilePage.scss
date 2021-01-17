@@ -24,13 +24,15 @@
       margin-right: 10px;
     }
 
-    button {
-      border: none;
-      outline: none;
-      margin-left: -6px;
+    label {
       background: inherit;
       color: #0095f6;
       font-weight: bold;
+      font-size: 12px;
+    }
+
+    label:hover {
+      cursor: pointer;
     }
   }
 

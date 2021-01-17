@@ -24,7 +24,8 @@ const EditProfilePage = ({
 
         <div>
           <p>{currentUserName}</p>
-          <button>Change Profile Photo</button>
+          <label htmlFor="image">Change Profile Photo</label>
+          <input type="file" style={{ display: "none" }} id="image" />
         </div>
       </section>
 
