@@ -21,6 +21,7 @@ const postsReducer = (state = initial_state, action) => {
         ...state,
         posts: [],
         explore_posts: [],
+        feed_loaded: false,
       };
 
     case postActionTypes.GETTING_COMMENT_LIKERS:
