@@ -61,7 +61,8 @@ const ProfileSummary = ({
               <b>{profileData.posts_count}</b> posts
             </button>
             <button onClick={LOAD_FOLLOWERS}>
-              <b>{profileData.followers_count || 0}</b> followers
+              <b>{profileData.followers_count || 0}</b>{" "}
+              {profileData.followers_count === 1 ? "follower" : "followers"}
             </button>
             <button onClick={LOAD_FOLLOWINGS}>
               <b>{profileData.following_count || 0}</b> following
@@ -133,7 +134,10 @@ const ProfileSummary = ({
           </button>
           <button onClick={LOAD_FOLLOWERS}>
             <b>{profileData.followers_count || 0}</b>
-            <p>followers</p>
+            <p>
+              {" "}
+              {profileData.followers_count === 1 ? "follower" : "followers"}
+            </p>
           </button>
           <button onClick={LOAD_FOLLOWINGS}>
             <b>{profileData.following_count || 0}</b>
