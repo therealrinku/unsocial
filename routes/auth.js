@@ -5,7 +5,7 @@ const router = require("express").Router();
 //login
 router.post("/login", (req, res) => {
   db.query(
-    `SELECT profile_image_url,bio,username,uid,password FROM users WHERE username='${req.body.username}'`,
+    `SELECT profile_image_url,bio,username,uid,email,password FROM users WHERE username='${req.body.username}'`,
     (err, res1) => {
       if (res1.rows.length > 0) {
         const {
