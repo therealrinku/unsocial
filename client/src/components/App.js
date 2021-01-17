@@ -10,6 +10,7 @@ import Loginpage from "../pages/Loginpage";
 import Signuppage from "../pages/Signuppage";
 import * as userActions from "../redux/user/userActions";
 import { SiInstagram } from "react-icons/all";
+import EditProfilePage from "../pages/EditProfilePage";
 
 const App = ({ currentUsername, LOGIN_WITH_UID, token, userDataLoaded }) => {
   useEffect(() => {
@@ -42,6 +43,7 @@ const App = ({ currentUsername, LOGIN_WITH_UID, token, userDataLoaded }) => {
             exact
             component={currentUsername ? Homepage : Landingpage}
           />
+          <Route path="/edit/profile" exact component={EditProfilePage} />
           <Route path="/login" exact component={Loginpage} />
           <Route path="/signup" exact component={Signuppage} />
           <Route path="/explore" exact component={ExplorePage} />

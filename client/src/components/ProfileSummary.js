@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import { BiDotsHorizontal, BiUserCheck } from "react-icons/all";
+import { useHistory } from "react-router-dom";
 
 const ProfileSummary = ({
   profileData,
@@ -10,6 +11,8 @@ const ProfileSummary = ({
   LOAD_FOLLOWERS,
   LOAD_FOLLOWINGS,
 }) => {
+  const history = useHistory();
+
   return (
     <Fragment>
       <div className="profile--summary-page">
@@ -21,6 +24,7 @@ const ProfileSummary = ({
           <div>
             <p className="username">{profileData.username}</p>
             <button
+              onClick={() => history.push("/edit/profile")}
               className="profile--edit-button"
               style={!isMyProfile ? { display: "none" } : null}
             >
@@ -95,6 +99,7 @@ const ProfileSummary = ({
             <button
               className="profile--edit-button"
               style={!isMyProfile ? { display: "none" } : null}
+              onClick={() => history.push("/edit/profile")}
             >
               Edit Profile
             </button>
