@@ -12,6 +12,7 @@ router.post("/login", (req, res) => {
           profile_image_url,
           uid,
           bio,
+          email,
           username,
           password,
         } = res1.rows[0];
