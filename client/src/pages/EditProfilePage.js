@@ -35,7 +35,7 @@ const EditProfilePage = ({
         username.trim().length >= 5 &&
         username.trim().length <= 25
       ) {
-        updateUserData(username, email || "", bio || "").then((res) => {
+        updateUserData(username.trim(), email || "", bio || "").then((res) => {
           setUpdating(false);
           if (res !== "success") {
             setError(res);
