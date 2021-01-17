@@ -10,7 +10,8 @@ router.post("/login", (req, res) => {
       if (res1.rows.length > 0) {
         const { profile_image_url, uid, username, password } = res1.rows[0];
         bcrypt.compare(req.body.password, password, (err, result) => {
-          if (result) res.send({ profile_image_url, uid, username });
+          if (result)
+            res.send({ profile_image_url, uid, username, bio, email });
           else res.send("invalid password");
         });
       } else {
