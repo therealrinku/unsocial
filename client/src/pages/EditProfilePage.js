@@ -2,6 +2,7 @@ import { useState } from "react";
 import { connect } from "react-redux";
 import MobileNavbar from "../components/MobileNavbar";
 import Navbar from "../components/Navbar";
+import { updateUserData } from "../services/userServices";
 
 const EditProfilePage = ({
   currentUserProfileImage,
@@ -13,6 +14,48 @@ const EditProfilePage = ({
   const [username, setUsername] = useState(currentUserName);
   const [email, setEmail] = useState(currentUserEmail);
   const [bio, setBio] = useState(currentUserBio);
+  const [error, setError] = useState("");
+  const [successMsg, setSuccessMsg] = useState("");
+  const [updating, setUpdating] = useState(false);
+
+  const updateProfile = (e) => {
+    e.preventDefault();
+    setUpdating(true);
+
+    if (
+      username === currentUserName &&
+      email === currentUserEmail &&
+      bio === currentUserBio
+    ) {
+      setError("Nothing to Update.");
+      setUpdating(false);
+    } else {
+      if (
+        !username.trim().includes(" ") &&
+        username.trim().length >= 5 &&
+        username.trim().length <= 25
+      ) {
+        updateUserData(username, email || "", bio || "").then((res) => {
+          setUpdating(false);
+          if (res !== "success") {
+            setError(res);
+          } else {
+            setSuccessMsg("Profile updated...page will reload in 3 seconds.");
+            setTimeout(() => {
+              window.location.reload();
+            }, 3000);
+          }
+        });
+      } else {
+        setUpdating(false);
+        setError("Username must be spaceless between 5 and 25 characters.");
+      }
+    }
+
+    setTimeout(() => {
+      setError("");
+    }, 2000);
+  };
 
   return (
     <div className="edit--profile-page">
@@ -30,7 +73,7 @@ const EditProfilePage = ({
       </section>
 
       <section>
-        <form>
+        <form onSubmit={updateProfile}>
           <label htmlFor="username">Username</label>
           <input
             type="text"
@@ -48,7 +91,9 @@ const EditProfilePage = ({
           <textarea type="text" onChange={(e) => setBio(e.target.value)}>
             {bio}
           </textarea>
-          <button>Submit</button>
+          <p>{error}</p>
+          <p style={{ color: "green" }}>{successMsg}</p>
+          <button disabled={updating}>Submit</button>
         </form>
       </section>
     </div>
