@@ -8,7 +8,7 @@ router.post("/updateprofile", (req, res) => {
     (err, res1) => {
       if (
         res1.rows.length <= 0 ||
-        res1.rows[0]?.username === `${req.body.username}`
+        req.body.initial_username === `${req.body.username}`
       ) {
         db.query(
           `UPDATE users SET username='${req.body.username}',email='${req.body.email}',bio='${req.body.bio}'
