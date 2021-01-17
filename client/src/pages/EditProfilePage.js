@@ -11,21 +11,24 @@ const EditProfilePage = ({
     <div className="edit--profile-page">
       <Navbar />
       <MobileNavbar />
-      <section>
+
+      <section className="section-one">
         <img src={currentUserProfileImage} alt="profile-image" />
-        <p>{currentUserName}</p>
-        <button>Change Profile Photo</button>
+
+        <div>
+          <p>{currentUserName}</p>
+          <button>Change Profile Photo</button>
+        </div>
       </section>
 
       <section>
         <form>
           <label htmlFor="username">Username</label>
           <input type="text" value={currentUserName} id="username" />
-          <label htmlFor="email" value="email">
-            Email
-          </label>
+          <label htmlFor="email">Email</label>
+          <input type="text" value="email" />
           <label htmlFor="Bio">Bio</label>
-          <input type="text" value="bio"></input>
+          <textarea type="text">bio</textarea>
           <button>Submit</button>
         </form>
       </section>
