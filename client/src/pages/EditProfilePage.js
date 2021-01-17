@@ -6,6 +6,8 @@ const EditProfilePage = ({
   currentUserProfileImage,
   currentUserName,
   currentUserUid,
+  currentUserBio,
+  currentUserEmail,
 }) => {
   return (
     <div className="edit--profile-page">
@@ -26,9 +28,9 @@ const EditProfilePage = ({
           <label htmlFor="username">Username</label>
           <input type="text" value={currentUserName} id="username" />
           <label htmlFor="email">Email</label>
-          <input type="text" value="email" />
+          <input type="text" value={currentUserEmail} />
           <label htmlFor="Bio">Bio</label>
-          <textarea type="text">bio</textarea>
+          <textarea type="text">{currentUserBio}</textarea>
           <button>Submit</button>
         </form>
       </section>
@@ -38,6 +40,8 @@ const EditProfilePage = ({
 
 const mapStateToProps = (state) => {
   return {
+    currentUserEmail: state.user.currentUserData.email,
+    currentUserBio: state.user.currentUserData.bio,
     currentUserProfileImage: state.user.currentUserData.profile_image_url,
     currentUserName: state.user.currentUserData.username,
     currentUserUid: state.user.currentUserData.uid,

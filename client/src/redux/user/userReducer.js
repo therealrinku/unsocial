@@ -5,8 +5,10 @@ const intialState = {
     uid: null,
     username: null,
     profile_image_url: null,
+    email: null,
+    bio: null,
   },
-  user_data_loaded:false,
+  user_data_loaded: false,
   token: localStorage.getItem("token"),
   error: null,
   loading: false,
@@ -63,7 +65,7 @@ const userReducer = (state = intialState, action) => {
         currentUserData: action.payload,
         loading: false,
         error: null,
-        user_data_loaded:true
+        user_data_loaded: true,
       };
 
     case userActionTypes.LOGOUT:
