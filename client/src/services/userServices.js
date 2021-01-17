@@ -1,11 +1,21 @@
 import axios from "axios";
 import server_url from "../server_url";
 
-export const updateUserData = async (username, email, bio) => {
+export const updateUserData = async (
+  username,
+  email,
+  bio,
+  initial_username
+) => {
   try {
     return new Promise((resolve) => {
       return axios
-        .post(server_url + `/user/updateprofile`, { username, email, bio })
+        .post(server_url + `/user/updateprofile`, {
+          username,
+          email,
+          bio,
+          initial_username,
+        })
         .then((res) => {
           resolve(res.data);
         });
