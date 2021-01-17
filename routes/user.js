@@ -1,6 +1,29 @@
 const db = require("../database/db");
 const router = require("express").Router();
 
+//update profile
+router.post("/updateprofile", (req, res) => {
+  db.query(
+    `SELECT username FROM users WHERE username='${req.body.username}'`,
+    (err, res1) => {
+      if (
+        res1.rows.length <= 0 ||
+        res1.rows[0]?.username === `${req.body.username}`
+      ) {
+        db.query(
+          `UPDATE users SET username='${req.body.username}',email='${req.body.email},bio='${req.body.bio}'`,
+          (err2, res2) => {
+            if (!err2) res.send("success");
+            else throw err2;
+          }
+        );
+      } else {
+        res.send("username taken");
+      }
+    }
+  );
+});
+
 //get recommended users
 router.get("/getrecommended/:currentUserUid", (req, res) => {
   db.query(
