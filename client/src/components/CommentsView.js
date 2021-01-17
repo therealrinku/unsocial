@@ -13,7 +13,7 @@ const CommentsView = ({
   return (
     <div
       className="comments--view"
-      style={mobile ? { overflow: "hidden" } : null}
+      style={mobile ? { overflow: "hidden", padding: 0 } : null}
     >
       {comments.map((comment) => {
         return (
