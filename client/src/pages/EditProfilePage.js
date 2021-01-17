@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { connect } from "react-redux";
 import MobileNavbar from "../components/MobileNavbar";
 import Navbar from "../components/Navbar";
@@ -9,6 +10,10 @@ const EditProfilePage = ({
   currentUserBio,
   currentUserEmail,
 }) => {
+  const [username, setUsername] = useState(currentUserName);
+  const [email, setEmail] = useState(currentUserEmail);
+  const [bio, setBio] = useState(currentUserBio);
+
   return (
     <div className="edit--profile-page">
       <Navbar />
@@ -26,11 +31,22 @@ const EditProfilePage = ({
       <section>
         <form>
           <label htmlFor="username">Username</label>
-          <input type="text" value={currentUserName} id="username" />
+          <input
+            type="text"
+            value={username}
+            id="username"
+            onChange={(e) => setUsername(e.target.value)}
+          />
           <label htmlFor="email">Email</label>
-          <input type="text" value={currentUserEmail} />
+          <input
+            type="text"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
           <label htmlFor="Bio">Bio</label>
-          <textarea type="text">{currentUserBio}</textarea>
+          <textarea type="text" onChange={(e) => setBio(e.target.value)}>
+            {bio}
+          </textarea>
           <button>Submit</button>
         </form>
       </section>
