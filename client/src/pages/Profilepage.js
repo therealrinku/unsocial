@@ -78,7 +78,7 @@ const Profilepage = ({
 
   useEffect(() => {
     //set document title
-    document.title = `${profileUsername}-Instaclone`;
+    document.title = `${profileUsername} at Instaclone`;
     if (profileData.length <= 0) {
       GET_PROFILE_DATA(profileUsername, currentUserUid);
     }
