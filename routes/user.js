@@ -11,7 +11,7 @@ router.post("/updateprofile", (req, res) => {
         res1.rows[0]?.username === `${req.body.username}`
       ) {
         db.query(
-          `UPDATE users SET username='${req.body.username}',email='${req.body.email},bio='${req.body.bio}'`,
+          `UPDATE users SET username='${req.body.username}',email='${req.body.email}',bio='${req.body.bio}'`,
           (err2, res2) => {
             if (!err2) res.send("success");
             else throw err2;
