@@ -1,6 +1,6 @@
 import { useHistory } from "react-router-dom";
 
-const LoginNeededPrompt = ({ toggle }) => {
+const LoginNeededPrompt = ({ toggle, profilePage }) => {
   const history = useHistory();
 
   const goToLoginPage = () => {
@@ -10,7 +10,10 @@ const LoginNeededPrompt = ({ toggle }) => {
 
   return (
     <div className="login--needed-prompt">
-      <p>You need to login to interact with the posts.</p>
+      <p>
+        You need to login to interact with the{" "}
+        {profilePage ? "profile" : "post"}.
+      </p>
       <button onClick={goToLoginPage} className="login--btn">
         Login
       </button>
