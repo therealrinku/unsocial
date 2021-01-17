@@ -108,6 +108,10 @@
   display: none;
 }
 
+.comment--view-section--mobile {
+  display: none;
+}
+
 @media (max-width: 1000px) {
   .post--view-- {
     width: 90%;
@@ -121,7 +125,14 @@
 
   .post--card-mobile {
     display: block;
-    margin-top: 50px;
+    margin-top: 70px;
     margin-bottom: 60px;
+  }
+  .comment--view-section--mobile {
+    display: block;
+    margin: auto;
+    margin-bottom: 60px;
+    width: 95vw;
+    margin-top: -50px;
   }
 }

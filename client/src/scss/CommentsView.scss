@@ -2,43 +2,52 @@
   width: 100%;
   height: 100%;
   overflow-y: scroll;
-  padding-right: 17px;
   box-sizing: content-box;
 
   .comment {
     display: flex;
     align-items: flex-start;
+    padding-right: 17px;
 
-    
-  p {
-    font-size: 13px;
-  }
+    button {
+      border: none;
+      background: inherit;
+      outline: none;
+    }
 
-  a {
-    text-decoration: none;
-    color: black;
-    font-weight: bold;
-  }
+    p {
+      font-size: 13px;
+    }
 
-  a:hover {
-    text-decoration: underline;
-  }
+    a {
+      text-decoration: none;
+      color: black;
+      font-weight: bold;
+    }
 
-  .username--comment {
-    margin-right: 5px;
-    word-break: break-all;
-  }
+    a:hover {
+      text-decoration: underline;
+    }
 
-  img {
-    margin: 0 5px;
-    margin-top: 6px;
-  }
+    .username--comment {
+      margin-right: 5px;
+      word-break: break-all;
+    }
+
+    img {
+      width: 30px;
+      height: 30px;
+      object-fit: cover;
+      margin-right: 10px;
+      border-radius: 50%;
+      margin-left: -30px;
+      margin: 0 5px;
+      margin-top: 6px;
+    }
   }
 
   .comment_ {
     word-break: break-all;
     padding-right: 10px;
   }
-
-  
 }

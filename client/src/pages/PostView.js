@@ -259,6 +259,19 @@ const PostView = ({
             />
           </div>
 
+          <div className="comment--view-section--mobile">
+            <CommentsView
+              mobile={true}
+              comments={thisPostComments || []}
+              likeUnlikeComment={likeUnlikeComment}
+              currentUserUid={currentUserUid}
+              deleteComment={deleteComment}
+              currentUsername={currentUsername}
+              getCommentLikers={getCommentLikers}
+              gettingCommentLikers={gettingCommentLikers}
+            />
+          </div>
+
           <div
             className="post--view--"
             style={!imageIsLoaded ? { display: "none" } : null}
@@ -359,18 +372,6 @@ const PostView = ({
           />
         </Fragment>
       ) : null}
-
-      <div className="comment--view-section--mobile">
-        <CommentsView
-          comments={thisPostComments || []}
-          likeUnlikeComment={likeUnlikeComment}
-          currentUserUid={currentUserUid}
-          deleteComment={deleteComment}
-          currentUsername={currentUsername}
-          getCommentLikers={getCommentLikers}
-          gettingCommentLikers={gettingCommentLikers}
-        />
-      </div>
     </Fragment>
   );
 };

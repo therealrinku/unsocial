@@ -8,9 +8,13 @@ const CommentsView = ({
   currentUsername,
   getCommentLikers,
   gettingCommentLikers,
+  mobile,
 }) => {
   return (
-    <div className="comments--view">
+    <div
+      className="comments--view"
+      style={mobile ? { overflow: "hidden" } : null}
+    >
       {comments.map((comment) => {
         return (
           <Comment
