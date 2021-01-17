@@ -9,6 +9,12 @@ const initialState = {
 
 const profileReducer = (state = initialState, action) => {
   switch (action.type) {
+    case profileActionTypes.CLEAR_PROFILES:
+      return {
+        ...state,
+        profiles: [],
+      };
+
     case profileActionTypes.SET_FOLLOWERS:
       const profileCopy0 = [...state.profiles];
       const userIndex0 = profileCopy0.findIndex(

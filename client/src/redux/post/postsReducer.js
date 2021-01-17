@@ -16,6 +16,13 @@ const initial_state = {
 
 const postsReducer = (state = initial_state, action) => {
   switch (action.type) {
+    case postActionTypes.CLEAR_POSTS:
+      return {
+        ...state,
+        posts: [],
+        explore_posts: [],
+      };
+
     case postActionTypes.GETTING_COMMENT_LIKERS:
       return {
         ...state,

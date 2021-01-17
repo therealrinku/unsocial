@@ -2,6 +2,8 @@ import { loginUser, loginWithUid } from "../../services/authServices";
 import { getRecommendedUsers } from "../../services/userServices";
 import userActionTypes from "./userActionTypes";
 import { followUser, unfollowUser } from "../../services/profileServices";
+import postActionTypes from "../post/postsActionTypes";
+import profileActionTypes from "../profile/profileActionTypes";
 
 export const UNFOLLOW_RECOMMENDED = (
   currentUserUid,
@@ -84,4 +86,6 @@ export const LOGIN = (username, password) => async (dispatch) => {
 
 export const LOGOUT = () => (dispatch) => {
   dispatch({ type: userActionTypes.LOGOUT });
+  dispatch({ type: postActionTypes.CLEAR_POSTS });
+  dispatch({ type: profileActionTypes.CLEAR_PROFILES });
 };
