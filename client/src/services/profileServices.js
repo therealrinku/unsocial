@@ -68,7 +68,12 @@ export const getProfileSavedPosts = async (current_user_uid) => {
 export const getProfilePosts = async (current_user_uid, profile_user_uid) => {
   try {
     const profilePosts = await axios
-      .get(server_url + `/post/posts/${current_user_uid}/${profile_user_uid}`)
+      .get(
+        server_url +
+          `/post/posts/${
+            current_user_uid || "56f6a34b-23b3-4daa-a53c-b4c364a6cad8"
+          }/${profile_user_uid}`
+      )
       .then((res) => {
         return res.data;
       });
