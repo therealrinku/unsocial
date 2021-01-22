@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { IoAdd } from "react-icons/all";
 
 const NewPostBtn = ({ setSelectedImage, toggleAddPostModal }) => {
