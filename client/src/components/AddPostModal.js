@@ -1,4 +1,5 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo } from "react";
+import { VscChromeClose } from "react-icons/all";
 
 const AddPostModal = ({
   uploadPost,
@@ -15,6 +16,13 @@ const AddPostModal = ({
   return (
     <div className="add--post-modal">
       <div>
+        <button onClick={toggle}>
+          <VscChromeClose />
+        </button>
+        <button onClick={uploadPost}>Post</button>
+      </div>
+
+      <div>
         <img src={currentUserProfileImage} alt="my_profile_image" />
         <input
           type="text"
@@ -23,11 +31,6 @@ const AddPostModal = ({
           onChange={(e) => setStatus(e.target.value)}
         />
         <img src={selectedImageFile} alt="post_img" />
-      </div>
-
-      <div>
-        <button onClick={uploadPost}>Post</button>
-        <button onClick={toggle}>Cancel</button>
       </div>
     </div>
   );

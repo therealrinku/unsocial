@@ -10,6 +10,25 @@
   transform: translate(-50%, -50%);
   z-index: 3;
 
+  div:first-child {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: solid 1px rgba(0, 0, 0, 0.2);
+    padding: 5px 0;
+
+    button {
+      background: inherit;
+      border: none;
+      outline: none;
+      padding: 0 10px;
+    }
+
+    button:first-child {
+      font-size: 18px;
+    }
+  }
+
   img {
     display: block;
     width: 80px;
@@ -24,7 +43,7 @@
     border-radius: 50%;
   }
 
-  div:first-child {
+  div:last-child {
     width: 98%;
     margin: auto;
     display: flex;
@@ -35,23 +54,11 @@
     display: block;
     border: none;
     border-bottom: solid 1px rgba(0, 0, 0, 0.2);
-    width: 50%;
+    width: 52%;
     box-sizing: border-box;
     outline: none;
     padding: 5px 0 5px 0;
     height: 30px;
-  }
-
-  div:nth-child(2) {
-    button {
-      width: 100%;
-      padding: 15px 0;
-      text-align: center;
-      border: none;
-      outline: none;
-      background: inherit;
-      border-top: solid 1px rgba(0, 0, 0, 0.2);
-    }
   }
 }
 
