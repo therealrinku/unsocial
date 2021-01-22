@@ -68,3 +68,9 @@
     }
   }
 }
+
+@media (max-width: 500px) {
+  .post--options-modal {
+    width: 75vw;
+  }
+}
