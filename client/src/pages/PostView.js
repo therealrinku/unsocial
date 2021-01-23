@@ -68,12 +68,7 @@ const PostView = ({
       if (haveILiked) {
         UNLIKE_POST(post_uid, currentUserUid, currentPost[0].poster_uid);
       } else {
-        LIKE_POST(
-          post_uid,
-          currentUserUid,
-          post_owner_uid,
-          currentPost[0].poster_uid
-        );
+        LIKE_POST(post_uid, currentUserUid, currentPost[0].poster_uid);
       }
     } else {
       toggleModal(setShowLoginNeededPrompt);
