@@ -1,13 +1,26 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
 import * as Icons from "../Icons/CustomIcons";
 import { connect } from "react-redux";
 import toggleOverflow from "../utilities/overflowToggler";
 import AddPost from "./AddPostModal";
+import overflowToggler from "../utilities/overflowToggler";
+import Activity from "./Activity";
+import Backdrop from "./Backdrop";
 
-const MobileNavbar = ({ currentUsername, currentUserProfileimage }) => {
+const MobileNavbar = ({
+  currentUsername,
+  currentUserProfileimage,
+  currentUserUid,
+}) => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [showAddPost, setShowAddPost] = useState(false);
+  const [showActivity, setShowActivity] = useState(false);
+
+  const toggleActivity = () => {
+    overflowToggler();
+    setShowActivity((prev) => !prev);
+  };
 
   const toggleAddPostModal = () => {
     toggleOverflow();
@@ -45,9 +58,9 @@ const MobileNavbar = ({ currentUsername, currentUserProfileimage }) => {
         </label>
       </div>
 
-      <Link to="/activity">
+      <button onClick={toggleActivity}>
         <Icons.ActivityIcon />
-      </Link>
+      </button>
 
       <Link to={`/${currentUsername}`}>
         <img
@@ -55,12 +68,20 @@ const MobileNavbar = ({ currentUsername, currentUserProfileimage }) => {
           alt="profile_image"
         />
       </Link>
+
+      {showActivity ? (
+        <Fragment>
+          <Backdrop show={showActivity} toggle={toggleActivity} />
+          <Activity currentUserUid={currentUserUid} toggle={toggleActivity} />
+        </Fragment>
+      ) : null}
     </div>
   );
 };
 
 const mapStateToProps = (state) => {
   return {
+    currentUserUid: state.user.currentUserData.uid,
     currentUsername: state.user.currentUserData.username,
     currentUserProfileimage: state.user.currentUserData.profile_image_url,
   };

@@ -19,14 +19,14 @@ const Activity = ({ currentUserUid, toggle }) => {
 
   return (
     <div className="notification-list">
-      <div>
+      <div className="top">
         <p>Activity</p>
         <button onClick={toggle}>
           <VscClose />
         </button>
       </div>
 
-      <div>
+      <div className="notifications">
         {notifications.length > 0 ? (
           notifications
             .sort((a, b) => {

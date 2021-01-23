@@ -6,11 +6,63 @@
   top: 50%;
   transform: translate(-50%, -50%);
   padding: 10px 0;
-  z-index: 3;
+  z-index: 4;
   border: solid 1px rgba(0, 0, 0, 0.3);
   border-radius: 10px;
 
-  div:nth-child(1) {
+  .notifications {
+    margin-top: -10px;
+    overflow-y: auto;
+    min-height: 100px;
+  }
+
+  .notification {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 5px;
+    margin-right: 5px;
+  }
+
+  .notification:hover {
+    cursor: pointer;
+  }
+
+  .notification .left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .notification p {
+    font-size: 13px;
+  }
+
+  .notification .profile-pic {
+    width: 25px;
+    height: 25px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin: 0 10px;
+  }
+
+  .notification .post-img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+  }
+
+  @media (max-width: 550px) {
+    .notifications .notification {
+      margin-top: 2px;
+    }
+    .notifications .notification .profile-pic {
+      margin: 0 4px;
+    }
+  }
+
+  .top {
     border-bottom: solid 1px rgba(0, 0, 0, 0.2);
     font-size: 16px;
     height: 20px;
@@ -30,11 +82,6 @@
       top: 2px;
       font-size: 25px;
     }
-  }
-
-  div:last-child {
-    overflow-y: auto;
-    min-height: 100px;
   }
 
   a {

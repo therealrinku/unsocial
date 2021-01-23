@@ -11,6 +11,12 @@
   bottom: 0;
   z-index: 0;
 
+  button {
+    border: none;
+    background: inherit;
+    outline: none;
+  }
+
   img {
     width: 25px;
     height: 25px;
