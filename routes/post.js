@@ -158,16 +158,18 @@ router.post("/like", (req, res) => {
   db.query(
     `UPDATE posts SET likers=array_append(likers,'${req.body.liker_uid}') WHERE post_uid='${req.body.post_uid}'`,
     (err, _) => {
-      db.query(
-        `INSERT INTO notifications(notification,owner_uid,interactor_uid,post_uid,date)
-            VALUES('like post',
-            '${req.body.post_owner_uid}','${req.body.liker_uid}','${
-          req.body.post_uid
-        }','${new Date()}')`
-      );
-
       if (!err) res.send("done");
       else throw err;
+
+      if (req.body.liker_uid !== req.body.post_owner_uid) {
+        db.query(
+          `INSERT INTO notifications(notification,owner_uid,interactor_uid,post_uid,date)
+              VALUES('like post',
+              '${req.body.post_owner_uid}','${req.body.liker_uid}','${
+            req.body.post_uid
+          }','${new Date()}')`
+        );
+      }
     }
   );
 });
