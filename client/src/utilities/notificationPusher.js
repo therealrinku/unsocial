@@ -5,8 +5,13 @@ const notificationPusher = (owner_uid) => {
   firestore
     .collection(owner_uid)
     .doc("notifications")
-    .update({
-      notifications: firebase.firestore.FieldValue.arrayUnion({ new: true }),
+    .get((doc1) => {
+      firestore
+        .collection(owner_uid)
+        .doc("notifications")
+        .set({
+          notifications: [...doc1.data().notifications, { new: true }],
+        });
     });
 };
 
