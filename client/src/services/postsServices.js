@@ -60,7 +60,7 @@ export const likePost = async (post_uid, liker_uid, post_owner_uid) => {
   }
 };
 
-export const unlikePost = async (post_uid, unliker_uid) => {
+export const unlikePost = async (post_uid, unliker_uid, post_owner_uid) => {
   try {
     await axios.post(server_url + "/post/unlike", {
       post_uid,
