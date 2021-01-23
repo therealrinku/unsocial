@@ -138,6 +138,10 @@ router.post("/unfollow", (req, res) => {
             if (res1 === "done") {
               res.send("done");
             }
+            db.query(
+              `DELETE FROM notifications WHERE interactor_uid='${req.body.unfollower_user_uid}' AND
+              owner_uid='${req.body.unfollowing_user_uid}' AND notification='follow'`
+            );
           })
           .catch((err1) => {
             throw err1;
@@ -191,6 +195,13 @@ router.post("/follow", (req, res) => {
             if (res1 === "done") {
               res.send("done");
             }
+            db.query(
+              `INSERT INTO notifications(notification,owner_uid,interactor_uid,date)
+                  VALUES('follow',
+                  '${req.body.following_user_uid}','${
+                req.body.follower_user_uid
+              }','${new Date()}')`
+            );
           })
           .catch((err1) => {
             throw err1;
