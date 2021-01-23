@@ -33,7 +33,7 @@ const Activity = () => {
                       alt="profile-pc"
                       className="profile-pic"
                     />
-                    <p style={!noti.seen ? { color: "skyblue" } : null}>
+                    <p>
                       {noti.username}{" "}
                       {noti.notification === "like post"
                         ? " liked your post."
