@@ -7,6 +7,7 @@ import AddPost from "./AddPostModal";
 import overflowToggler from "../utilities/overflowToggler";
 import Activity from "./Activity";
 import Backdrop from "./Backdrop";
+import Badge from "@material-ui/core/Badge";
 
 const MobileNavbar = ({
   currentUsername,
@@ -65,7 +66,9 @@ const MobileNavbar = ({
         </div>
 
         <button onClick={toggleActivity}>
-          <Icons.ActivityIcon />
+          <Badge badgeContent={4} color="error">
+            <Icons.ActivityIcon />
+          </Badge>
         </button>
 
         <Link to={`/${currentUsername}`}>

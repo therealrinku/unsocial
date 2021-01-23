@@ -7,6 +7,7 @@ import { useHistory } from "react-router-dom";
 import Activity from "./Activity";
 import Backdrop from "./Backdrop";
 import OverflowToggler from "../utilities/overflowToggler";
+import Badge from "@material-ui/core/Badge";
 
 const Navbar = ({
   currentUsername,
@@ -66,7 +67,9 @@ const Navbar = ({
           </Link>
 
           <button onClick={toggleActivity}>
-            <Icons.ActivityIcon />
+            <Badge badgeContent={4} color="error">
+              <Icons.ActivityIcon />
+            </Badge>
           </button>
 
           <Link to={`/${currentUsername}`}>
