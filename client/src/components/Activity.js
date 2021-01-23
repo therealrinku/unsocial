@@ -41,7 +41,7 @@ const Activity = ({ currentUserUid }) => {
                 >
                   <div className="left">
                     <img
-                      src={noti.profileimage}
+                      src={noti.profile_image_url}
                       alt="profile-pc"
                       className="profile-pic"
                     />
@@ -60,8 +60,10 @@ const Activity = ({ currentUserUid }) => {
                     </p>
                   </div>
                   <img
-                    style={noti.postimage === null ? { display: "none" } : null}
-                    src={noti.postimage}
+                    style={
+                      noti.post_image === null ? { display: "none" } : null
+                    }
+                    src={noti.post_image}
                     alt="profile-pc"
                     className="post-img"
                   />
