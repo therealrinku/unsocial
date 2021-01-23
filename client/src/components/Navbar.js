@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import * as Icons from "../Icons/CustomIcons";
@@ -8,6 +8,7 @@ import Activity from "./Activity";
 import Backdrop from "./Backdrop";
 import OverflowToggler from "../utilities/overflowToggler";
 import Badge from "@material-ui/core/Badge";
+import firestore from "../firebase/firestore";
 
 const Navbar = ({
   currentUsername,
@@ -17,6 +18,16 @@ const Navbar = ({
   const history = useHistory();
   const pathname = history.location.pathname;
   const [showActivity, setShowActivity] = useState(false);
+  const [notificationsCount, setNotificationsCount] = useState(1);
+
+  useEffect(() => {
+    firestore
+      .collection(currentUserUid)
+      .doc("notifications")
+      .onSnapshot((doc) => {
+        setNotificationsCount(doc.data()?.notifications.length);
+      });
+  }, []);
 
   const toggleActivity = () => {
     OverflowToggler();
@@ -67,7 +78,11 @@ const Navbar = ({
           </Link>
 
           <button onClick={toggleActivity}>
-            <Badge badgeContent={4} color="error">
+            <Badge
+              badgeContent={notificationsCount}
+              color="error"
+              style={{ marginTop: "-6px" }}
+            >
               <Icons.ActivityIcon />
             </Badge>
           </button>
