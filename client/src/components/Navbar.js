@@ -23,65 +23,70 @@ const Navbar = ({
   };
 
   return (
-    <div className="navbar">
-      <ul>
-        <Link to="/">Instaclone</Link>
-      </ul>
+    <Fragment>
+      <div className="navbar">
+        <ul>
+          <Link to="/">Instaclone</Link>
+        </ul>
 
-      <ul>
-        <SearchView />
-      </ul>
+        <ul>
+          <SearchView />
+        </ul>
 
-      <ul style={currentUsername ? { display: "none" } : null}>
-        <button className="login--btn" onClick={() => history.push("/login")}>
-          Login
-        </button>
-        <button className="signup--btn" onClick={() => history.push("/signup")}>
-          Signup
-        </button>
-      </ul>
+        <ul style={currentUsername ? { display: "none" } : null}>
+          <button className="login--btn" onClick={() => history.push("/login")}>
+            Login
+          </button>
+          <button
+            className="signup--btn"
+            onClick={() => history.push("/signup")}
+          >
+            Signup
+          </button>
+        </ul>
 
-      <ul
-        className="right"
-        style={!currentUsername ? { display: "none" } : null}
-      >
-        <Link to="/">
-          {pathname === "/" ? <Icons.HomeActiveIcon /> : <Icons.HomeIcon />}
-        </Link>
+        <ul
+          className="right"
+          style={!currentUsername ? { display: "none" } : null}
+        >
+          <Link to="/">
+            {pathname === "/" ? <Icons.HomeActiveIcon /> : <Icons.HomeIcon />}
+          </Link>
 
-        <Link to="/chat">
-          <Icons.ChatIcon />
-        </Link>
+          <Link to="/chat">
+            <Icons.ChatIcon />
+          </Link>
 
-        <Link to="/explore">
-          {pathname === "/explore" ? (
-            <Icons.ExploreActiveIcon />
-          ) : (
-            <Icons.ExploreIcon />
-          )}
-        </Link>
+          <Link to="/explore">
+            {pathname === "/explore" ? (
+              <Icons.ExploreActiveIcon />
+            ) : (
+              <Icons.ExploreIcon />
+            )}
+          </Link>
 
-        <button onClick={toggleActivity}>
-          <Icons.ActivityIcon />
-        </button>
+          <button onClick={toggleActivity}>
+            <Icons.ActivityIcon />
+          </button>
 
-        <Link to={`/${currentUsername}`}>
-          <img
-            style={
-              pathname === `/${currentUsername}`
-                ? {
-                    border: "solid 1px black",
-                    padding: "2px",
-                    width: "20px",
-                    height: "20px",
-                  }
-                : null
-            }
-            src={currentUserProfileimage || "https://bit.ly/3pc96tw"}
-            alt="profile_image"
-          />
-        </Link>
-      </ul>
+          <Link to={`/${currentUsername}`}>
+            <img
+              style={
+                pathname === `/${currentUsername}`
+                  ? {
+                      border: "solid 1px black",
+                      padding: "2px",
+                      width: "20px",
+                      height: "20px",
+                    }
+                  : null
+              }
+              src={currentUserProfileimage || "https://bit.ly/3pc96tw"}
+              alt="profile_image"
+            />
+          </Link>
+        </ul>
+      </div>
 
       {showActivity ? (
         <Fragment>
@@ -89,7 +94,7 @@ const Navbar = ({
           <Activity currentUserUid={currentUserUid} toggle={toggleActivity} />
         </Fragment>
       ) : null}
-    </div>
+    </Fragment>
   );
 };
 

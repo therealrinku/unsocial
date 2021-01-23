@@ -35,39 +35,46 @@ const MobileNavbar = ({
   };
 
   return (
-    <div
-      className="navbar--mobile"
-      style={!currentUsername ? { display: "none" } : null}
-    >
-      {showAddPost ? (
-        <AddPost selectedImage={selectedImage} toggle={toggleAddPostModal} />
-      ) : null}
+    <Fragment>
+      <div
+        className="navbar--mobile"
+        style={!currentUsername ? { display: "none" } : null}
+      >
+        {showAddPost ? (
+          <AddPost selectedImage={selectedImage} toggle={toggleAddPostModal} />
+        ) : null}
 
-      <Link to="/">
-        <Icons.HomeIcon />
-      </Link>
+        <Link to="/">
+          <Icons.HomeIcon />
+        </Link>
 
-      <Link to="/explore">
-        <Icons.SearchIcon />
-      </Link>
+        <Link to="/explore">
+          <Icons.SearchIcon />
+        </Link>
 
-      <div>
-        <input type="file" id="file_input" onChange={updateFile} name="post" />
-        <label htmlFor="file_input">
-          <Icons.NewPostIcon />
-        </label>
+        <div>
+          <input
+            type="file"
+            id="file_input"
+            onChange={updateFile}
+            name="post"
+          />
+          <label htmlFor="file_input">
+            <Icons.NewPostIcon />
+          </label>
+        </div>
+
+        <button onClick={toggleActivity}>
+          <Icons.ActivityIcon />
+        </button>
+
+        <Link to={`/${currentUsername}`}>
+          <img
+            src={currentUserProfileimage || "https://bit.ly/3pc96tw"}
+            alt="profile_image"
+          />
+        </Link>
       </div>
-
-      <button onClick={toggleActivity}>
-        <Icons.ActivityIcon />
-      </button>
-
-      <Link to={`/${currentUsername}`}>
-        <img
-          src={currentUserProfileimage || "https://bit.ly/3pc96tw"}
-          alt="profile_image"
-        />
-      </Link>
 
       {showActivity ? (
         <Fragment>
@@ -75,7 +82,7 @@ const MobileNavbar = ({
           <Activity currentUserUid={currentUserUid} toggle={toggleActivity} />
         </Fragment>
       ) : null}
-    </div>
+    </Fragment>
   );
 };
 
