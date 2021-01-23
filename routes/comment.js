@@ -21,6 +21,10 @@ router.post("/delete", (req, res) => {
     (err, res1) => {
       if (!err) res.send("success");
       else throw err;
+
+      db.query(
+        `DELETE FROM notifications WHERE (comment_uid)::text='${req.body.comment_uid}'`
+      );
     }
   );
 });
@@ -75,6 +79,16 @@ router.post("/addcomment", (req, res) => {
     (err, res1) => {
       if (!err) res.send(res1.rows);
       else throw err;
+
+      db.query(
+        `INSERT INTO notifications(notification,owner_uid,interactor_uid,date,post_uid,comment_uid)
+            VALUES('comment added',
+            '${req.body.post_owner_uid}','${
+          req.body.commenter_uid
+        }','${new Date()}','${req.body.post_uid}','${
+          res1.rows[0]?.comment_uid
+        }'  )`
+      );
     }
   );
 });
