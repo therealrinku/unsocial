@@ -1,8 +1,18 @@
+import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
+import axios from "axios";
 
-const Activity = () => {
+const Activity = ({ currentUserUid }) => {
   const history = useHistory();
   const [notifications, setNotifications] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(`https://localhost:4000/user/getNotifications/${currentUserUid}`)
+      .then((res) => {
+        setNotifications(res.data);
+      });
+  }, []);
 
   return (
     <div className="notification-list">
@@ -15,13 +25,13 @@ const Activity = () => {
             return (
               <div
                 style={loading ? { display: "none" } : { width: "100%" }}
-                key={noti.id}
+                key={noti.uid}
               >
                 <div
                   className="notification"
                   onClick={() =>
                     noti.postId !== null
-                      ? history.push(`/viewPost/${noti.postId}`)
+                      ? history.push(`/viewPost/${noti.post_id}`)
                       : notification === "follow"
                       ? history.push(`/profile/${noti.username}`)
                       : ""
