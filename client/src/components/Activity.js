@@ -10,7 +10,9 @@ const Activity = ({ currentUserUid, toggle }) => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:4000/user/getNotifications/${currentUserUid}`)
+      .get(
+        `https://instacloone.herokuapp.com/user/getNotifications/${currentUserUid}`
+      )
       .then((res) => {
         setNotifications(res.data);
         setLoading(false);
