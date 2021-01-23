@@ -1,5 +1,4 @@
 import firestore from "../firebase/firestore";
-import firebase from "firebase/app";
 
 const notificationPusher = (owner_uid) => {
   firestore
