@@ -82,7 +82,13 @@ const Activity = ({ currentUserUid }) => {
           No notifications
         </p>
       )}
-      <div style={!loading ? { display: "none" } : { fontSize: "14px" }}>
+      <div
+        style={
+          !loading
+            ? { display: "none" }
+            : { textAlign: "center", fontSize: "14px" }
+        }
+      >
         <p>Loading...</p>
       </div>
     </div>

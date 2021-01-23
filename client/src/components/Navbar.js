@@ -1,15 +1,26 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import * as Icons from "../Icons/CustomIcons";
 import SearchView from "./SearchView";
 import { useHistory } from "react-router-dom";
 import Activity from "./Activity";
+import Backdrop from "./Backdrop";
+import OverflowToggler from "../utilities/overflowToggler";
 
-const Navbar = ({ currentUsername, currentUserProfileimage,currentUserUid }) => {
+const Navbar = ({
+  currentUsername,
+  currentUserProfileimage,
+  currentUserUid,
+}) => {
   const history = useHistory();
   const pathname = history.location.pathname;
   const [showActivity, setShowActivity] = useState(false);
+
+  const toggleActivity = () => {
+    OverflowToggler();
+    setShowActivity((prev) => !prev);
+  };
 
   return (
     <div className="navbar">
@@ -50,9 +61,8 @@ const Navbar = ({ currentUsername, currentUserProfileimage,currentUserUid }) => 
           )}
         </Link>
 
-        <button onClick={() => setShowActivity((prev) => !prev)}>
+        <button onClick={toggleActivity}>
           <Icons.ActivityIcon />
-          {showActivity ? <Activity currentUserUid={currentUserUid}/> : null}
         </button>
 
         <Link to={`/${currentUsername}`}>
@@ -72,13 +82,20 @@ const Navbar = ({ currentUsername, currentUserProfileimage,currentUserUid }) => 
           />
         </Link>
       </ul>
+
+      {showActivity ? (
+        <Fragment>
+          <Backdrop show={showActivity} toggle={toggleActivity} />
+          <Activity currentUserUid={currentUserUid} />
+        </Fragment>
+      ) : null}
     </div>
   );
 };
 
 const mapStateToProps = (state) => {
   return {
-    currentUserUid:state.user.currentUserData.uid,
+    currentUserUid: state.user.currentUserData.uid,
     currentUsername: state.user.currentUserData.username,
     currentUserProfileimage: state.user.currentUserData.profile_image_url,
   };
