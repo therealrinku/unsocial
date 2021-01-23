@@ -17,6 +17,10 @@
     border-radius: 50%;
     object-fit: cover;
   }
+
+  [type="file"] {
+    display: none;
+  }
 }
 
 @media (max-width: 750px) {

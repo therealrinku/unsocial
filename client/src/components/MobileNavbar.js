@@ -1,14 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import * as Icons from "../Icons/CustomIcons";
 import { connect } from "react-redux";
+import toggleOverflow from "../utilities/overflowToggler";
+import AddPost from "./AddPostModal";
 
 const MobileNavbar = ({ currentUsername, currentUserProfileimage }) => {
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [showAddPost, setShowAddPost] = useState(false);
+
+  const toggleAddPostModal = () => {
+    toggleOverflow();
+    setShowAddPost((prev) => !prev);
+  };
+
+  const updateFile = (e) => {
+    if (e.target.files[0]) {
+      toggleAddPostModal();
+      setSelectedImage(e.target.files[0]);
+    }
+  };
+
   return (
     <div
       className="navbar--mobile"
       style={!currentUsername ? { display: "none" } : null}
     >
+      {showAddPost ? <AddPost selectedImage={selectedImage} /> : null}
+
       <Link to="/">
         <Icons.HomeIcon />
       </Link>
@@ -17,9 +36,12 @@ const MobileNavbar = ({ currentUsername, currentUserProfileimage }) => {
         <Icons.SearchIcon />
       </Link>
 
-      <Link to="/">
-        <Icons.NewPostIcon />
-      </Link>
+      <div>
+        <input type="file" id="file_input" onChange={updateFile} name="post" />
+        <label htmlFor="file_input">
+          <Icons.NewPostIcon />
+        </label>
+      </div>
 
       <Link to="/activity">
         <Icons.ActivityIcon />
