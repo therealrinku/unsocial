@@ -19,6 +19,7 @@ import {
   unlikeComment,
 } from "../../services/commentServices";
 import postActionTypes from "./postsActionTypes";
+import notificationPusher from "../../utilities/notificationPusher";
 
 export const GET_COMMENT_LIKERS = (comment_uid, post_uid) => async (
   dispatch
@@ -136,6 +137,10 @@ export const ADD_COMMENT = (
         comment_posted_date: posted_date,
       },
     });
+
+    if (commenter_uid !== post_owner_uid) {
+      notificationPusher(post_owner_uid);
+    }
   } catch (err) {
     dispatch({
       type: postActionTypes.SOMETHING_WENT_WRONG,
@@ -195,6 +200,9 @@ export const LIKE_POST = (post_uid, liker_uid, post_owner_uid) => async (
       payload: { post_uid },
     });
     await likePost(post_uid, liker_uid, post_owner_uid);
+    if (liker_uid !== post_owner_uid) {
+      notificationPusher(post_owner_uid);
+    }
   } catch (err) {
     dispatch({
       type: postActionTypes.SOMETHING_WENT_WRONG,

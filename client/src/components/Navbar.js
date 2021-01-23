@@ -18,14 +18,16 @@ const Navbar = ({
   const history = useHistory();
   const pathname = history.location.pathname;
   const [showActivity, setShowActivity] = useState(false);
-  const [notificationsCount, setNotificationsCount] = useState(1);
+  const [notificationsCount, setNotificationsCount] = useState(0);
 
   useEffect(() => {
     firestore
       .collection(currentUserUid)
       .doc("notifications")
       .onSnapshot((doc) => {
-        setNotificationsCount(doc.data()?.notifications.length);
+        for (let e in doc.data()) {
+          setNotificationsCount((prev) => prev + 1);
+        }
       });
   }, []);
 
@@ -81,7 +83,7 @@ const Navbar = ({
             <Badge
               badgeContent={notificationsCount}
               color="error"
-              style={{ marginTop: "-6px" }}
+              style={{ marginTop: "-8px" }}
             >
               <Icons.ActivityIcon />
             </Badge>
@@ -109,7 +111,11 @@ const Navbar = ({
       {showActivity ? (
         <Fragment>
           <Backdrop show={showActivity} toggle={toggleActivity} />
-          <Activity currentUserUid={currentUserUid} toggle={toggleActivity} />
+          <Activity
+            currentUserUid={currentUserUid}
+            toggle={toggleActivity}
+            clear={() => setNotificationsCount(0)}
+          />
         </Fragment>
       ) : null}
     </Fragment>

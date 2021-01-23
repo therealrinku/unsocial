@@ -4,6 +4,7 @@ import userActionTypes from "./userActionTypes";
 import { followUser, unfollowUser } from "../../services/profileServices";
 import postActionTypes from "../post/postsActionTypes";
 import profileActionTypes from "../profile/profileActionTypes";
+import notificationPusher from "../../utilities/notificationPusher";
 
 export const UNFOLLOW_RECOMMENDED = (
   currentUserUid,
@@ -32,6 +33,7 @@ export const FOLLOW_RECOMMENDED = (currentUserUid, FollowingUserUid) => async (
       payload: FollowingUserUid,
     });
     await followUser(FollowingUserUid, currentUserUid);
+    notificationPusher(FollowingUserUid);
   } catch (err) {
     dispatch({
       type: userActionTypes.SOMETHING_WENT_WRONG,

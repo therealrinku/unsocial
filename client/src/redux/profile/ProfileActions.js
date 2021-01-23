@@ -7,6 +7,7 @@ import {
   getProfileSavedPosts,
   unfollowUser,
 } from "../../services/profileServices";
+import notificationPusher from "../../utilities/notificationPusher";
 import profileActionTypes from "./profileActionTypes";
 
 export const FETCH_FOLLOWINGS = (username) => async (dispatch) => {
@@ -77,6 +78,7 @@ export const FOLLOW = (following_user_uid, follower_user_uid) => async (
       payload: following_user_uid,
     });
     await followUser(following_user_uid, follower_user_uid);
+    notificationPusher(following_user_uid);
   } catch (err) {
     dispatch({
       type: profileActionTypes.ERROR_IN_PROFILE,

@@ -2,13 +2,17 @@ import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import { VscClose } from "react-icons/all";
+import clearNotification from "../utilities/clearNotification";
 
-const Activity = ({ currentUserUid, toggle }) => {
+const Activity = ({ currentUserUid, toggle, clear }) => {
   const history = useHistory();
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    clearNotification(currentUserUid);
+    clear();
+
     axios
       .get(
         `https://instacloone.herokuapp.com/user/getNotifications/${currentUserUid}`
