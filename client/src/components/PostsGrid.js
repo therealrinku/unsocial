@@ -7,7 +7,7 @@ const PostsGrid = ({ userPosts }) => {
     <div className="posts--grid">
       {userPosts
         .sort((a, b) => {
-          return new Date(b.posted_date) - new Date(a.posted_date);
+          return new Date(b.post_posted_date) - new Date(a.post_posted_date);
         })
         .map((e) => {
           return (
