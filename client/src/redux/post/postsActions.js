@@ -290,6 +290,7 @@ export const UPLOAD_POST = (post_data) => async (dispatch) => {
           post_status: post_data.status,
           poster_username: post_data.currentUsername,
           poster_profileimage: post_data.currentUserProfileImage,
+          infeed: true,
         },
       });
     };
