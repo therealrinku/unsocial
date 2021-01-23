@@ -25,7 +25,7 @@ const MobileNavbar = ({ currentUsername, currentUserProfileimage }) => {
         <Icons.ActivityIcon />
       </Link>
 
-      <Link to={`${currentUsername}`}>
+      <Link to={`/${currentUsername}`}>
         <img
           src={currentUserProfileimage || "https://bit.ly/3pc96tw"}
           alt="profile_image"
