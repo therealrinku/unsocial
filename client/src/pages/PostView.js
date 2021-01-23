@@ -66,9 +66,14 @@ const PostView = ({
   const likeUnlikePost = () => {
     if (currentUserUid) {
       if (haveILiked) {
-        UNLIKE_POST(post_uid, currentUserUid);
+        UNLIKE_POST(post_uid, currentUserUid, currentPost[0].poster_uid);
       } else {
-        LIKE_POST(post_uid, currentUserUid);
+        LIKE_POST(
+          post_uid,
+          currentUserUid,
+          post_owner_uid,
+          currentPost[0].poster_uid
+        );
       }
     } else {
       toggleModal(setShowLoginNeededPrompt);
@@ -395,10 +400,24 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(PostsActions.GET_COMMENT_LIKERS(comment_uid, post_uid)),
     DELETE_COMMENT: (comment_uid, post_uid) =>
       dispatch(PostsActions.DELETE_COMMENT(comment_uid, post_uid)),
-    LIKE_COMMENT: (comment_uid, liker_uid, post_uid) =>
-      dispatch(PostsActions.LIKE_COMMENT(comment_uid, liker_uid, post_uid)),
-    UNLIKE_COMMENT: (comment_uid, unliker_uid, post_uid) =>
-      dispatch(PostsActions.UNLIKE_COMMENT(comment_uid, unliker_uid, post_uid)),
+    LIKE_COMMENT: (comment_uid, liker_uid, post_uid, post_owner_uid) =>
+      dispatch(
+        PostsActions.LIKE_COMMENT(
+          comment_uid,
+          liker_uid,
+          post_uid,
+          post_owner_uid
+        )
+      ),
+    UNLIKE_COMMENT: (comment_uid, unliker_uid, post_uid, post_owner_uid) =>
+      dispatch(
+        PostsActions.UNLIKE_COMMENT(
+          comment_uid,
+          unliker_uid,
+          post_uid,
+          post_owner_uid
+        )
+      ),
     GET_COMMENTS: (post_uid, currentUserUid) =>
       dispatch(PostsActions.GET_COMMENTS(post_uid, currentUserUid)),
     DELETE_POST: (post_uid) => dispatch(PostsActions.DELETE_POST(post_uid)),
