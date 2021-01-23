@@ -147,7 +147,7 @@ router.post("/unlike", (req, res) => {
 
       db.query(
         `DELETE FROM notifications WHERE interactor_uid='${req.body.unliker_uid}' 
-        AND post_uid)='${req.body.post_uid}'
+        AND post_uid='${req.body.post_uid}'
         AND notification='like post'`
       );
     }
