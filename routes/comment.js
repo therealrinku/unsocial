@@ -80,15 +80,17 @@ router.post("/addcomment", (req, res) => {
       if (!err) res.send(res1.rows);
       else throw err;
 
-      db.query(
-        `INSERT INTO notifications(notification,owner_uid,interactor_uid,date,post_uid,comment_uid)
+      if (req.body.commenter_uid !== req.body.post_owner_uid) {
+        db.query(
+          `INSERT INTO notifications(notification,owner_uid,interactor_uid,date,post_uid,comment_uid)
             VALUES('comment added',
             '${req.body.post_owner_uid}','${
-          req.body.commenter_uid
-        }','${new Date()}','${req.body.post_uid}','${
-          res1.rows[0]?.comment_uid
-        }'  )`
-      );
+            req.body.commenter_uid
+          }','${new Date()}','${req.body.post_uid}','${
+            res1.rows[0]?.comment_uid
+          }'  )`
+        );
+      }
     }
   );
 });
