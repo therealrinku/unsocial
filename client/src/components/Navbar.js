@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import * as Icons from "../Icons/CustomIcons";
 import SearchView from "./SearchView";
 import { useHistory } from "react-router-dom";
+import Activity from "./Activity";
 
-const Navbar = ({ currentUsername, currentUserProfileimage }) => {
+const Navbar = ({ currentUsername, currentUserProfileimage,currentUserUid }) => {
   const history = useHistory();
   const pathname = history.location.pathname;
+  const [showActivity, setShowActivity] = useState(false);
 
   return (
     <div className="navbar">
@@ -48,9 +50,10 @@ const Navbar = ({ currentUsername, currentUserProfileimage }) => {
           )}
         </Link>
 
-        <Link to="/activity">
+        <button onClick={() => setShowActivity((prev) => !prev)}>
           <Icons.ActivityIcon />
-        </Link>
+          {showActivity ? <Activity currentUserUid={currentUserUid}/> : null}
+        </button>
 
         <Link to={`/${currentUsername}`}>
           <img
@@ -75,6 +78,7 @@ const Navbar = ({ currentUsername, currentUserProfileimage }) => {
 
 const mapStateToProps = (state) => {
   return {
+    currentUserUid:state.user.currentUserData.uid,
     currentUsername: state.user.currentUserData.username,
     currentUserProfileimage: state.user.currentUserData.profile_image_url,
   };

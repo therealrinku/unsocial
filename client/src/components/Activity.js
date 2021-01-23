@@ -5,12 +5,14 @@ import axios from "axios";
 const Activity = ({ currentUserUid }) => {
   const history = useHistory();
   const [notifications, setNotifications] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     axios
-      .get(`https://localhost:4000/user/getNotifications/${currentUserUid}`)
+      .get(`http://localhost:4000/user/getNotifications/${currentUserUid}`)
       .then((res) => {
         setNotifications(res.data);
+        setLoading(false);
       });
   }, []);
 
@@ -32,7 +34,7 @@ const Activity = ({ currentUserUid }) => {
                   onClick={() =>
                     noti.postId !== null
                       ? history.push(`/viewPost/${noti.post_id}`)
-                      : notification === "follow"
+                      : noti.notification === "follow"
                       ? history.push(`/profile/${noti.username}`)
                       : ""
                   }
@@ -78,7 +80,7 @@ const Activity = ({ currentUserUid }) => {
           No notifications
         </p>
       )}
-      <div style={!loading ? { display: "none" } : null}>
+      <div style={!loading ? { display: "none" } : { fontSize: "14px" }}>
         <p>Loading...</p>
       </div>
     </div>
