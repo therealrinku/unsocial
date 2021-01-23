@@ -45,9 +45,9 @@ const Post = ({
 
   const likeUnlikePost = () => {
     if (haveILiked) {
-      UNLIKE_POST(post_uid, currentUserUid);
+      UNLIKE_POST(post_uid, currentUserUid, post_owner_uid);
     } else {
-      LIKE_POST(post_uid, currentUserUid);
+      LIKE_POST(post_uid, currentUserUid, post_owner_uid);
     }
   };
 
@@ -193,8 +193,8 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(postsActions.SAVE_POST(post_uid, saver_username)),
     UNSAVE_POST: (post_uid, unsaver_username) =>
       dispatch(postsActions.UNSAVE_POST(post_uid, unsaver_username)),
-    LIKE_POST: (post_uid, liker_uid) =>
-      dispatch(postsActions.LIKE_POST(post_uid, liker_uid)),
+    LIKE_POST: (post_uid, liker_uid, post_owner_uid) =>
+      dispatch(postsActions.LIKE_POST(post_uid, liker_uid, post_owner_uid)),
     UNLIKE_POST: (post_uid, unliker_uid) =>
       dispatch(postsActions.UNLIKE_POST(post_uid, unliker_uid)),
   };

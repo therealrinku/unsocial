@@ -48,9 +48,13 @@ export const fetchFeed = async (user_uid) => {
   }
 };
 
-export const likePost = async (post_uid, liker_uid) => {
+export const likePost = async (post_uid, liker_uid, post_owner_uid) => {
   try {
-    await axios.post(server_url + "/post/like", { post_uid, liker_uid });
+    await axios.post(server_url + "/post/like", {
+      post_uid,
+      liker_uid,
+      post_owner_uid,
+    });
   } catch (err) {
     throw new Error(err.message);
   }
@@ -58,7 +62,11 @@ export const likePost = async (post_uid, liker_uid) => {
 
 export const unlikePost = async (post_uid, unliker_uid) => {
   try {
-    await axios.post(server_url + "/post/unlike", { post_uid, unliker_uid });
+    await axios.post(server_url + "/post/unlike", {
+      post_uid,
+      unliker_uid,
+      post_owner_uid,
+    });
   } catch (err) {
     throw new Error(err.message);
   }

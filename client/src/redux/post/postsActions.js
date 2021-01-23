@@ -186,13 +186,15 @@ export const GET_FEED = (user_uid) => async (dispatch) => {
   }
 };
 
-export const LIKE_POST = (post_uid, liker_uid) => async (dispatch) => {
+export const LIKE_POST = (post_uid, liker_uid, post_owner_uid) => async (
+  dispatch
+) => {
   try {
     dispatch({
       type: postActionTypes.LIKE_POST,
       payload: { post_uid },
     });
-    await likePost(post_uid, liker_uid);
+    await likePost(post_uid, liker_uid, post_owner_uid);
   } catch (err) {
     dispatch({
       type: postActionTypes.SOMETHING_WENT_WRONG,
@@ -201,13 +203,15 @@ export const LIKE_POST = (post_uid, liker_uid) => async (dispatch) => {
   }
 };
 
-export const UNLIKE_POST = (post_uid, unliker_uid) => async (dispatch) => {
+export const UNLIKE_POST = (post_uid, unliker_uid, post_owner_uid) => async (
+  dispatch
+) => {
   try {
     dispatch({
       type: postActionTypes.UNLIKE_POST,
       payload: { post_uid },
     });
-    await unlikePost(post_uid, unliker_uid);
+    await unlikePost(post_uid, unliker_uid, post_owner_uid);
   } catch (err) {
     dispatch({
       type: postActionTypes.SOMETHING_WENT_WRONG,
