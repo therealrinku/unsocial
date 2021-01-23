@@ -18,7 +18,6 @@ const Homepage = ({
   currentUserUid,
   feed,
   GET_FEED,
-  UPLOAD_POST,
   loading,
   recommendedUsers,
   GET_RECOMMENDED_USERS,
@@ -26,21 +25,6 @@ const Homepage = ({
 }) => {
   const [selectedImage, setSelectedImage] = useState("");
   const [showAddPostModal, setShowAddPostModal] = useState(false);
-  const [status, setStatus] = useState("");
-
-  const uploadPost = () => {
-    if (selectedImage) {
-      toggleAddPostModal();
-      UPLOAD_POST({
-        owner_uid: currentUserUid,
-        status: status,
-        currentUsername: currentUsername,
-        image: selectedImage,
-        posted_date: new Date(),
-        currentUserProfileImage: currentUserProfileImage,
-      });
-    }
-  };
 
   const toggleAddPostModal = () => {
     setShowAddPostModal((prev) => !prev);
@@ -64,12 +48,8 @@ const Homepage = ({
         <Fragment>
           <Backdrop show={showAddPostModal} toggle={toggleAddPostModal} />
           <AddPostModal
-            uploadPost={uploadPost}
             toggle={toggleAddPostModal}
             selectedImage={selectedImage}
-            currentUserProfileImage={currentUserProfileImage}
-            status={status}
-            setStatus={setStatus}
           />
         </Fragment>
       ) : null}
@@ -103,7 +83,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     GET_RECOMMENDED_USERS: (uid) => dispatch(userActions.GET_RECOMMENDED(uid)),
-    UPLOAD_POST: (post_data) => dispatch(postsActions.UPLOAD_POST(post_data)),
     GET_FEED: (user_uid) => dispatch(postsActions.GET_FEED(user_uid)),
   };
 };

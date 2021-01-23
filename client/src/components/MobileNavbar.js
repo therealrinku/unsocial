@@ -26,7 +26,9 @@ const MobileNavbar = ({ currentUsername, currentUserProfileimage }) => {
       className="navbar--mobile"
       style={!currentUsername ? { display: "none" } : null}
     >
-      {showAddPost ? <AddPost selectedImage={selectedImage} /> : null}
+      {showAddPost ? (
+        <AddPost selectedImage={selectedImage} toggle={toggleAddPostModal} />
+      ) : null}
 
       <Link to="/">
         <Icons.HomeIcon />
