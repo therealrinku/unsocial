@@ -41,7 +41,7 @@ const Activity = ({ currentUserUid, toggle }) => {
                   <div
                     className="notification"
                     onClick={() =>
-                      noti.postId !== null
+                      noti.post_id !== null
                         ? history.push(`/p/${noti.post_id}`)
                         : noti.notification === "follow"
                         ? history.push(`/${noti.username}`)
