@@ -6,7 +6,7 @@ const notificationPusher = (owner_uid) => {
     .doc("notifications")
     .set(
       {
-        new: new Date() * Math.random(),
+        [`next${new Date() * Math.random()}`]: "text",
       },
       { merge: true }
     );
