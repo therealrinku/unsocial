@@ -1,6 +1,23 @@
 const db = require("../database/db");
 const router = require("express").Router();
 
+//get notifications
+router.get("/getNotifications/:user_uid", (req, res) => {
+  db.query(
+    `SELECT posts.post_id as post_id,image_url as post_image,
+    username,
+    notifications.notification_uid as uid,notification,
+    date,profile_image_url FROM notifications 
+    LEFT JOIN users ON users.uid=(notifications.interactor_uid)::uuid
+    LEFT JOIN posts ON posts.post_uid=(notifications.post_uid)::uuid
+    WHERE notifications.owner_uid='${req.params.user_uid}'`,
+    (err, res0) => {
+      if (err) console.log(err);
+      if (!err) res.send(res0.rows);
+    }
+  );
+});
+
 //update profile
 router.post("/updateprofile", (req, res) => {
   db.query(
