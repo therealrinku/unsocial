@@ -1,32 +1,54 @@
 .notification-list {
   position: fixed;
   background: white;
-  border: solid 1px rgba(0, 0, 0, 0.3);
   width: 400px;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+  padding: 10px 0;
   z-index: 3;
-}
-
-.notification-list {
-  padding: 10px 4px;
-  width: 75%;
-  margin: auto;
-  margin-top: 60px;
   border: solid 1px rgba(0, 0, 0, 0.3);
-}
+  border-radius: 10px;
 
-.notification-list a {
-  color: black;
-  text-decoration: none;
+  div:nth-child(1) {
+    border-bottom: solid 1px rgba(0, 0, 0, 0.2);
+    font-size: 16px;
+    height: 20px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: -4px;
+    padding-bottom: 3px;
+
+    button {
+      border: none;
+      outline: none;
+      background: inherit;
+      position: absolute;
+      right: 5px;
+      top: 2px;
+      font-size: 25px;
+    }
+  }
+
+  div:last-child {
+    overflow-y: auto;
+    min-height: 100px;
+  }
+
+  a {
+    color: black;
+    text-decoration: none;
+  }
 }
 
 @media (max-width: 550px) {
   .notification-list {
-    width: 99%;
+    width: 100%;
+    height: 100%;
     border: none;
-    padding: 10px 1px;
-    margin-top: 40px;
+    margin-top: 10px;
+    border-radius: 0;
   }
 }

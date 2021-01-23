@@ -86,7 +86,7 @@ const Navbar = ({
       {showActivity ? (
         <Fragment>
           <Backdrop show={showActivity} toggle={toggleActivity} />
-          <Activity currentUserUid={currentUserUid} />
+          <Activity currentUserUid={currentUserUid} toggle={toggleActivity} />
         </Fragment>
       ) : null}
     </div>

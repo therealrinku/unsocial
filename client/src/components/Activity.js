@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
+import { VscClose } from "react-icons/all";
 
-const Activity = ({ currentUserUid }) => {
+const Activity = ({ currentUserUid, toggle }) => {
   const history = useHistory();
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -18,70 +19,79 @@ const Activity = ({ currentUserUid }) => {
 
   return (
     <div className="notification-list">
-      {notifications.length > 0 ? (
-        notifications
-          .sort((a, b) => {
-            return new Date(b.date) - new Date(a.date);
-          })
-          .map((noti) => {
-            return (
-              <div
-                style={loading ? { display: "none" } : { width: "100%" }}
-                key={noti.uid}
-              >
+      <div>
+        <p>Activity</p>
+        <button onClick={toggle}>
+          <VscClose />
+        </button>
+      </div>
+
+      <div>
+        {notifications.length > 0 ? (
+          notifications
+            .sort((a, b) => {
+              return new Date(b.date) - new Date(a.date);
+            })
+            .map((noti) => {
+              return (
                 <div
-                  className="notification"
-                  onClick={() =>
-                    noti.postId !== null
-                      ? history.push(`/viewPost/${noti.post_id}`)
-                      : noti.notification === "follow"
-                      ? history.push(`/profile/${noti.username}`)
-                      : ""
-                  }
+                  style={loading ? { display: "none" } : { width: "100%" }}
+                  key={noti.uid}
                 >
-                  <div className="left">
-                    <img
-                      src={noti.profile_image_url}
-                      alt="profile-pc"
-                      className="profile-pic"
-                    />
-                    <p>
-                      {noti.username}{" "}
-                      {noti.notification === "like post"
-                        ? " liked your post."
-                        : noti.notification === "like comment"
-                        ? " liked your comment."
-                        : noti.notification === "comment added"
-                        ? " commented on your post."
+                  <div
+                    className="notification"
+                    onClick={() =>
+                      noti.postId !== null
+                        ? history.push(`/viewPost/${noti.post_id}`)
                         : noti.notification === "follow"
-                        ? "started following you."
-                        : ""}
-                      <b style={{ color: "grey" }}>{noti.date}</b>
-                    </p>
-                  </div>
-                  <img
-                    style={
-                      noti.post_image === null ? { display: "none" } : null
+                        ? history.push(`/profile/${noti.username}`)
+                        : ""
                     }
-                    src={noti.post_image}
-                    alt="profile-pc"
-                    className="post-img"
-                  />
+                  >
+                    <div className="left">
+                      <img
+                        src={noti.profile_image_url}
+                        alt="profile-pc"
+                        className="profile-pic"
+                      />
+                      <p>
+                        {noti.username}{" "}
+                        {noti.notification === "like post"
+                          ? " liked your post."
+                          : noti.notification === "like comment"
+                          ? " liked your comment."
+                          : noti.notification === "comment added"
+                          ? " commented on your post."
+                          : noti.notification === "follow"
+                          ? "started following you."
+                          : ""}
+                        <b style={{ color: "grey" }}>{noti.date}</b>
+                      </p>
+                    </div>
+                    <img
+                      style={
+                        noti.post_image === null ? { display: "none" } : null
+                      }
+                      src={noti.post_image}
+                      alt="profile-pc"
+                      className="post-img"
+                    />
+                  </div>
                 </div>
-              </div>
-            );
-          })
-      ) : (
-        <p
-          style={
-            loading
-              ? { display: "none" }
-              : { textAlign: "center", fontSize: "14px" }
-          }
-        >
-          No notifications
-        </p>
-      )}
+              );
+            })
+        ) : (
+          <p
+            style={
+              loading
+                ? { display: "none" }
+                : { textAlign: "center", fontSize: "14px" }
+            }
+          >
+            No notifications
+          </p>
+        )}
+      </div>
       <div
         style={
           !loading
