@@ -87,7 +87,7 @@ router.post("/addcomment", (req, res) => {
             '${req.body.post_owner_uid}','${
             req.body.commenter_uid
           }','${new Date()}','${req.body.post_uid}','${
-            res1.rows[0]?.comment_uid
+            res1.rows[0].comment_uid
           }'  )`
         );
       }
