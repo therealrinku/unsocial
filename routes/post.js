@@ -142,13 +142,14 @@ router.post("/unlike", (req, res) => {
   db.query(
     `UPDATE posts SET likers=array_remove(likers,'${req.body.unliker_uid}') WHERE post_uid='${req.body.post_uid}'`,
     (err, _) => {
-      db.query(
-        `DELETE FROM notifications WHERE interactor_uid='${req.body.unliker_uid}' AND post_uid='${req.body.post_uid}'
-        AND notification='like post'`
-      );
-
       if (!err) res.send("done");
       else throw err;
+
+      db.query(
+        `DELETE FROM notifications WHERE interactor_uid='${req.body.unliker_uid}' 
+        AND post_uid)='${req.body.post_uid}'
+        AND notification='like post'`
+      );
     }
   );
 });
