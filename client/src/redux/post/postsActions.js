@@ -314,21 +314,3 @@ export const UPLOAD_POST = (post_data) => async (dispatch) => {
     });
   }
 };
-
-/* 
-
-
-i_have_saved: false
-liked_by_me:false
-post_likes_count:0 
-
-post_posted_date: 
-post_status: 
-poster_profileimage: 
-poster_username: 
-post_image: 
-
-post_id: 
-post_uid: 
-
-*/
