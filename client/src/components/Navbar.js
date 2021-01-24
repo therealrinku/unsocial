@@ -25,9 +25,11 @@ const Navbar = ({
       .collection(currentUserUid)
       .doc("notifications")
       .onSnapshot((doc) => {
+        const data = [];
         for (let e in doc.data()) {
-          setNotificationsCount((prev) => prev + 1);
+          data.push(e);
         }
+        setNotificationsCount(data.length);
       });
   }, []);
 
