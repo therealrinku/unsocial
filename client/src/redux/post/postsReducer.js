@@ -133,10 +133,12 @@ const postsReducer = (state = initial_state, action) => {
       );
       postsCopyX[postIndexX].post_comments_count =
         postsCopyX[postIndexX].post_comments_count + 1;
-      postsCopyX[postIndexX].comments = [
-        ...postsCopyX[postIndexX].comments,
-        action.payload,
-      ];
+      postsCopyX[postIndexX].comments
+        ? (postsCopyX[postIndexX].comments = [
+            ...postsCopyX[postIndexX].comments,
+            action.payload,
+          ])
+        : (postsCopyX[postIndexX].comments = [action.payload]);
 
       return {
         ...state,

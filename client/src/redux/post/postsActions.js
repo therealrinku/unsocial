@@ -116,6 +116,7 @@ export const ADD_COMMENT = (
   currentUsername
 ) => async (dispatch) => {
   try {
+    console.log(commenter_uid, post_owner_uid, post_uid);
     dispatch({ type: postActionTypes.ADDING_COMMENT });
     const response = await addComment(
       comment,
