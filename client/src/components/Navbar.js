@@ -83,7 +83,7 @@ const Navbar = ({
             )}
           </Link>
 
-          <button onClick={toggleActivity}>
+          <button onClick={toggleActivity} className="activity--btn">
             <Badge
               badgeContent={notificationsCount}
               color="error"
