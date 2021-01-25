@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getSearchedUsers } from "../services/userServices";
 import { Link } from "react-router-dom";
 
-const SearchView = () => {
+const SearchView = ({ width }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
@@ -15,7 +15,10 @@ const SearchView = () => {
   }, [searchQuery]);
 
   return (
-    <div className="search--bar-page">
+    <div
+      className="search--bar-page"
+      style={width ? { width: width, marginLeft: "-9px" } : null}
+    >
       <input
         type="text"
         placeholder="Search"

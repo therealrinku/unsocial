@@ -14,6 +14,7 @@ const Navbar = ({
   currentUsername,
   currentUserProfileimage,
   currentUserUid,
+  showSearchBarOnly,
 }) => {
   const history = useHistory();
   const pathname = history.location.pathname;
@@ -43,12 +44,21 @@ const Navbar = ({
   return (
     <Fragment>
       <div className="navbar">
-        <ul>
+        <ul style={showSearchBarOnly ? { display: "none" } : null}>
           <Link to="/">Instaclone</Link>
         </ul>
 
-        <ul>
-          <SearchView />
+        <ul
+          style={
+            showSearchBarOnly
+              ? {
+                  display: "block",
+                  width: "75%",
+                }
+              : null
+          }
+        >
+          <SearchView width={showSearchBarOnly ? "100%" : null} />
         </ul>
 
         <ul style={currentUsername ? { display: "none" } : null}>
