@@ -4,6 +4,7 @@ import Loader from "../components/Loader";
 import Navbar from "../components/Navbar";
 import PostsGrid from "../components/PostsGrid";
 import * as PostsActions from "../redux/post/postsActions";
+import MobileNavbar from "../components/MobileNavbar";
 
 const ExplorePage = ({ loading, explorePosts, loadExplorePosts }) => {
   useEffect(() => {
@@ -15,6 +16,7 @@ const ExplorePage = ({ loading, explorePosts, loadExplorePosts }) => {
   return (
     <Fragment>
       <Navbar />
+      <MobileNavbar />
       {loading ? (
         <Loader />
       ) : (
