@@ -21,16 +21,18 @@ const Navbar = ({
   const [notificationsCount, setNotificationsCount] = useState(0);
 
   useEffect(() => {
-    firestore
-      .collection(currentUserUid)
-      .doc("notifications")
-      .onSnapshot((doc) => {
-        const data = [];
-        for (let e in doc.data()) {
-          data.push(e);
-        }
-        setNotificationsCount(data.length);
-      });
+    if (currentUserUid) {
+      firestore
+        .collection(currentUserUid)
+        .doc("notifications")
+        .onSnapshot((doc) => {
+          const data = [];
+          for (let e in doc.data()) {
+            data.push(e);
+          }
+          setNotificationsCount(data.length);
+        });
+    }
   }, []);
 
   const toggleActivity = () => {
