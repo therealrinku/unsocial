@@ -96,6 +96,10 @@ router.post("/delete", (req, res) => {
     (err, res1) => {
       if (!err) res.send("done");
       else throw err;
+
+      db.query(
+        `DELETE FROM notifications WHERE post_uid='${req.body.post_uid}'`
+      );
     }
   );
 });
