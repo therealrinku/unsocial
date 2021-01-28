@@ -7,9 +7,10 @@ router.post("/updatePassword", (req, res) => {
   db.query(
     `SELECT password FROM users WHERE (uid)::text='${req.body.userUid}'`,
     (err, res1) => {
+      console.log(req.body);
       bcrypt.compare(
-        res1.rows[0]?.password,
         req.body.initialPassword,
+        res1.rows[0]?.password,
         (err2, result) => {
           if (result) {
             bcrypt.hash(req.body.newPassword, 10, (err2, hash) => {
@@ -21,7 +22,7 @@ router.post("/updatePassword", (req, res) => {
               );
             });
           } else {
-            res.send("password doesnot match.");
+            res.send("current password doesnot match.");
           }
         }
       );

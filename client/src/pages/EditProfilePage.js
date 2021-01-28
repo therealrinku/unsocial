@@ -90,7 +90,11 @@ const EditProfilePage = ({
           (res) => {
             setUpdating(false);
             if (res === "success") {
+              setError(null);
               setSuccessMsg("Successfully changed password");
+              setInitialPassword("");
+              setNewPassword1("");
+              setNewPassword2("");
             } else {
               setError(res);
             }
@@ -232,7 +236,7 @@ const EditProfilePage = ({
         <div className="btns">
           <section>
             <p className="err-p">{error}</p>
-            <p className="msg-p" style={{ color: "green" }}>
+            <p className="msg-p" style={{ color: "green", fontSize: "13px" }}>
               {successMsg}
             </p>
             <button
