@@ -2,7 +2,11 @@ import { useState } from "react";
 import { connect } from "react-redux";
 import MobileNavbar from "../components/MobileNavbar";
 import Navbar from "../components/Navbar";
-import { updateUserData, updateProfilePicture } from "../services/userServices";
+import {
+  updateUserData,
+  updateProfilePicture,
+  updatePassword,
+} from "../services/userServices";
 import storage from "../firebase/storage";
 import Compressor from "compressorjs";
 
@@ -20,7 +24,7 @@ const EditProfilePage = ({
   const [successMsg, setSuccessMsg] = useState("");
   const [updating, setUpdating] = useState(false);
   const [updatingProfilePicture, setUpdatingProfilePicture] = useState(false);
-  const [updatingPassword, setUpdatingPassword] = useState(true);
+  const [updatingPassword, setUpdatingPassword] = useState(false);
 
   //password
   const [initialPassword, setInitialPassword] = useState("");
@@ -75,6 +79,26 @@ const EditProfilePage = ({
           );
         },
       });
+    }
+  };
+
+  const updatePasswordFinal = () => {
+    setUpdating(true);
+    if (newPassword1 === newPassword2) {
+      if (newPassword1.trim().length >= 5 && newPassword1.trim().length <= 25) {
+        updatePassword(currentUserUid, initialPassword, newPassword1).then(
+          (res) => {
+            setUpdating(false);
+            if (res === "success") {
+              setSuccessMsg("Successfully changed password");
+            } else {
+              setError(res);
+            }
+          }
+        );
+      }
+    } else {
+      setError("Passwords must match.");
     }
   };
 
@@ -205,7 +229,11 @@ const EditProfilePage = ({
           <section>
             <p>{error}</p>
             <p style={{ color: "green" }}>{successMsg}</p>
-            <button disabled={updating} className="submit-btn">
+            <button
+              disabled={updating}
+              className="submit-btn"
+              onClick={updatingPassword ? updatePasswordFinal : updateProfile}
+            >
               Submit
             </button>
           </section>
