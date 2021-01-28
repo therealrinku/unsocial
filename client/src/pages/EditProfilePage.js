@@ -227,8 +227,10 @@ const EditProfilePage = ({
 
         <div className="btns">
           <section>
-            <p>{error}</p>
-            <p style={{ color: "green" }}>{successMsg}</p>
+            <p className="err-p">{error}</p>
+            <p className="msg-p" style={{ color: "green" }}>
+              {successMsg}
+            </p>
             <button
               disabled={updating}
               className="submit-btn"

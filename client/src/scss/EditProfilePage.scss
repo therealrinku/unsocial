@@ -42,11 +42,6 @@
     margin-top: 40px;
     width: 100%;
 
-    p {
-      font-size: 13px;
-      color: red;
-    }
-
     input,
     textarea {
       margin-bottom: 20px;
@@ -64,6 +59,11 @@
       font-weight: bold;
       margin-bottom: 8px;
     }
+  }
+
+  .err-p {
+    font-size: 13px;
+    color: red;
   }
 
   .btns {
