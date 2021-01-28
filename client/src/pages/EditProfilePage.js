@@ -98,6 +98,7 @@ const EditProfilePage = ({
         );
       }
     } else {
+      setUpdating(false);
       setError("new passwords must match.");
     }
   };
