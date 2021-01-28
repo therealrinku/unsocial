@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import MobileNavbar from "../components/MobileNavbar";
 import Navbar from "../components/Navbar";
 import { updateUserData } from "../services/userServices";
+import storage from "../firebase/storage";
+import Compressor from "compressorjs";
 
 const EditProfilePage = ({
   currentUserProfileImage,
@@ -25,6 +27,34 @@ const EditProfilePage = ({
   const updateImage = (e) => {
     if (e.target.files[0]) {
       setSelectedImage(e.target.files[0]);
+    }
+  };
+
+  const updateProfilePictureFinal = () => {
+    if (selectedImage && !updating) {
+      setUpdating(true);
+      new Compressor(selectedImage, {
+        quality: 0.6,
+        success(result) {
+          const uploadedImage = storage
+            .ref(`/profilePics/${currentUserUid}/${result.name}`)
+            .put(result);
+          uploadedImage.on(
+            "state_changed",
+            (snapshot) => {},
+            (err) => console.log(err),
+            () => {
+              storage
+                .ref(`/profilePics/${currentUserUid}`)
+                .child(result.name)
+                .getDownloadURL()
+                .then((url) => {
+                  //updateProfilePicture(userUid,imageUrl)
+                });
+            }
+          );
+        },
+      });
     }
   };
 
