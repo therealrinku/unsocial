@@ -1,11 +1,39 @@
 const db = require("../database/db");
 const router = require("express").Router();
+const bcrypt = require("bcrypt");
+
+//update password
+router.post("/updatePassword", (req, res) => {
+  db.query(
+    `SELECT password FROM users WHERE (uid)::text='${req.body.userUid}'`,
+    (err, res1) => {
+      bcrypt.compare(
+        res1.rows[0]?.password,
+        req.body.initialPassword,
+        (err2, result) => {
+          if (result) {
+            bcrypt.hash(req.body.newPassword, 10, (err2, hash) => {
+              db.query(
+                `UPDATE users SET password='${hash}' WHERE (uid)::text ='${req.body.userUid}'`,
+                (err3, res2) => {
+                  res.send("success");
+                }
+              );
+            });
+          } else {
+            res.send("password doesnot match.");
+          }
+        }
+      );
+    }
+  );
+});
 
 //update profile picture
 router.post("/updateProfilePicture", (req, res) => {
   db.query(
     `UPDATE users SET profile_image_url='${req.body.imageUrl}' WHERE (uid)::text='${req.body.userUid}'`,
-    (res1, err) => {
+    (err, res1) => {
       if (!err) res.send("done");
       else throw err;
     }
