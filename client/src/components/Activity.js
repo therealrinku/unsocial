@@ -41,48 +41,44 @@ const Activity = ({ currentUserUid, toggle, clear }) => {
             .map((noti) => {
               return (
                 <div
+                  className="notification"
                   style={loading ? { display: "none" } : { width: "100%" }}
                   key={noti.uid}
+                  onClick={() =>
+                    noti.post_id !== null
+                      ? history.push(`/p/${noti.post_id}`)
+                      : noti.notification === "follow"
+                      ? history.push(`/${noti.username}`)
+                      : ""
+                  }
                 >
-                  <div
-                    className="notification"
-                    onClick={() =>
-                      noti.post_id !== null
-                        ? history.push(`/p/${noti.post_id}`)
-                        : noti.notification === "follow"
-                        ? history.push(`/${noti.username}`)
-                        : ""
+                  <img
+                    src={noti.profile_image_url}
+                    alt="profile-pc"
+                    className="profile-pic"
+                  />
+                  <p>
+                    {noti.username}{" "}
+                    {noti.notification === "like post"
+                      ? " liked your post."
+                      : noti.notification === "like comment"
+                      ? " liked your comment."
+                      : noti.notification === "comment added"
+                      ? " commented on your post."
+                      : noti.notification === "follow"
+                      ? "started following you."
+                      : ""}
+                    <b style={{ color: "grey" }}>{noti.date}</b>
+                  </p>
+
+                  <img
+                    style={
+                      noti.post_image === null ? { display: "none" } : null
                     }
-                  >
-                    <div className="left">
-                      <img
-                        src={noti.profile_image_url}
-                        alt="profile-pc"
-                        className="profile-pic"
-                      />
-                      <p>
-                        {noti.username}{" "}
-                        {noti.notification === "like post"
-                          ? " liked your post."
-                          : noti.notification === "like comment"
-                          ? " liked your comment."
-                          : noti.notification === "comment added"
-                          ? " commented on your post."
-                          : noti.notification === "follow"
-                          ? "started following you."
-                          : ""}
-                        <b style={{ color: "grey" }}>{noti.date}</b>
-                      </p>
-                    </div>
-                    <img
-                      style={
-                        noti.post_image === null ? { display: "none" } : null
-                      }
-                      src={noti.post_image}
-                      alt="profile-pc"
-                      className="post-img"
-                    />
-                  </div>
+                    src={noti.post_image}
+                    alt="profile-pc"
+                    className="post-img"
+                  />
                 </div>
               );
             })

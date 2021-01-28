@@ -14,25 +14,19 @@
     margin-top: 2px;
     overflow-y: auto;
     max-height: 300px;
+    margin-right: 5px;
   }
 
   .notification {
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
     align-items: center;
     margin-top: 2px;
-    margin-right: 5px;
+    width: 100%;
   }
 
   .notification:hover {
     cursor: pointer;
-  }
-
-  .notification .left {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
   }
 
   .notification p {
@@ -40,8 +34,8 @@
   }
 
   .notification .profile-pic {
-    width: 25px;
-    height: 25px;
+    max-width: 28px;
+    max-height: 28px;
     object-fit: cover;
     border-radius: 50%;
     margin: 0 10px;
@@ -51,15 +45,6 @@
     width: 40px;
     height: 40px;
     object-fit: cover;
-  }
-
-  @media (max-width: 550px) {
-    .notifications .notification {
-      margin-top: 2px;
-    }
-    .notifications .notification .profile-pic {
-      margin: 0 4px;
-    }
   }
 
   .top {
