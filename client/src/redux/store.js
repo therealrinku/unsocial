@@ -6,8 +6,8 @@ const logger = (store) => {
   return (next) => {
     return (action) => {
       next(action);
-      console.log(action.type);
-      console.log(store.getState());
+      //console.log(action.type);
+      //console.log(store.getState());
     };
   };
 };
