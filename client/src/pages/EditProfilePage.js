@@ -201,7 +201,7 @@ const EditProfilePage = ({
           </form>
         )}
 
-        <div>
+        <div className="btns">
           <section>
             <p>{error}</p>
             <p style={{ color: "green" }}>{successMsg}</p>
@@ -209,7 +209,10 @@ const EditProfilePage = ({
               Submit
             </button>
           </section>
-          <button onClick={() => setUpdatingPassword((prev) => !prev)}>
+          <button
+            className="toggle-btn"
+            onClick={() => setUpdatingPassword((prev) => !prev)}
+          >
             {updatingPassword ? "Update Profile" : "Update Password"}
           </button>
         </div>
