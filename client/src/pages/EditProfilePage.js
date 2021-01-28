@@ -96,6 +96,9 @@ const EditProfilePage = ({
             }
           }
         );
+      } else {
+        setUpdating(false);
+        setError("new passwords must be between 5 to 25 characters.");
       }
     } else {
       setUpdating(false);
