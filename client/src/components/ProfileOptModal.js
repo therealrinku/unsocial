@@ -1,7 +1,19 @@
+import { useHistory } from "react-router-dom";
+
 const PostOptionsModal = ({ toggle, isMyProfile, LOGOUT }) => {
+  const history = useHistory();
+
+  const goToProfileEditPage = () => {
+    toggle();
+    history.push("/edit/profile");
+  };
+
   return (
     <div className="profile--options-modal">
-      <button style={!isMyProfile ? { display: "none" } : null}>
+      <button
+        style={!isMyProfile ? { display: "none" } : null}
+        onClick={goToProfileEditPage}
+      >
         Edit Profile
       </button>
       <button
@@ -17,7 +29,10 @@ const PostOptionsModal = ({ toggle, isMyProfile, LOGOUT }) => {
       >
         Report This User
       </button>
-      <button style={!isMyProfile ? { display: "none" } : null}>
+      <button
+        style={!isMyProfile ? { display: "none" } : null}
+        onClick={goToProfileEditPage}
+      >
         Change Password
       </button>
       <button
