@@ -1,5 +1,3 @@
-const server_url = "http://localhost:4000";
-
-//"https://instacloone.herokuapp.com";
+const server_url = "https://instacloone.herokuapp.com";
 
 export default server_url;
