@@ -64,3 +64,21 @@ export const updateProfilePicture = async (userUid, imageUrl) => {
     throw new Error(err.message);
   }
 };
+
+export const updatePassword = async (userUid, initialPassword, newPassword) => {
+  try {
+    return new Promise((resolve) => {
+      return axios
+        .post(server_url + `/user/updatePassword/`, {
+          userUid,
+          initialPassword,
+          newPassword,
+        })
+        .then((res) => {
+          resolve(res.data);
+        });
+    });
+  } catch (err) {
+    throw new Error(err.message);
+  }
+};
