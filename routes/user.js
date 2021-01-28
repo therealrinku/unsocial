@@ -10,7 +10,7 @@ router.post("/updatePassword", (req, res) => {
       console.log(req.body);
       bcrypt.compare(
         req.body.initialPassword,
-        res1.rows[0]?.password,
+        res1.rows[0].password,
         (err2, result) => {
           if (result) {
             bcrypt.hash(req.body.newPassword, 10, (err2, hash) => {
