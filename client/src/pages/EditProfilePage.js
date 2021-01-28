@@ -20,6 +20,12 @@ const EditProfilePage = ({
   const [successMsg, setSuccessMsg] = useState("");
   const [updating, setUpdating] = useState(false);
   const [updatingProfilePicture, setUpdatingProfilePicture] = useState(false);
+  const [updatingPassword, setUpdatingPassword] = useState(true);
+
+  //password
+  const [initialPassword, setInitialPassword] = useState("");
+  const [newPassword1, setNewPassword1] = useState("");
+  const [newPassword2, setNewPassword2] = useState("");
 
   //image file
   const [selectedImage, setSelectedImage] = useState(null);
@@ -151,28 +157,62 @@ const EditProfilePage = ({
       </section>
 
       <section>
-        <form onSubmit={updateProfile}>
-          <label htmlFor="username">Username</label>
-          <input
-            type="text"
-            value={username}
-            id="username"
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          <label htmlFor="email">Email</label>
-          <input
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <label htmlFor="Bio">Bio</label>
-          <textarea type="text" onChange={(e) => setBio(e.target.value)}>
-            {bio}
-          </textarea>
-          <p>{error}</p>
-          <p style={{ color: "green" }}>{successMsg}</p>
-          <button disabled={updating}>Submit</button>
-        </form>
+        {updatingPassword ? (
+          <form>
+            <label htmlFor="password1">Current Password</label>
+            <input
+              type="password"
+              value={initialPassword}
+              id="username"
+              onChange={(e) => setInitialPassword(e.target.value)}
+            />
+            <label htmlFor="password2">New Password</label>
+            <input
+              type="password"
+              value={newPassword1}
+              onChange={(e) => setNewPassword1(e.target.value)}
+            />
+            <label htmlFor="password3">Retype New Password</label>
+            <input
+              type="password"
+              value={newPassword2}
+              onChange={(e) => setNewPassword2(e.target.value)}
+            />
+          </form>
+        ) : (
+          <form onSubmit={updateProfile}>
+            <label htmlFor="username">Username</label>
+            <input
+              type="text"
+              value={username}
+              id="username"
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            <label htmlFor="email">Email</label>
+            <input
+              type="text"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <label htmlFor="Bio">Bio</label>
+            <textarea type="text" onChange={(e) => setBio(e.target.value)}>
+              {bio}
+            </textarea>
+          </form>
+        )}
+
+        <div>
+          <section>
+            <p>{error}</p>
+            <p style={{ color: "green" }}>{successMsg}</p>
+            <button disabled={updating} className="submit-btn">
+              Submit
+            </button>
+          </section>
+          <button onClick={() => setUpdatingPassword((prev) => !prev)}>
+            {updatingPassword ? "Update Profile" : "Update Password"}
+          </button>
+        </div>
       </section>
     </div>
   );
