@@ -82,7 +82,15 @@ const EditProfilePage = ({
 
         <div>
           <p>{currentUserName}</p>
-          <label htmlFor="image">Change Profile Photo</label>
+          <label htmlFor="image" style={newImage ? { display: "none" } : null}>
+            Change Profile Photo
+          </label>
+          <label htmlFor="u-btn" style={!newImage ? { display: "none" } : null}>
+            Confirm New Profile Photo
+          </label>
+          <button style={{ display: "none" }} id="u-btn">
+            Update Profile Photo
+          </button>
           <input
             type="file"
             style={{ display: "none" }}
