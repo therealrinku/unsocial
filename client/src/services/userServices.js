@@ -50,3 +50,17 @@ export const getSearchedUsers = async (query) => {
     throw new Error(err.message);
   }
 };
+
+export const updateProfilePicture = async (userUid, imageUrl) => {
+  try {
+    return new Promise((resolve) => {
+      return axios
+        .post(server_url + `/user/updateProfilePicture/`, { userUid, imageUrl })
+        .then((res) => {
+          resolve("done");
+        });
+    });
+  } catch (err) {
+    throw new Error(err.message);
+  }
+};

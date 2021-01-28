@@ -1,6 +1,17 @@
 const db = require("../database/db");
 const router = require("express").Router();
 
+//update profile picture
+router.post("/updateProfilePicture", (req, res) => {
+  db.query(
+    `UPDATE users SET profile_image_url='${req.body.imageUrl}' WHERE (uid)::text='${req.body.userUid}'`,
+    (res1, err) => {
+      if (!err) res.send("done");
+      else throw err;
+    }
+  );
+});
+
 //get notifications
 router.get("/getNotifications/:user_uid", (req, res) => {
   db.query(
