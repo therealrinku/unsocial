@@ -87,6 +87,7 @@ const Profilepage = ({
   };
 
   useEffect(() => {
+    document.body.style.overflow = "auto";
     //set document title
     document.title = `${profileUsername} at Instaclone`;
     if (profileData.length <= 0) {
@@ -192,7 +193,7 @@ const Profilepage = ({
       {showLoginNeededPrompt ? (
         <Fragment>
           <LoginNeededPrompt
-          profilePage={true}
+            profilePage={true}
             toggle={() => toggleModal(setShowLoginNeededPrompt)}
           />
           <Backdrop

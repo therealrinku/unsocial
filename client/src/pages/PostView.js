@@ -133,6 +133,7 @@ const PostView = ({
   }, [post_uid]);
 
   useEffect(() => {
+    document.body.style.overflow = "auto";
     if (token) {
       if (currentUserUid && currentPost.length < 1) {
         LOAD_POST(post_id, currentUserUid);
