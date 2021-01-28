@@ -18,6 +18,16 @@ const EditProfilePage = ({
   const [successMsg, setSuccessMsg] = useState("");
   const [updating, setUpdating] = useState(false);
 
+  //image file
+  const [selectedImage, setSelectedImage] = useState(null);
+  const newImage = selectedImage ? URL.createObjectURL(selectedImage) : null;
+
+  const updateImage = (e) => {
+    if (e.target.files[0]) {
+      setSelectedImage(e.target.files[0]);
+    }
+  };
+
   const updateProfile = (e) => {
     e.preventDefault();
     setUpdating(true);
@@ -68,12 +78,17 @@ const EditProfilePage = ({
       <MobileNavbar />
 
       <section className="section-one">
-        <img src={currentUserProfileImage} alt="profile-image" />
+        <img src={newImage || currentUserProfileImage} alt="profile-image" />
 
         <div>
           <p>{currentUserName}</p>
           <label htmlFor="image">Change Profile Photo</label>
-          <input type="file" style={{ display: "none" }} id="image" />
+          <input
+            type="file"
+            style={{ display: "none" }}
+            id="image"
+            onChange={updateImage}
+          />
         </div>
       </section>
 
