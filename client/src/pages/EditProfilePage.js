@@ -2,7 +2,7 @@ import { useState } from "react";
 import { connect } from "react-redux";
 import MobileNavbar from "../components/MobileNavbar";
 import Navbar from "../components/Navbar";
-import { updateUserData } from "../services/userServices";
+import { updateUserData, updateProfilePicture } from "../services/userServices";
 import storage from "../firebase/storage";
 import Compressor from "compressorjs";
 
@@ -19,6 +19,7 @@ const EditProfilePage = ({
   const [error, setError] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
   const [updating, setUpdating] = useState(false);
+  const [updatingProfilePicture, setUpdatingProfilePicture] = useState(false);
 
   //image file
   const [selectedImage, setSelectedImage] = useState(null);
@@ -31,8 +32,8 @@ const EditProfilePage = ({
   };
 
   const updateProfilePictureFinal = () => {
-    if (selectedImage && !updating) {
-      setUpdating(true);
+    if (selectedImage && !updatingProfilePicture) {
+      setUpdatingProfilePicture(true);
       new Compressor(selectedImage, {
         quality: 0.6,
         success(result) {
@@ -49,7 +50,20 @@ const EditProfilePage = ({
                 .child(result.name)
                 .getDownloadURL()
                 .then((url) => {
-                  //updateProfilePicture(userUid,imageUrl)
+                  updateProfilePicture(currentUserUid, url)
+                    .then((res) => {
+                      if (res === "done") {
+                        setSuccessMsg(
+                          "Profile image updated...page will reload in 3 seconds."
+                        );
+                        setTimeout(() => {
+                          window.location.reload();
+                        }, 3000);
+                      } else {
+                        setError(res);
+                      }
+                    })
+                    .catch((err) => setError(err.message));
                 });
             }
           );
@@ -116,9 +130,15 @@ const EditProfilePage = ({
             Change Profile Photo
           </label>
           <label htmlFor="u-btn" style={!newImage ? { display: "none" } : null}>
-            Confirm New Profile Photo
+            {updatingProfilePicture
+              ? "Updating Profile Picture.."
+              : "Confirm New Profile Photo"}
           </label>
-          <button style={{ display: "none" }} id="u-btn">
+          <button
+            style={{ display: "none" }}
+            id="u-btn"
+            onClick={updateProfilePictureFinal}
+          >
             Update Profile Photo
           </button>
           <input
