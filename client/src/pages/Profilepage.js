@@ -128,14 +128,29 @@ const Profilepage = ({
             viewSavedPosts={() => setShowSavedPosts(true)}
             hideSavedPosts={() => setShowSavedPosts(false)}
             no_posts={profileData[0]?.posts.length <= 0}
+            no_saved_posts={profileData[0]?.savedPosts.length <= 0}
           />
-          <PostsGrid
-            userPosts={
-              showSavedPosts
-                ? profileData[0]?.savedPosts
-                : profileData[0]?.posts || []
-            }
-          />
+
+          {(showSavedPosts && profileData[0].savedPosts.length > 0) ||
+          (!showSavedPosts && profileData[0].posts.length > 0) ? (
+            <PostsGrid
+              userPosts={
+                showSavedPosts
+                  ? profileData[0]?.savedPosts
+                  : profileData[0]?.posts || []
+              }
+            />
+          ) : (
+            <p
+              style={{
+                fontSize: "15px",
+                textAlign: "center",
+                marginTop: "50px",
+              }}
+            >
+              No any {showSavedPosts ? "Saved Posts." : "Posts."}
+            </p>
+          )}
 
           {showProfileOptionsModal ? (
             <Fragment>
