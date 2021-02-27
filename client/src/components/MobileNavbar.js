@@ -70,7 +70,11 @@ const MobileNavbar = ({
         </Link>
 
         <Link to="/explore">
-          <Icons.SearchIcon />
+          {pathname === "/explore" ? (
+            <Icons.ExploreActiveIconMobile />
+          ) : (
+            <Icons.SearchIcon />
+          )}
         </Link>
 
         <div>
