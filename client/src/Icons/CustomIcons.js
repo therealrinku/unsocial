@@ -1,5 +1,20 @@
 import React from "react";
 
+export const ExploreActiveIconMobile = () => {
+  return (
+    <svg
+      aria-label="Search &amp; Explore"
+      className="_8-yf5 "
+      fill="#262626"
+      height="24"
+      viewBox="0 0 48 48"
+      width="24"
+    >
+      <path d="M47.6 44L35.8 32.2C38.4 28.9 40 24.6 40 20 40 9 31 0 20 0S0 9 0 20s9 20 20 20c4.6 0 8.9-1.6 12.2-4.2L44 47.6c.6.6 1.5.6 2.1 0l1.4-1.4c.6-.6.6-1.6.1-2.2zM20 35c-8.3 0-15-6.7-15-15S11.7 5 20 5s15 6.7 15 15-6.7 15-15 15z"></path>
+    </svg>
+  );
+};
+
 export const ActivityActiveIcon = () => {
   return (
     <svg
@@ -272,4 +287,3 @@ export const SavedIcon = () => {
       <path d="M43.5 48c-.4 0-.8-.2-1.1-.4L24 28.9 5.6 47.6c-.4.4-1.1.6-1.6.3-.6-.2-1-.8-1-1.4v-45C3 .7 3.7 0 4.5 0h39c.8 0 1.5.7 1.5 1.5v45c0 .6-.4 1.2-.9 1.4-.2.1-.4.1-.6.1z"></path>
     </svg>
   );
-};
