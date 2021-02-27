@@ -128,7 +128,7 @@ const EditProfilePage = ({
         username.trim().length <= 25
       ) {
         updateUserData(
-          username.trim(),
+          username.trim().toLowerCase(),
           email || "",
           bio || "",
           currentUserName
@@ -216,7 +216,7 @@ const EditProfilePage = ({
             <label htmlFor="username">Username</label>
             <input
               type="text"
-              value={username}
+              value={username.toLowerCase()}
               id="username"
               onChange={(e) => setUsername(e.target.value)}
             />
