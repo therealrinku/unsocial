@@ -8,7 +8,12 @@ const ProfileButtonLine = ({
   isMyProfile,
 }) => {
   return (
-    <div className="profile--button-line">
+    <div
+      className="profile--button-line"
+      style={
+        !no_posts ? { borderBottom: "solid 1px rgba(0, 0, 0, 0.4)" } : null
+      }
+    >
       {!no_posts ? (
         <div>
           <button
