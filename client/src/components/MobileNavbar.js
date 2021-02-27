@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import * as Icons from "../Icons/CustomIcons";
 import { connect } from "react-redux";
 import toggleOverflow from "../utilities/overflowToggler";
@@ -19,6 +19,9 @@ const MobileNavbar = ({
   const [showAddPost, setShowAddPost] = useState(false);
   const [showActivity, setShowActivity] = useState(false);
   const [notificationsCount, setNotificationsCount] = useState(0);
+
+  const history = useHistory();
+  const pathname = history.location.pathname;
 
   useEffect(() => {
     if (currentUserUid) {
@@ -63,7 +66,7 @@ const MobileNavbar = ({
         ) : null}
 
         <Link to="/">
-          <Icons.HomeIcon />
+          {pathname === "/" ? <Icons.HomeActiveIcon /> : <Icons.HomeIcon />}
         </Link>
 
         <Link to="/explore">
