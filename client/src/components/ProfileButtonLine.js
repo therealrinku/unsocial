@@ -1,4 +1,4 @@
-import * as Icons from "../Icons/CustomIcons";
+import { BsGrid3X3, BiBookmark } from "react-icons/all";
 
 const ProfileButtonLine = ({
   showSavedPosts,
@@ -8,19 +8,14 @@ const ProfileButtonLine = ({
   isMyProfile,
 }) => {
   return (
-    <div
-      className="profile--button-line"
-      style={
-        !no_posts ? { borderBottom: "solid 1px rgba(0, 0, 0, 0.4)" } : null
-      }
-    >
+    <div className="profile--button-line">
       {!no_posts ? (
         <div>
           <button
             onClick={hideSavedPosts}
             className={!showSavedPosts ? "active" : null}
           >
-            <Icons.GridIcon />
+            <BsGrid3X3 />
             <p>Posts</p>
           </button>
 
@@ -29,7 +24,7 @@ const ProfileButtonLine = ({
             style={!isMyProfile ? { display: "none" } : null}
             className={showSavedPosts ? "active" : null}
           >
-            <Icons.PostActionBarSaveIcon />
+            <BiBookmark />
             <p>Saved</p>
           </button>
         </div>
