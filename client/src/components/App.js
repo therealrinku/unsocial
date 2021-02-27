@@ -15,15 +15,38 @@ import overflowToggler from "../utilities/overflowToggler";
 import AddPostModal from "../components/AddPostModal";
 import Backdrop from "../components/Backdrop";
 import EditProfilePage from "../pages/EditProfilePage";
+import MessageViewer from "./MessageViewer";
 
-const App = ({ currentUsername, LOGIN_WITH_UID, token, userDataLoaded }) => {
+const App = ({
+  currentUsername,
+  uploadingPost,
+  LOGIN_WITH_UID,
+  token,
+  userDataLoaded,
+  feedLoaded,
+}) => {
   const [selectedImage, setSelectedImage] = useState("");
   const [showAddPostModal, setShowAddPostModal] = useState(false);
+  //msg
+  const [message, setMessage] = useState("");
 
   const toggleAddPostModal = () => {
     setShowAddPostModal((prev) => !prev);
     overflowToggler();
   };
+
+  useEffect(() => {
+    if (feedLoaded) {
+      if (uploadingPost) {
+        setMessage("Uploading your post. it may take couple of seconds.");
+      } else {
+        setMessage("Successfully uploaded a post.");
+        setTimeout(() => {
+          setMessage("");
+        }, 3000);
+      }
+    }
+  }, [uploadingPost]);
 
   useEffect(() => {
     if (token) {
@@ -65,6 +88,8 @@ const App = ({ currentUsername, LOGIN_WITH_UID, token, userDataLoaded }) => {
             toggleAddPostModal={toggleAddPostModal}
           />
 
+          {message.length > 0 ? <MessageViewer message={message} /> : null}
+
           <Switch>
             <Route
               path="/"
@@ -86,6 +111,8 @@ const App = ({ currentUsername, LOGIN_WITH_UID, token, userDataLoaded }) => {
 
 const mapStateToProps = (state) => {
   return {
+    feedLoaded: state.posts.feed_loaded,
+    uploadingPost: state.posts.uploadingPost,
     userDataLoaded: state.user.user_data_loaded,
     token: state.user.token,
     currentUsername: state.user.currentUserData.username,
