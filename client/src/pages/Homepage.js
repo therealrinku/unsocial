@@ -13,8 +13,6 @@ import * as userActions from "../redux/user/userActions";
 import Recommended from "../components/Recommended";
 
 const Homepage = ({
-  currentUsername,
-  currentUserProfileImage,
   currentUserUid,
   feed,
   GET_FEED,
