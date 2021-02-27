@@ -1,11 +1,7 @@
 import Feed from "../components/Feed";
 import Navbar from "../components/Navbar";
 import { connect } from "react-redux";
-import { Fragment, useEffect, useState } from "react";
-import PostButton from "../components/PostButton";
-import overflowToggler from "../utilities/overflowToggler";
-import AddPostModal from "../components/AddPostModal";
-import Backdrop from "../components/Backdrop";
+import { useEffect } from "react";
 import MobileNavbar from "../components/MobileNavbar";
 import Loader from "../components/Loader";
 import * as postsActions from "../redux/post/postsActions";
@@ -21,20 +17,11 @@ const Homepage = ({
   GET_RECOMMENDED_USERS,
   feedLoaded,
 }) => {
-  const [selectedImage, setSelectedImage] = useState("");
-  const [showAddPostModal, setShowAddPostModal] = useState(false);
-
-  const toggleAddPostModal = () => {
-    setShowAddPostModal((prev) => !prev);
-    overflowToggler();
-  };
-
   useEffect(() => {
     if (!feedLoaded) {
       GET_FEED(currentUserUid);
     }
     if (feedLoaded && feed.length < 1) {
-      console.log("s");
       GET_RECOMMENDED_USERS(currentUserUid);
     }
   }, [currentUserUid, feedLoaded]);
@@ -42,19 +29,6 @@ const Homepage = ({
   return (
     <div className="homepage">
       {loading ? <Loader /> : null}
-      {showAddPostModal ? (
-        <Fragment>
-          <Backdrop show={showAddPostModal} toggle={toggleAddPostModal} />
-          <AddPostModal
-            toggle={toggleAddPostModal}
-            selectedImage={selectedImage}
-          />
-        </Fragment>
-      ) : null}
-      <PostButton
-        setSelectedImage={setSelectedImage}
-        toggleAddPostModal={toggleAddPostModal}
-      />
       <Navbar />
       {feed.length > 0 && !loading ? (
         <Feed feed={feed} />

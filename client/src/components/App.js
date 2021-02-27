@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, Fragment } from "react";
 import { connect } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import ExplorePage from "../pages/ExplorePage";
@@ -10,9 +10,21 @@ import Loginpage from "../pages/Loginpage";
 import Signuppage from "../pages/Signuppage";
 import * as userActions from "../redux/user/userActions";
 import { SiInstagram } from "react-icons/all";
+import PostButton from "../components/PostButton";
+import overflowToggler from "../utilities/overflowToggler";
+import AddPostModal from "../components/AddPostModal";
+import Backdrop from "../components/Backdrop";
 import EditProfilePage from "../pages/EditProfilePage";
 
 const App = ({ currentUsername, LOGIN_WITH_UID, token, userDataLoaded }) => {
+  const [selectedImage, setSelectedImage] = useState("");
+  const [showAddPostModal, setShowAddPostModal] = useState(false);
+
+  const toggleAddPostModal = () => {
+    setShowAddPostModal((prev) => !prev);
+    overflowToggler();
+  };
+
   useEffect(() => {
     if (token) {
       LOGIN_WITH_UID(token);
@@ -37,19 +49,36 @@ const App = ({ currentUsername, LOGIN_WITH_UID, token, userDataLoaded }) => {
           <SiInstagram />
         </div>
       ) : (
-        <Switch>
-          <Route
-            path="/"
-            exact
-            component={currentUsername ? Homepage : Landingpage}
+        <Fragment>
+          {showAddPostModal ? (
+            <Fragment>
+              <Backdrop show={showAddPostModal} toggle={toggleAddPostModal} />
+              <AddPostModal
+                toggle={toggleAddPostModal}
+                selectedImage={selectedImage}
+              />
+            </Fragment>
+          ) : null}
+
+          <PostButton
+            setSelectedImage={setSelectedImage}
+            toggleAddPostModal={toggleAddPostModal}
           />
-          <Route path="/edit/profile" exact component={EditProfilePage} />
-          <Route path="/login" exact component={Loginpage} />
-          <Route path="/signup" exact component={Signuppage} />
-          <Route path="/explore" exact component={ExplorePage} />
-          <Route path="/:username" exact component={Profilepage} />
-          <Route path="/p/:post_id" exact component={PostView} />
-        </Switch>
+
+          <Switch>
+            <Route
+              path="/"
+              exact
+              component={currentUsername ? Homepage : Landingpage}
+            />
+            <Route path="/edit/profile" exact component={EditProfilePage} />
+            <Route path="/login" exact component={Loginpage} />
+            <Route path="/signup" exact component={Signuppage} />
+            <Route path="/explore" exact component={ExplorePage} />
+            <Route path="/:username" exact component={Profilepage} />
+            <Route path="/p/:post_id" exact component={PostView} />
+          </Switch>
+        </Fragment>
       )}
     </BrowserRouter>
   );
