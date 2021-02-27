@@ -34,7 +34,11 @@ const Signuppage = () => {
         !trimmed.username.includes(" ")
       ) {
         if (trimmed.password.length >= 8 && trimmed.password.length <= 30) {
-          const response = await signupUser(email, username, password);
+          const response = await signupUser(
+            email,
+            username.trim().toLowerCase(),
+            password
+          );
           if (response !== "success") {
             setError(response);
           } else {
