@@ -8,7 +8,7 @@ const SearchView = ({ width }) => {
 
   useEffect(() => {
     if (searchQuery.trim() !== "") {
-      getSearchedUsers(searchQuery).then((res) => {
+      getSearchedUsers(searchQuery.trim().toLowerCase()).then((res) => {
         setSearchResults(res);
       });
     }
