@@ -12,6 +12,7 @@ const initial_state = {
   adding_comment: false,
   getting_comments: false,
   getting_comment_likers: false,
+  uploadingPost: false,
 };
 
 const postsReducer = (state = initial_state, action) => {
@@ -283,9 +284,16 @@ const postsReducer = (state = initial_state, action) => {
         ),
       };
 
+    case postActionTypes.UPLOADING_POST:
+      return {
+        ...state,
+        uploadingPost: true,
+      };
+
     case postActionTypes.UPLOAD_POST:
       return {
         ...state,
+        uploadingPost: false,
         posts: [...state.posts, action.payload],
       };
 

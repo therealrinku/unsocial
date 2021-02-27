@@ -289,6 +289,7 @@ export const DELETE_POST = (post_uid) => async (dispatch) => {
 
 export const UPLOAD_POST = (post_data) => async (dispatch) => {
   try {
+    dispatch({ type: postActionTypes.UPLOADING_POST });
     const callMeAfterUploadDone = (post_image, post_uid, post_id) => {
       return dispatch({
         type: postActionTypes.UPLOAD_POST,
