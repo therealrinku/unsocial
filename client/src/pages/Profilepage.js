@@ -102,6 +102,7 @@ const Profilepage = ({
   return (
     <Fragment>
       <Navbar />
+      <MobileNavbar />
       {loading ? (
         <Loader />
       ) : !loading && profileData.length < 1 ? (
@@ -135,7 +136,7 @@ const Profilepage = ({
                 : profileData[0]?.posts || []
             }
           />
-          <MobileNavbar />
+
           {showProfileOptionsModal ? (
             <Fragment>
               <ProfileOptModal
