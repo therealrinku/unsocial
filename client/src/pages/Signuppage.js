@@ -70,7 +70,7 @@ const Signuppage = () => {
           <input
             type="text"
             id="username"
-            value={username}
+            value={username.toLowerCase()}
             placeholder="Username"
             onChange={(e) => setUsername(e.target.value)}
           />
