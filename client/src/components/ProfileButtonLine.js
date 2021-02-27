@@ -14,6 +14,7 @@ const ProfileButtonLine = ({
         <button
           onClick={hideSavedPosts}
           className={!showSavedPosts ? "active" : null}
+          style={no_posts && !isMyProfile ? { display: "none" } : null}
         >
           <BsGrid3X3 />
           <p>Posts</p>
