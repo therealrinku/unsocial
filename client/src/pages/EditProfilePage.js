@@ -184,6 +184,7 @@ const EditProfilePage = ({
             style={{ display: "none" }}
             id="image"
             onChange={updateImage}
+            accept="image/*"
           />
         </div>
       </section>

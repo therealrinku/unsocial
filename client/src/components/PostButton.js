@@ -17,6 +17,7 @@ const NewPostBtn = ({ setSelectedImage, toggleAddPostModal }) => {
             id="file_input"
             onChange={updateFile}
             name="post"
+            accept="image/*"
           />
           <label htmlFor="file_input">
             <IoAdd />
