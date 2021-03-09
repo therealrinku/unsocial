@@ -2,13 +2,10 @@ import { useState } from "react";
 import { connect } from "react-redux";
 import MobileNavbar from "../components/MobileNavbar";
 import Navbar from "../components/Navbar";
-import {
-  updateUserData,
-  updateProfilePicture,
-  updatePassword,
-} from "../services/userServices";
+import { updateUserData, updateProfilePicture } from "../services/userServices";
 import storage from "../firebase/storage";
 import Compressor from "compressorjs";
+import { Link } from "react-router-dom";
 
 const EditProfilePage = ({
   currentUserProfileImage,
@@ -24,12 +21,6 @@ const EditProfilePage = ({
   const [successMsg, setSuccessMsg] = useState("");
   const [updating, setUpdating] = useState(false);
   const [updatingProfilePicture, setUpdatingProfilePicture] = useState(false);
-  const [updatingPassword, setUpdatingPassword] = useState(false);
-
-  //password
-  const [initialPassword, setInitialPassword] = useState("");
-  const [newPassword1, setNewPassword1] = useState("");
-  const [newPassword2, setNewPassword2] = useState("");
 
   //image file
   const [selectedImage, setSelectedImage] = useState(null);
@@ -88,34 +79,6 @@ const EditProfilePage = ({
           );
         },
       });
-    }
-  };
-
-  const updatePasswordFinal = () => {
-    setUpdating(true);
-    if (newPassword1 === newPassword2) {
-      if (newPassword1.trim().length >= 5 && newPassword1.trim().length <= 25) {
-        updatePassword(currentUserUid, initialPassword, newPassword1).then(
-          (res) => {
-            setUpdating(false);
-            if (res === "success") {
-              setError(null);
-              setSuccessMsg("Successfully changed password");
-              setInitialPassword("");
-              setNewPassword1("");
-              setNewPassword2("");
-            } else {
-              setError(res);
-            }
-          }
-        );
-      } else {
-        setUpdating(false);
-        setError("new passwords must be between 5 to 25 characters.");
-      }
-    } else {
-      setUpdating(false);
-      setError("new passwords must match.");
     }
   };
 
@@ -199,71 +162,41 @@ const EditProfilePage = ({
       </section>
 
       <section>
-        {updatingPassword ? (
-          <form>
-            <label htmlFor="password1">Current Password</label>
-            <input
-              type="password"
-              value={initialPassword}
-              id="username"
-              onChange={(e) => setInitialPassword(e.target.value)}
-            />
-            <label htmlFor="password2">New Password</label>
-            <input
-              type="password"
-              value={newPassword1}
-              onChange={(e) => setNewPassword1(e.target.value)}
-            />
-            <label htmlFor="password3">Retype New Password</label>
-            <input
-              type="password"
-              value={newPassword2}
-              onChange={(e) => setNewPassword2(e.target.value)}
-            />
-          </form>
-        ) : (
-          <form onSubmit={updateProfile}>
-            <label htmlFor="username">Username</label>
-            <input
-              type="text"
-              value={username.toLowerCase()}
-              id="username"
-              onChange={(e) => setUsername(e.target.value)}
-            />
-            <label htmlFor="email">Email</label>
-            <input
-              type="text"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <label htmlFor="Bio">Bio</label>
-            <textarea type="text" onChange={(e) => setBio(e.target.value)}>
-              {bio}
-            </textarea>
-          </form>
-        )}
+        <form onSubmit={updateProfile}>
+          <label htmlFor="username">Username</label>
+          <input
+            type="text"
+            value={username.toLowerCase()}
+            id="username"
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <label htmlFor="email">Email</label>
+          <input
+            type="text"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <label htmlFor="Bio">Bio</label>
+          <textarea type="text" onChange={(e) => setBio(e.target.value)}>
+            {bio}
+          </textarea>
 
-        <div className="btns">
-          <section>
-            <p className="err-p">{error}</p>
-            <p className="msg-p" style={{ color: "green", fontSize: "13px" }}>
-              {successMsg}
-            </p>
-            <button
-              disabled={updating}
-              className="submit-btn"
-              onClick={updatingPassword ? updatePasswordFinal : updateProfile}
-            >
-              Submit
-            </button>
-          </section>
           <button
-            className="toggle-btn"
-            onClick={() => setUpdatingPassword((prev) => !prev)}
+            disabled={updating}
+            className="submit-btn"
+            onClick={updateProfile}
           >
-            {updatingPassword ? "Update Profile" : "Update Password"}
+            Submit
           </button>
-        </div>
+          <p className="err-p">{error}</p>
+          <p
+            className="msg-p"
+            style={{ color: "green", fontSize: "13px", marginTop: "-10px" }}
+          >
+            {successMsg}
+          </p>
+          <Link to="/edit/password">Change Password</Link>
+        </form>
       </section>
     </div>
   );
