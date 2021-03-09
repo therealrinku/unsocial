@@ -9,6 +9,7 @@ import Backdrop from "./Backdrop";
 import overflowToggler from "../utilities/overflowToggler";
 import PostOptModal from "./PostOptModal";
 import CommentBox from "./CommentBox";
+import placeholderImage from "../assets/placeholder.jpg";
 
 const Post = ({
   post_commentsCount,
@@ -87,9 +88,9 @@ const Post = ({
       });
     }, {});
 
-    postImages.forEach(image=>{
+    postImages.forEach((image) => {
       observer.observe(image);
-    })
+    });
   };
 
   return (
@@ -111,7 +112,7 @@ const Post = ({
         <div>
           <img
             className="main--img"
-            src="https://bit.ly/30mn9T0"
+            src={placeholderImage}
             alt="post_main_img"
             data-src={post_image}
             onLoad={loadImage}

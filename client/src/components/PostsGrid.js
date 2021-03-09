@@ -1,4 +1,5 @@
 import { useHistory } from "react-router-dom";
+import placeholderImage from "../assets/placeholder.jpg";
 
 const PostsGrid = ({ userPosts }) => {
   const history = useHistory();
@@ -31,7 +32,7 @@ const PostsGrid = ({ userPosts }) => {
               <img
                 onLoad={loadImage}
                 className="grid-image"
-                src="https://bit.ly/30mn9T0"
+                src={placeholderImage}
                 alt={e.status || "post"}
                 data-src={e.post_image}
                 onClick={() => history.push(`/p/${e.post_id}`)}
