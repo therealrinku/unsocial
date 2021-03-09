@@ -16,6 +16,7 @@ import AddPostModal from "../components/AddPostModal";
 import Backdrop from "../components/Backdrop";
 import EditProfilePage from "../pages/EditProfilePage";
 import MessageViewer from "./MessageViewer";
+import EditPasswordPage from "../pages/EditPasswordPage";
 
 const App = ({
   currentUsername,
@@ -102,6 +103,7 @@ const App = ({
             <Route path="/explore" exact component={ExplorePage} />
             <Route path="/:username" exact component={Profilepage} />
             <Route path="/p/:post_id" exact component={PostView} />
+            <Route path="/edit/password" exact component={EditPasswordPage} />
           </Switch>
         </Fragment>
       )}
