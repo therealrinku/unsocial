@@ -76,6 +76,22 @@ const Post = ({
     DELETE_POST(post_uid);
   };
 
+  const loadImage = () => {
+    const postImages = document.querySelectorAll(".main--img");
+    let observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const image = entry.target;
+        const newSrc = image.getAttribute("data-src");
+        image.src = newSrc;
+      });
+    }, {});
+
+    postImages.forEach(image=>{
+      observer.observe(image);
+    })
+  };
+
   return (
     <Fragment>
       <div className="post--card">
@@ -93,7 +109,13 @@ const Post = ({
         </div>
 
         <div>
-          <img src={post_image} alt="post_main_img" />
+          <img
+            className="main--img"
+            src="https://bit.ly/30mn9T0"
+            alt="post_main_img"
+            data-src={post_image}
+            onLoad={loadImage}
+          />
         </div>
 
         <div>
