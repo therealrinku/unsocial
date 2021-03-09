@@ -98,6 +98,16 @@ const MobileNavbar = ({
         <Link to={`/${currentUsername}`}>
           <img
             src={currentUserProfileimage || "https://bit.ly/3pc96tw"}
+            style={
+              pathname === `/${currentUsername}`
+                ? {
+                    border: "solid 1px black",
+                    padding: "2px",
+                    width: "20px",
+                    height: "20px",
+                  }
+                : null
+            }
             alt="profile_image"
           />
         </Link>
