@@ -36,8 +36,17 @@ const EditProfilePage = ({
   const newImage = selectedImage ? URL.createObjectURL(selectedImage) : null;
 
   const updateImage = (e) => {
-    if (e.target.files[0]) {
-      setSelectedImage(e.target.files[0]);
+    const file = e.target.files[0];
+    if (file) {
+      if (
+        file.name
+          .slice(file.name.slice(file.name.lastIndexOf(".")))
+          .includes("jpg", "png", "jpeg")
+      ) {
+        setSelectedImage(e.target.files[0]);
+      } else {
+        alert("Image must be on jpg,png or jpeg format.");
+      }
     }
   };
 

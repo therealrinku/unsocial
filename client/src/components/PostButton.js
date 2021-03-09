@@ -2,9 +2,19 @@ import { IoAdd } from "react-icons/all";
 
 const NewPostBtn = ({ setSelectedImage, toggleAddPostModal }) => {
   const updateFile = (e) => {
-    if (e.target.files[0]) {
-      toggleAddPostModal();
-      setSelectedImage(e.target.files[0]);
+    const file = e.target.files[0];
+
+    if (file) {
+      if (
+        file.name
+          .slice(file.name.slice(file.name.lastIndexOf(".")))
+          .includes("jpg", "png", "jpeg")
+      ) {
+        toggleAddPostModal();
+        setSelectedImage(file);
+      } else {
+        alert("Image must be on jpg,png or jpeg format.");
+      }
     }
   };
 
