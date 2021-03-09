@@ -8,6 +8,11 @@ const PostOptionsModal = ({ toggle, isMyProfile, LOGOUT }) => {
     history.push("/edit/profile");
   };
 
+  const goToPasswordEditPage = () => {
+    toggle();
+    history.push("/edit/password");
+  };
+
   return (
     <div className="profile--options-modal">
       <button
@@ -31,7 +36,7 @@ const PostOptionsModal = ({ toggle, isMyProfile, LOGOUT }) => {
       </button>
       <button
         style={!isMyProfile ? { display: "none" } : null}
-        onClick={goToProfileEditPage}
+        onClick={goToPasswordEditPage}
       >
         Change Password
       </button>
