@@ -11,6 +11,7 @@ import PostOptModal from "./PostOptModal";
 import CommentBox from "./CommentBox";
 import placeholderImage from "../assets/placeholder.jpg";
 import lazyLoadImage from "../utilities/lazyLoadImage.js";
+import ProfilePicPlaceholder from "../assets/avatar.jpg";
 
 const Post = ({
   post_commentsCount,
@@ -83,7 +84,13 @@ const Post = ({
       <div className="post--card">
         <div>
           <ul>
-            <img src={poster_profileImage} alt="post_user_image" />
+            <img
+              data-src={poster_profileImage}
+              src={ProfilePicPlaceholder}
+              className="lazy-image"
+              onLoad={lazyLoadImage}
+              alt="post_user_image"
+            />
             <Link to={`/${poster_username}`}>{poster_username}</Link>
           </ul>
 

@@ -15,6 +15,8 @@ import CommentBox from "../components/CommentBox";
 import CommentsView from "../components/CommentsView";
 import { deleteComment, getCommentLikers } from "../services/commentServices";
 import LoginNeededPrompt from "../components/LoginNeededPrompt";
+import ProfilePicPlaceholder from "../assets/avatar.jpg";
+import lazyLoadImage from "../utilities/lazyLoadImage";
 
 const PostView = ({
   currentUsername,
@@ -192,7 +194,10 @@ const PostView = ({
             <div>
               <ul>
                 <img
-                  src={currentPost[0].poster_profileimage}
+                  className="lazy-image"
+                  src={ProfilePicPlaceholder}
+                  onLoad={lazyLoadImage}
+                  data-src={currentPost[0].poster_profileimage}
                   alt="post_user_image"
                 />
                 <Link to={`/${currentPost[0]?.poster_username}`}>
@@ -288,7 +293,10 @@ const PostView = ({
               <div className="top--section">
                 <ul>
                   <img
-                    src={currentPost[0]?.poster_profileimage}
+                    className="lazy-image"
+                    src={ProfilePicPlaceholder}
+                    onLoad={lazyLoadImage}
+                    data-src={currentPost[0].poster_profileimage}
                     alt="post_user_image"
                   />
                   <Link to={`/${currentPost[0]?.poster_username}`}>

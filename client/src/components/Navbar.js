@@ -9,6 +9,8 @@ import Backdrop from "./Backdrop";
 import OverflowToggler from "../utilities/overflowToggler";
 import Badge from "@material-ui/core/Badge";
 import firestore from "../firebase/firestore";
+import ProfilePicPlaceholder from "../assets/avatar.jpg";
+import lazyLoadImage from "../utilities/lazyLoadImage";
 
 const Navbar = ({
   currentUsername,
@@ -115,8 +117,11 @@ const Navbar = ({
                     }
                   : null
               }
-              src={currentUserProfileimage || "https://bit.ly/3pc96tw"}
+              src={ProfilePicPlaceholder}
+              data-src={currentUserProfileimage}
               alt="profile_image"
+              className="lazy-image"
+              onLoad={lazyLoadImage}
             />
           </Link>
         </ul>
