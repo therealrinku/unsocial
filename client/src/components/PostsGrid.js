@@ -20,8 +20,6 @@ const PostsGrid = ({ userPosts }) => {
     });
   };
 
-  console.log(userPosts);
-
   return (
     <div className="posts--grid">
       {userPosts
