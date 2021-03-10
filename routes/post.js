@@ -4,7 +4,7 @@ const db = require("../database/db");
 //get posts for explore page
 router.get("/exploreposts", (req, res) => {
   db.query(
-    `SELECT post_id,image_url as post_image FROM posts order BY posted_date`,
+    `SELECT post_id,image_url as post_image,posted_date as post_posted_date FROM posts order BY posted_date`,
     (err, res1) => {
       if (!err) res.send(res1.rows);
       else throw err;
