@@ -1,24 +1,9 @@
 import { useHistory } from "react-router-dom";
 import placeholderImage from "../assets/placeholder.jpg";
+import lazyLoadImage from "../utilities/lazyLoadImage.js";
 
 const PostsGrid = ({ userPosts }) => {
   const history = useHistory();
-
-  const loadImage = () => {
-    const gridImages = document.querySelectorAll(".grid-image");
-    let observer = new IntersectionObserver((entries, observer) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        const image = entry.target;
-        const newSrc = image.getAttribute("data-src");
-        image.src = newSrc;
-      });
-    }, {});
-
-    gridImages.forEach((image) => {
-      observer.observe(image);
-    });
-  };
 
   return (
     <div className="posts--grid">
@@ -30,8 +15,8 @@ const PostsGrid = ({ userPosts }) => {
           return (
             <div key={e.post_id}>
               <img
-                onLoad={loadImage}
-                className="grid-image"
+                onLoad={lazyLoadImage}
+                className="lazy-image"
                 src={placeholderImage}
                 alt={e.status || "post"}
                 data-src={e.post_image}

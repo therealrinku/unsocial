@@ -10,6 +10,7 @@ import overflowToggler from "../utilities/overflowToggler";
 import PostOptModal from "./PostOptModal";
 import CommentBox from "./CommentBox";
 import placeholderImage from "../assets/placeholder.jpg";
+import lazyLoadImage from "../utilities/lazyLoadImage.js";
 
 const Post = ({
   post_commentsCount,
@@ -77,22 +78,6 @@ const Post = ({
     DELETE_POST(post_uid);
   };
 
-  const loadImage = () => {
-    const postImages = document.querySelectorAll(".main--img");
-    let observer = new IntersectionObserver((entries, observer) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        const image = entry.target;
-        const newSrc = image.getAttribute("data-src");
-        image.src = newSrc;
-      });
-    }, {});
-
-    postImages.forEach((image) => {
-      observer.observe(image);
-    });
-  };
-
   return (
     <Fragment>
       <div className="post--card">
@@ -111,11 +96,11 @@ const Post = ({
 
         <div>
           <img
-            className="main--img"
+            className="lazy-image"
             src={placeholderImage}
             alt="post_main_img"
             data-src={post_image}
-            onLoad={loadImage}
+            onLoad={lazyLoadImage}
           />
         </div>
 
