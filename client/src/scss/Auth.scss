@@ -78,7 +78,7 @@
         border: none;
         background: whitesmoke;
         outline: none;
-        margin-bottom: 5px;
+        margin-bottom: 10px;
         height: 35px;
         width: 100%;
         box-sizing: border-box;
@@ -91,6 +91,28 @@
       font-family: monospace;
       font-size: 20px;
       margin-bottom: 40px;
+    }
+  }
+}
+
+@media (max-width: 400px) {
+  .auth--page {
+    div:first-child {
+      width: 100%;
+      border: none;
+      background: inherit;
+
+      form {
+        width: 75%;
+      }
+    }
+
+    div:last-child,
+    div:nth-child(2) {
+      width: 100%;
+      border: none;
+      margin: 0;
+      background: inherit;
     }
   }
 }

@@ -90,7 +90,7 @@ const Signuppage = () => {
       </div>
 
       <div>
-        <p>Already have an account yet?</p>
+        <p>Already have an account?</p>
         <NavLink to="/login">Login</NavLink>
       </div>
 
