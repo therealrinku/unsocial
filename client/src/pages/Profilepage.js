@@ -143,12 +143,12 @@ const Profilepage = ({
           ) : (
             <p
               style={{
-                fontSize: "15px",
+                fontSize: "14px",
                 textAlign: "center",
                 marginTop: "50px",
               }}
             >
-              No any {showSavedPosts ? "Saved Posts." : "Posts."}
+              No any {showSavedPosts ? "saved posts." : "posts."}
             </p>
           )}
 
