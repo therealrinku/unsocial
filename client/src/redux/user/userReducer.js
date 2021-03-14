@@ -22,7 +22,7 @@ const userReducer = (state = intialState, action) => {
         ...state,
         currentUserData: {
           ...state.currentUserData,
-          ...action.payload.data,
+          ...action.payload,
         },
       };
 
