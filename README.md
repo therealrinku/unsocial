@@ -16,6 +16,6 @@
 * User creation and authentication
 * Add and remove image posts
 * Follow and unfollow users
-* Add and uodate profile image,password and username
+* Add and update profile image,password and username
 * Like,unlike,comment and save posts
-* Get notification popup
+* Get real time notification popup
