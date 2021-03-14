@@ -6,6 +6,10 @@ import postActionTypes from "../post/postsActionTypes";
 import profileActionTypes from "../profile/profileActionTypes";
 import notificationPusher from "../../utilities/notificationPusher";
 
+export const UPDATE_PROFILE_LOCALLY = (data) => (dispatch) => {
+  dispatch({ type: userActionTypes.UPDATE_PROFILE_LOCALLY, payload: data });
+};
+
 export const UNFOLLOW_RECOMMENDED = (
   currentUserUid,
   unfollowingUserUid

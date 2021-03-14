@@ -17,6 +17,15 @@ const intialState = {
 
 const userReducer = (state = intialState, action) => {
   switch (action.type) {
+    case userActionTypes.UPDATE_PROFILE_LOCALLY:
+      return {
+        ...state,
+        currentUserData: {
+          ...state.currentUserData,
+          ...action.payload.data,
+        },
+      };
+
     case userActionTypes.FOLLOW_RECOMMENDED:
       const copyA = [...state.recommendedUsers];
       const followedUserIndexA = copyA.findIndex(

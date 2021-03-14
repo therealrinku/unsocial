@@ -6,6 +6,8 @@ import { updateUserData, updateProfilePicture } from "../services/userServices";
 import storage from "../firebase/storage";
 import Compressor from "compressorjs";
 import { Link } from "react-router-dom";
+import * as postActions from "../redux/post/postsActions";
+import * as userActions from "../redux/user/userActions";
 
 const EditProfilePage = ({
   currentUserProfileImage,
@@ -13,12 +15,13 @@ const EditProfilePage = ({
   currentUserUid,
   currentUserBio,
   currentUserEmail,
+  ADD_MESSAGE,
+  UPDATE_PROFILE_LOCALLY,
 }) => {
   const [username, setUsername] = useState(currentUserName);
   const [email, setEmail] = useState(currentUserEmail);
   const [bio, setBio] = useState(currentUserBio);
   const [error, setError] = useState("");
-  const [successMsg, setSuccessMsg] = useState("");
   const [updating, setUpdating] = useState(false);
   const [updatingProfilePicture, setUpdatingProfilePicture] = useState(false);
 
@@ -36,9 +39,13 @@ const EditProfilePage = ({
       ) {
         setSelectedImage(e.target.files[0]);
       } else {
-        alert("Image must be on jpg,png or jpeg format.");
+        ADD_MESSAGE("Image must be on jpg,png or jpeg format.");
       }
     }
+
+    setTimeout(() => {
+      ADD_MESSAGE(null);
+    }, 3000);
   };
 
   const updateProfilePictureFinal = () => {
@@ -63,15 +70,11 @@ const EditProfilePage = ({
                   updateProfilePicture(currentUserUid, url)
                     .then((res) => {
                       if (res === "done") {
-                        setSuccessMsg(
-                          "Profile image updated...page will reload in 3 seconds."
-                        );
-                        setTimeout(() => {
-                          window.location.reload();
-                        }, 3000);
+                        ADD_MESSAGE("Successfully updated the profile picture");
                       } else {
                         setError(res);
                       }
+                      setUpdating(false);
                     })
                     .catch((err) => setError(err.message));
                 });
@@ -106,14 +109,12 @@ const EditProfilePage = ({
           currentUserName
         ).then((res) => {
           if (res !== "success") {
-            setUpdating(false);
             setError(res);
           } else {
-            setSuccessMsg("Profile updated...page will reload in 3 seconds.");
-            setTimeout(() => {
-              window.location.reload();
-            }, 3000);
+            ADD_MESSAGE("Successfully updated the profile.");
+            UPDATE_PROFILE_LOCALLY({ bio, username, email });
           }
+          setUpdating(false);
         });
       } else {
         setUpdating(false);
@@ -123,7 +124,8 @@ const EditProfilePage = ({
 
     setTimeout(() => {
       setError("");
-    }, 2000);
+      ADD_MESSAGE(null);
+    }, 3000);
   };
 
   return (
@@ -189,12 +191,6 @@ const EditProfilePage = ({
             Submit
           </button>
           <p className="err-p">{error}</p>
-          <p
-            className="msg-p"
-            style={{ color: "green", fontSize: "13px", marginTop: "-10px" }}
-          >
-            {successMsg}
-          </p>
           <Link to="/edit/password">Change Password</Link>
         </form>
       </section>
@@ -212,4 +208,12 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(EditProfilePage);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    UPDATE_PROFILE_LOCALLY: (data) =>
+      dispatch(userActions.UPDATE_PROFILE_LOCALLY(data)),
+    ADD_MESSAGE: (message) => dispatch(postActions.ADD_MESSAGE(message)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditProfilePage);
