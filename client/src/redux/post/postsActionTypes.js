@@ -25,6 +25,8 @@ const postActionTypes = {
   DELETE_POST: "DELETE_POST",
   UPLOADING_POST: "UPLOADING_POST",
   UPLOAD_POST: "UPLOAD_POST",
+  ADD_MESSAGE:"ADD_MESSAGE",
+  CLEAR_MESSAGE:"CLEAR_MESSAGE"
 };
 
 export default postActionTypes;

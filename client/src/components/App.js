@@ -9,6 +9,7 @@ import Landingpage from "../pages/Landingpage";
 import Loginpage from "../pages/Loginpage";
 import Signuppage from "../pages/Signuppage";
 import * as userActions from "../redux/user/userActions";
+import * as postActions from "../redux/post/postsActions";
 import { SiInstagram } from "react-icons/all";
 import PostButton from "../components/PostButton";
 import overflowToggler from "../utilities/overflowToggler";
@@ -25,11 +26,13 @@ const App = ({
   token,
   userDataLoaded,
   feedLoaded,
+  ADD_MESSAGE,
+  CLEAR_MESSAGE,
+  message,
 }) => {
   const [selectedImage, setSelectedImage] = useState("");
   const [showAddPostModal, setShowAddPostModal] = useState(false);
   //msg
-  const [message, setMessage] = useState("");
 
   const toggleAddPostModal = () => {
     setShowAddPostModal((prev) => !prev);
@@ -39,11 +42,11 @@ const App = ({
   useEffect(() => {
     if (feedLoaded) {
       if (uploadingPost) {
-        setMessage("Uploading your post. it may take couple of seconds.");
+        ADD_MESSAGE("Uploading your post. it may take couple of seconds.");
       } else {
-        setMessage("Successfully uploaded a post.");
+        ADD_MESSAGE("Successfully uploaded a post.");
         setTimeout(() => {
-          setMessage("");
+          CLEAR_MESSAGE();
         }, 3000);
       }
     }
@@ -89,7 +92,7 @@ const App = ({
             toggleAddPostModal={toggleAddPostModal}
           />
 
-          {message.length > 0 ? <MessageViewer message={message} /> : null}
+          {message ? <MessageViewer message={message} /> : null}
 
           <Switch>
             <Route
@@ -113,6 +116,7 @@ const App = ({
 
 const mapStateToProps = (state) => {
   return {
+    message: state.posts.message,
     feedLoaded: state.posts.feed_loaded,
     uploadingPost: state.posts.uploadingPost,
     userDataLoaded: state.user.user_data_loaded,
@@ -123,6 +127,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    ADD_MESSAGE: (message) => dispatch(postActions.ADD_MESSAGE(message)),
+    CLEAR_MESSAGE: () => dispatch(postActions.CLEAR_MESSAGE()),
     LOGIN_WITH_UID: (uid) => dispatch(userActions.LOGIN_WITH_UID(uid)),
   };
 };

@@ -13,10 +13,23 @@ const initial_state = {
   getting_comments: false,
   getting_comment_likers: false,
   uploadingPost: false,
+  message:null
 };
 
 const postsReducer = (state = initial_state, action) => {
   switch (action.type) {
+    case postActionTypes.ADD_MESSAGE:
+      return {
+        ...state,
+        message:action.payload
+      }
+
+    case postActionTypes.CLEAR_MESSAGE:
+      return {
+        ...state,
+        message:null
+      }
+
     case postActionTypes.CLEAR_POSTS:
       return {
         ...state,

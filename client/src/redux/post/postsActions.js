@@ -21,6 +21,23 @@ import {
 import postActionTypes from "./postsActionTypes";
 import notificationPusher from "../../utilities/notificationPusher";
 
+export const ADD_MESSAGE = (msg) => (dispatch) => {
+  try {
+    dispatch({ type: postActionTypes.ADD_MESSAGE, payload: msg });
+  } catch (err) {
+    dispatch({
+      type: postActionTypes.SOMETHING_WENT_WRONG,
+      payload: err.message,
+    });
+  }
+};
+
+export const CLEAR_MESSAGE = () => (dispatch) => {
+  dispatch({
+    type: postActionTypes.CLEAR_MESSAGE,
+  });
+};
+
 export const GET_COMMENT_LIKERS = (comment_uid, post_uid) => async (
   dispatch
 ) => {
