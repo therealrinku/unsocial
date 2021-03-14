@@ -4,14 +4,13 @@ import Navbar from "../components/Navbar";
 import { updatePassword } from "../services/userServices";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import * as postActions from "../redux/post/postsActions";
 
-const EditPasswordPage = ({ currentUserUid }) => {
+const EditPasswordPage = ({ currentUserUid, ADD_MESSAGE }) => {
   const [initialPassword, setInitialPassword] = useState("");
   const [newPassword1, setNewPassword1] = useState("");
   const [newPassword2, setNewPassword2] = useState("");
   const [updating, setUpdating] = useState(false);
-  const [error, setError] = useState(null);
-  const [successMsg, setSuccessMsg] = useState(null);
 
   const updatePasswordFinal = (e) => {
     e.preventDefault();
@@ -22,24 +21,27 @@ const EditPasswordPage = ({ currentUserUid }) => {
           (res) => {
             setUpdating(false);
             if (res === "success") {
-              setError(null);
-              setSuccessMsg("Successfully changed password");
+              ADD_MESSAGE("Successfully changed password");
               setInitialPassword("");
               setNewPassword1("");
               setNewPassword2("");
             } else {
-              setError(res);
+              ADD_MESSAGE(res);
             }
           }
         );
       } else {
         setUpdating(false);
-        setError("new passwords must be between 5 to 25 characters.");
+        ADD_MESSAGE("new passwords must be between 5 to 25 characters.");
       }
     } else {
       setUpdating(false);
-      setError("new passwords must match.");
+      ADD_MESSAGE("new passwords must match.");
     }
+
+    setTimeout(() => {
+      ADD_MESSAGE(null);
+    }, 3000);
   };
 
   return (
@@ -70,13 +72,6 @@ const EditPasswordPage = ({ currentUserUid }) => {
         <button disabled={updating} className="submit-btn">
           Submit
         </button>
-        <p className="err-p">{error}</p>
-        <p
-          className="msg-p"
-          style={{ color: "green", fontSize: "13px", marginTop: "-10px" }}
-        >
-          {successMsg}
-        </p>
         <Link to="/edit/profile">Update Profile</Link>
       </form>
     </div>
@@ -89,4 +84,10 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(EditPasswordPage);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    ADD_MESSAGE: (message) => dispatch(postActions.ADD_MESSAGE(message)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditPasswordPage);
