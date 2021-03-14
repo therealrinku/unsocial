@@ -13,7 +13,7 @@ const initial_state = {
   getting_comments: false,
   getting_comment_likers: false,
   uploadingPost: false,
-  message:null
+  message: null,
 };
 
 const postsReducer = (state = initial_state, action) => {
@@ -21,14 +21,8 @@ const postsReducer = (state = initial_state, action) => {
     case postActionTypes.ADD_MESSAGE:
       return {
         ...state,
-        message:action.payload
-      }
-
-    case postActionTypes.CLEAR_MESSAGE:
-      return {
-        ...state,
-        message:null
-      }
+        message: action.payload,
+      };
 
     case postActionTypes.CLEAR_POSTS:
       return {

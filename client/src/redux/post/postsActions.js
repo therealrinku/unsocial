@@ -32,12 +32,6 @@ export const ADD_MESSAGE = (msg) => (dispatch) => {
   }
 };
 
-export const CLEAR_MESSAGE = () => (dispatch) => {
-  dispatch({
-    type: postActionTypes.CLEAR_MESSAGE,
-  });
-};
-
 export const GET_COMMENT_LIKERS = (comment_uid, post_uid) => async (
   dispatch
 ) => {

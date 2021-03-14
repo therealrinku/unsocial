@@ -7,7 +7,6 @@ const PostOptModal = ({
   toggle,
   deletePost,
   AddMessage,
-  ClearMessage,
 }) => {
   const [showDeleteConfirmer, setShowDeleteConfirmer] = useState(false);
   const history = useHistory();
@@ -22,7 +21,7 @@ const PostOptModal = ({
     navigator.clipboard.writeText(`https://instacloone.web.app/p/${post_id}`);
     AddMessage("Link successfully copied to clipboard.");
     setTimeout(() => {
-      ClearMessage();
+      AddMessage(null);
     }, 3000);
   };
 

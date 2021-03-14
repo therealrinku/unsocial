@@ -27,7 +27,6 @@ const App = ({
   userDataLoaded,
   feedLoaded,
   ADD_MESSAGE,
-  CLEAR_MESSAGE,
   message,
 }) => {
   const [selectedImage, setSelectedImage] = useState("");
@@ -46,7 +45,7 @@ const App = ({
       } else {
         ADD_MESSAGE("Successfully uploaded a post.");
         setTimeout(() => {
-          CLEAR_MESSAGE();
+          ADD_MESSAGE(null);
         }, 3000);
       }
     }
@@ -128,7 +127,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     ADD_MESSAGE: (message) => dispatch(postActions.ADD_MESSAGE(message)),
-    CLEAR_MESSAGE: () => dispatch(postActions.CLEAR_MESSAGE()),
     LOGIN_WITH_UID: (uid) => dispatch(userActions.LOGIN_WITH_UID(uid)),
   };
 };

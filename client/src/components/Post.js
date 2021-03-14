@@ -38,7 +38,6 @@ const Post = ({
   likersLoading,
   DELETE_POST,
   ADD_MESSAGE,
-  CLEAR_MESSAGE,
 }) => {
   const thisPostLikers = feedPosts.filter(
     (post) => post.post_uid === post_uid
@@ -182,7 +181,6 @@ const Post = ({
             deletePost={deletePost}
             post_id={post_id}
             AddMessage={ADD_MESSAGE}
-            ClearMessage={CLEAR_MESSAGE}
           />
           <Backdrop
             show={showPostOptionsModal}
@@ -207,7 +205,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     ADD_MESSAGE: (message) => dispatch(postsActions.ADD_MESSAGE(message)),
-    CLEAR_MESSAGE: () => dispatch(postsActions.CLEAR_MESSAGE()),
     DELETE_POST: (post_uid) => dispatch(postsActions.DELETE_POST(post_uid)),
     GET_LIKERS: (post_uid) => dispatch(postsActions.GET_LIKERS(post_uid)),
     SAVE_POST: (post_uid, saver_username) =>
