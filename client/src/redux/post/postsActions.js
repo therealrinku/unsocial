@@ -296,6 +296,13 @@ export const DELETE_POST = (post_uid) => async (dispatch) => {
   try {
     await deletePost(post_uid);
     dispatch({ type: postActionTypes.DELETE_POST, payload: { post_uid } });
+    dispatch({
+      type: postActionTypes.ADD_MESSAGE,
+      payload: "Successfully delete a post.",
+    });
+    setTimeout(() => {
+      dispatch({ type: postActionTypes.CLEAR_MESSAGE });
+    }, 3000);
   } catch (err) {
     dispatch({
       type: postActionTypes.SOMETHING_WENT_WRONG,

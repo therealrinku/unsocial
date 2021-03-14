@@ -202,6 +202,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    ADD_MESSAGE: (message) => dispatch(postsActions.ADD_MESSAGE(message)),
+    CLEAR_MESSAGE: () => dispatch(postsActions.CLEAR_MESSAGE()),
     DELETE_POST: (post_uid) => dispatch(postsActions.DELETE_POST(post_uid)),
     GET_LIKERS: (post_uid) => dispatch(postsActions.GET_LIKERS(post_uid)),
     SAVE_POST: (post_uid, saver_username) =>
