@@ -37,6 +37,8 @@ const Post = ({
   feedPosts,
   likersLoading,
   DELETE_POST,
+  ADD_MESSAGE,
+  CLEAR_MESSAGE,
 }) => {
   const thisPostLikers = feedPosts.filter(
     (post) => post.post_uid === post_uid
@@ -179,6 +181,8 @@ const Post = ({
             post_uid={post_uid}
             deletePost={deletePost}
             post_id={post_id}
+            AddMessage={ADD_MESSAGE}
+            ClearMessage={CLEAR_MESSAGE}
           />
           <Backdrop
             show={showPostOptionsModal}

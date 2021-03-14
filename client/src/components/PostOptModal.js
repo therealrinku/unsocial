@@ -1,13 +1,29 @@
 import React, { useState } from "react";
 import { withRouter, useHistory } from "react-router-dom";
 
-const PostOptModal = ({ post_id, isMyPost, toggle, deletePost }) => {
+const PostOptModal = ({
+  post_id,
+  isMyPost,
+  toggle,
+  deletePost,
+  AddMessage,
+  ClearMessage,
+}) => {
   const [showDeleteConfirmer, setShowDeleteConfirmer] = useState(false);
   const history = useHistory();
 
   const goToPost = () => {
     toggle();
     history.push(`/p/${post_id}`);
+  };
+
+  const copyToClipBoard = () => {
+    toggle();
+    navigator.clipboard.writeText(`https://instacloone.web.app/p/${post_id}`);
+    AddMessage("Link successfully copied to clipboard.");
+    setTimeout(() => {
+      ClearMessage();
+    }, 3000);
   };
 
   return (
@@ -41,7 +57,7 @@ const PostOptModal = ({ post_id, isMyPost, toggle, deletePost }) => {
           >
             Delete
           </button>
-          <button>Copy Link</button>
+          <button onClick={copyToClipBoard}>Copy Link</button>
           <button onClick={toggle}>Cancel</button>
         </div>
       )}
