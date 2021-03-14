@@ -21,7 +21,6 @@ const EditProfilePage = ({
   const [username, setUsername] = useState(currentUserName);
   const [email, setEmail] = useState(currentUserEmail);
   const [bio, setBio] = useState(currentUserBio);
-  const [error, setError] = useState("");
   const [updating, setUpdating] = useState(false);
   const [updatingProfilePicture, setUpdatingProfilePicture] = useState(false);
 
@@ -72,11 +71,11 @@ const EditProfilePage = ({
                       if (res === "done") {
                         ADD_MESSAGE("Successfully updated the profile picture");
                       } else {
-                        setError(res);
+                        ADD_MESSAGE(res);
                       }
                       setUpdating(false);
                     })
-                    .catch((err) => setError(err.message));
+                    .catch((err) => ADD_MESSAGE(err.message));
                 });
             }
           );
@@ -94,7 +93,7 @@ const EditProfilePage = ({
       email === currentUserEmail &&
       bio === currentUserBio
     ) {
-      setError("Nothing to Update.");
+      ADD_MESSAGE("Nothing to Update.");
       setUpdating(false);
     } else {
       if (
@@ -109,7 +108,7 @@ const EditProfilePage = ({
           currentUserName
         ).then((res) => {
           if (res !== "success") {
-            setError(res);
+            ADD_MESSAGE(res);
           } else {
             ADD_MESSAGE("Successfully updated the profile.");
             UPDATE_PROFILE_LOCALLY({ bio, username, email });
@@ -118,12 +117,11 @@ const EditProfilePage = ({
         });
       } else {
         setUpdating(false);
-        setError("Username must be spaceless between 5 and 25 characters.");
+        ADD_MESSAGE("Username must be spaceless between 5 and 25 characters.");
       }
     }
 
     setTimeout(() => {
-      setError("");
       ADD_MESSAGE(null);
     }, 3000);
   };
@@ -190,7 +188,6 @@ const EditProfilePage = ({
           >
             Submit
           </button>
-          <p className="err-p">{error}</p>
           <Link to="/edit/password">Change Password</Link>
         </form>
       </section>
