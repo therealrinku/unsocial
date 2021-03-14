@@ -40,6 +40,7 @@ const PostView = ({
   GET_COMMENT_LIKERS,
   gettingCommentLikers,
   userDataLoaded,
+  ADD_MESSAGE,
   token,
 }) => {
   //modal
@@ -173,6 +174,7 @@ const PostView = ({
             toggle={() => toggleModal(setShowPostOptionsModal)}
             post_id={post_id}
             deletePost={deletePost}
+            AddMessage={ADD_MESSAGE}
           />
         </Fragment>
       ) : null}
@@ -400,6 +402,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    ADD_MESSAGE: (message) => dispatch(PostsActions.ADD_MESSAGE(message)),
     GET_COMMENT_LIKERS: (comment_uid, post_uid) =>
       dispatch(PostsActions.GET_COMMENT_LIKERS(comment_uid, post_uid)),
     DELETE_COMMENT: (comment_uid, post_uid) =>
