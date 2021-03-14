@@ -83,7 +83,7 @@ const ProfileSummary = ({
           </div>
 
           <div>
-            <Linkify>
+            <Linkify properties={{ target: "_blank" }}>
               <p className="bio">{profileData.bio}</p>
             </Linkify>
           </div>
@@ -140,7 +140,7 @@ const ProfileSummary = ({
         </section>
 
         <section>
-          <Linkify>
+          <Linkify properties={{ target: "_blank" }}>
             <p className="bio">{profileData.bio}</p>
           </Linkify>
         </section>
