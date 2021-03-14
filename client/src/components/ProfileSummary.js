@@ -3,6 +3,7 @@ import { BiDotsHorizontal, BiUserCheck } from "react-icons/all";
 import { useHistory } from "react-router-dom";
 import ProfilePicPlaceholder from "../assets/avatar.jpg";
 import lazyLoadImage from "../utilities/lazyLoadImage";
+import Linkify from "react-linkify";
 
 const ProfileSummary = ({
   profileData,
@@ -82,7 +83,9 @@ const ProfileSummary = ({
           </div>
 
           <div>
-            <p className="bio">{profileData.bio}</p>
+            <Linkify>
+              <p className="bio">{profileData.bio}</p>
+            </Linkify>
           </div>
         </section>
       </div>
@@ -137,7 +140,9 @@ const ProfileSummary = ({
         </section>
 
         <section>
-          <p className="bio">{profileData.bio}</p>
+          <Linkify>
+            <p className="bio">{profileData.bio}</p>
+          </Linkify>
         </section>
 
         <section>
