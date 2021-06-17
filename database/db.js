@@ -3,7 +3,7 @@ const dbUrl = require("./dbUrl");
 
 const db = new pg.Client(dbUrl);
 
-//db url deleted for security reasons. layout is dbUrl="url" and export default dbUrl; that's it.
+//db url deleted for security reasons. layout is const dbUrl="url" and export default dbUrl; that's it.
 
 db.connect()
 	.then(() => {
