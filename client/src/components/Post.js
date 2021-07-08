@@ -39,9 +39,7 @@ const Post = ({
   DELETE_POST,
   ADD_MESSAGE,
 }) => {
-  const thisPostLikers = feedPosts.filter(
-    (post) => post.post_uid === post_uid
-  )[0].post_likers;
+  const thisPostLikers = feedPosts.filter((post) => post.post_uid === post_uid)[0].post_likers;
   const [showLikers, setShowLikers] = useState(false);
   const [showPostOptionsModal, setShowPostOptionsModal] = useState(false);
 
@@ -114,9 +112,7 @@ const Post = ({
 
         <div>
           <div>
-            <button onClick={likeUnlikePost}>
-              {haveILiked ? <Icons.LovedIcon /> : <Icons.LoveIcon />}
-            </button>
+            <button onClick={likeUnlikePost}>{haveILiked ? <Icons.LovedIcon /> : <Icons.LoveIcon />}</button>
 
             <button onClick={() => history.push(`/p/${post_id}`)}>
               <Icons.CommentIcon />
@@ -128,9 +124,7 @@ const Post = ({
           </div>
 
           <div>
-            <button onClick={saveUnsavePost}>
-              {haveISaved ? <Icons.SavedIcon /> : <Icons.SaveIcon />}
-            </button>
+            <button onClick={saveUnsavePost}>{haveISaved ? <Icons.SavedIcon /> : <Icons.SaveIcon />}</button>
           </div>
         </div>
 
@@ -143,8 +137,7 @@ const Post = ({
             {post_likesCount || "No"} {post_likesCount === 1 ? "like" : "likes"}
           </button>
           <button onClick={() => history.push(`/p/${post_id}`)}>
-            {post_commentsCount}{" "}
-            {post_commentsCount === 1 ? "comment" : "comments"}
+            {post_commentsCount} {post_commentsCount === 1 ? "comment" : "comments"}
           </button>
         </div>
 
@@ -152,9 +145,9 @@ const Post = ({
           <p>{post_postedDate}</p>
         </div>
 
-        <section className="comment--box-pc">
+        {/*<section className="comment--box-pc">
           <CommentBox post_uid={post_uid} post_owner_uid={post_owner_uid} />
-        </section>
+  </section>*/}
       </div>
 
       {showLikers ? (
@@ -165,10 +158,7 @@ const Post = ({
             users={thisPostLikers || []}
             toggle={() => toggleModal(setShowLikers)}
           />
-          <Backdrop
-            show={showLikers}
-            toggle={() => toggleModal(setShowLikers)}
-          />
+          <Backdrop show={showLikers} toggle={() => toggleModal(setShowLikers)} />
         </Fragment>
       ) : null}
 
@@ -182,10 +172,7 @@ const Post = ({
             post_id={post_id}
             AddMessage={ADD_MESSAGE}
           />
-          <Backdrop
-            show={showPostOptionsModal}
-            toggle={() => toggleModal(setShowPostOptionsModal)}
-          />
+          <Backdrop show={showPostOptionsModal} toggle={() => toggleModal(setShowPostOptionsModal)} />
         </Fragment>
       ) : null}
     </Fragment>
@@ -207,14 +194,11 @@ const mapDispatchToProps = (dispatch) => {
     ADD_MESSAGE: (message) => dispatch(postsActions.ADD_MESSAGE(message)),
     DELETE_POST: (post_uid) => dispatch(postsActions.DELETE_POST(post_uid)),
     GET_LIKERS: (post_uid) => dispatch(postsActions.GET_LIKERS(post_uid)),
-    SAVE_POST: (post_uid, saver_username) =>
-      dispatch(postsActions.SAVE_POST(post_uid, saver_username)),
-    UNSAVE_POST: (post_uid, unsaver_username) =>
-      dispatch(postsActions.UNSAVE_POST(post_uid, unsaver_username)),
+    SAVE_POST: (post_uid, saver_username) => dispatch(postsActions.SAVE_POST(post_uid, saver_username)),
+    UNSAVE_POST: (post_uid, unsaver_username) => dispatch(postsActions.UNSAVE_POST(post_uid, unsaver_username)),
     LIKE_POST: (post_uid, liker_uid, post_owner_uid) =>
       dispatch(postsActions.LIKE_POST(post_uid, liker_uid, post_owner_uid)),
-    UNLIKE_POST: (post_uid, unliker_uid) =>
-      dispatch(postsActions.UNLIKE_POST(post_uid, unliker_uid)),
+    UNLIKE_POST: (post_uid, unliker_uid) => dispatch(postsActions.UNLIKE_POST(post_uid, unliker_uid)),
   };
 };
 
