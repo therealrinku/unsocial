@@ -5,7 +5,7 @@ import Activity from "./Activity";
 import Backdrop from "./Backdrop";
 import OverflowToggler from "../utilities/overflowToggler";
 import firestore from "../firebase/firestore";
-import { FiUsers, FiHome, FiBell, FiUser, FiCompass, FiSearch, FiPlusCircle } from "react-icons/fi";
+import { FiUsers, FiHome, FiBell, FiUser, FiCompass, FiSearch, FiUpload } from "react-icons/fi";
 import { Tooltip } from "@material-ui/core";
 
 const Sidebar = ({ currentUsername, currentUserProfileimage, currentUserUid, showSearchBarOnly }) => {
@@ -36,7 +36,7 @@ const Sidebar = ({ currentUsername, currentUserProfileimage, currentUserUid, sho
 
   const navButtons = [
     { buttonIcon: <FiHome />, buttonTarget: "/", title: "Home" },
-    { buttonIcon: <FiPlusCircle />, buttonTarget: `/newPost`, title: "Create New Post" },
+    { buttonIcon: <FiUpload />, buttonTarget: `/newPost`, title: "Add New Post" },
     { buttonIcon: <FiSearch />, buttonTarget: "/search", title: "Search" },
     { buttonIcon: <FiCompass />, buttonTarget: "/explore", title: "Explore" },
     { buttonIcon: <FiBell />, buttonTarget: "/notifications", title: "Notifications" },
