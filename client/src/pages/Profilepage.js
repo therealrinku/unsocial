@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import ProfileSummary from "../components/ProfileSummary";
-import Navbar from "../components/Navbar";
+import Sidebar from "../components/Sidebar";
 import MobileNavbar from "../components/MobileNavbar";
 import * as profileActions from "../redux/profile/ProfileActions";
 import { connect } from "react-redux";
@@ -101,7 +101,7 @@ const Profilepage = ({
 
   return (
     <Fragment>
-      <Navbar />
+      <Sidebar />
       <MobileNavbar />
       {loading ? (
         <Loader />

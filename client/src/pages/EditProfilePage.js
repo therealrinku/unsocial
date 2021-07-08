@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { connect } from "react-redux";
 import MobileNavbar from "../components/MobileNavbar";
-import Navbar from "../components/Navbar";
+import Sidebar from "../components/Sidebar";
 import { updateUserData, updateProfilePicture } from "../services/userServices";
 import storage from "../firebase/storage";
 import Compressor from "compressorjs";
@@ -128,7 +128,7 @@ const EditProfilePage = ({
 
   return (
     <div className="edit--profile-page">
-      <Navbar />
+      <Sidebar />
       <MobileNavbar />
 
       <section className="section-one">

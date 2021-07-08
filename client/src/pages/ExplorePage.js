@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect } from "react";
 import { connect } from "react-redux";
 import Loader from "../components/Loader";
-import Navbar from "../components/Navbar";
+import Sidebar from "../components/Sidebar";
 import PostsGrid from "../components/PostsGrid";
 import * as PostsActions from "../redux/post/postsActions";
 import MobileNavbar from "../components/MobileNavbar";
@@ -17,11 +17,7 @@ const ExplorePage = ({ loading, explorePosts, loadExplorePosts }) => {
   return (
     <Fragment>
       <div className="navbar--pc">
-        <Navbar />
-      </div>
-
-      <div className="navbar--mobile-">
-        <Navbar showSearchBarOnly={true} />
+        <Sidebar />
       </div>
 
       <MobileNavbar />

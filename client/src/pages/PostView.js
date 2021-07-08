@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import { BiDotsHorizontal } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import * as Icons from "../Icons/CustomIcons";
-import Navbar from "../components/Navbar";
+import Sidebar from "../components/Sidebar";
 import MobileNavbar from "../components/MobileNavbar";
 import * as PostsActions from "../redux/post/postsActions";
 import { connect } from "react-redux";
@@ -179,7 +179,7 @@ const PostView = ({
         </Fragment>
       ) : null}
 
-      <Navbar />
+      <Sidebar />
       <MobileNavbar />
       {loading ? (
         <Loader />

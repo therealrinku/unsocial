@@ -1,6 +1,6 @@
 import { useState } from "react";
 import MobileNavbar from "../components/MobileNavbar";
-import Navbar from "../components/Navbar";
+import Sidebar from "../components/Sidebar";
 import { updatePassword } from "../services/userServices";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
@@ -46,7 +46,7 @@ const EditPasswordPage = ({ currentUserUid, ADD_MESSAGE }) => {
 
   return (
     <div className="edit--password-page">
-      <Navbar />
+      <Sidebar />
       <MobileNavbar />
 
       <form onSubmit={updatePasswordFinal}>

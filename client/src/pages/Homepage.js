@@ -1,5 +1,5 @@
 import Feed from "../components/Feed";
-import Navbar from "../components/Navbar";
+import Sidebar from "../components/Sidebar";
 import { connect } from "react-redux";
 import { useEffect } from "react";
 import MobileNavbar from "../components/MobileNavbar";
@@ -29,7 +29,7 @@ const Homepage = ({
   return (
     <div className="homepage">
       {loading ? <Loader /> : null}
-      <Navbar />
+      <Sidebar />
       {feed.length > 0 && !loading ? (
         <Feed feed={feed} />
       ) : !loading && feedLoaded ? (
