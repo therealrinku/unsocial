@@ -154,7 +154,7 @@ const Post = ({
         </Link>
 
         <div className="actions-div">
-          <button onClick={likeUnlikePost} style={haveILiked ? { color: "tomato" } : null}>
+          <button onClick={likeUnlikePost} style={haveILiked ? { color: "#60d8c0" } : null}>
             <FiThumbsUp />
             <p>{post_likesCount || ""}</p>
           </button>
@@ -174,7 +174,7 @@ const Post = ({
             <FiShare2 />
           </button>
 
-          <button onClick={saveUnsavePost} style={haveISaved ? { color: "tomato" } : null}>
+          <button onClick={saveUnsavePost} style={haveISaved ? { color: "#60d8c0" } : null}>
             <FiSave />
           </button>
         </div>
