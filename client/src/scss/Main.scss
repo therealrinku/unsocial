@@ -31,7 +31,13 @@
 body {
   margin: 0;
   background: #fafafa;
-  font-family: arial;
+  font-family: Inter, Arial, monospace;
+}
+
+a,
+button,
+input {
+  font-family: Inter;
 }
 
 button:hover {
