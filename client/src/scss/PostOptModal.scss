@@ -1,6 +1,6 @@
 .post--options-modal {
   position: fixed;
-  width: 250px;
+  width: 220px;
   height: auto;
   background: whitesmoke;
   top: 50%;
@@ -49,8 +49,8 @@
       flex-direction: column;
 
       p {
-        font-weight: bold;
         font-size: 14px;
+        font-family: Inter;
         color: tomato;
       }
     }
