@@ -1,13 +1,8 @@
 import React, { useState } from "react";
 import { withRouter, useHistory } from "react-router-dom";
+import { FiNavigation, FiTrash, FiClipboard, FiX, FiAlertOctagon } from "react-icons/all";
 
-const PostOptModal = ({
-  post_id,
-  isMyPost,
-  toggle,
-  deletePost,
-  AddMessage,
-}) => {
+const PostOptModal = ({ post_id, isMyPost, toggle, deletePost, AddMessage }) => {
   const [showDeleteConfirmer, setShowDeleteConfirmer] = useState(false);
   const history = useHistory();
 
@@ -43,21 +38,29 @@ const PostOptModal = ({
         </div>
       ) : (
         <div className="post--options">
-          <button onClick={goToPost}>Go to post</button>
-          <button
-            style={isMyPost ? { display: "none" } : { color: "red" }}
-            onClick={toggle}
-          >
-            Report
+          <button onClick={goToPost}>
+            <FiNavigation />
+            <p>Go to post</p>
+          </button>
+          <button style={isMyPost ? { display: "none" } : { color: "red" }} onClick={toggle}>
+            <FiAlertOctagon />
+            <p>Report</p>
           </button>
           <button
-            style={!isMyPost ? { display: "none" } : { color: "red" }}
+            style={!isMyPost ? { display: "none" } : { color: "tomato" }}
             onClick={() => setShowDeleteConfirmer((prev) => !prev)}
           >
-            Delete
+            <FiTrash />
+            <p>Delete</p>
           </button>
-          <button onClick={copyToClipBoard}>Copy Link</button>
-          <button onClick={toggle}>Cancel</button>
+          <button onClick={copyToClipBoard}>
+            <FiClipboard />
+            <p>Copy Link</p>
+          </button>
+          <button onClick={toggle}>
+            <FiX />
+            <p>Cancel</p>
+          </button>
         </div>
       )}
     </div>
