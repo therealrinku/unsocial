@@ -18,6 +18,7 @@ import Backdrop from "../components/Backdrop";
 import EditProfilePage from "../pages/EditProfilePage";
 import MessageViewer from "./MessageViewer";
 import EditPasswordPage from "../pages/EditPasswordPage";
+import Topbar from "./Topbar";
 
 const App = ({
   currentUsername,
@@ -76,6 +77,8 @@ const App = ({
         </div>
       ) : (
         <Fragment>
+          <Topbar />
+
           {showAddPostModal ? (
             <Fragment>
               <Backdrop show={showAddPostModal} toggle={toggleAddPostModal} />
