@@ -79,26 +79,14 @@ const App = ({
           {showAddPostModal ? (
             <Fragment>
               <Backdrop show={showAddPostModal} toggle={toggleAddPostModal} />
-              <AddPostModal
-                toggle={toggleAddPostModal}
-                selectedImage={selectedImage}
-              />
+              <AddPostModal toggle={toggleAddPostModal} selectedImage={selectedImage} />
             </Fragment>
           ) : null}
-
-          <PostButton
-            setSelectedImage={setSelectedImage}
-            toggleAddPostModal={toggleAddPostModal}
-          />
 
           {message ? <MessageViewer message={message} /> : null}
 
           <Switch>
-            <Route
-              path="/"
-              exact
-              component={currentUsername ? Homepage : Landingpage}
-            />
+            <Route path="/" exact component={currentUsername ? Homepage : Landingpage} />
             <Route path="/edit/profile" exact component={EditProfilePage} />
             <Route path="/login" exact component={Loginpage} />
             <Route path="/signup" exact component={Signuppage} />
