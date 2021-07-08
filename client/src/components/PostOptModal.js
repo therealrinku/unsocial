@@ -45,7 +45,7 @@ const PostOptModal = ({ post_id, isMyPost, toggle, deletePost, AddMessage }) => 
             <FiNavigation />
             <p>Go to post</p>
           </button>
-          <button style={isMyPost ? { display: "none" } : { color: "red" }} onClick={toggle}>
+          <button style={isMyPost ? { display: "none" } : { color: "tomato" }} onClick={toggle}>
             <FiAlertOctagon />
             <p>Report</p>
           </button>
