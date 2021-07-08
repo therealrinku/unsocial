@@ -26,6 +26,14 @@
     }
   }
 
+  button:disabled {
+    opacity: 0.8;
+  }
+
+  button:disabled:hover {
+    cursor: unset;
+  }
+
   button:hover {
     background: rgba(0, 0, 0, 0.07);
   }

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { withRouter, useHistory } from "react-router-dom";
-import { FiNavigation, FiTrash, FiClipboard, FiX, FiAlertOctagon } from "react-icons/all";
+import { FiNavigation, FiTrash, FiClipboard, FiX, FiAlertOctagon, FiEdit } from "react-icons/all";
 
 const PostOptModal = ({ post_id, isMyPost, toggle, deletePost, AddMessage }) => {
   const [showDeleteConfirmer, setShowDeleteConfirmer] = useState(false);
@@ -44,6 +44,10 @@ const PostOptModal = ({ post_id, isMyPost, toggle, deletePost, AddMessage }) => 
           <button onClick={goToPost}>
             <FiNavigation />
             <p>Go to post</p>
+          </button>
+          <button style={!isMyPost ? { display: "none" } : null} disabled>
+            <FiEdit />
+            <p>Edit Status(coming soon)</p>
           </button>
           <button style={isMyPost ? { display: "none" } : { color: "tomato" }} onClick={toggle}>
             <FiAlertOctagon />
