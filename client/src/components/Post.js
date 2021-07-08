@@ -1,17 +1,18 @@
 import { Fragment, useState } from "react";
 import { connect } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
-import * as Icons from "../Icons/CustomIcons";
 import * as postsActions from "../redux/post/postsActions";
 import { BiDotsHorizontal } from "react-icons/all";
 import UserListModal from "./UserListModal";
 import Backdrop from "./Backdrop";
 import overflowToggler from "../utilities/overflowToggler";
 import PostOptModal from "./PostOptModal";
-import CommentBox from "./CommentBox";
 import placeholderImage from "../assets/placeholder.jpg";
 import lazyLoadImage from "../utilities/lazyLoadImage.js";
 import ProfilePicPlaceholder from "../assets/avatar.jpg";
+import { FiThumbsUp, FiThumbsDown, FiMessageCircle, FiSave, FiShare2 } from "react-icons/all";
+import { Tooltip } from "@material-ui/core";
+import moment from "moment";
 
 const Post = ({
   post_commentsCount,
@@ -78,10 +79,46 @@ const Post = ({
     DELETE_POST(post_uid);
   };
 
+  //formatted posted date
+  const formattedPostedDate = moment(post_postedDate).format("dddd, MMMM Do YYYY, h:mm a");
+  //finding difference of date
+  const todaysDate = moment(new Date());
+  const secondsDifference = moment(todaysDate).diff(moment(post_postedDate), "seconds");
+  const minutesDifference = moment(todaysDate).diff(moment(post_postedDate), "minutes");
+  const hoursDifference = moment(todaysDate).diff(moment(post_postedDate), "hours");
+  const daysDifference = moment(todaysDate).diff(moment(post_postedDate), "days");
+  const weeksDifference = moment(todaysDate).diff(moment(post_postedDate), "weeks");
+  const monthsDifference = moment(todaysDate).diff(moment(post_postedDate), "months");
+  const yearsDifference = moment(todaysDate).diff(moment(post_postedDate), "years");
+
+  let differenceInDate;
+  console.log(monthsDifference);
+  if (yearsDifference >= 1) {
+    differenceInDate = yearsDifference + "y";
+  }
+  if (monthsDifference <= 11) {
+    differenceInDate = monthsDifference + "mo";
+  }
+  if (weeksDifference <= 3) {
+    differenceInDate = weeksDifference + "w";
+  }
+  if (daysDifference <= 7) {
+    differenceInDate = daysDifference + "d";
+  }
+  if (hoursDifference <= 23) {
+    differenceInDate = hoursDifference + "h";
+  }
+  if (minutesDifference <= 59 && minutesDifference >= 1) {
+    differenceInDate = minutesDifference + "m";
+  }
+  if (secondsDifference <= 59) {
+    differenceInDate = secondsDifference + "s";
+  }
+
   return (
     <Fragment>
       <div className="post--card">
-        <div>
+        <div className="top-div">
           <ul>
             <img
               data-src={poster_profileImage}
@@ -91,6 +128,10 @@ const Post = ({
               alt="post_user_image"
             />
             <Link to={`/${poster_username}`}>{poster_username}</Link>
+            <span style={{ marginLeft: "5px" }}>&middot;</span>
+            <Tooltip title={<span style={{ fontSize: "14px" }}>{formattedPostedDate}</span>}>
+              <p className="posted_date">{differenceInDate}</p>
+            </Tooltip>
           </ul>
 
           <ul>
@@ -100,7 +141,9 @@ const Post = ({
           </ul>
         </div>
 
-        <div>
+        <p className="status">{post_status}</p>
+
+        <Link to={`/p/${post_id}`} className="image-div">
           <img
             className="lazy-image"
             src={placeholderImage}
@@ -108,46 +151,33 @@ const Post = ({
             data-src={post_image}
             onLoad={lazyLoadImage}
           />
-        </div>
+        </Link>
 
-        <div>
-          <div>
-            <button onClick={likeUnlikePost}>{haveILiked ? <Icons.LovedIcon /> : <Icons.LoveIcon />}</button>
-
-            <button onClick={() => history.push(`/p/${post_id}`)}>
-              <Icons.CommentIcon />
-            </button>
-
-            <button>
-              <Icons.ShareIcon />
-            </button>
-          </div>
-
-          <div>
-            <button onClick={saveUnsavePost}>{haveISaved ? <Icons.SavedIcon /> : <Icons.SaveIcon />}</button>
-          </div>
-        </div>
-
-        <div>
-          <p>{post_status}</p>
-        </div>
-
-        <div>
-          <button onClick={getLikers}>
-            {post_likesCount || "No"} {post_likesCount === 1 ? "like" : "likes"}
+        <div className="actions-div">
+          <button onClick={likeUnlikePost} style={haveILiked ? { color: "tomato" } : null}>
+            <FiThumbsUp />
+            <p>{post_likesCount || ""}</p>
           </button>
+
+          {/*non functional atm*/}
+          <button>
+            <FiThumbsDown />
+            <p></p>
+          </button>
+
           <button onClick={() => history.push(`/p/${post_id}`)}>
-            {post_commentsCount} {post_commentsCount === 1 ? "comment" : "comments"}
+            <FiMessageCircle />
+            <p>{post_commentsCount || ""}</p>
+          </button>
+
+          <button>
+            <FiShare2 />
+          </button>
+
+          <button onClick={saveUnsavePost} style={haveISaved ? { color: "tomato" } : null}>
+            <FiSave />
           </button>
         </div>
-
-        <div>
-          <p>{post_postedDate}</p>
-        </div>
-
-        {/*<section className="comment--box-pc">
-          <CommentBox post_uid={post_uid} post_owner_uid={post_owner_uid} />
-  </section>*/}
       </div>
 
       {showLikers ? (

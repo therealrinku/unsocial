@@ -85,6 +85,8 @@ const App = ({
 
           {message ? <MessageViewer message={message} /> : null}
 
+          <PostButton setSelectedImage={setSelectedImage} toggleAddPostModal={toggleAddPostModal} />
+
           <Switch>
             <Route path="/" exact component={currentUsername ? Homepage : Landingpage} />
             <Route path="/edit/profile" exact component={EditProfilePage} />
