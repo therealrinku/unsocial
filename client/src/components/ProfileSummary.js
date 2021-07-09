@@ -48,30 +48,21 @@ const ProfileSummary = ({
           </div>
 
           <div className="action-buttons">
-            <button
-              onClick={() => history.push("/edit/profile")}
-              className="edit-button"
-              style={!isMyProfile ? { display: "none" } : null}
-            >
+            <button onClick={() => history.push("/edit/profile")} style={!isMyProfile ? { display: "none" } : null}>
               <FiEdit />
               <p>Edit Profile</p>
             </button>
-            <button
-              className="follow-button"
-              style={!isMyProfile && !profileData.followed_by_me ? null : { display: "none" }}
-              onClick={FOLLOW}
-            >
+            <button style={!isMyProfile && !profileData.followed_by_me ? null : { display: "none" }} onClick={FOLLOW}>
               <FiUserPlus />
               <p>Follow</p>
             </button>
             <button
-              className="unfollow-button"
               style={!isMyProfile && profileData.followed_by_me ? null : { display: "none" }}
               onClick={toggleUnfollowPrompt}
             >
               <FiUserCheck />
             </button>
-            <button className="dot-button" onClick={toggleProfileOptions}>
+            <button onClick={toggleProfileOptions}>
               <FiMoreHorizontal />
             </button>
           </div>
