@@ -127,7 +127,7 @@ const Profilepage = ({
               style={{
                 fontSize: "14px",
                 textAlign: "center",
-                marginTop: "50px",
+                fontFamily: "Inter",
               }}
             >
               No any {showSavedPosts ? "saved posts." : "posts."}
