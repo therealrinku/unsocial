@@ -30,9 +30,7 @@ const Profilepage = ({
   LOGOUT,
 }) => {
   const profileUsername = history.location.pathname.slice(1);
-  const profileData = profiles.filter(
-    (profile) => profile?.username === profileUsername
-  );
+  const profileData = profiles.filter((profile) => profile?.username === profileUsername);
 
   //modal handlers
   const [showProfileOptionsModal, setShowProfileOptionsModal] = useState(false);
@@ -45,12 +43,8 @@ const Profilepage = ({
   const [showSavedPosts, setShowSavedPosts] = useState(false);
 
   //followers and following list
-  const followersList = profiles.filter(
-    (profile) => profile.username === profileUsername
-  )[0]?.followers;
-  const followingList = profiles.filter(
-    (profile) => profile.username === profileUsername
-  )[0]?.followings;
+  const followersList = profiles.filter((profile) => profile.username === profileUsername)[0]?.followers;
+  const followingList = profiles.filter((profile) => profile.username === profileUsername)[0]?.followings;
 
   const LOAD_FOLLOWERS = () => {
     if (!followersList) {
@@ -106,11 +100,7 @@ const Profilepage = ({
       {loading ? (
         <Loader />
       ) : !loading && profileData.length < 1 ? (
-        <p
-          style={{ marginTop: "100px", textAlign: "center", fontSize: "15px" }}
-        >
-          This link is broken
-        </p>
+        <p style={{ marginTop: "100px", textAlign: "center", fontSize: "15px" }}>This link is broken</p>
       ) : (
         <div className="profile--page">
           <ProfileSummary
@@ -133,13 +123,9 @@ const Profilepage = ({
 
           {(showSavedPosts && profileData[0].savedPosts.length > 0) ||
           (!showSavedPosts && profileData[0].posts.length > 0) ? (
-            <PostsGrid
-              userPosts={
-                showSavedPosts
-                  ? profileData[0]?.savedPosts
-                  : profileData[0]?.posts || []
-              }
-            />
+            <div className="post--grid-box">
+              <PostsGrid userPosts={showSavedPosts ? profileData[0]?.savedPosts : profileData[0]?.posts || []} />
+            </div>
           ) : (
             <p
               style={{
@@ -159,19 +145,13 @@ const Profilepage = ({
                 isMyProfile={currentUsername === profileUsername}
                 LOGOUT={Logout}
               />
-              <Backdrop
-                show={showProfileOptionsModal}
-                toggle={() => toggleModal(setShowProfileOptionsModal)}
-              />
+              <Backdrop show={showProfileOptionsModal} toggle={() => toggleModal(setShowProfileOptionsModal)} />
             </Fragment>
           ) : null}
 
           {showUnfollowPrompt ? (
             <Fragment>
-              <Backdrop
-                show={showUnfollowPrompt}
-                toggle={() => toggleModal(setShowUnfollowPrompt)}
-              />
+              <Backdrop show={showUnfollowPrompt} toggle={() => toggleModal(setShowUnfollowPrompt)} />
               <UnfollowPrompt
                 profileUsername={profileUsername}
                 profileImage={profileData[0]?.profile_image_url}
@@ -184,22 +164,14 @@ const Profilepage = ({
           {showFollowers || showFollowings ? (
             <Fragment>
               <Backdrop
-                toggle={() =>
-                  showFollowers
-                    ? toggleModal(setShowFollowers)
-                    : toggleModal(setShowFollowings)
-                }
+                toggle={() => (showFollowers ? toggleModal(setShowFollowers) : toggleModal(setShowFollowings))}
                 show={showFollowers || showFollowings}
               />
               <UserListModal
                 title={showFollowers ? "Followers" : "Following"}
                 loading={loading_followers_or_following}
                 users={(showFollowers ? followersList : followingList) || []}
-                toggle={() =>
-                  showFollowers
-                    ? toggleModal(setShowFollowers)
-                    : toggleModal(setShowFollowings)
-                }
+                toggle={() => (showFollowers ? toggleModal(setShowFollowers) : toggleModal(setShowFollowings))}
               />
             </Fragment>
           ) : null}
@@ -208,14 +180,8 @@ const Profilepage = ({
 
       {showLoginNeededPrompt ? (
         <Fragment>
-          <LoginNeededPrompt
-            profilePage={true}
-            toggle={() => toggleModal(setShowLoginNeededPrompt)}
-          />
-          <Backdrop
-            show={showLoginNeededPrompt}
-            toggle={() => toggleModal(setShowLoginNeededPrompt)}
-          />
+          <LoginNeededPrompt profilePage={true} toggle={() => toggleModal(setShowLoginNeededPrompt)} />
+          <Backdrop show={showLoginNeededPrompt} toggle={() => toggleModal(setShowLoginNeededPrompt)} />
         </Fragment>
       ) : null}
     </Fragment>
@@ -229,28 +195,21 @@ const mapStateToProps = (state) => {
     currentUserUid: state.user.currentUserData.uid,
     profiles: state.profile.profiles,
     loading: state.profile.loading,
-    loading_followers_or_following:
-      state.profile.loading_followers_or_following,
+    loading_followers_or_following: state.profile.loading_followers_or_following,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     LOGOUT: () => dispatch(userActions.LOGOUT()),
-    FETCH_FOLLOWERS: (username) =>
-      dispatch(profileActions.FETCH_FOLLOWERS(username)),
-    FETCH_FOLLOWINGS: (username) =>
-      dispatch(profileActions.FETCH_FOLLOWINGS(username)),
+    FETCH_FOLLOWERS: (username) => dispatch(profileActions.FETCH_FOLLOWERS(username)),
+    FETCH_FOLLOWINGS: (username) => dispatch(profileActions.FETCH_FOLLOWINGS(username)),
     UNFOLLOW: (unfollowing_user_uid, unfollower_user_uid) =>
-      dispatch(
-        profileActions.UNFOLLOW(unfollowing_user_uid, unfollower_user_uid)
-      ),
+      dispatch(profileActions.UNFOLLOW(unfollowing_user_uid, unfollower_user_uid)),
     FOLLOW: (following_user_uid, follower_user_uid) =>
       dispatch(profileActions.FOLLOW(following_user_uid, follower_user_uid)),
     GET_PROFILE_DATA: (profile_username, current_user_uid) =>
-      dispatch(
-        profileActions.GET_PROFILE_DATA(profile_username, current_user_uid)
-      ),
+      dispatch(profileActions.GET_PROFILE_DATA(profile_username, current_user_uid)),
   };
 };
 
