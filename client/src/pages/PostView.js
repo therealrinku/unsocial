@@ -2,8 +2,6 @@ import React, { Fragment, useEffect, useState } from "react";
 import { BiDotsHorizontal } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import * as Icons from "../Icons/CustomIcons";
-import Sidebar from "../components/Sidebar";
-import MobileNavbar from "../components/MobileNavbar";
 import * as PostsActions from "../redux/post/postsActions";
 import { connect } from "react-redux";
 import Loader from "../components/Loader";
@@ -156,19 +154,13 @@ const PostView = ({
             toggle={() => toggleModal(setShowLikersModal)}
             loading={loadingLikers}
           />
-          <Backdrop
-            show={showLikersModal}
-            toggle={() => toggleModal(setShowLikersModal)}
-          />
+          <Backdrop show={showLikersModal} toggle={() => toggleModal(setShowLikersModal)} />
         </Fragment>
       ) : null}
 
       {showPostOptionsModal ? (
         <Fragment>
-          <Backdrop
-            show={showPostOptionsModal}
-            toggle={() => toggleModal(setShowPostOptionsModal)}
-          />
+          <Backdrop show={showPostOptionsModal} toggle={() => toggleModal(setShowPostOptionsModal)} />
           <PostOptModal
             isMyPost={currentPost[0].poster_username === currentUsername}
             toggle={() => toggleModal(setShowPostOptionsModal)}
@@ -179,15 +171,11 @@ const PostView = ({
         </Fragment>
       ) : null}
 
-      <Sidebar />
-      <MobileNavbar />
       {loading ? (
         <Loader />
       ) : //checking if post exiists
       !loading && !currentPost[0]?.post_image ? (
-        <p
-          style={{ marginTop: "100px", textAlign: "center", fontSize: "15px" }}
-        >
+        <p style={{ marginTop: "100px", textAlign: "center", fontSize: "15px" }}>
           Post deleted or something went wrong!
         </p>
       ) : (
@@ -202,9 +190,7 @@ const PostView = ({
                   data-src={currentPost[0].poster_profileimage}
                   alt="post_user_image"
                 />
-                <Link to={`/${currentPost[0]?.poster_username}`}>
-                  {currentPost[0]?.poster_username}
-                </Link>
+                <Link to={`/${currentPost[0]?.poster_username}`}>{currentPost[0]?.poster_username}</Link>
               </ul>
 
               <ul>
@@ -219,9 +205,7 @@ const PostView = ({
             </div>
             <div>
               <div>
-                <button onClick={likeUnlikePost}>
-                  {haveILiked ? <Icons.LovedIcon /> : <Icons.LoveIcon />}
-                </button>
+                <button onClick={likeUnlikePost}>{haveILiked ? <Icons.LovedIcon /> : <Icons.LoveIcon />}</button>
 
                 <button onClick={() => history.push(`/p/${post_id}`)}>
                   <Icons.CommentIcon />
@@ -233,9 +217,7 @@ const PostView = ({
               </div>
 
               <div>
-                <button onClick={saveUnsavePost}>
-                  {haveISaved ? <Icons.SavedIcon /> : <Icons.SaveIcon />}
-                </button>
+                <button onClick={saveUnsavePost}>{haveISaved ? <Icons.SavedIcon /> : <Icons.SaveIcon />}</button>
               </div>
             </div>
             <div>
@@ -243,23 +225,17 @@ const PostView = ({
             </div>
             <div>
               <button onClick={getLikers}>
-                {currentPost[0]?.post_likes_count || "No"}{" "}
-                {currentPost[0]?.post_likes_count === 1 ? "like" : "likes"}
+                {currentPost[0]?.post_likes_count || "No"} {currentPost[0]?.post_likes_count === 1 ? "like" : "likes"}
               </button>
               <button onClick={() => history.push(`/p/${post_id}`)}>
                 {currentPost[0]?.post_comments_count}{" "}
-                {currentPost[0]?.post_comments_count === 1
-                  ? "comment"
-                  : "comments"}
+                {currentPost[0]?.post_comments_count === 1 ? "comment" : "comments"}
               </button>
             </div>
             <div>
               <p>{currentPost[0]?.post_posted_date}</p>
             </div>
-            <CommentBox
-              post_uid={post_uid}
-              post_owner_uid={currentPost[0]?.poster_uid}
-            />
+            <CommentBox post_uid={post_uid} post_owner_uid={currentPost[0]?.poster_uid} />
           </div>
 
           <div className="comment--view-section--mobile">
@@ -275,15 +251,9 @@ const PostView = ({
             />
           </div>
 
-          <div
-            className="post--view--"
-            style={!imageIsLoaded ? { display: "none" } : null}
-          >
+          <div className="post--view--" style={!imageIsLoaded ? { display: "none" } : null}>
             <section>
-              <img
-                onLoad={() => setImageIsLoaded(true)}
-                src={currentPost[0]?.post_image}
-              />
+              <img onLoad={() => setImageIsLoaded(true)} src={currentPost[0]?.post_image} />
             </section>
 
             <section>
@@ -296,9 +266,7 @@ const PostView = ({
                     data-src={currentPost[0].poster_profileimage}
                     alt="post_user_image"
                   />
-                  <Link to={`/${currentPost[0]?.poster_username}`}>
-                    {currentPost[0]?.poster_username || "rinku"}
-                  </Link>
+                  <Link to={`/${currentPost[0]?.poster_username}`}>{currentPost[0]?.poster_username || "rinku"}</Link>
                 </ul>
 
                 <ul>
@@ -323,9 +291,7 @@ const PostView = ({
               <div className="absolute--bottom">
                 <div className="buttons">
                   <div className="buttons--section-one">
-                    <button onClick={likeUnlikePost}>
-                      {haveILiked ? <Icons.LovedIcon /> : <Icons.LoveIcon />}
-                    </button>
+                    <button onClick={likeUnlikePost}>{haveILiked ? <Icons.LovedIcon /> : <Icons.LoveIcon />}</button>
 
                     <button>
                       <Icons.CommentIcon />
@@ -337,9 +303,7 @@ const PostView = ({
                   </div>
 
                   <div>
-                    <button onClick={saveUnsavePost}>
-                      {haveISaved ? <Icons.SavedIcon /> : <Icons.SaveIcon />}
-                    </button>
+                    <button onClick={saveUnsavePost}>{haveISaved ? <Icons.SavedIcon /> : <Icons.SaveIcon />}</button>
                   </div>
                 </div>
 
@@ -357,9 +321,7 @@ const PostView = ({
                 <CommentBox
                   post_uid={post_uid}
                   post_owner_uid={currentPost[0]?.poster_uid}
-                  toggleLoginNeededPrompt={() =>
-                    toggleModal(setShowLoginNeededPrompt)
-                  }
+                  toggleLoginNeededPrompt={() => toggleModal(setShowLoginNeededPrompt)}
                 />
               </div>
             </section>
@@ -369,13 +331,8 @@ const PostView = ({
 
       {showLoginNeededPrompt ? (
         <Fragment>
-          <LoginNeededPrompt
-            toggle={() => toggleModal(setShowLoginNeededPrompt)}
-          />
-          <Backdrop
-            show={showLoginNeededPrompt}
-            toggle={() => toggleModal(setShowLoginNeededPrompt)}
-          />
+          <LoginNeededPrompt toggle={() => toggleModal(setShowLoginNeededPrompt)} />
+          <Backdrop show={showLoginNeededPrompt} toggle={() => toggleModal(setShowLoginNeededPrompt)} />
         </Fragment>
       ) : null}
     </Fragment>
@@ -398,28 +355,22 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     ADD_MESSAGE: (message) => dispatch(PostsActions.ADD_MESSAGE(message)),
-    GET_COMMENT_LIKERS: (comment_uid, post_uid) =>
-      dispatch(PostsActions.GET_COMMENT_LIKERS(comment_uid, post_uid)),
-    DELETE_COMMENT: (comment_uid, post_uid) =>
-      dispatch(PostsActions.DELETE_COMMENT(comment_uid, post_uid)),
+    GET_COMMENT_LIKERS: (comment_uid, post_uid) => dispatch(PostsActions.GET_COMMENT_LIKERS(comment_uid, post_uid)),
+    DELETE_COMMENT: (comment_uid, post_uid) => dispatch(PostsActions.DELETE_COMMENT(comment_uid, post_uid)),
     LIKE_COMMENT: (comment_uid, liker_uid, post_uid) =>
       dispatch(PostsActions.LIKE_COMMENT(comment_uid, liker_uid, post_uid)),
     UNLIKE_COMMENT: (comment_uid, unliker_uid, post_uid) =>
       dispatch(PostsActions.UNLIKE_COMMENT(comment_uid, unliker_uid, post_uid)),
-    GET_COMMENTS: (post_uid, currentUserUid) =>
-      dispatch(PostsActions.GET_COMMENTS(post_uid, currentUserUid)),
+    GET_COMMENTS: (post_uid, currentUserUid) => dispatch(PostsActions.GET_COMMENTS(post_uid, currentUserUid)),
     DELETE_POST: (post_uid) => dispatch(PostsActions.DELETE_POST(post_uid)),
     GET_LIKERS: (post_uid) => dispatch(PostsActions.GET_LIKERS(post_uid)),
-    SAVE_POST: (post_uid, saver_username) =>
-      dispatch(PostsActions.SAVE_POST(post_uid, saver_username)),
-    UNSAVE_POST: (post_uid, unsaver_username) =>
-      dispatch(PostsActions.UNSAVE_POST(post_uid, unsaver_username)),
+    SAVE_POST: (post_uid, saver_username) => dispatch(PostsActions.SAVE_POST(post_uid, saver_username)),
+    UNSAVE_POST: (post_uid, unsaver_username) => dispatch(PostsActions.UNSAVE_POST(post_uid, unsaver_username)),
     LIKE_POST: (post_uid, liker_uid, post_owner_uid) =>
       dispatch(PostsActions.LIKE_POST(post_uid, liker_uid, post_owner_uid)),
     UNLIKE_POST: (post_uid, unliker_uid, post_owner_uid) =>
       dispatch(PostsActions.UNLIKE_POST(post_uid, unliker_uid, post_owner_uid)),
-    LOAD_POST: (post_id, current_user_uid) =>
-      dispatch(PostsActions.GET_POST(post_id, current_user_uid)),
+    LOAD_POST: (post_id, current_user_uid) => dispatch(PostsActions.GET_POST(post_id, current_user_uid)),
   };
 };
 

@@ -1,6 +1,4 @@
 import { useState } from "react";
-import MobileNavbar from "../components/MobileNavbar";
-import Sidebar from "../components/Sidebar";
 import { updatePassword } from "../services/userServices";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
@@ -17,19 +15,17 @@ const EditPasswordPage = ({ currentUserUid, ADD_MESSAGE }) => {
     setUpdating(true);
     if (newPassword1 === newPassword2) {
       if (newPassword1.trim().length >= 5 && newPassword1.trim().length <= 25) {
-        updatePassword(currentUserUid, initialPassword, newPassword1).then(
-          (res) => {
-            setUpdating(false);
-            if (res === "success") {
-              ADD_MESSAGE("Successfully changed password");
-              setInitialPassword("");
-              setNewPassword1("");
-              setNewPassword2("");
-            } else {
-              ADD_MESSAGE(res);
-            }
+        updatePassword(currentUserUid, initialPassword, newPassword1).then((res) => {
+          setUpdating(false);
+          if (res === "success") {
+            ADD_MESSAGE("Successfully changed password");
+            setInitialPassword("");
+            setNewPassword1("");
+            setNewPassword2("");
+          } else {
+            ADD_MESSAGE(res);
           }
-        );
+        });
       } else {
         setUpdating(false);
         ADD_MESSAGE("new passwords must be between 5 to 25 characters.");
@@ -46,9 +42,6 @@ const EditPasswordPage = ({ currentUserUid, ADD_MESSAGE }) => {
 
   return (
     <div className="edit--password-page">
-      <Sidebar />
-      <MobileNavbar />
-
       <form onSubmit={updatePasswordFinal}>
         <label htmlFor="password1">Current Password</label>
         <input
@@ -58,17 +51,9 @@ const EditPasswordPage = ({ currentUserUid, ADD_MESSAGE }) => {
           onChange={(e) => setInitialPassword(e.target.value)}
         />
         <label htmlFor="password2">New Password</label>
-        <input
-          type="password"
-          value={newPassword1}
-          onChange={(e) => setNewPassword1(e.target.value)}
-        />
+        <input type="password" value={newPassword1} onChange={(e) => setNewPassword1(e.target.value)} />
         <label htmlFor="password3">Retype New Password</label>
-        <input
-          type="password"
-          value={newPassword2}
-          onChange={(e) => setNewPassword2(e.target.value)}
-        />
+        <input type="password" value={newPassword2} onChange={(e) => setNewPassword2(e.target.value)} />
         <button disabled={updating} className="submit-btn">
           Submit
         </button>

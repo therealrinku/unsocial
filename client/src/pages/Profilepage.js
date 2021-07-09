@@ -1,7 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
 import ProfileSummary from "../components/ProfileSummary";
-import Sidebar from "../components/Sidebar";
-import MobileNavbar from "../components/MobileNavbar";
 import * as profileActions from "../redux/profile/ProfileActions";
 import { connect } from "react-redux";
 import overflowToggler from "../utilities/overflowToggler";
@@ -95,8 +93,6 @@ const Profilepage = ({
 
   return (
     <Fragment>
-      <Sidebar />
-      <MobileNavbar />
       {loading ? (
         <Loader />
       ) : !loading && profileData.length < 1 ? (

@@ -6,7 +6,6 @@
 @import "./UserListModal.scss";
 @import "./PostButton.scss";
 @import "./AddPostModal.scss";
-@import "./MobileNavbar.scss";
 @import "./ProfileSummary.scss";
 @import "./Profilepage.scss";
 @import "./ProfileOptModal.scss";
@@ -29,36 +28,36 @@
 @import "./EditPasswordPage.scss";
 
 body {
-	margin: 0;
-	background: whitesmoke;
-	font-family: Inter, Arial, monospace;
+  margin: 0;
+  background: whitesmoke;
+  font-family: Inter, Arial, monospace;
 }
 
 a,
 button,
 input {
-	font-family: Inter;
+  font-family: Inter;
 }
 
 button:hover {
-	cursor: pointer;
+  cursor: pointer;
 }
 
 ::-webkit-scrollbar {
-	width: 5px;
+  width: 5px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-	background: #f1f1f1;
+  background: #f1f1f1;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-	background: #229954;
+  background: #229954;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-	background: #589170;
+  background: #589170;
 }

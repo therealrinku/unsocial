@@ -3,20 +3,8 @@
   margin: 100px auto;
 }
 
-.navbar--mobile- {
-  display: none;
-}
-
 @media (max-width: 750px) {
   .explore--page {
     width: 100%;
-  }
-
-  .navbar--pc {
-    display: none;
-  }
-
-  .navbar--mobile- {
-    display: block;
   }
 }

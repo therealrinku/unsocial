@@ -1,22 +1,12 @@
 import Feed from "../components/Feed";
-import Sidebar from "../components/Sidebar";
 import { connect } from "react-redux";
 import { useEffect } from "react";
-import MobileNavbar from "../components/MobileNavbar";
 import Loader from "../components/Loader";
 import * as postsActions from "../redux/post/postsActions";
 import * as userActions from "../redux/user/userActions";
 import Recommended from "../components/Recommended";
 
-const Homepage = ({
-  currentUserUid,
-  feed,
-  GET_FEED,
-  loading,
-  recommendedUsers,
-  GET_RECOMMENDED_USERS,
-  feedLoaded,
-}) => {
+const Homepage = ({ currentUserUid, feed, GET_FEED, loading, recommendedUsers, GET_RECOMMENDED_USERS, feedLoaded }) => {
   useEffect(() => {
     if (!feedLoaded) {
       GET_FEED(currentUserUid);
@@ -29,13 +19,11 @@ const Homepage = ({
   return (
     <div className="homepage">
       {loading ? <Loader /> : null}
-      <Sidebar />
       {feed.length > 0 && !loading ? (
         <Feed feed={feed} />
       ) : !loading && feedLoaded ? (
         <Recommended recommendedUsers={recommendedUsers} />
       ) : null}
-      <MobileNavbar />
     </div>
   );
 };
