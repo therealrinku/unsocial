@@ -1,4 +1,5 @@
 import { useHistory } from "react-router-dom";
+import { FiX, FiAlertOctagon, FiEdit, FiTool, FiCornerUpRight } from "react-icons/all";
 
 const PostOptionsModal = ({ toggle, isMyProfile, LOGOUT }) => {
   const history = useHistory();
@@ -15,39 +16,27 @@ const PostOptionsModal = ({ toggle, isMyProfile, LOGOUT }) => {
 
   return (
     <div className="profile--options-modal">
-      <button
-        style={!isMyProfile ? { display: "none" } : null}
-        onClick={goToProfileEditPage}
-      >
-        Edit Profile
+      <button style={!isMyProfile ? { display: "none" } : null} onClick={goToProfileEditPage}>
+        <FiEdit />
+        <p>Edit Profile</p>
       </button>
-      <button
-        style={
-          isMyProfile
-            ? { display: "none" }
-            : {
-                color: "red",
-                borderTopLeftRadius: "10px",
-                borderTopRightRadius: "10px",
-              }
-        }
-      >
-        Report This User
+      <button style={isMyProfile ? { display: "none" } : { color: "tomato" }}>
+        <FiAlertOctagon />
+        <p>Report This User</p>
       </button>
-      <button
-        style={!isMyProfile ? { display: "none" } : null}
-        onClick={goToPasswordEditPage}
-      >
-        Change Password
+      <button style={!isMyProfile ? { display: "none" } : null} onClick={goToPasswordEditPage}>
+        <FiTool />
+        <p>Change Password</p>
       </button>
-      <button
-        style={!isMyProfile ? { display: "none" } : { color: "red" }}
-        onClick={LOGOUT}
-      >
-        Log Out
+      <button style={!isMyProfile ? { display: "none" } : { color: "tomato" }} onClick={LOGOUT}>
+        <FiCornerUpRight />
+        <p>Log Out</p>
       </button>
 
-      <button onClick={toggle}>Cancel</button>
+      <button onClick={toggle}>
+        <FiX />
+        <p>Cancel</p>
+      </button>
     </div>
   );
 };
