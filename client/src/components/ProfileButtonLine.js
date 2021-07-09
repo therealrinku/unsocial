@@ -10,25 +10,23 @@ const ProfileButtonLine = ({
 }) => {
   return (
     <div className="profile--button-line">
-      <div>
-        <button
-          onClick={hideSavedPosts}
-          className={!showSavedPosts ? "active" : null}
-          style={no_posts && !isMyProfile ? { display: "none" } : null}
-        >
-          <FiGrid />
-          <p>Posts</p>
-        </button>
+      <button
+        onClick={hideSavedPosts}
+        className={!showSavedPosts ? "active" : null}
+        style={no_posts && !isMyProfile ? { display: "none" } : null}
+      >
+        <FiGrid />
+        <p>Posts</p>
+      </button>
 
-        <button
-          onClick={viewSavedPosts}
-          style={!isMyProfile ? { display: "none" } : null}
-          className={showSavedPosts ? "active" : null}
-        >
-          <FiSave />
-          <p>Saved</p>
-        </button>
-      </div>
+      <button
+        onClick={viewSavedPosts}
+        style={!isMyProfile ? { display: "none" } : null}
+        className={showSavedPosts ? "active" : null}
+      >
+        <FiSave />
+        <p>Saved Posts</p>
+      </button>
     </div>
   );
 };
