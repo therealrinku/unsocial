@@ -1,12 +1,18 @@
 import Topbar from "./Topbar";
 import Sidebar from "./Sidebar";
+import Recommended from "./Recommended";
 
 export default function Layout({ children }) {
   return (
-    <div>
+    <div className="layout">
       <Topbar />
       <Sidebar />
-      <section>{children}</section>
+      <div className="flex">
+        <section className="layout-main">{children}</section>
+        <section className="recommended-users">
+          <Recommended />
+        </section>
+      </div>
     </div>
   );
 }

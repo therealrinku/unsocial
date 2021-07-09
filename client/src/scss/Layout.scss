@@ -1,0 +1,29 @@
+.layout {
+  .flex {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 70px;
+    margin-bottom: 30px;
+    margin-left: 64px;
+  }
+
+  .layout-main {
+    background: white;
+    padding: 15px;
+    border-radius: 7px;
+    width: 500px;
+  }
+
+  .recommended-users {
+    width: 500px;
+  }
+}
+
+@media (max-width: 800px) {
+  .recommended-users {
+    display: none;
+  }
+  .layout-main {
+    width: 85vw;
+  }
+}

@@ -1,11 +1,9 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
-import Activity from "./Activity";
-import Backdrop from "./Backdrop";
 import OverflowToggler from "../utilities/overflowToggler";
 import firestore from "../firebase/firestore";
-import { FiUsers, FiHome, FiBell, FiUser, FiCompass, FiSearch, FiUpload } from "react-icons/fi";
+import { FiHome, FiBell, FiUser, FiSearch, FiUpload } from "react-icons/fi";
 import { Tooltip } from "@material-ui/core";
 
 const Sidebar = ({ currentUsername, currentUserProfileimage, currentUserUid, showSearchBarOnly }) => {
@@ -37,8 +35,7 @@ const Sidebar = ({ currentUsername, currentUserProfileimage, currentUserUid, sho
   const navButtons = [
     { buttonIcon: <FiHome />, buttonTarget: "/", title: "Home" },
     { buttonIcon: <FiUpload />, buttonTarget: `/newPost`, title: "Add New Post" },
-    { buttonIcon: <FiSearch />, buttonTarget: "/search", title: "Search" },
-    { buttonIcon: <FiCompass />, buttonTarget: "/explore", title: "Explore" },
+    { buttonIcon: <FiSearch />, buttonTarget: "/explore", title: "Search" },
     { buttonIcon: <FiBell />, buttonTarget: "/notifications", title: "Notifications" },
     { buttonIcon: <FiUser />, buttonTarget: `/${currentUsername}`, title: "My Profile" },
   ];

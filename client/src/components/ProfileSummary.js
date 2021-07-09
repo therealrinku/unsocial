@@ -57,7 +57,7 @@ const ProfileSummary = ({
               <p>Follow</p>
             </button>
             <button
-              style={!isMyProfile && profileData.followed_by_me ? null : { display: "none" }}
+              style={!isMyProfile && profileData.followed_by_me ? { border: "Solid 1px tomato" } : { display: "none" }}
               onClick={toggleUnfollowPrompt}
             >
               <FiUserCheck />

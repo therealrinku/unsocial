@@ -1,21 +1,11 @@
 .profile--page {
-  width: 600px;
-  padding-top: 70px;
-  padding-left: 20px;
-  margin-left: 65px;
+  width: inherit;
   font-family: arial;
-  margin-bottom: 50px;
 
   .post--grid-box {
     background: white;
-    padding: 15px;
+    padding: 15px 0;
     margin-top: 10px;
     border-radius: 7px;
-  }
-}
-
-@media (max-width: 700px) {
-  .profile--page {
-    width: 78%;
   }
 }

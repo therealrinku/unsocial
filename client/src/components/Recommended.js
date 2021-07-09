@@ -1,16 +1,19 @@
 import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import * as userActions from "../redux/user/userActions";
+import { useEffect } from "react";
+import { FiUserPlus, FiUserMinus } from "react-icons/all";
 
-const Recommended = ({
-  recommendedUsers,
-  currentUserUid,
-  FOLLOW,
-  UNFOLLOW,
-}) => {
+const Recommended = ({ recommendedUsers, currentUserUid, FOLLOW, UNFOLLOW, GET_RECOMMENDED_USERS }) => {
+  useEffect(() => {
+    if (recommendedUsers.length < 1) {
+      GET_RECOMMENDED_USERS(currentUserUid);
+    }
+  }, [currentUserUid]);
+
   return (
     <div className="recommended">
-      <p>People you may like to follow</p>
+      <p style={{ fontSize: "15px" }}>People you may like to follow</p>
       {recommendedUsers.map((user) => {
         return (
           <div className="recommended--user" key={user.username}>
@@ -24,14 +27,16 @@ const Recommended = ({
               onClick={() => FOLLOW(currentUserUid, user.uid)}
               style={user.i_am_following ? { display: "none" } : null}
             >
-              Follow
+              <FiUserPlus />
+              <p>Follow</p>
             </button>
             <button
               className="unfollow--btn"
-              style={!user.i_am_following ? { display: "none" } : null}
+              style={!user.i_am_following ? { display: "none" } : { border: "solid 1px tomato" }}
               onClick={() => UNFOLLOW(currentUserUid, user.uid)}
             >
-              unfollow
+              <FiUserMinus />
+              <p>Unfollow</p>
             </button>
           </div>
         );
@@ -43,17 +48,16 @@ const Recommended = ({
 const mapStateToProps = (state) => {
   return {
     currentUserUid: state.user.currentUserData.uid,
+    recommendedUsers: state.user.recommendedUsers,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    FOLLOW: (follower_uid, following_uid) =>
-      dispatch(userActions.FOLLOW_RECOMMENDED(follower_uid, following_uid)),
+    GET_RECOMMENDED_USERS: (uid) => dispatch(userActions.GET_RECOMMENDED(uid)),
+    FOLLOW: (follower_uid, following_uid) => dispatch(userActions.FOLLOW_RECOMMENDED(follower_uid, following_uid)),
     UNFOLLOW: (unfollower_uid, unfollowing_uid) =>
-      dispatch(
-        userActions.UNFOLLOW_RECOMMENDED(unfollower_uid, unfollowing_uid)
-      ),
+      dispatch(userActions.UNFOLLOW_RECOMMENDED(unfollower_uid, unfollowing_uid)),
   };
 };
 
