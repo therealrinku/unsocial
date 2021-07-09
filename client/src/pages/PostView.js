@@ -213,11 +213,10 @@ const PostView = ({
                 </button>
               </ul>
             </div>
-
+            a
             <div>
               <img src={currentPost[0]?.post_image} alt="post_main_img" />
             </div>
-
             <div>
               <div>
                 <button onClick={likeUnlikePost}>
@@ -239,11 +238,9 @@ const PostView = ({
                 </button>
               </div>
             </div>
-
             <div>
               <p>{currentPost[0]?.post_status}</p>
             </div>
-
             <div>
               <button onClick={getLikers}>
                 {currentPost[0]?.post_likes_count || "No"}{" "}
@@ -256,11 +253,9 @@ const PostView = ({
                   : "comments"}
               </button>
             </div>
-
             <div>
               <p>{currentPost[0]?.post_posted_date}</p>
             </div>
-
             <CommentBox
               post_uid={post_uid}
               post_owner_uid={currentPost[0]?.poster_uid}

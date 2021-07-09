@@ -1,201 +1,79 @@
-.follow--button {
-  border: none;
-  background: #0095f6;
-  color: white;
-  border-radius: 5px;
-  padding: 5px 20px;
-}
-
-.bio {
-  margin-top: 20px;
-  max-width: 250px;
-  word-break: break-all;
-  font-size: 15px;
-  font-family: Inter;
-}
-
-.username {
-  font-size: 22px;
-}
-
-.unfollow--button {
-  border: solid 1px rgba(0, 0, 0, 0.4);
-  border-radius: 5px;
-  background: inherit;
-  font-size: 20px;
-  padding: 2px 10px;
-  outline: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
 .profile--summary-page {
   width: 100%;
-  margin: auto;
-  display: flex;
-  justify-content: flex-start;
-  padding-left: 10%;
-
-  .follow--button,
-  .unfollow--button {
-    margin-left: 10px;
-  }
-
-  img {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    object-fit: cover;
-  }
-
-  section:last-child {
-    padding-left: 5%;
-
-    div:nth-child(2) {
-      display: flex;
-      align-items: center;
-      margin-left: -7px;
-
-      button {
-        border: none;
-        background: inherit;
-        outline: none;
-        font-size: 15px;
-      }
-
-      button:first-child:hover {
-        cursor: unset;
-      }
-    }
-
-    div:first-child {
-      display: flex;
-      align-items: center;
-    }
-  }
-
-  .profile--edit-button {
-    border: solid 1px rgba(0, 0, 0, 0.4);
-    border-radius: 5px;
-    padding: 5px 20px;
-    margin: 0 10px;
-    background: inherit;
-  }
-
-  .profile--options-button {
-    border: none;
-    outline: none;
-    background: inherit;
-    font-size: 25px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-}
-
-.profile--summary-page-mobile {
-  display: none;
-
-  .username {
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    max-width: 80%;
-    overflow: hidden;
-  }
+  background: white;
+  border-radius: 7px;
+  font-family: Inter;
+  padding-bottom: 10px;
 
   section {
-    padding-left: 5%;
+    padding-left: 15px;
   }
 
-  img {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
+  .cover-image {
+    width: 100%;
+    height: 100px;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+  }
+
+  .profile-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 7px;
+    margin-top: -25px;
     object-fit: cover;
   }
 
-  .profile--edit-button {
-    border: solid 1px rgba(0, 0, 0, 0.4);
-    border-radius: 5px;
-    padding: 5px 20px;
-    background: inherit;
-    width: 55vw;
-  }
-
-  .profile--options-button {
-    border: none;
-    background: inherit;
-    outline: none;
+  .username {
     font-size: 20px;
-    vertical-align: middle;
   }
 
-  section:first-child {
+  .bio {
+    font-size: 15px;
+    margin-top: -10px;
+  }
+
+  .users-summary {
     display: flex;
     align-items: center;
-
-    div:last-child {
-      padding-left: 4%;
-      margin-top: -20px;
-
-      div {
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-      }
-    }
-  }
-
-  section:nth-child(2) {
-    font-size: 14px;
-    margin: 10px 0;
-  }
-
-  section:last-child {
-    border-top: solid 1px rgba(0, 0, 0, 0.4);
-    border-bottom: solid 1px rgba(0, 0, 0, 0.4);
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 10px 0;
-    height: 40px;
-
-    button:first-child:hover {
-      cursor: unset;
-    }
 
     button {
-      border: none;
       background: inherit;
       outline: none;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100%;
+      border: none;
+    }
 
-      b {
-        margin-top: 10px;
-        margin-bottom: 5px;
-      }
+    span,
+    button {
+      font-size: 14px;
+      color: gray;
+    }
+  }
+
+  .action-buttons {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+
+    button {
+      display: flex;
+      align-items: center;
+      border: solid 1px #229954;
+      border-radius: 7px;
+      outline: none;
+      height: 35px;
+      padding: 2px 13px;
+      margin-right: 5px;
+      font-size: 17px;
+      background: inherit;
 
       p {
-        margin-top: -1px;
-        color: rgba(0, 0, 0, 0.5);
+        margin-left: 5px;
+        font-size: 12.5px;
       }
     }
   }
 }
 
-@media (max-width: 750px) {
-  .profile--summary-page {
-    display: none;
-  }
-
-  .profile--summary-page-mobile {
-    display: block;
-  }
+@media (max-width: 700px) {
 }

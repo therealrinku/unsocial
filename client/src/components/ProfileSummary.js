@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { BiDotsHorizontal, BiUserCheck } from "react-icons/all";
+import { FiMoreHorizontal, FiUserCheck, FiEdit, FiUserPlus } from "react-icons/all";
 import { useHistory } from "react-router-dom";
 import ProfilePicPlaceholder from "../assets/avatar.jpg";
 import lazyLoadImage from "../utilities/lazyLoadImage";
@@ -19,122 +19,62 @@ const ProfileSummary = ({
   return (
     <Fragment>
       <div className="profile--summary-page">
+        <img src="https://bit.ly/3wo9Dvv" className="cover-image" alt="cover" />
+
         <section>
           <img
             src={ProfilePicPlaceholder}
             data-src={profileData.profile_image_url}
             alt="profile_image"
             onLoad={lazyLoadImage}
-            className="lazy-image"
+            className="lazy-image profile-image"
           />
-        </section>
 
-        <section>
-          <div>
-            <p className="username">{profileData.username}</p>
-            <button
-              onClick={() => history.push("/edit/profile")}
-              className="profile--edit-button"
-              style={!isMyProfile ? { display: "none" } : null}
-            >
-              Edit Profile
-            </button>
-            <button
-              className="follow--button"
-              style={!isMyProfile && !profileData.followed_by_me ? null : { display: "none" }}
-              onClick={FOLLOW}
-            >
-              Follow
-            </button>
-            <button
-              className="unfollow--button"
-              style={!isMyProfile && profileData.followed_by_me ? null : { display: "none" }}
-              onClick={toggleUnfollowPrompt}
-            >
-              <BiUserCheck />
-            </button>
-            <button className="profile--options-button" onClick={toggleProfileOptions}>
-              <BiDotsHorizontal />
-            </button>
-          </div>
+          <p className="username">{profileData.username}</p>
 
-          <div>
-            <button>
-              <b>{profileData.posts_count}</b> posts
-            </button>
-            <button onClick={LOAD_FOLLOWERS}>
-              <b>{profileData.followers_count || 0}</b> {profileData.followers_count === 1 ? "follower" : "followers"}
-            </button>
-            <button onClick={LOAD_FOLLOWINGS}>
-              <b>{profileData.following_count || 0}</b> following
-            </button>
-          </div>
-
-          <div>
-            <p className="bio">
-              <Linkify properties={{ target: "_blank" }}>{profileData.bio}</Linkify>
-            </p>
-          </div>
-        </section>
-      </div>
-
-      <div className="profile--summary-page-mobile">
-        <section>
-          <div>
-            <img src={profileData.profile_image_url} alt="profile_image" />
-          </div>
-
-          <div>
-            <div>
-              <p className="username">{profileData.username}</p>
-              <button className="profile--options-button" onClick={toggleProfileOptions}>
-                <BiDotsHorizontal />
-              </button>
-            </div>
-
-            <button
-              className="profile--edit-button"
-              style={!isMyProfile ? { display: "none" } : null}
-              onClick={() => history.push("/edit/profile")}
-            >
-              Edit Profile
-            </button>
-            <button
-              className="follow--button"
-              style={!isMyProfile && !profileData.followed_by_me ? null : { display: "none" }}
-              onClick={FOLLOW}
-            >
-              Follow
-            </button>
-            <button
-              onClick={toggleUnfollowPrompt}
-              className="unfollow--button"
-              style={!isMyProfile && profileData.followed_by_me ? null : { display: "none" }}
-            >
-              <BiUserCheck />
-            </button>
-          </div>
-        </section>
-
-        <section>
           <p className="bio">
             <Linkify properties={{ target: "_blank" }}>{profileData.bio}</Linkify>
           </p>
-        </section>
 
-        <section>
-          <button>
-            <b>{profileData.posts_count}</b>
-            <p>posts</p>
-          </button>
-          <button onClick={LOAD_FOLLOWERS}>
-            <b>{profileData.followers_count || 0}</b>
-            <p> {profileData.followers_count === 1 ? "follower" : "followers"}</p>
-          </button>
-          <button onClick={LOAD_FOLLOWINGS}>
-            <b>{profileData.following_count || 0}</b>
-            <p>following</p>
-          </button>
+          <div className="users-summary">
+            <span>{profileData.posts_count} posts</span>
+            <span style={{ marginLeft: "5px" }}>&middot;</span>
+            <button onClick={LOAD_FOLLOWERS}>
+              {profileData.followers_count || 0}
+              {profileData.followers_count === 1 ? " follower" : " followers"}
+            </button>
+            <span style={{ marginLeft: " 5px" }}>&middot;</span>
+            <button onClick={LOAD_FOLLOWINGS}>{profileData.following_count || 0} following</button>
+          </div>
+
+          <div className="action-buttons">
+            <button
+              onClick={() => history.push("/edit/profile")}
+              className="edit-button"
+              style={!isMyProfile ? { display: "none" } : null}
+            >
+              <FiEdit />
+              <p>Edit Profile</p>
+            </button>
+            <button
+              className="follow-button"
+              style={!isMyProfile && !profileData.followed_by_me ? null : { display: "none" }}
+              onClick={FOLLOW}
+            >
+              <FiUserPlus />
+              <p>Follow</p>
+            </button>
+            <button
+              className="unfollow-button"
+              style={!isMyProfile && profileData.followed_by_me ? null : { display: "none" }}
+              onClick={toggleUnfollowPrompt}
+            >
+              <FiUserCheck />
+            </button>
+            <button className="dot-button" onClick={toggleProfileOptions}>
+              <FiMoreHorizontal />
+            </button>
+          </div>
         </section>
       </div>
     </Fragment>

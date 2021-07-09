@@ -1,12 +1,13 @@
 .profile--page {
-  width: 75%;
-  margin: auto;
-  margin-top: 80px;
+  width: 600px;
+  padding-top: 70px;
+  padding-left: 20px;
+  margin-left: 65px;
   font-family: arial;
 }
 
-@media (max-width: 750px) {
+@media (max-width: 700px) {
   .profile--page {
-    width: 100%;
+    width: 78%;
   }
 }
