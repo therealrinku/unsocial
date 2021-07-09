@@ -1,4 +1,4 @@
-import { BsGrid3X3, BiBookmark } from "react-icons/all";
+import { FiGrid, FiSave } from "react-icons/all";
 
 const ProfileButtonLine = ({
   showSavedPosts,
@@ -16,7 +16,7 @@ const ProfileButtonLine = ({
           className={!showSavedPosts ? "active" : null}
           style={no_posts && !isMyProfile ? { display: "none" } : null}
         >
-          <BsGrid3X3 />
+          <FiGrid />
           <p>Posts</p>
         </button>
 
@@ -25,7 +25,7 @@ const ProfileButtonLine = ({
           style={!isMyProfile ? { display: "none" } : null}
           className={showSavedPosts ? "active" : null}
         >
-          <BiBookmark />
+          <FiSave />
           <p>Saved</p>
         </button>
       </div>
