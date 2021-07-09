@@ -2,9 +2,9 @@
   position: fixed;
   top: 0;
   left: 50px;
+  right: 0px;
   width: 100%;
   height: 25px;
-  overflow: hidden;
   border-bottom: solid 1px rgba(0, 0, 0, 0.2);
   background: white;
   padding: 10px 25px;
@@ -17,25 +17,19 @@
   }
 
   button {
-    font-size: 25px;
+    font-size: 20px;
     border: none;
     outline: none;
     background: inherit;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 5px;
-    border-radius: 7px;
-  }
-
-  button:hover {
-    background: rgba(0, 0, 0, 0.08);
   }
 
   a {
     text-decoration: none;
     color: black;
     font-size: 17px;
-    margin-left: 10px;
   }
 }
