@@ -6,6 +6,7 @@ const UserListModal = ({ title, loading, toggle, users }) => {
   return (
     <div className="view--users-modal">
       <p className="title">{title}</p>
+      <section>
       {users.length > 0 ? (
         users.map((user) => {
           return (
@@ -20,6 +21,7 @@ const UserListModal = ({ title, loading, toggle, users }) => {
       ) : (
         <p>No any {title} atm.</p>
       )}
+      </section>
     </div>
   );
 };

@@ -3,6 +3,9 @@
   border-radius: 7px;
   padding: 5px 15px;
   width: inherit;
+  position: fixed;
+  overflow-y: auto;
+  height: 90vh;
 
   button {
     display: flex;

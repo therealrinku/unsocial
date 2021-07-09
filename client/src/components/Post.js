@@ -10,7 +10,7 @@ import PostOptModal from "./PostOptModal";
 import placeholderImage from "../assets/placeholder.jpg";
 import lazyLoadImage from "../utilities/lazyLoadImage.js";
 import ProfilePicPlaceholder from "../assets/avatar.jpg";
-import { FiThumbsUp, FiThumbsDown, FiMessageCircle, FiSave, FiShare2 } from "react-icons/all";
+import { FiThumbsUp, FiThumbsDown, FiMessageCircle, FiSave, FiShare2, FiMoreHorizontal } from "react-icons/all";
 import { Tooltip } from "@material-ui/core";
 import moment from "moment";
 
@@ -129,14 +129,14 @@ const Post = ({
             />
             <Link to={`/${poster_username}`}>{poster_username}</Link>
             <span style={{ marginLeft: "5px" }}>&middot;</span>
-            <Tooltip title={<span style={{ fontSize: "14px" }}>{formattedPostedDate}</span>}>
+            <Tooltip title={<span style={{ fontSize: "13px" }}>{formattedPostedDate}</span>}>
               <p className="posted_date">{differenceInDate}</p>
             </Tooltip>
           </ul>
 
           <ul>
             <button onClick={() => toggleModal(setShowPostOptionsModal)}>
-              <BiDotsHorizontal />
+              <FiMoreHorizontal />
             </button>
           </ul>
         </div>
@@ -154,29 +154,39 @@ const Post = ({
         </Link>
 
         <div className="actions-div">
-          <button onClick={likeUnlikePost} style={haveILiked ? { color: "#229954" } : null}>
-            <FiThumbsUp />
-            <p>{post_likesCount || ""}</p>
-          </button>
+          <Tooltip title={<span style={{ fontSize: "13px" }}>Like</span>}>
+            <button onClick={likeUnlikePost} style={haveILiked ? { color: "#229954" } : null}>
+              <FiThumbsUp />
+              <p>{post_likesCount || ""}</p>
+            </button>
+          </Tooltip>
 
           {/*non functional atm*/}
-          <button>
-            <FiThumbsDown />
-            <p></p>
-          </button>
+          <Tooltip title={<span style={{ fontSize: "13px" }}>Dislike</span>}>
+            <button>
+              <FiThumbsDown />
+              <p></p>
+            </button>
+          </Tooltip>
 
-          <button onClick={() => history.push(`/p/${post_id}`)}>
-            <FiMessageCircle />
-            <p>{post_commentsCount || ""}</p>
-          </button>
+          <Tooltip title={<span style={{ fontSize: "13px" }}>Comment</span>}>
+            <button onClick={() => history.push(`/p/${post_id}`)}>
+              <FiMessageCircle />
+              <p>{post_commentsCount || ""}</p>
+            </button>
+          </Tooltip>
 
-          <button>
-            <FiShare2 />
-          </button>
+          <Tooltip title={<span style={{ fontSize: "13px" }}>Share</span>}>
+            <button>
+              <FiShare2 />
+            </button>
+          </Tooltip>
 
-          <button onClick={saveUnsavePost} style={haveISaved ? { color: "#229954" } : null}>
-            <FiSave />
-          </button>
+          <Tooltip title={<span style={{ fontSize: "13px" }}>Save</span>}>
+            <button onClick={saveUnsavePost} style={haveISaved ? { color: "#229954" } : null}>
+              <FiSave />
+            </button>
+          </Tooltip>
         </div>
       </div>
 
