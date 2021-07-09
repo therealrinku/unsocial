@@ -41,30 +41,19 @@ const ProfileSummary = ({
             </button>
             <button
               className="follow--button"
-              style={
-                !isMyProfile && !profileData.followed_by_me
-                  ? null
-                  : { display: "none" }
-              }
+              style={!isMyProfile && !profileData.followed_by_me ? null : { display: "none" }}
               onClick={FOLLOW}
             >
               Follow
             </button>
             <button
               className="unfollow--button"
-              style={
-                !isMyProfile && profileData.followed_by_me
-                  ? null
-                  : { display: "none" }
-              }
+              style={!isMyProfile && profileData.followed_by_me ? null : { display: "none" }}
               onClick={toggleUnfollowPrompt}
             >
               <BiUserCheck />
             </button>
-            <button
-              className="profile--options-button"
-              onClick={toggleProfileOptions}
-            >
+            <button className="profile--options-button" onClick={toggleProfileOptions}>
               <BiDotsHorizontal />
             </button>
           </div>
@@ -74,8 +63,7 @@ const ProfileSummary = ({
               <b>{profileData.posts_count}</b> posts
             </button>
             <button onClick={LOAD_FOLLOWERS}>
-              <b>{profileData.followers_count || 0}</b>{" "}
-              {profileData.followers_count === 1 ? "follower" : "followers"}
+              <b>{profileData.followers_count || 0}</b> {profileData.followers_count === 1 ? "follower" : "followers"}
             </button>
             <button onClick={LOAD_FOLLOWINGS}>
               <b>{profileData.following_count || 0}</b> following
@@ -84,9 +72,7 @@ const ProfileSummary = ({
 
           <div>
             <p className="bio">
-              <Linkify properties={{ target: "_blank" }}>
-                {profileData.bio}
-              </Linkify>
+              <Linkify properties={{ target: "_blank" }}>{profileData.bio}</Linkify>
             </p>
           </div>
         </section>
@@ -101,10 +87,7 @@ const ProfileSummary = ({
           <div>
             <div>
               <p className="username">{profileData.username}</p>
-              <button
-                className="profile--options-button"
-                onClick={toggleProfileOptions}
-              >
+              <button className="profile--options-button" onClick={toggleProfileOptions}>
                 <BiDotsHorizontal />
               </button>
             </div>
@@ -118,11 +101,7 @@ const ProfileSummary = ({
             </button>
             <button
               className="follow--button"
-              style={
-                !isMyProfile && !profileData.followed_by_me
-                  ? null
-                  : { display: "none" }
-              }
+              style={!isMyProfile && !profileData.followed_by_me ? null : { display: "none" }}
               onClick={FOLLOW}
             >
               Follow
@@ -130,11 +109,7 @@ const ProfileSummary = ({
             <button
               onClick={toggleUnfollowPrompt}
               className="unfollow--button"
-              style={
-                !isMyProfile && profileData.followed_by_me
-                  ? null
-                  : { display: "none" }
-              }
+              style={!isMyProfile && profileData.followed_by_me ? null : { display: "none" }}
             >
               <BiUserCheck />
             </button>
@@ -143,9 +118,7 @@ const ProfileSummary = ({
 
         <section>
           <p className="bio">
-            <Linkify properties={{ target: "_blank" }}>
-              {profileData.bio}
-            </Linkify>
+            <Linkify properties={{ target: "_blank" }}>{profileData.bio}</Linkify>
           </p>
         </section>
 
@@ -156,10 +129,7 @@ const ProfileSummary = ({
           </button>
           <button onClick={LOAD_FOLLOWERS}>
             <b>{profileData.followers_count || 0}</b>
-            <p>
-              {" "}
-              {profileData.followers_count === 1 ? "follower" : "followers"}
-            </p>
+            <p> {profileData.followers_count === 1 ? "follower" : "followers"}</p>
           </button>
           <button onClick={LOAD_FOLLOWINGS}>
             <b>{profileData.following_count || 0}</b>
