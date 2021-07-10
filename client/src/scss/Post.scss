@@ -69,7 +69,10 @@
       background: inherit;
       outline: none;
       display: flex;
+      justify-content: center;
       align-items: center;
+      width: 20%;
+      height: 100%;
 
       p {
         font-size: 15px;
