@@ -2,7 +2,7 @@ import Post from "./Post";
 
 const Feed = ({ feed }) => {
   return (
-    <div className="feed">
+    <div style={{marginBottom:"40px"}}>
       {feed
         .sort((a, b) => {
           return new Date(b.post_posted_date) - new Date(a.post_posted_date);

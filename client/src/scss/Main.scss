@@ -1,14 +1,12 @@
 @import "./Sidebar.scss";
-@import "./PostOptModal.scss";
 @import "./Post.scss";
 @import "./Topbar.scss";
-@import "./Homepage.scss";
 @import "./UserListModal.scss";
 @import "./PostButton.scss";
 @import "./AddPostModal.scss";
 @import "./ProfileSummary.scss";
 @import "./Profilepage.scss";
-@import "./ProfileOptModal.scss";
+@import "./OptionsModal.scss";
 @import "./UnfollowPrompt.scss";
 @import "./ProfileButtonLine.scss";
 @import "./PostsGrid.scss";
@@ -17,7 +15,6 @@
 @import "./SearchView.scss";
 @import "./Auth.scss";
 @import "./Recommended.scss";
-@import "./Feed.scss";
 @import "./CommentBox.scss";
 @import "./CommentsView.scss";
 @import "./LoginNeededPrompt.scss";
@@ -33,7 +30,7 @@ body {
   font-family: Inter, Arial, monospace;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 620px) {
   body {
     background: white;
   }

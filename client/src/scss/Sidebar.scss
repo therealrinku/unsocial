@@ -30,10 +30,6 @@
   border-radius: 7px;
 }
 
-.sidebar button:hover {
-  background: #c6e7e1;
-}
-
 .activeButton {
   color: #229954;
 }
@@ -45,7 +41,7 @@
   font-family: Inter;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 620px) {
   .sidebar {
     all: unset;
     position: fixed;

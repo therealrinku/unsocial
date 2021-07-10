@@ -6,6 +6,11 @@
     display: flex;
     align-items: flex-start;
 
+    .date:hover {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
     button {
       border: none;
       background: inherit;

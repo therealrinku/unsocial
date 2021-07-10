@@ -1,6 +1,6 @@
 .post--options-modal {
   position: fixed;
-  width: 220px;
+  width: 300px;
   height: auto;
   background: white;
   top: 50%;
@@ -68,7 +68,7 @@
   }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 620px) {
   .post--options-modal {
     all: unset;
     position: fixed;

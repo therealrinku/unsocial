@@ -28,7 +28,6 @@ const Post = ({
   haveILiked,
   currentUsername,
   currentUserUid,
-  currentUserProfileimage,
   LIKE_POST,
   UNLIKE_POST,
   UNSAVE_POST,
@@ -74,11 +73,17 @@ const Post = ({
     }
   };
 
+  const showLikersModal = () => {
+    toggleModal(setShowPostOptionsModal);
+    getLikers();
+  };
+
   const deletePost = () => {
     toggleModal(setShowPostOptionsModal);
     DELETE_POST(post_uid);
   };
 
+  let differenceInDate;
   //formatted posted date
   const formattedPostedDate = moment(post_postedDate).format("dddd, MMMM Do YYYY, h:mm a");
   //finding difference of date
@@ -91,8 +96,6 @@ const Post = ({
   const monthsDifference = moment(todaysDate).diff(moment(post_postedDate), "months");
   const yearsDifference = moment(todaysDate).diff(moment(post_postedDate), "years");
 
-  let differenceInDate;
-  console.log(monthsDifference);
   if (yearsDifference >= 1) {
     differenceInDate = yearsDifference + "y";
   }
@@ -212,6 +215,7 @@ const Post = ({
             deletePost={deletePost}
             post_id={post_id}
             AddMessage={ADD_MESSAGE}
+            showLikers={showLikersModal}
           />
           <Backdrop show={showPostOptionsModal} toggle={() => toggleModal(setShowPostOptionsModal)} />
         </Fragment>

@@ -1,6 +1,6 @@
-.profile--options-modal {
+.options-modal {
   position: fixed;
-  width: 220px;
+  width: 300px;
   height: auto;
   background: white;
   top: 50%;
@@ -39,8 +39,8 @@
   }
 }
 
-@media (max-width: 500px) {
-  .profile--options-modal {
+@media (max-width: 620px) {
+  .options-modal {
     all: unset;
     position: fixed;
     bottom: 0;

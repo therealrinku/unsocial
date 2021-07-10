@@ -12,7 +12,7 @@ const Homepage = ({ currentUserUid, feed, GET_FEED, loading, feedLoaded }) => {
   }, [currentUserUid, feedLoaded]);
 
   return (
-    <div className="homepage">
+    <div style={{ paddingBottom: "30px" }}>
       {loading ? <Loader /> : null}
       {feed.length > 0 && !loading ? <Feed feed={feed} /> : null}
     </div>

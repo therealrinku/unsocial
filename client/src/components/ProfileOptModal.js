@@ -15,7 +15,7 @@ const PostOptionsModal = ({ toggle, isMyProfile, LOGOUT }) => {
   };
 
   return (
-    <div className="profile--options-modal">
+    <div className="options-modal">
       <button style={!isMyProfile ? { display: "none" } : null} onClick={goToProfileEditPage}>
         <FiEdit />
         <p>Edit Profile</p>

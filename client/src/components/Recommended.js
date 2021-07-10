@@ -14,7 +14,7 @@ const Recommended = ({ recommendedUsers, currentUserUid, FOLLOW, UNFOLLOW, GET_R
   return (
     <div className="recommended">
       <p style={{ fontSize: "15px" }}>People you may like to follow</p>
-      {recommendedUsers.map((user) => {
+      {recommendedUsers.slice(3, 6).map((user) => {
         return (
           <div className="recommended--user" key={user.username}>
             <div>

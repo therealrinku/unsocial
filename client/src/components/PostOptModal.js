@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { withRouter, useHistory } from "react-router-dom";
-import { FiNavigation, FiTrash, FiClipboard, FiX, FiAlertOctagon, FiEdit, FiEyeOff } from "react-icons/all";
+import { FiNavigation, FiThumbsUp, FiTrash, FiClipboard, FiX, FiAlertOctagon, FiEdit, FiEyeOff } from "react-icons/all";
 
-const PostOptModal = ({ post_id, isMyPost, toggle, deletePost, AddMessage }) => {
+const PostOptModal = ({ post_id, isMyPost, toggle, deletePost, AddMessage, showLikers }) => {
   const [showDeleteConfirmer, setShowDeleteConfirmer] = useState(false);
   const history = useHistory();
 
@@ -21,7 +21,7 @@ const PostOptModal = ({ post_id, isMyPost, toggle, deletePost, AddMessage }) => 
   };
 
   return (
-    <div className="post--options-modal">
+    <div className="options-modal">
       {showDeleteConfirmer ? (
         <div className="delete--confirmer-popup">
           <div>
@@ -44,6 +44,10 @@ const PostOptModal = ({ post_id, isMyPost, toggle, deletePost, AddMessage }) => 
           <button onClick={goToPost}>
             <FiNavigation />
             <p>Go to post</p>
+          </button>
+          <button onClick={showLikers}>
+            <FiThumbsUp />
+            <p>Show Likers</p>
           </button>
           <button style={!isMyPost ? { display: "none" } : null} disabled>
             <FiEdit />
