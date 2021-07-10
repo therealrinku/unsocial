@@ -43,7 +43,7 @@ const ProfileSummary = ({
               {profileData.followers_count || 0}
               {profileData.followers_count === 1 ? " follower" : " followers"}
             </button>
-            <span style={{ marginLeft: "2.5px" }}>&middot;</span>
+            <span style={{ marginLeft: "1px" }}>&middot;</span>
             <button onClick={LOAD_FOLLOWINGS}>{profileData.following_count || 0} following</button>
           </div>
 
