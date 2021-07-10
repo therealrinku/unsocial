@@ -1,6 +1,6 @@
 .view--users-modal {
   position: fixed;
-  width: 250px;
+  width: 300px;
   height: auto;
   background: white;
   top: 50%;
@@ -12,12 +12,13 @@
   border-radius: 7px;
 
   section {
-    min-height: 50px;
+    min-height: 40px;
     max-height: 300px;
     overflow-y: auto;
     padding-bottom: 5px;
     margin-top: 33px;
     padding-top: 10px;
+    margin-bottom: 4px;
   }
 
   .title {
@@ -26,11 +27,10 @@
     border-bottom: solid 1px #229954;
     padding: 8px 0;
     margin: 0;
+    margin-bottom: 10px;
     font-size: 14px;
     position: fixed;
-    width: 250px;
-    border-top-left-radius: 7px;
-    border-top-right-radius: 7px;
+    width: 300px;
   }
 
   .user {
@@ -67,8 +67,27 @@
   }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 500px) {
   .view--users-modal {
-    width: 85vw;
+    all: unset;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    min-height: 40px;
+    max-height: 300px;
+    width: 100%;
+    transform: none;
+    z-index: 4;
+    background: white;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+
+    section {
+      max-height: 300px;
+    }
+
+    .title {
+      width: inherit;
+    }
   }
 }

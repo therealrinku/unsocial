@@ -2,7 +2,7 @@
   position: fixed;
   width: 220px;
   height: auto;
-  background: whitesmoke;
+  background: white;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -12,7 +12,7 @@
 
   button {
     border: none;
-    background: whitesmoke;
+    background: inherit;
     outline: none;
     width: 100%;
     padding: 20px 25px;
@@ -37,15 +37,22 @@
   button:hover {
     background: rgba(0, 0, 0, 0.07);
   }
-
-  .post--options {
-    display: flex;
-    flex-direction: column;
-  }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 500px) {
   .profile--options-modal {
-    width: 75vw;
+    all: unset;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    min-height: 40px;
+    max-height: 300px;
+    width: 100%;
+    transform: none;
+    z-index: 5;
+    background: white;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+    padding: 10px 0;
   }
 }

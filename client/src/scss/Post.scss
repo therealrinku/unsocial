@@ -3,7 +3,6 @@
   height: auto;
   background: white;
   margin-bottom: 30px;
-
   border-bottom: solid 1px rgba(0, 0, 0, 0.2);
 
   .top-div {
@@ -11,7 +10,7 @@
     align-items: center;
     justify-content: space-between;
     height: 40px;
-    margin-left: -11px;
+    margin-left: -17px;
     margin-bottom: -7px;
     margin-top: 4px;
 
@@ -103,11 +102,16 @@
 }
 
 .status {
-  padding: 0 10px;
   margin-bottom: 10px;
 }
 
 .posted_date:hover {
   text-decoration: underline;
   cursor: pointer;
+}
+
+@media (max-width: 500px) {
+  .post--card .image-div img {
+    height: 250px;
+  }
 }

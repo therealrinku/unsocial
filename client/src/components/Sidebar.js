@@ -41,31 +41,22 @@ const Sidebar = ({ currentUsername, currentUserProfileimage, currentUserUid, sho
   ];
 
   return (
-    <Fragment>
-      <nav className="sidebar">
-        <div>
-          {navButtons.map((button, i) => {
-            return (
-              <Tooltip title={<p className="tooltipText">{button.title}</p>} arrow key={i} placement="left">
-                <button
-                  onClick={() => history.push(button.buttonTarget)}
-                  className={pathname === button.buttonTarget ? "activeButton" : null}
-                >
-                  {button.buttonIcon}
-                </button>
-              </Tooltip>
-            );
-          })}
-        </div>
-      </nav>
-
-      {/*showActivity ? (
-        <Fragment>
-          <Backdrop show={showActivity} toggle={toggleActivity} />
-          <Activity currentUserUid={currentUserUid} toggle={toggleActivity} clear={() => setNotificationsCount(0)} />
-        </Fragment>
-      ) : null*/}
-    </Fragment>
+    <nav className="sidebar">
+      <div>
+        {navButtons.map((button, i) => {
+          return (
+            <Tooltip title={<p className="tooltipText">{button.title}</p>} arrow key={i} placement="left">
+              <button
+                onClick={() => history.push(button.buttonTarget)}
+                className={pathname === button.buttonTarget ? "activeButton" : null}
+              >
+                {button.buttonIcon}
+              </button>
+            </Tooltip>
+          );
+        })}
+      </div>
+    </nav>
   );
 };
 

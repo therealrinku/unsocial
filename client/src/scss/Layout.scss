@@ -19,11 +19,18 @@
   }
 }
 
-@media (max-width: 800px) {
+@media (max-width: 1000px) {
   .recommended-users {
     display: none;
   }
   .layout-main {
     width: 85vw;
+  }
+}
+
+@media (max-width: 500px) {
+  .layout .flex {
+    margin-left: 0;
+    margin-top: 40px;
   }
 }

@@ -1,9 +1,9 @@
 .feed {
-  margin-bottom: 50px;
+  margin-bottom: 40px;
 }
 
-@media (max-width: 750px) {
+@media (max-width: 500px) {
   .feed {
-    padding: 0;
+    margin-top: -40px;
   }
 }
