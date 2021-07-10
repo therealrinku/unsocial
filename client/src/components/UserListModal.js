@@ -7,20 +7,22 @@ const UserListModal = ({ title, loading, toggle, users }) => {
     <div className="view--users-modal">
       <p className="title">{title}</p>
       <section>
-      {users.length > 0 ? (
-        users.map((user) => {
-          return (
-            <div key={new Date() * Math.random()} className="user">
-              <img src={user.profile_image_url} alt="profile_img" className="user-image" />
-              <NavLink to={`/${user.username}`} onClick={toggle}>
-                {user.username}
-              </NavLink>
-            </div>
-          );
-        })
-      ) : (
-        <p>No any {title} atm.</p>
-      )}
+        {users.length > 0 ? (
+          users.map((user) => {
+            return (
+              <div key={new Date() * Math.random()} className="user">
+                <img src={user.profile_image_url} alt="profile_img" className="user-image" />
+                <NavLink to={`/${user.username}`} onClick={toggle}>
+                  {user.username}
+                </NavLink>
+              </div>
+            );
+          })
+        ) : loading ? (
+          <p className="loading">Loading...</p>
+        ) : (
+          <p className="nothing-found">No any {title} atm.</p>
+        )}
       </section>
     </div>
   );

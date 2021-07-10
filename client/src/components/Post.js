@@ -2,7 +2,6 @@ import { Fragment, useState } from "react";
 import { connect } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import * as postsActions from "../redux/post/postsActions";
-import { BiDotsHorizontal } from "react-icons/all";
 import UserListModal from "./UserListModal";
 import Backdrop from "./Backdrop";
 import overflowToggler from "../utilities/overflowToggler";
@@ -39,8 +38,9 @@ const Post = ({
   likersLoading,
   DELETE_POST,
   ADD_MESSAGE,
+  fullHeightImage,
 }) => {
-  const thisPostLikers = feedPosts.filter((post) => post.post_uid === post_uid)[0].post_likers;
+  const thisPostLikers = feedPosts.filter((post) => post.post_uid === post_uid)[0]?.post_likers;
   const [showLikers, setShowLikers] = useState(false);
   const [showPostOptionsModal, setShowPostOptionsModal] = useState(false);
 
@@ -145,6 +145,7 @@ const Post = ({
 
         <Link to={`/p/${post_id}`} className="image-div">
           <img
+            style={fullHeightImage ? { height: "auto" } : null}
             className="lazy-image"
             src={placeholderImage}
             alt="post_main_img"
@@ -154,7 +155,7 @@ const Post = ({
         </Link>
 
         <div className="actions-div">
-          <Tooltip title={<span style={{ fontSize: "13px" }}>Like</span>}>
+          <Tooltip title={<span style={{ fontSize: "13px" }}>{haveILiked ? "Unlike" : "Like"}</span>}>
             <button onClick={likeUnlikePost} style={haveILiked ? { color: "#229954" } : null}>
               <FiThumbsUp />
               <p>{post_likesCount || ""}</p>
@@ -182,7 +183,7 @@ const Post = ({
             </button>
           </Tooltip>
 
-          <Tooltip title={<span style={{ fontSize: "13px" }}>Save</span>}>
+          <Tooltip title={<span style={{ fontSize: "13px" }}>{haveISaved ? "Unsave" : "Save"}</span>}>
             <button onClick={saveUnsavePost} style={haveISaved ? { color: "#229954" } : null}>
               <FiSave />
             </button>
