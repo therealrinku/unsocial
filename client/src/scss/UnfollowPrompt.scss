@@ -1,8 +1,8 @@
 .unfollow--confirmation-modal {
   position: fixed;
-  width: 220px;
+  width: 300px;
   height: auto;
-  background: whitesmoke;
+  background: white;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -13,7 +13,7 @@
 
   button {
     border: none;
-    background: whitesmoke;
+    background: inherit;
     outline: none;
     width: 100%;
     padding: 20px 25px;
