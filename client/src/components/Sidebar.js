@@ -1,16 +1,14 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
-import OverflowToggler from "../utilities/overflowToggler";
 import firestore from "../firebase/firestore";
 import { FiHome, FiBell, FiUser, FiSearch, FiUpload } from "react-icons/fi";
-import { Tooltip } from "@material-ui/core";
+import { Tooltip, Badge } from "@material-ui/core";
 
-const Sidebar = ({ currentUsername, currentUserProfileimage, currentUserUid, showSearchBarOnly }) => {
+const Sidebar = ({ currentUsername, currentUserUid }) => {
   const history = useHistory();
   const pathname = history.location.pathname;
-  const [showActivity, setShowActivity] = useState(false);
-  const [notificationsCount, setNotificationsCount] = useState(0);
+  const [notificationCount, setNotificationCount] = useState(0);
 
   useEffect(() => {
     if (currentUserUid) {
@@ -22,23 +20,31 @@ const Sidebar = ({ currentUsername, currentUserProfileimage, currentUserUid, sho
           for (let e in doc.data()) {
             data.push(e);
           }
-          setNotificationsCount(data.length);
+          setNotificationCount(data.length);
         });
     }
   }, []);
 
-  const toggleActivity = () => {
-    OverflowToggler();
-    setShowActivity((prev) => !prev);
-  };
-
   const navButtons = [
     { buttonIcon: <FiHome />, buttonTarget: "/", title: "Home" },
-    { buttonIcon: <FiUpload />, buttonTarget: `/newPost`, title: "Add New Post" },
-    { buttonIcon: <FiSearch />, buttonTarget: "/explore", title: "Search" },
-    { buttonIcon: <FiBell />, buttonTarget: "/notifications", title: "Notifications" },
-    { buttonIcon: <FiUser />, buttonTarget: `/${currentUsername}`, title: "My Profile" },
+    { buttonIcon: <FiSearch />, buttonTarget: "/explore", title: "Explore" },
   ];
+
+  if (currentUserUid) {
+    navButtons.push(
+      { buttonIcon: <FiUpload />, buttonTarget: `/newPost`, title: "Add New Post" },
+      {
+        buttonIcon: (
+          <Badge badgeContent={notificationCount} color="primary">
+            <FiBell />
+          </Badge>
+        ),
+        buttonTarget: "/notifications",
+        title: "Notifications",
+      },
+      { buttonIcon: <FiUser />, buttonTarget: `/${currentUsername}`, title: "My Profile" }
+    );
+  }
 
   return (
     <nav className="sidebar">
@@ -64,7 +70,6 @@ const mapStateToProps = (state) => {
   return {
     currentUserUid: state.user.currentUserData.uid,
     currentUsername: state.user.currentUserData.username,
-    currentUserProfileimage: state.user.currentUserData.profile_image_url,
   };
 };
 

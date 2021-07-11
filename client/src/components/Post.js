@@ -9,6 +9,7 @@ import PostOptModal from "./PostOptModal";
 import placeholderImage from "../assets/placeholder.jpg";
 import lazyLoadImage from "../utilities/lazyLoadImage";
 import ProfilePicPlaceholder from "../assets/avatar.jpg";
+import LoginNeededPrompt from "./LoginNeededPrompt";
 import { FiThumbsUp, FiThumbsDown, FiMessageCircle, FiSave, FiShare2, FiMoreHorizontal } from "react-icons/all";
 import { Tooltip } from "@material-ui/core";
 import moment from "moment";
@@ -42,22 +43,31 @@ const Post = ({
   const thisPostLikers = feedPosts.filter((post) => post.post_uid === post_uid)[0]?.post_likers;
   const [showLikers, setShowLikers] = useState(false);
   const [showPostOptionsModal, setShowPostOptionsModal] = useState(false);
+  const [showLoginNeededPrompt, setShowLoginNeededPrompt] = useState(false);
 
   const history = useHistory();
 
   const likeUnlikePost = () => {
-    if (haveILiked) {
-      UNLIKE_POST(post_uid, currentUserUid, post_owner_uid);
+    if (currentUsername) {
+      if (haveILiked) {
+        UNLIKE_POST(post_uid, currentUserUid, post_owner_uid);
+      } else {
+        LIKE_POST(post_uid, currentUserUid, post_owner_uid);
+      }
     } else {
-      LIKE_POST(post_uid, currentUserUid, post_owner_uid);
+      toggleModal(setShowLoginNeededPrompt);
     }
   };
 
   const saveUnsavePost = () => {
-    if (haveISaved) {
-      UNSAVE_POST(post_uid, currentUsername);
+    if (currentUsername) {
+      if (haveISaved) {
+        UNSAVE_POST(post_uid, currentUsername);
+      } else {
+        SAVE_POST(post_uid, currentUsername);
+      }
     } else {
-      SAVE_POST(post_uid, currentUsername);
+      toggleModal(setShowLoginNeededPrompt);
     }
   };
 
@@ -203,6 +213,13 @@ const Post = ({
             toggle={() => toggleModal(setShowLikers)}
           />
           <Backdrop show={showLikers} toggle={() => toggleModal(setShowLikers)} />
+        </Fragment>
+      ) : null}
+
+      {showLoginNeededPrompt ? (
+        <Fragment>
+          <LoginNeededPrompt toggle={() => toggleModal(setShowLoginNeededPrompt)} />
+          <Backdrop show={showLoginNeededPrompt} toggle={() => toggleModal(setShowLoginNeededPrompt)} />
         </Fragment>
       ) : null}
 

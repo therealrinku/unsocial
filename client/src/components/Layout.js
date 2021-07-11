@@ -10,7 +10,7 @@ export default function Layout({ children }) {
       <Sidebar />
       <div className="flex">
         <section className="layout-main">{children}</section>
-        <section className="recommended-users">
+        <section className="for-pc">
           <SearchView />
           <Recommended />
         </section>

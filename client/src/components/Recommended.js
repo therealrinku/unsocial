@@ -8,13 +8,13 @@ import ProfilePicPlaceholder from "../assets/avatar.jpg";
 
 const Recommended = ({ recommendedUsers, currentUserUid, FOLLOW, UNFOLLOW, GET_RECOMMENDED_USERS }) => {
   useEffect(() => {
-    if (recommendedUsers.length < 1) {
+    if (recommendedUsers.length < 1 && currentUserUid) {
       GET_RECOMMENDED_USERS(currentUserUid);
     }
   }, [currentUserUid]);
 
   return (
-    <div className="recommended">
+    <div className="recommended" style={!currentUserUid && { display: "none" }}>
       <p style={{ fontSize: "15px" }}>People you may like to follow</p>
       {recommendedUsers.slice(3, 6).map((user) => {
         return (

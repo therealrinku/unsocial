@@ -90,9 +90,7 @@ const PostView = ({
         <Loader />
       ) : //checking if post exiists
       !loading && !currentPost[0]?.post_image ? (
-        <p style={{ marginTop: "100px", textAlign: "center", fontSize: "15px" }}>
-          Post deleted or something went wrong!
-        </p>
+        <p style={{ textAlign: "center", fontSize: "15px" }}>Post deleted or something went wrong!</p>
       ) : (
         <Fragment>
           <Post
@@ -111,7 +109,11 @@ const PostView = ({
             fullHeightImage={true}
           />
 
-          <CommentBox post_uid={post_uid} post_owner_uid={currentPost[0]?.poster_uid} />
+          <CommentBox
+            post_uid={post_uid}
+            post_owner_uid={currentPost[0]?.poster_uid}
+            toggleLoginNeededPrompt={() => toggleModal(setShowLoginNeededPrompt)}
+          />
 
           <CommentsView
             mobile={true}
