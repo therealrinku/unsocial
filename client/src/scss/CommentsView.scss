@@ -8,7 +8,7 @@
 
     .date:hover {
       text-decoration: underline;
-      cursor: pointer;
+      cursor: default;
     }
 
     button {
@@ -24,7 +24,6 @@
     a {
       text-decoration: none;
       color: black;
-      font-weight: bold;
     }
 
     a:hover {
@@ -33,7 +32,8 @@
 
     .username--comment {
       margin-right: 5px;
-      word-break: break-all;
+      word-break: break-word;
+      color: rgba(0, 0, 0, 0.5);
     }
 
     img {

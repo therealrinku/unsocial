@@ -33,16 +33,16 @@ const Comment = ({
 
   let differenceInDate;
   //formatted posted date
-  const formattedPostedDate = moment(comment.comment_posted_date).format("dddd, MMMM Do YYYY, h:mm a");
+  const formattedPostedDate = moment(comment.posted_date).format("dddd, MMMM Do YYYY, h:mm a");
   //finding difference of date
   const todaysDate = moment(new Date());
-  const secondsDifference = moment(todaysDate).diff(moment(comment.comment_posted_date), "seconds");
-  const minutesDifference = moment(todaysDate).diff(moment(comment.comment_posted_date), "minutes");
-  const hoursDifference = moment(todaysDate).diff(moment(comment.comment_posted_date), "hours");
-  const daysDifference = moment(todaysDate).diff(moment(comment.comment_posted_date), "days");
-  const weeksDifference = moment(todaysDate).diff(moment(comment.comment_posted_date), "weeks");
-  const monthsDifference = moment(todaysDate).diff(moment(comment.comment_posted_date), "months");
-  const yearsDifference = moment(todaysDate).diff(moment(comment.comment_posted_date), "years");
+  const secondsDifference = moment(todaysDate).diff(moment(comment.posted_date), "seconds");
+  const minutesDifference = moment(todaysDate).diff(moment(comment.posted_date), "minutes");
+  const hoursDifference = moment(todaysDate).diff(moment(comment.posted_date), "hours");
+  const daysDifference = moment(todaysDate).diff(moment(comment.posted_date), "days");
+  const weeksDifference = moment(todaysDate).diff(moment(comment.posted_date), "weeks");
+  const monthsDifference = moment(todaysDate).diff(moment(comment.posted_date), "months");
+  const yearsDifference = moment(todaysDate).diff(moment(comment.posted_date), "years");
 
   if (yearsDifference >= 1) {
     differenceInDate = yearsDifference + "y";
