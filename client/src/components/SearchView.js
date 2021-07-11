@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { getSearchedUsers } from "../services/userServices";
 import { Link } from "react-router-dom";
-import lazyLoadImage from "../utilities/lazyLoadImage";
-import ProfilePicPlaceholder from "../assets/avatar.jpg";
 
 const SearchView = ({ width }) => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -31,13 +29,7 @@ const SearchView = ({ width }) => {
           searchResults.map((user) => {
             return (
               <span key={user.username}>
-                <img
-                  className="lazy-image"
-                  src={ProfilePicPlaceholder}
-                  onLoad={lazyLoadImage}
-                  data-src={user.profile_image_url || ProfilePicPlaceholder}
-                  alt="profileimage"
-                />
+                <img src={user.profile_image_url} alt="profileimage" />
                 <Link
                   onClick={() => setSearchQuery("")}
                   to={`/${user.username}`}

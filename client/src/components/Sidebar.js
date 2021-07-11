@@ -42,7 +42,7 @@ const Sidebar = ({ currentUsername, currentUserUid }) => {
         buttonTarget: "/notifications",
         title: "Notifications",
       },
-      { buttonIcon: <FiUser />, buttonTarget: `/${currentUsername}`, title: "My Profile" }
+      { buttonIcon: <FiUser />, buttonTarget: `/user/${currentUsername}`, title: "My Profile" }
     );
   }
 

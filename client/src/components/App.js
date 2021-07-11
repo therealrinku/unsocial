@@ -99,7 +99,7 @@ const App = ({
               {currentUsername && <Route path="/" exact component={Homepage} />}
               <Route path="/notifications" exact component={ActivityPage} />
               <Route path="/explore" exact component={ExplorePage} />
-              <Route path="/:username" exact component={Profilepage} />
+              <Route path="/user/:username" exact component={Profilepage} />
               <Route path="/p/:post_id" exact component={PostView} />
             </Layout>
           </Switch>

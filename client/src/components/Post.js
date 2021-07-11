@@ -6,9 +6,6 @@ import UserListModal from "./UserListModal";
 import Backdrop from "./Backdrop";
 import overflowToggler from "../utilities/overflowToggler";
 import PostOptModal from "./PostOptModal";
-import placeholderImage from "../assets/placeholder.jpg";
-import lazyLoadImage from "../utilities/lazyLoadImage";
-import ProfilePicPlaceholder from "../assets/avatar.jpg";
 import LoginNeededPrompt from "./LoginNeededPrompt";
 import { FiThumbsUp, FiThumbsDown, FiMessageCircle, FiSave, FiShare2, FiMoreHorizontal } from "react-icons/all";
 import { Tooltip } from "@material-ui/core";
@@ -133,14 +130,8 @@ const Post = ({
       <div className="post--card">
         <div className="top-div">
           <ul>
-            <img
-              data-src={poster_profileImage || ProfilePicPlaceholder}
-              src={ProfilePicPlaceholder}
-              className="lazy-image"
-              onLoad={lazyLoadImage}
-              alt="post_user_image"
-            />
-            <Link to={`/${poster_username}`}>{poster_username}</Link>
+            <img src={poster_profileImage} alt="poster_image" />
+            <Link to={`/user/${poster_username}`}>{poster_username}</Link>
             <span style={{ marginLeft: "5px" }}>&middot;</span>
             <Tooltip title={<span style={{ fontSize: "13px" }}>{formattedPostedDate}</span>}>
               <p className="posted_date">{differenceInDate}</p>
@@ -157,14 +148,7 @@ const Post = ({
         <p className="status">{post_status}</p>
 
         <Link to={`/p/${post_id}`} className="image-div">
-          <img
-            style={fullHeightImage ? { height: "auto" } : null}
-            className="lazy-image"
-            src={placeholderImage}
-            alt="post_main_img"
-            data-src={post_image || placeholderImage}
-            onLoad={lazyLoadImage}
-          />
+          <img style={fullHeightImage ? { height: "auto" } : null} src={post_image} alt="post_image" />
         </Link>
 
         <div className="actions-div">

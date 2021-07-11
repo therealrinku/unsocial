@@ -19,7 +19,7 @@ const ActivityPage = ({ currentUserUid }) => {
 
   return (
     <div className="notification-list">
-      <div className="top">Activity</div>
+      <div className="top">Notifications</div>
 
       <div className="notifications">
         {notifications.length > 0 ? (
@@ -37,7 +37,7 @@ const ActivityPage = ({ currentUserUid }) => {
                     noti.post_id !== null
                       ? `/p/${noti.post_id}`
                       : noti.notification === "follow"
-                      ? `/${noti.username}`
+                      ? `/user/${noti.username}`
                       : ""
                   }
                 >

@@ -27,7 +27,7 @@ const Profilepage = ({
   loading_followers_or_following,
   LOGOUT,
 }) => {
-  const profileUsername = history.location.pathname.slice(1);
+  const profileUsername = history.location.pathname.slice(6);
   const profileData = profiles.filter((profile) => profile?.username === profileUsername);
 
   //modal handlers

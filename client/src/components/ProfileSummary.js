@@ -1,8 +1,6 @@
 import React, { Fragment } from "react";
 import { FiMoreHorizontal, FiUserCheck, FiEdit, FiUserPlus } from "react-icons/all";
 import { useHistory } from "react-router-dom";
-import ProfilePicPlaceholder from "../assets/avatar.jpg";
-import lazyLoadImage from "../utilities/lazyLoadImage";
 import Linkify from "react-linkify";
 
 const ProfileSummary = ({
@@ -22,13 +20,7 @@ const ProfileSummary = ({
         <img src="https://bit.ly/3wo9Dvv" className="cover-image" alt="cover" />
 
         <section>
-          <img
-            src={ProfilePicPlaceholder}
-            data-src={profileData.profile_image_url || ProfilePicPlaceholder}
-            alt="profile_image"
-            onLoad={lazyLoadImage}
-            className="lazy-image profile-image"
-          />
+          <img src={profileData.profile_image_url} alt="profile_image" className="profile-image" />
 
           <p className="username">{profileData.username}</p>
 
