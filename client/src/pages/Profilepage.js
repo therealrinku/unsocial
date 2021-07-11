@@ -81,7 +81,7 @@ const Profilepage = ({
   useEffect(() => {
     document.body.style.overflow = "auto";
     //set document title
-    document.title = `${profileUsername} at Instaclone`;
+    document.title = `${profileUsername} | Instaclone`;
     if (profileData.length <= 0) {
       GET_PROFILE_DATA(profileUsername, currentUserUid);
     }
@@ -96,7 +96,7 @@ const Profilepage = ({
       {loading ? (
         <Loader />
       ) : !loading && profileData.length < 1 ? (
-        <p style={{ marginTop: "100px", textAlign: "center", fontSize: "15px" }}>This link is broken</p>
+        <p style={{ textAlign: "center", fontSize: "15px" }}>Nothing found in this route.</p>
       ) : (
         <div className="profile--page">
           <ProfileSummary
