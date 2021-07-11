@@ -19,6 +19,7 @@ import EditProfilePage from "../pages/EditProfilePage";
 import MessageViewer from "./MessageViewer";
 import EditPasswordPage from "../pages/EditPasswordPage";
 import Layout from "./Layout";
+import ActivityPage from "../pages/ActivityPage";
 
 const App = ({
   currentUsername,
@@ -45,9 +46,9 @@ const App = ({
         ADD_MESSAGE("Uploading your post. it may take couple of seconds.");
       } else {
         ADD_MESSAGE("Successfully uploaded a post.");
-        /* setTimeout(() => {
+        setTimeout(() => {
           ADD_MESSAGE(null);
-        }, 3000);*/
+        }, 3000);
       }
     }
   }, [uploadingPost]);
@@ -96,6 +97,7 @@ const App = ({
             <Route path="/signup" exact component={Signuppage} />
             <Layout>
               {currentUsername && <Route path="/" exact component={Homepage} />}
+              <Route path="/notifications" exact component={ActivityPage} />
               <Route path="/explore" exact component={ExplorePage} />
               <Route path="/:username" exact component={Profilepage} />
               <Route path="/p/:post_id" exact component={PostView} />

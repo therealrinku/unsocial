@@ -1,36 +1,25 @@
 import { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
-import { VscClose } from "react-icons/all";
 import clearNotification from "../utilities/clearNotification";
+import { connect } from "react-redux";
 
-const Activity = ({ currentUserUid, toggle, clear }) => {
-  const history = useHistory();
+const ActivityPage = ({ currentUserUid }) => {
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     clearNotification(currentUserUid);
-    clear();
 
-    axios
-      .get(
-        `https://instacloone.herokuapp.com/user/getNotifications/${currentUserUid}`
-      )
-      .then((res) => {
-        setNotifications(res.data);
-        setLoading(false);
-      });
+    axios.get(`https://instacloone.herokuapp.com/user/getNotifications/${currentUserUid}`).then((res) => {
+      setNotifications(res.data);
+      setLoading(false);
+    });
   }, []);
 
   return (
     <div className="notification-list">
-      <div className="top">
-        <p>Activity</p>
-        <button onClick={toggle}>
-          <VscClose />
-        </button>
-      </div>
+      <div className="top">Activity</div>
 
       <div className="notifications">
         {notifications.length > 0 ? (
@@ -40,23 +29,19 @@ const Activity = ({ currentUserUid, toggle, clear }) => {
             })
             .map((noti) => {
               return (
-                <div
+                <Link
                   className="notification"
                   style={loading ? { display: "none" } : { width: "100%" }}
                   key={noti.uid}
-                  onClick={() =>
+                  to={() =>
                     noti.post_id !== null
-                      ? history.push(`/p/${noti.post_id}`)
+                      ? `/p/${noti.post_id}`
                       : noti.notification === "follow"
-                      ? history.push(`/${noti.username}`)
+                      ? `/${noti.username}`
                       : ""
                   }
                 >
-                  <img
-                    src={noti.profile_image_url}
-                    alt="profile-pc"
-                    className="profile-pic"
-                  />
+                  <img src={noti.profile_image_url} alt="profile-pc" className="profile-pic" />
                   <p>
                     {noti.username}{" "}
                     {noti.notification === "like post"
@@ -72,39 +57,29 @@ const Activity = ({ currentUserUid, toggle, clear }) => {
                   </p>
 
                   <img
-                    style={
-                      noti.post_image === null ? { display: "none" } : null
-                    }
+                    style={noti.post_image === null ? { display: "none" } : null}
                     src={noti.post_image}
                     alt="profile-pc"
                     className="post-img"
                   />
-                </div>
+                </Link>
               );
             })
         ) : (
-          <p
-            style={
-              loading
-                ? { display: "none" }
-                : { textAlign: "center", fontSize: "14px" }
-            }
-          >
-            No notifications
-          </p>
+          <p style={loading ? { display: "none" } : { textAlign: "center", fontSize: "14px" }}>No notifications</p>
         )}
       </div>
-      <div
-        style={
-          !loading
-            ? { display: "none" }
-            : { textAlign: "center", fontSize: "14px" }
-        }
-      >
+      <div style={!loading ? { display: "none" } : { textAlign: "center", fontSize: "14px" }}>
         <p>Loading...</p>
       </div>
     </div>
   );
 };
 
-export default Activity;
+const mapStateToProps = (state) => {
+  return {
+    currentUserUid: state.user.currentUserData.uid,
+  };
+};
+
+export default connect(mapStateToProps)(ActivityPage);
