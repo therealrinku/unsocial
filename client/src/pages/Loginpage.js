@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import { FaGithub } from "react-icons/fa";
 import { NavLink, Redirect } from "react-router-dom";
 import * as userActions from "../redux/user/userActions";
 import { connect } from "react-redux";
-import { findByDisplayValue } from "@testing-library/react";
 
 const Loginpage = ({ noFullPage, error, loading, currentUsername, LOGIN }) => {
   const [username, setUsername] = useState("");
@@ -17,6 +15,7 @@ const Loginpage = ({ noFullPage, error, loading, currentUsername, LOGIN }) => {
   return (
     <div className="auth-page">
       <div>
+        {currentUsername && <Redirect to="/" />}
         <p>Instaclone</p>
         <form onSubmit={login}>
           <label>Username</label>

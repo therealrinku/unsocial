@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { FaGithub } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import { signupUser } from "../services/authServices";
 import { useHistory } from "react-router-dom";
