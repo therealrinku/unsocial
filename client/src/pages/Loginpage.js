@@ -3,6 +3,7 @@ import { FaGithub } from "react-icons/fa";
 import { NavLink, Redirect } from "react-router-dom";
 import * as userActions from "../redux/user/userActions";
 import { connect } from "react-redux";
+import { findByDisplayValue } from "@testing-library/react";
 
 const Loginpage = ({ noFullPage, error, loading, currentUsername, LOGIN }) => {
   const [username, setUsername] = useState("");
@@ -14,47 +15,25 @@ const Loginpage = ({ noFullPage, error, loading, currentUsername, LOGIN }) => {
   };
 
   return (
-    <div className={!noFullPage ? `auth--page full--page` : "auth--page"}>
+    <div className="auth-page">
       <div>
         <p>Instaclone</p>
         <form onSubmit={login}>
-          <input
-            type="text"
-            id="username"
-            value={username}
-            placeholder="Username"
-            onChange={(e) => setUsername(e.target.value)}
-            autoFocus
-          />
-
-          <input
-            type="password"
-            id="password"
-            value={password}
-            placeholder="Password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          <label>Username</label>
+          <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} autoFocus />
+          <label>Password</label>
+          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
 
           <button type="submit" disabled={loading}>
-            Login
+            {loading ? "Please Wait ...." : "Login"}
           </button>
-
-          <p style={{ color: "red" }}>{error}</p>
         </form>
       </div>
 
-      <div>
+      <div className="info">
         <p>Don't have an account yet?</p>
         <NavLink to="/signup">Signup</NavLink>
       </div>
-
-      <div>
-        <FaGithub />
-        <a href="https://github.com/therealrinku/instaclone" target="_blank">
-          View on Github
-        </a>
-      </div>
-      {currentUsername ? <Redirect to="/" /> : null}
     </div>
   );
 };
@@ -69,8 +48,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    LOGIN: (username, password) =>
-      dispatch(userActions.LOGIN(username, password)),
+    LOGIN: (username, password) => dispatch(userActions.LOGIN(username, password)),
   };
 };
 

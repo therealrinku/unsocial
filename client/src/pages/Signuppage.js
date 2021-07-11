@@ -28,17 +28,9 @@ const Signuppage = () => {
       trimmed.email.includes("@") &&
       trimmed.email.includes(".com")
     ) {
-      if (
-        trimmed.username.length >= 5 &&
-        trimmed.username.length <= 25 &&
-        !trimmed.username.includes(" ")
-      ) {
+      if (trimmed.username.length >= 5 && trimmed.username.length <= 25 && !trimmed.username.includes(" ")) {
         if (trimmed.password.length >= 8 && trimmed.password.length <= 30) {
-          const response = await signupUser(
-            email,
-            username.trim().toLowerCase(),
-            password
-          );
+          const response = await signupUser(email, username.trim().toLowerCase(), password);
           if (response !== "success") {
             setError(response);
           } else {
@@ -56,49 +48,27 @@ const Signuppage = () => {
   };
 
   return (
-    <div className="auth--page">
+    <div className="auth-page">
       <div>
         <p>Instaclone</p>
         <form onSubmit={SIGNUP}>
-          <input
-            type="email"
-            value={email}
-            placeholder="Email"
-            onChange={(e) => setEmail(e.target.value)}
-            autoFocus
-          />
-          <input
-            type="text"
-            id="username"
-            value={username.toLowerCase()}
-            placeholder="Username"
-            onChange={(e) => setUsername(e.target.value)}
-          />
-
-          <input
-            type="password"
-            id="password"
-            value={password}
-            placeholder="Password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          <label>Email</label>
+          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} autoFocus />
+          <label>Username</label>
+          <input type="text" value={username.toLowerCase()} onChange={(e) => setUsername(e.target.value)} />
+          <label>Password</label>
+          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
 
           <button type="submit">Signup</button>
-          <p>By signing up, you agree to our terms and policies.</p>
-          <p style={{ color: "red" }}>{error}</p>
+          <p style={{ fontSize: "14px", color: "gray", textAlign: "center" }}>
+            By signing up, you agree to our terms and policies.
+          </p>
         </form>
       </div>
 
-      <div>
+      <div className="info">
         <p>Already have an account?</p>
         <NavLink to="/login">Login</NavLink>
-      </div>
-
-      <div>
-        <FaGithub />
-        <a href="https://github.com/therealrinku/instaclone" target="_blank">
-          View on Github
-        </a>
       </div>
     </div>
   );
