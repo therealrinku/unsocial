@@ -7,7 +7,7 @@ import Backdrop from "./Backdrop";
 import overflowToggler from "../utilities/overflowToggler";
 import PostOptModal from "./PostOptModal";
 import placeholderImage from "../assets/placeholder.jpg";
-import lazyLoadImage from "../utilities/lazyLoadImage.js";
+import lazyLoadImage from "../utilities/lazyLoadImage";
 import ProfilePicPlaceholder from "../assets/avatar.jpg";
 import { FiThumbsUp, FiThumbsDown, FiMessageCircle, FiSave, FiShare2, FiMoreHorizontal } from "react-icons/all";
 import { Tooltip } from "@material-ui/core";
@@ -124,7 +124,7 @@ const Post = ({
         <div className="top-div">
           <ul>
             <img
-              data-src={poster_profileImage}
+              data-src={poster_profileImage || ProfilePicPlaceholder}
               src={ProfilePicPlaceholder}
               className="lazy-image"
               onLoad={lazyLoadImage}
@@ -152,7 +152,7 @@ const Post = ({
             className="lazy-image"
             src={placeholderImage}
             alt="post_main_img"
-            data-src={post_image}
+            data-src={post_image || placeholderImage}
             onLoad={lazyLoadImage}
           />
         </Link>

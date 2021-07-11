@@ -13,6 +13,7 @@
     padding: 15px;
     border-radius: 7px;
     width: 500px;
+    border: solid 1px rgba(0, 0, 0, 0.2);
   }
 
   .recommended-users {
@@ -62,5 +63,10 @@
 
   .layout .layout-main {
     width: 100%;
+  }
+
+  .layout .layout-main,
+  .layout .recommended-users {
+    border: none;
   }
 }

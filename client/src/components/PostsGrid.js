@@ -19,7 +19,7 @@ const PostsGrid = ({ userPosts }) => {
                 className="lazy-image"
                 src={placeholderImage}
                 alt={e.status || "post"}
-                data-src={e.post_image}
+                data-src={e.post_image || placeholderImage}
                 onClick={() => history.push(`/p/${e.post_id}`)}
               />
             </Link>

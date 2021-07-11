@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import * as userActions from "../redux/user/userActions";
 import { useEffect } from "react";
 import { FiUserPlus, FiUserMinus } from "react-icons/all";
+import lazyLoadImage from "../utilities/lazyLoadImage";
+import ProfilePicPlaceholder from "../assets/avatar.jpg";
 
 const Recommended = ({ recommendedUsers, currentUserUid, FOLLOW, UNFOLLOW, GET_RECOMMENDED_USERS }) => {
   useEffect(() => {
@@ -18,7 +20,13 @@ const Recommended = ({ recommendedUsers, currentUserUid, FOLLOW, UNFOLLOW, GET_R
         return (
           <div className="recommended--user" key={user.username}>
             <div>
-              <img src={user.profile_image_url} alt="profile_img" />
+              <img
+                src={ProfilePicPlaceholder}
+                onLoad={lazyLoadImage}
+                data-src={user.profile_image_url || ProfilePicPlaceholder}
+                alt="profile_img"
+                className="lazy-image"
+              />
               <NavLink to={`/${user.username}`}>{user.username}</NavLink>
             </div>
 

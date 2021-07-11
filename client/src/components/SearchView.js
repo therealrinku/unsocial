@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { getSearchedUsers } from "../services/userServices";
 import { Link } from "react-router-dom";
+import lazyLoadImage from "../utilities/lazyLoadImage";
+import ProfilePicPlaceholder from "../assets/avatar.jpg";
 
 const SearchView = ({ width }) => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -15,33 +17,36 @@ const SearchView = ({ width }) => {
   }, [searchQuery]);
 
   return (
-    <div
-      className="search--bar-page"
-      style={width ? { width: width, marginLeft: "-9px" } : null}
-    >
+    <div className="search--bar-page" style={width ? { width: width, marginLeft: "-9px" } : null}>
+      <p>Search for the people you know</p>
       <input
         type="text"
-        placeholder="Search"
+        placeholder="Search for users"
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
       />
 
-      <section
-        className="search--bar"
-        style={searchQuery.trim() === "" ? { display: "none" } : null}
-      >
+      <section className="search--bar" style={searchQuery.trim() === "" ? { display: "none" } : null}>
         {searchResults.length >= 1 ? (
           searchResults.map((user) => {
             return (
-              <Link
-                onClick={() => setSearchQuery("")}
-                to={`/${user.username}`}
-                key={user.username}
-                className="searched--user"
-              >
-                <img src={user.profile_image_url} alt="profileimage" />
-                <p>{user.username}</p>
-              </Link>
+              <span key={user.username}>
+                <img
+                  className="lazy-image"
+                  src={ProfilePicPlaceholder}
+                  onLoad={lazyLoadImage}
+                  data-src={user.profile_image_url || ProfilePicPlaceholder}
+                  alt="profileimage"
+                />
+                <Link
+                  onClick={() => setSearchQuery("")}
+                  to={`/${user.username}`}
+                  key={user.username}
+                  className="searched--user"
+                >
+                  <p>{user.username}</p>
+                </Link>
+              </span>
             );
           })
         ) : (

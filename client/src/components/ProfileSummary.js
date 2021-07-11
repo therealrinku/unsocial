@@ -24,7 +24,7 @@ const ProfileSummary = ({
         <section>
           <img
             src={ProfilePicPlaceholder}
-            data-src={profileData.profile_image_url}
+            data-src={profileData.profile_image_url || ProfilePicPlaceholder}
             alt="profile_image"
             onLoad={lazyLoadImage}
             className="lazy-image profile-image"

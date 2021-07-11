@@ -18,7 +18,6 @@ import Backdrop from "../components/Backdrop";
 import EditProfilePage from "../pages/EditProfilePage";
 import MessageViewer from "./MessageViewer";
 import EditPasswordPage from "../pages/EditPasswordPage";
-import Topbar from "./Topbar";
 import Layout from "./Layout";
 
 const App = ({
@@ -46,9 +45,9 @@ const App = ({
         ADD_MESSAGE("Uploading your post. it may take couple of seconds.");
       } else {
         ADD_MESSAGE("Successfully uploaded a post.");
-        setTimeout(() => {
+        /* setTimeout(() => {
           ADD_MESSAGE(null);
-        }, 3000);
+        }, 3000);*/
       }
     }
   }, [uploadingPost]);
