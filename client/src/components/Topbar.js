@@ -1,5 +1,6 @@
 import { FiArrowLeft } from "react-icons/all";
 import { Link, useHistory } from "react-router-dom";
+import SearchView from "./SearchView";
 
 export default function Topbar() {
   const history = useHistory();
@@ -11,6 +12,10 @@ export default function Topbar() {
           <FiArrowLeft />
         </button>
         <Link to="/">Groovy</Link>
+      </section>
+
+      <section>
+        <SearchView/>
       </section>
     </div>
   );

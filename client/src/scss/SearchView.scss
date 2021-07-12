@@ -1,5 +1,5 @@
 .search--bar-page {
-  width: 100%;
+  width: 250px;
   position: relative;
 
   a {
@@ -27,7 +27,8 @@
     outline: none;
     border-radius: 7px;
     padding-left: 7px;
-    width: inherit;
+    width: 100%;
+    box-sizing:border-box;
     border: solid 1px #229954;
   }
 
@@ -43,7 +44,15 @@
     width: inherit;
     background: white;
     border-radius: 7px;
-    margin-top: 2px;
+    margin-top: 4px;
+    position:fixed;
+    max-height:350px;
+    border: solid 1px rgba(0, 0, 0, 0.2);
+    display:flex;
+    flex-direction:column;
+    overflow-y:auto;
+    border-top-right-radius:0px;
+    border-bottom-right-radius:0px;
   }
 
   .nothing--found {

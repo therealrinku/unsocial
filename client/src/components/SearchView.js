@@ -16,7 +16,6 @@ const SearchView = ({ width }) => {
 
   return (
     <div className="search--bar-page" style={width ? { width: width, marginLeft: "-9px" } : null}>
-      <p>Search for the people you know</p>
       <input
         type="text"
         placeholder="Search for users"
@@ -32,7 +31,7 @@ const SearchView = ({ width }) => {
                 <img src={user.profile_image_url} alt="profileimage" />
                 <Link
                   onClick={() => setSearchQuery("")}
-                  to={`/${user.username}`}
+                  to={`/user/${user.username}`}
                   key={user.username}
                   className="searched--user"
                 >

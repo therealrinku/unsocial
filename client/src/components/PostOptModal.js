@@ -25,7 +25,7 @@ const PostOptModal = ({ post_id, isMyPost, toggle, deletePost, AddMessage, showL
       {showDeleteConfirmer ? (
         <div className="delete--confirmer-popup">
           <div>
-            <p>Delete this post?</p>
+            <p style={{color:"tomato",textAlign:"center"}}>Delete this post?</p>
           </div>
 
           <div>
