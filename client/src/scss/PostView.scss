@@ -1,0 +1,140 @@
+.post--view-- {
+  width: 70%;
+  height: 550px;
+  margin: 16vh auto;
+  border: solid 1px rgba(0, 0, 0, 0.2);
+  display: grid;
+  grid-template-columns: 0.65fr 0.35fr;
+  font-family: arial;
+  background: white;
+
+  .date {
+    padding-left: 8px;
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.5);
+  }
+
+  .absolute--bottom {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    border-top: solid 1px rgba(0, 0, 0, 0.2);
+    background: white;
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 10px;
+    margin-bottom: 8px;
+  }
+
+  button {
+    border: none;
+    background: inherit;
+    outline: none;
+  }
+
+  section:first-child {
+    border-right: solid 1px rgba(0, 0, 0, 0.2);
+
+    img {
+      width: 100%;
+      height: 100%;
+      max-height: 550px;
+      object-fit: cover;
+      box-sizing: border-box;
+      display: block;
+    }
+  }
+
+  section:last-child {
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
+
+    .comment--view-section {
+      height: 58%;
+      overflow: hidden;
+      margin: 0;
+    }
+
+    .top--section {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: solid 1px rgba(0, 0, 0, 0.2);
+      height: 60px;
+
+      ul button {
+        font-size: 22px;
+      }
+
+      img {
+        width: 30px;
+        height: 30px;
+        object-fit: cover;
+        margin-right: 10px;
+        border-radius: 50%;
+        margin-left: -30px;
+      }
+
+      ul {
+        display: flex;
+        align-items: center;
+        padding-top: 5px;
+        padding-bottom: 5px;
+      }
+
+      a {
+        font-size: 14px;
+        text-decoration: none;
+        color: black;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+    }
+
+    img {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+  }
+}
+
+.post--card-mobile {
+  display: none;
+}
+
+.comment--view-section--mobile {
+  display: none;
+}
+
+@media (max-width: 1000px) {
+  .post--view-- {
+    width: 90%;
+  }
+}
+
+@media (max-width: 750px) {
+  .post--view-- {
+    display: none;
+  }
+
+  .post--card-mobile {
+    display: block;
+    margin-top: 70px;
+    margin-bottom: 60px;
+  }
+  .comment--view-section--mobile {
+    display: block;
+    margin: auto;
+    margin-bottom: 60px;
+    width: 95vw;
+    margin-top: -50px;
+  }
+}

@@ -11,7 +11,12 @@ const backdropStyles = {
 };
 
 const Backdrop = ({ show, toggle }) => {
-  return <div style={show ? backdropStyles : { display: "none" }} onClick={toggle}></div>;
+  return (
+    <div
+      style={show ? backdropStyles : { display: "none" }}
+      onClick={toggle}
+    ></div>
+  );
 };
 
 export default Backdrop;

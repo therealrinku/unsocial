@@ -1,8 +1,13 @@
 import React, { useState } from "react";
 import { withRouter, useHistory } from "react-router-dom";
-import { FiNavigation, FiThumbsUp, FiTrash, FiClipboard, FiX, FiAlertOctagon, FiEdit, FiEyeOff } from "react-icons/all";
 
-const PostOptModal = ({ post_id, isMyPost, toggle, deletePost, AddMessage, showLikers }) => {
+const PostOptModal = ({
+  post_id,
+  isMyPost,
+  toggle,
+  deletePost,
+  AddMessage,
+}) => {
   const [showDeleteConfirmer, setShowDeleteConfirmer] = useState(false);
   const history = useHistory();
 
@@ -21,61 +26,38 @@ const PostOptModal = ({ post_id, isMyPost, toggle, deletePost, AddMessage, showL
   };
 
   return (
-    <div className="options-modal">
+    <div className="post--options-modal">
       {showDeleteConfirmer ? (
         <div className="delete--confirmer-popup">
           <div>
-            <p style={{color:"tomato",textAlign:"center"}}>Delete this post?</p>
+            <p>Delete Post?</p>
+            <p>Are you sure want to delete this post?</p>
           </div>
 
           <div>
-            <button style={{ color: "tomato" }} onClick={deletePost}>
-              <FiTrash />
-              <p>Delete</p>
+            <button style={{ color: "red" }} onClick={deletePost}>
+              Delete
             </button>
-            <button onClick={toggle}>
-              <FiX />
-              <p>Cancel</p>
-            </button>
+            <button onClick={toggle}>Cancel</button>
           </div>
         </div>
       ) : (
         <div className="post--options">
-          <button onClick={goToPost}>
-            <FiNavigation />
-            <p>Go to post</p>
-          </button>
-          <button onClick={showLikers}>
-            <FiThumbsUp />
-            <p>Show Likers</p>
-          </button>
-          <button style={!isMyPost ? { display: "none" } : null} disabled>
-            <FiEdit />
-            <p>Edit Status(ud)</p>
-          </button>
-          <button style={isMyPost ? { display: "none" } : { color: "tomato" }} onClick={toggle}>
-            <FiAlertOctagon />
-            <p>Report</p>
-          </button>
-          <button onClick={copyToClipBoard} disabled>
-            <FiEyeOff />
-            <p>Hide this post(ud)</p>
+          <button onClick={goToPost}>Go to post</button>
+          <button
+            style={isMyPost ? { display: "none" } : { color: "red" }}
+            onClick={toggle}
+          >
+            Report
           </button>
           <button
-            style={!isMyPost ? { display: "none" } : { color: "tomato" }}
+            style={!isMyPost ? { display: "none" } : { color: "red" }}
             onClick={() => setShowDeleteConfirmer((prev) => !prev)}
           >
-            <FiTrash />
-            <p>Delete</p>
+            Delete
           </button>
-          <button onClick={copyToClipBoard}>
-            <FiClipboard />
-            <p>Copy Link</p>
-          </button>
-          <button onClick={toggle}>
-            <FiX />
-            <p>Cancel</p>
-          </button>
+          <button onClick={copyToClipBoard}>Copy Link</button>
+          <button onClick={toggle}>Cancel</button>
         </div>
       )}
     </div>

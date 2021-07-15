@@ -15,29 +15,33 @@ const SearchView = ({ width }) => {
   }, [searchQuery]);
 
   return (
-    <div className="search--bar-page" style={width ? { width: width, marginLeft: "-9px" } : null}>
+    <div
+      className="search--bar-page"
+      style={width ? { width: width, marginLeft: "-9px" } : null}
+    >
       <input
         type="text"
-        placeholder="Search for users"
+        placeholder="Search"
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
       />
 
-      <section className="search--bar" style={searchQuery.trim() === "" ? { display: "none" } : null}>
+      <section
+        className="search--bar"
+        style={searchQuery.trim() === "" ? { display: "none" } : null}
+      >
         {searchResults.length >= 1 ? (
           searchResults.map((user) => {
             return (
-              <span key={user.username}>
+              <Link
+                onClick={() => setSearchQuery("")}
+                to={`/${user.username}`}
+                key={user.username}
+                className="searched--user"
+              >
                 <img src={user.profile_image_url} alt="profileimage" />
-                <Link
-                  onClick={() => setSearchQuery("")}
-                  to={`/user/${user.username}`}
-                  key={user.username}
-                  className="searched--user"
-                >
-                  <p>{user.username}</p>
-                </Link>
-              </span>
+                <p>{user.username}</p>
+              </Link>
             );
           })
         ) : (

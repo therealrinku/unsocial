@@ -1,3 +1,12 @@
 .homepage {
+  margin-top: 80px;
+  font-family: arial;
   padding-bottom: 30px;
+}
+
+@media (max-width: 750px) {
+  .homepage {
+    padding-left: 0;
+    margin-top: 50px;
+  }
 }

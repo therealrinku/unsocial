@@ -1,4 +1,4 @@
-.unfollow--confirmation-modal {
+.profile--options-modal {
   position: fixed;
   width: 320px;
   height: auto;
@@ -11,20 +11,6 @@
   z-index: 5;
   border-radius: 10px;
 
-  img {
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    display: block;
-    margin: 20px auto;
-    object-fit: cover;
-  }
-
-  p {
-    font-size: 14px;
-    text-align: center;
-  }
-
   button {
     border: none;
     background: inherit;
@@ -32,7 +18,7 @@
     text-align: center;
     width: 100%;
     padding: 15px 0;
-    border-top: solid 1px rgba(0, 0, 0, 0.1);
+    border-bottom: solid 1px rgba(0, 0, 0, 0.1);
     z-index: 2;
   }
 
@@ -40,14 +26,19 @@
     background: rgba(0, 0, 0, 0.2);
   }
 
+  button:first-child {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+
   button:last-child {
-    border-bottom-right-radius: 10px;
     border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
   }
 }
 
 @media (max-width: 400px) {
-  .unfollow--confirmation-modal {
+  .profile--options-modal {
     width: 75vw;
   }
 }

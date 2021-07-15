@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { connect } from "react-redux";
+import MobileNavbar from "../components/MobileNavbar";
+import Navbar from "../components/Navbar";
 import { updateUserData, updateProfilePicture } from "../services/userServices";
 import storage from "../firebase/storage";
 import Compressor from "compressorjs";
@@ -29,7 +31,11 @@ const EditProfilePage = ({
   const updateImage = (e) => {
     const file = e.target.files[0];
     if (file) {
-      if (file.name.slice(file.name.slice(file.name.lastIndexOf("."))).includes("jpg", "png", "jpeg")) {
+      if (
+        file.name
+          .slice(file.name.slice(file.name.lastIndexOf(".")))
+          .includes("jpg", "png", "jpeg")
+      ) {
         setSelectedImage(e.target.files[0]);
       } else {
         ADD_MESSAGE("Image must be on jpg,png or jpeg format.");
@@ -47,7 +53,9 @@ const EditProfilePage = ({
       new Compressor(selectedImage, {
         quality: 0.6,
         success(result) {
-          const uploadedImage = storage.ref(`/profilePics/${currentUserUid}/${result.name}`).put(result);
+          const uploadedImage = storage
+            .ref(`/profilePics/${currentUserUid}/${result.name}`)
+            .put(result);
           uploadedImage.on(
             "state_changed",
             (snapshot) => {},
@@ -80,12 +88,25 @@ const EditProfilePage = ({
     e.preventDefault();
     setUpdating(true);
 
-    if (username === currentUserName && email === currentUserEmail && bio === currentUserBio) {
+    if (
+      username === currentUserName &&
+      email === currentUserEmail &&
+      bio === currentUserBio
+    ) {
       ADD_MESSAGE("Nothing to Update.");
       setUpdating(false);
     } else {
-      if (!username.trim().includes(" ") && username.trim().length >= 5 && username.trim().length <= 25) {
-        updateUserData(username.trim().toLowerCase(), email || "", bio || "", currentUserName).then((res) => {
+      if (
+        !username.trim().includes(" ") &&
+        username.trim().length >= 5 &&
+        username.trim().length <= 25
+      ) {
+        updateUserData(
+          username.trim().toLowerCase(),
+          email || "",
+          bio || "",
+          currentUserName
+        ).then((res) => {
           if (res !== "success") {
             ADD_MESSAGE(res);
           } else {
@@ -107,6 +128,9 @@ const EditProfilePage = ({
 
   return (
     <div className="edit--profile-page">
+      <Navbar />
+      <MobileNavbar />
+
       <section className="section-one">
         <img src={newImage || currentUserProfileImage} alt="profile-image" />
 
@@ -116,12 +140,24 @@ const EditProfilePage = ({
             Change Profile Photo
           </label>
           <label htmlFor="u-btn" style={!newImage ? { display: "none" } : null}>
-            {updatingProfilePicture ? "Updating Profile Picture.." : "Confirm New Profile Photo"}
+            {updatingProfilePicture
+              ? "Updating Profile Picture.."
+              : "Confirm New Profile Photo"}
           </label>
-          <button style={{ display: "none" }} id="u-btn" onClick={updateProfilePictureFinal}>
+          <button
+            style={{ display: "none" }}
+            id="u-btn"
+            onClick={updateProfilePictureFinal}
+          >
             Update Profile Photo
           </button>
-          <input type="file" style={{ display: "none" }} id="image" onChange={updateImage} accept="image/*" />
+          <input
+            type="file"
+            style={{ display: "none" }}
+            id="image"
+            onChange={updateImage}
+            accept="image/*"
+          />
         </div>
       </section>
 
@@ -135,13 +171,21 @@ const EditProfilePage = ({
             onChange={(e) => setUsername(e.target.value)}
           />
           <label htmlFor="email">Email</label>
-          <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
+          <input
+            type="text"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
           <label htmlFor="Bio">Bio</label>
           <textarea type="text" onChange={(e) => setBio(e.target.value)}>
             {bio}
           </textarea>
 
-          <button disabled={updating} className="submit-btn" onClick={updateProfile}>
+          <button
+            disabled={updating}
+            className="submit-btn"
+            onClick={updateProfile}
+          >
             Submit
           </button>
           <Link to="/edit/password">Change Password</Link>
@@ -163,7 +207,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    UPDATE_PROFILE_LOCALLY: (data) => dispatch(userActions.UPDATE_PROFILE_LOCALLY(data)),
+    UPDATE_PROFILE_LOCALLY: (data) =>
+      dispatch(userActions.UPDATE_PROFILE_LOCALLY(data)),
     ADD_MESSAGE: (message) => dispatch(postActions.ADD_MESSAGE(message)),
   };
 };

@@ -1,20 +1,24 @@
-@import "./Sidebar.scss";
+@import "./Navbar.scss";
+@import "./PostOptModal.scss";
 @import "./Post.scss";
-@import "./Topbar.scss";
+@import "./Homepage.scss";
 @import "./UserListModal.scss";
 @import "./PostButton.scss";
 @import "./AddPostModal.scss";
+@import "./MobileNavbar.scss";
 @import "./ProfileSummary.scss";
 @import "./Profilepage.scss";
-@import "./OptionsModal.scss";
+@import "./ProfileOptModal.scss";
 @import "./UnfollowPrompt.scss";
 @import "./ProfileButtonLine.scss";
 @import "./PostsGrid.scss";
 @import "./Loader.scss";
+@import "./PostView.scss";
 @import "./ExplorePage.scss";
 @import "./SearchView.scss";
 @import "./Auth.scss";
 @import "./Recommended.scss";
+@import "./Feed.scss";
 @import "./CommentBox.scss";
 @import "./CommentsView.scss";
 @import "./LoginNeededPrompt.scss";
@@ -22,45 +26,13 @@
 @import "./Activity.scss";
 @import "./MessageViewer.scss";
 @import "./EditPasswordPage.scss";
-@import "./Layout.scss";
 
 body {
   margin: 0;
-  background: whitesmoke;
-  font-family: Inter, Arial, monospace;
-}
-
-@media (max-width: 620px) {
-  body {
-    background: white;
-  }
-}
-
-a,
-button,
-input {
-  font-family: Inter;
+  background: #fafafa;
+  font-family: arial;
 }
 
 button:hover {
   cursor: pointer;
-}
-
-::-webkit-scrollbar {
-  width: 5px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: #229954;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: #589170;
 }

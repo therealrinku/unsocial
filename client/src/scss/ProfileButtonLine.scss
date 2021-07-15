@@ -1,11 +1,14 @@
 .profile--button-line {
-  margin-top: 15px;
+  margin-top: 70px;
+  border-top: solid 1px rgba(0, 0, 0, 0.2);
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 30px;
-  padding: 5px;
-  border-top: solid 1px rgba(0, 0, 0, 0.2);
+
+  div:first-child {
+    display: flex;
+    align-items: center;
+  }
 
   button {
     outline: none;
@@ -13,28 +16,43 @@
     background: inherit;
     display: flex;
     align-items: center;
-    font-size: 17px;
+    margin-right: 20px;
+    font-size: 18px;
+    font-family: inherit;
     text-transform: uppercase;
+    letter-spacing: 2px;
 
     p {
       margin-left: 7px;
-      font-size: 11.5px;
+      font-size: 11px;
     }
   }
 
-  button:first-child {
-    margin-right: 25px;
-  }
-
   .active {
-    color: #229954;
+    border-top: solid 1px black;
   }
 }
 
 @media (max-width: 750px) {
   .profile--button-line {
-    p {
-      display: none;
+    margin-top: -5px;
+    border-top: none;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    border-bottom: solid 1px rgba(0, 0, 0, 0.4);
+
+    .active {
+      border: none;
+      color: blue;
+    }
+
+    button {
+      margin-right: 25px;
+
+      p {
+        display: none;
+      }
     }
   }
 }

@@ -1,6 +1,10 @@
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import placeholderImage from "../assets/placeholder.jpg";
+import lazyLoadImage from "../utilities/lazyLoadImage.js";
 
 const PostsGrid = ({ userPosts }) => {
+  const history = useHistory();
+
   return (
     <div className="posts--grid">
       {userPosts
@@ -9,9 +13,16 @@ const PostsGrid = ({ userPosts }) => {
         })
         .map((e) => {
           return (
-            <Link key={e.post_id} to={`/p/${e.post_id}`}>
-              <img alt={e.status} src={e.post_image} />
-            </Link>
+            <div key={e.post_id}>
+              <img
+                onLoad={lazyLoadImage}
+                className="lazy-image"
+                src={placeholderImage}
+                alt={e.status || "post"}
+                data-src={e.post_image}
+                onClick={() => history.push(`/p/${e.post_id}`)}
+              />
+            </div>
           );
         })}
     </div>

@@ -18,8 +18,6 @@ import Backdrop from "../components/Backdrop";
 import EditProfilePage from "../pages/EditProfilePage";
 import MessageViewer from "./MessageViewer";
 import EditPasswordPage from "../pages/EditPasswordPage";
-import Layout from "./Layout";
-import ActivityPage from "../pages/ActivityPage";
 
 const App = ({
   currentUsername,
@@ -81,27 +79,33 @@ const App = ({
           {showAddPostModal ? (
             <Fragment>
               <Backdrop show={showAddPostModal} toggle={toggleAddPostModal} />
-              <AddPostModal toggle={toggleAddPostModal} selectedImage={selectedImage} />
+              <AddPostModal
+                toggle={toggleAddPostModal}
+                selectedImage={selectedImage}
+              />
             </Fragment>
           ) : null}
 
+          <PostButton
+            setSelectedImage={setSelectedImage}
+            toggleAddPostModal={toggleAddPostModal}
+          />
+
           {message ? <MessageViewer message={message} /> : null}
 
-          <PostButton setSelectedImage={setSelectedImage} toggleAddPostModal={toggleAddPostModal} />
-
           <Switch>
-            {!currentUsername && <Route path="/" exact component={Landingpage} />}
+            <Route
+              path="/"
+              exact
+              component={currentUsername ? Homepage : Landingpage}
+            />
             <Route path="/edit/profile" exact component={EditProfilePage} />
-            <Route path="/edit/password" exact component={EditPasswordPage} />
             <Route path="/login" exact component={Loginpage} />
             <Route path="/signup" exact component={Signuppage} />
-            <Layout>
-              {currentUsername && <Route path="/" exact component={Homepage} />}
-              <Route path="/notifications" exact component={ActivityPage} />
-              <Route path="/explore" exact component={ExplorePage} />
-              <Route path="/user/:username" exact component={Profilepage} />
-              <Route path="/p/:post_id" exact component={PostView} />
-            </Layout>
+            <Route path="/explore" exact component={ExplorePage} />
+            <Route path="/:username" exact component={Profilepage} />
+            <Route path="/p/:post_id" exact component={PostView} />
+            <Route path="/edit/password" exact component={EditPasswordPage} />
           </Switch>
         </Fragment>
       )}

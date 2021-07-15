@@ -1,3 +1,10 @@
 .feed {
-  margin-bottom: 40px;
+  padding-left: 10%;
+  margin-bottom: 50px;
+}
+
+@media (max-width: 750px) {
+  .feed {
+    padding: 0;
+  }
 }

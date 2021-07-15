@@ -1,6 +1,9 @@
-import { FiUserMinus, FiX } from "react-icons/all";
-
-const UnfollowPrompt = ({ UNFOLLOW, toggle, profileImage, profileUsername }) => {
+const UnfollowPrompt = ({
+  UNFOLLOW,
+  toggle,
+  profileImage,
+  profileUsername,
+}) => {
   const unfollow = () => {
     UNFOLLOW();
     toggle();
@@ -9,17 +12,13 @@ const UnfollowPrompt = ({ UNFOLLOW, toggle, profileImage, profileUsername }) => 
     <div className="unfollow--confirmation-modal">
       <div>
         <img src={profileImage} alt="profile_image" />
-        <p style={{ textAlign: "center", fontSize: "15px", color: "tomato" }}>Unfollow {profileUsername}?</p>
+        <p>Unfollow {profileUsername}?</p>
       </div>
 
-      <button style={{ color: "tomato" }} onClick={unfollow}>
-        <FiUserMinus />
-        <p>Unfollow</p>
+      <button style={{ color: "red" }} onClick={unfollow}>
+        Unfollow
       </button>
-      <button onClick={toggle}>
-        <FiX />
-        <p>Cancel</p>
-      </button>
+      <button onClick={toggle}>Cancel</button>
     </div>
   );
 };
