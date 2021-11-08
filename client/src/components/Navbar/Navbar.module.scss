@@ -1,0 +1,47 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: white;
+  height: 50px;
+  border-bottom: solid 1px rgba(0, 0, 0, 0.2);
+  padding: 1px 0;
+  z-index: 4;
+
+  div {
+    width: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+  }
+
+  a {
+    text-decoration: none;
+    color: black;
+  }
+
+  ul {
+    padding: 0;
+    display: flex;
+    align-items: center;
+  }
+
+  ul:last-child a {
+    font-size: 24px;
+  }
+
+  ul:last-child a:not(:first-child) {
+    margin-left: 1.5rem;
+  }
+}
+
+@media (max-width: 700px) {
+  .navbar div {
+    width: 90%;
+  }
+}

@@ -1,0 +1,20 @@
+.PostViewPage {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 80%;
+  margin: auto;
+  margin-top: 80px;
+}
+
+@media (max-width: 1200px) {
+  .PostViewPage {
+    align-items: center;
+  }
+}
+
+@media (max-width: 750px) {
+  .PostViewPage {
+    width: 100%;
+  }
+}

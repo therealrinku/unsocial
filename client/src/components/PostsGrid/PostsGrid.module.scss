@@ -1,0 +1,43 @@
+.Posts-Grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: minmax(1, auto);
+  margin: 0 auto;
+  grid-gap: 50px;
+  border-radius: 5px;
+
+  img:hover {
+    cursor: pointer;
+  }
+
+  div {
+    display: table;
+    position: relative;
+    padding-bottom: 90%;
+    width: 100%;
+    height: 0;
+    overflow: hidden;
+  }
+
+  img {
+    display: table-cell;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    text-align: center;
+    vertical-align: middle;
+    object-fit: cover;
+    width: 90%;
+    height: 90%;
+    border-radius: 5px;
+  }
+}
+
+@media (max-width: 750px) {
+  .Posts-Grid {
+    grid-gap: 5px;
+  }
+}

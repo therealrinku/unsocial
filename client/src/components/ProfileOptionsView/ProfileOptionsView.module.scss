@@ -1,0 +1,32 @@
+.ProfileOptionsView {
+  display: flex;
+  flex-direction: column;
+
+  button {
+    border: none;
+    background: inherit;
+    outline: none;
+    text-align: center;
+    width: 100%;
+    padding: 15px 0;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    padding-left: 35px;
+    border-top: solid 1px rgba(0, 0, 0, 0.2);
+    font-size: 18px;
+
+    p {
+      margin-left: 8px;
+      font-size: 15px;
+    }
+  }
+
+  button:last-child {
+    border-bottom: solid 1px rgba(0, 0, 0, 0.2);
+  }
+
+  button:hover {
+    background: rgba(0, 0, 0, 0.08);
+  }
+}

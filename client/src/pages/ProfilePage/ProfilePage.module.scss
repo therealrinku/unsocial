@@ -1,0 +1,19 @@
+.ProfilePage {
+  width: 80%;
+  margin: auto;
+  margin-top: 80px;
+  font-family: arial;
+
+  .PostsGrid {
+    background: white;
+    padding: 10px;
+    margin: 25px 0;
+    border-radius: 5px;
+  }
+}
+
+@media (max-width: 750px) {
+  .ProfilePage {
+    width: 95%;
+  }
+}

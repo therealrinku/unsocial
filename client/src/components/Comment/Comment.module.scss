@@ -1,0 +1,41 @@
+.Comment {
+  display: flex;
+  align-items: flex-start;
+  font-family: Inter;
+
+  button {
+    border: none;
+    background: inherit;
+    outline: none;
+  }
+
+  p {
+    font-size: 13px;
+  }
+
+  a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  .Username {
+    margin-right: 5px;
+    word-break: break-all;
+  }
+
+  img {
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    margin-right: 10px;
+    border-radius: 50%;
+    margin-left: -30px;
+    margin: 0 5px;
+    margin-top: 6px;
+  }
+}
