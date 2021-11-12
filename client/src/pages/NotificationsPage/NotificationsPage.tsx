@@ -62,6 +62,8 @@ const NotificationsPage = ({ currentUserUid }: NotificationsPageTypes) => {
                     {noti.username}{" "}
                     {noti.notification === "like post"
                       ? " liked your post."
+                      : noti.notification === "dislike post"
+                      ? " disliked your post."
                       : noti.notification === "like comment"
                       ? " liked your comment."
                       : noti.notification === "comment added"
