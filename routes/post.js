@@ -179,6 +179,44 @@ router.post("/like", (req, res) => {
   );
 });
 
+//undislike post
+router.post("/undislike", (req, res) => {
+  db.query(
+    `UPDATE posts SET dislikers=array_remove(dislikers,'${req.body.undisliker_uid}') WHERE post_uid='${req.body.post_uid}'`,
+    (err, _) => {
+      if (!err) res.send("done");
+      else throw err;
+
+      db.query(
+        `DELETE FROM notifications WHERE interactor_uid='${req.body.undisliker_uid}' 
+        AND post_uid='${req.body.post_uid}'
+        AND notification='dislike post'`
+      );
+    }
+  );
+});
+
+//dislike post
+router.post("/dislike", (req, res) => {
+  db.query(
+    `UPDATE posts SET dislikers=array_append(dislikers,'${req.body.disliker_uid}') WHERE post_uid='${req.body.post_uid}'`,
+    (err, _) => {
+      if (!err) res.send("done");
+      else throw err;
+
+      if (req.body.disliker_uid !== req.body.post_owner_uid) {
+        db.query(
+          `INSERT INTO notifications(notification,owner_uid,interactor_uid,post_uid,date)
+              VALUES('dislike post',
+              '${req.body.post_owner_uid}','${req.body.disliker_uid}','${
+            req.body.post_uid
+          }','${new Date()}')`
+        );
+      }
+    }
+  );
+});
+
 //getFeed
 router.get("/feed/:user_uid", (req, res) => {
   db.query(

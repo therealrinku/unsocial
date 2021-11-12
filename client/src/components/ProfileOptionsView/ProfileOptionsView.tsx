@@ -47,7 +47,7 @@ const ProfileOptionsView = ({
             </button>
             <button onClick={LOGOUT} style={{ color: "tomato" }}>
               <FiArrowDownLeft />
-              <p>Log Out</p>
+              <p>Log out</p>
             </button>
           </>
         )}
@@ -55,7 +55,7 @@ const ProfileOptionsView = ({
         {!isMyProfile && (
           <button style={{ color: "tomato" }}>
             <FiAlertCircle />
-            <p>Report This User</p>
+            <p>Report this user</p>
           </button>
         )}
 

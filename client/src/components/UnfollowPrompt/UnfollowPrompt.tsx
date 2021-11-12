@@ -28,7 +28,7 @@ const UnfollowPrompt = ({
 
         <button style={{ color: "tomato" }} onClick={unfollow}>
           <FiUserMinus />
-          <p>Unfollow</p>
+          <p>Unfollow {profileUsername}</p>
         </button>
         <button onClick={toggle}>
           <FiX />

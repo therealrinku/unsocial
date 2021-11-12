@@ -52,21 +52,15 @@ const PostViewPage = ({
   token,
 }: PostViewPageTypes) => {
   const [showLoginNeededPrompt, setShowLoginNeededPrompt] = useState(false);
-
-  //checking image is loaded
-  const [imageIsLoaded, setImageIsLoaded] = useState(false);
+  const post_id = match.params.post_id;
+  const currentPost = posts.filter((post: any) => post.post_id === post_id);
+  const thisPostComments = currentPost[0]?.comments;
+  const post_uid = currentPost[0]?.post_uid;
 
   const toggleModal = (setModal: any) => {
     setModal((prev: any) => !prev);
     overflowToggler();
   };
-
-  const post_id = match.params.post_id;
-  const currentPost = posts.filter((post: any) => post.post_id === post_id);
-
-  const thisPostComments = currentPost[0]?.comments;
-
-  const post_uid = currentPost[0]?.post_uid;
 
   const getComments = () => {
     if (!thisPostComments) {
@@ -150,15 +144,17 @@ const PostViewPage = ({
             }
           />
 
-          <CommentsView
-            comments={thisPostComments || []}
-            likeUnlikeComment={likeUnlikeComment}
-            currentUserUid={currentUserUid}
-            deleteComment={deleteComment}
-            currentUsername={currentUsername}
-            getCommentLikers={getCommentLikers}
-            gettingCommentLikers={gettingCommentLikers}
-          />
+          {thisPostComments !== undefined && (
+            <CommentsView
+              comments={thisPostComments || []}
+              likeUnlikeComment={likeUnlikeComment}
+              currentUserUid={currentUserUid}
+              deleteComment={deleteComment}
+              currentUsername={currentUsername}
+              getCommentLikers={getCommentLikers}
+              gettingCommentLikers={gettingCommentLikers}
+            />
+          )}
         </div>
       )}
 

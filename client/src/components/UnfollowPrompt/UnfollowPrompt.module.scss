@@ -26,7 +26,6 @@
     padding: 15px 0;
     padding-left: 35px;
     font-size: 14px;
-    border-top: solid 1px rgba(0, 0, 0, 0.2);
     height: 45px;
     font-size: 18px;
 
@@ -36,17 +35,7 @@
     }
   }
 
-  button:last-child {
-    border-bottom: solid 1px rgba(0, 0, 0, 0.2);
-  }
-
   button:hover {
     background: rgba(0, 0, 0, 0.08);
-  }
-}
-
-@media (max-width: 400px) {
-  .UnfollowPrompt {
-    width: 75vw;
   }
 }

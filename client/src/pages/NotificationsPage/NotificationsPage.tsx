@@ -5,6 +5,9 @@ import clearNotification from "../../utilities/clearNotification";
 import styles from "./NotificationsPage.module.scss";
 import server_url from "../../server_url";
 import { connect } from "react-redux";
+import placeholderImage from "../../assets/placeholder.jpg";
+import lazyLoadImage from "../../utilities/lazyLoadImage.js";
+import ProfilePicPlaceholder from "../../assets/avatar.jpg";
 
 type NotificationsPageTypes = {
   currentUserUid: string;
@@ -49,9 +52,11 @@ const NotificationsPage = ({ currentUserUid }: NotificationsPageTypes) => {
                   }
                 >
                   <img
-                    src={noti.profile_image_url}
+                    data-src={noti.profile_image_url}
+                    src={ProfilePicPlaceholder}
+                    className={`lazy-image ${styles.ProfilePic}`}
+                    onLoad={lazyLoadImage}
                     alt="profile-pc"
-                    className={styles.ProfilePic}
                   />
                   <p>
                     {noti.username}{" "}
@@ -69,9 +74,11 @@ const NotificationsPage = ({ currentUserUid }: NotificationsPageTypes) => {
 
                   {noti.post_image && (
                     <img
-                      src={noti.post_image}
+                      data-src={noti.post_image}
+                      src={placeholderImage}
+                      className={`lazy-image ${styles.PostImage}`}
+                      onLoad={lazyLoadImage}
                       alt="profile-pc"
-                      className={styles.PostImage}
                     />
                   )}
                 </div>

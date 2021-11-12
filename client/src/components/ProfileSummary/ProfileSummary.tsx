@@ -50,7 +50,7 @@ const ProfileSummary = ({
           />
 
           <p className={styles.username}>{profileData.username}</p>
-          <p>{profileData.bio}</p>
+          <p style={{ fontSize: "15px" }}>{profileData.bio}</p>
 
           <div className={styles.UserSummary}>
             <button>{profileData.posts_count} posts</button>
