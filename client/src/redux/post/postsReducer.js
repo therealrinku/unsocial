@@ -213,31 +213,31 @@ const postsReducer = (state = initial_state, action) => {
       };
 
     case postActionTypes.DISLIKE_POST:
-      const postsCopyA = [...state.posts];
-      const indexToUpdateA = postsCopyA.findIndex(
+      const postsCopyDI = [...state.posts];
+      const indexToUpdateDI = postsCopyDI.findIndex(
         (post) => post.post_uid === action.payload.post_uid
       );
-      postsCopyA[indexToUpdateA].disliked_by_me = true;
-      postsCopyA[indexToUpdateA].post_dislikes_count =
-        postsCopyA[indexToUpdateA].post_dislikes_count + 1;
+      postsCopyDI[indexToUpdateDI].disliked_by_me = true;
+      postsCopyDI[indexToUpdateDI].post_dislikes_count =
+        postsCopyDI[indexToUpdateDI].post_dislikes_count + 1;
 
       return {
         ...state,
-        posts: postsCopyA,
+        posts: postsCopyDI,
       };
 
     case postActionTypes.UNDISLIKE_POST:
-      const postsCopyB = [...state.posts];
-      const indexToUpdateB = postsCopyB.findIndex(
+      const postsCopyUNDI = [...state.posts];
+      const indexToUpdateUNDI = postsCopyUNDI.findIndex(
         (post) => post.post_uid === action.payload.post_uid
       );
-      postsCopyB[indexToUpdateB].disliked_by_me = false;
-      postsCopyB[indexToUpdateB].post_dislikes_count =
-        postsCopyB[indexToUpdateB].post_dislikes_count - 1;
+      postsCopyUNDI[indexToUpdateUNDI].disliked_by_me = false;
+      postsCopyUNDI[indexToUpdateUNDI].post_dislikes_count =
+        postsCopyUNDI[indexToUpdateUNDI].post_dislikes_count - 1;
 
       return {
         ...state,
-        posts: postsCopyB,
+        posts: postsCopyUNDI,
       };
 
     case postActionTypes.SAVE_POST:

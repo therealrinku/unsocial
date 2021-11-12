@@ -28,6 +28,7 @@ router.get("/getpost/:post_id/:current_user_uid", (req, res) => {
     profile_image_url as poster_profileImage,
     image_url as post_image,
     array_length(likers,1) as post_likes_count,
+    array_length(dislikers,1) as post_dislikes_count,
     posted_date as post_posted_date,
     status as post_status
     FROM posts INNER JOIN users ON (posts.owner_uid)=(users.uid)::text 
@@ -235,6 +236,7 @@ router.get("/feed/:user_uid", (req, res) => {
     image_url as post_image,
     owner_uid as poster_uid,
     array_length(likers,1) as post_likes_count,
+    array_length(dislikers,1) as post_dislikes_count,
     posted_date as post_posted_date,
     status as post_status
     FROM posts INNER JOIN users ON (posts.owner_uid)=(users.uid)::text 

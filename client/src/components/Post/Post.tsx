@@ -191,7 +191,10 @@ const Post = ({
             <p>{post_likesCount === null ? 0 : post_likesCount}</p>
           </button>
 
-          <button onClick={dislikeUndislikePost}>
+          <button
+            onClick={dislikeUndislikePost}
+            style={haveIDisliked ? { color: "tomato" } : undefined}
+          >
             <FiThumbsDown />
             <p>{post_dislikesCount === null ? 0 : post_dislikesCount}</p>
           </button>

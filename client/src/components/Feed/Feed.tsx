@@ -21,12 +21,14 @@ const Feed = ({ posts }: FeedTypes) => {
               key={post.post_uid}
               post_id={post.post_id}
               haveILiked={post.liked_by_me}
+              haveIDisliked={post.disliked_by_me}
               post_uid={post.post_uid}
               poster_username={post.poster_username}
               poster_profileImage={post.poster_profileimage}
               post_image={post.post_image}
               post_postedDate={post.post_posted_date}
               post_likesCount={post.post_likes_count}
+              post_dislikesCount={post.post_dislikes_count}
               post_status={post.post_status}
               post_owner_uid={post.poster_uid}
               post_commentsCount={post.post_comments_count}
