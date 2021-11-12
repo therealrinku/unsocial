@@ -17,6 +17,7 @@ router.get("/getpost/:post_id/:current_user_uid", (req, res) => {
   db.query(
     `SELECT 
     '${req.params.current_user_uid}' = ANY (likers) AS liked_by_me,
+    '${req.params.current_user_uid}' = ANY (dislikers) AS disliked_by_me,
     (post_uid)::text=ANY(SELECT unnest(saved_posts_uids) FROM users WHERE uid='${req.params.current_user_uid}') 
     AS i_have_saved,
     (SELECT CAST(COUNT(*) AS int) FROM comments WHERE (post_uid)::uuid=posts.post_uid) AS post_comments_count,
@@ -116,6 +117,8 @@ router.get("/likers/:post_uid", (req, res) => {
     }
   );
 });
+
+//get dislikers not created yet lol
 
 //unsave post
 router.post("/unsave", (req, res) => {
@@ -222,6 +225,7 @@ router.get("/feed/:user_uid", (req, res) => {
   db.query(
     `SELECT 
     '${req.params.user_uid}' = ANY (likers) AS liked_by_me,
+    '${req.params.user_uid}' = ANY (dislikers) AS disliked_by_me,
     (post_uid)::text=ANY(SELECT unnest(saved_posts_uids) FROM users WHERE uid='${req.params.user_uid}') AS i_have_saved,
     (SELECT CAST(COUNT(*) AS int) FROM comments WHERE (post_uid)::uuid=posts.post_uid) AS post_comments_count,
     post_uid,username as poster_username,

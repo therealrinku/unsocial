@@ -48,6 +48,34 @@ export const fetchFeed = async (user_uid) => {
   }
 };
 
+export const dislikePost = async (post_uid, disliker_uid, post_owner_uid) => {
+  try {
+    await axios.post(server_url + "/post/dislike", {
+      post_uid,
+      disliker_uid,
+      post_owner_uid,
+    });
+  } catch (err) {
+    throw new Error(err.message);
+  }
+};
+
+export const undislikePost = async (
+  post_uid,
+  undisliker_uid,
+  post_owner_uid
+) => {
+  try {
+    await axios.post(server_url + "/post/undislike", {
+      post_uid,
+      undisliker_uid,
+      post_owner_uid,
+    });
+  } catch (err) {
+    throw new Error(err.message);
+  }
+};
+
 export const likePost = async (post_uid, liker_uid, post_owner_uid) => {
   try {
     await axios.post(server_url + "/post/like", {

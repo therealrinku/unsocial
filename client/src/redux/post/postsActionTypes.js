@@ -26,6 +26,8 @@ const postActionTypes = {
   UPLOADING_POST: "UPLOADING_POST",
   UPLOAD_POST: "UPLOAD_POST",
   ADD_MESSAGE: "ADD_MESSAGE",
+  DISLIKE_POST: "DISLIKE_POST",
+  UNDISLIKE_POST: "UNDISLIKE_POST",
 };
 
 export default postActionTypes;

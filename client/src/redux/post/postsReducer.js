@@ -212,6 +212,34 @@ const postsReducer = (state = initial_state, action) => {
         posts: postsCopyB,
       };
 
+    case postActionTypes.DISLIKE_POST:
+      const postsCopyA = [...state.posts];
+      const indexToUpdateA = postsCopyA.findIndex(
+        (post) => post.post_uid === action.payload.post_uid
+      );
+      postsCopyA[indexToUpdateA].disliked_by_me = true;
+      postsCopyA[indexToUpdateA].post_dislikes_count =
+        postsCopyA[indexToUpdateA].post_dislikes_count + 1;
+
+      return {
+        ...state,
+        posts: postsCopyA,
+      };
+
+    case postActionTypes.UNDISLIKE_POST:
+      const postsCopyB = [...state.posts];
+      const indexToUpdateB = postsCopyB.findIndex(
+        (post) => post.post_uid === action.payload.post_uid
+      );
+      postsCopyB[indexToUpdateB].disliked_by_me = false;
+      postsCopyB[indexToUpdateB].post_dislikes_count =
+        postsCopyB[indexToUpdateB].post_dislikes_count - 1;
+
+      return {
+        ...state,
+        posts: postsCopyB,
+      };
+
     case postActionTypes.SAVE_POST:
       const postsCopyC = [...state.posts];
       const indexToUpdateC = postsCopyC.findIndex(
