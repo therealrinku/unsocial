@@ -21,6 +21,7 @@ type PostTypes = {
   post_commentsCount: number;
   post_image: string;
   post_likesCount: number;
+  post_dislikesCount: number;
   post_postedDate: string;
   post_status: string;
   post_id: string;
@@ -30,11 +31,14 @@ type PostTypes = {
   poster_username: string;
   haveISaved: boolean;
   haveILiked: boolean;
+  haveIDisliked: boolean;
   currentUsername: string;
   currentUserUid: string;
   currentUserProfileimage: string;
   LIKE_POST: any;
   UNLIKE_POST: any;
+  DISLIKE_POST: any;
+  UNDISLIKE_POST: any;
   UNSAVE_POST: any;
   SAVE_POST: any;
   GET_LIKERS: any;
@@ -50,6 +54,7 @@ const Post = ({
   post_commentsCount,
   post_image,
   post_likesCount,
+  post_dislikesCount,
   post_postedDate,
   post_status,
   post_id,
@@ -59,11 +64,14 @@ const Post = ({
   poster_username,
   haveISaved,
   haveILiked,
+  haveIDisliked,
   currentUsername,
   currentUserUid,
   currentUserProfileimage,
   LIKE_POST,
   UNLIKE_POST,
+  DISLIKE_POST,
+  UNDISLIKE_POST,
   UNSAVE_POST,
   SAVE_POST,
   GET_LIKERS,
@@ -87,7 +95,25 @@ const Post = ({
       if (haveILiked) {
         UNLIKE_POST(post_uid, currentUserUid, post_owner_uid);
       } else {
+        if (haveIDisliked) {
+          UNDISLIKE_POST(post_uid, currentUserUid, post_owner_uid);
+        }
         LIKE_POST(post_uid, currentUserUid, post_owner_uid);
+      }
+    } else {
+      toggleLoginPrompt();
+    }
+  };
+
+  const dislikeUndislikePost = () => {
+    if (currentUsername) {
+      if (haveIDisliked) {
+        UNDISLIKE_POST(post_uid, currentUserUid, post_owner_uid);
+      } else {
+        if (haveILiked) {
+          UNLIKE_POST(post_uid, currentUserUid, post_owner_uid);
+        }
+        DISLIKE_POST(post_uid, currentUserUid, post_owner_uid);
       }
     } else {
       toggleLoginPrompt();
@@ -100,18 +126,18 @@ const Post = ({
     } else {
       SAVE_POST(post_uid, currentUsername);
     }
-  };*/
-
-  const toggleModal = (setShowModal: any) => {
-    overflowToggler();
-    setShowModal((prev: any) => !prev);
   };
-
+  
   const getLikers = () => {
     toggleModal(setShowLikers);
     if (!thisPostLikers) {
       GET_LIKERS(post_uid);
     }
+  };*/
+
+  const toggleModal = (setShowModal: any) => {
+    overflowToggler();
+    setShowModal((prev: any) => !prev);
   };
 
   const deletePost = () => {
@@ -165,9 +191,9 @@ const Post = ({
             <p>{post_likesCount === null ? 0 : post_likesCount}</p>
           </button>
 
-          <button>
+          <button onClick={dislikeUndislikePost}>
             <FiThumbsDown />
-            <p>0</p>
+            <p>{post_dislikesCount === null ? 0 : post_dislikesCount}</p>
           </button>
 
           <button onClick={() => history.push(`/p/${post_id}`)}>
@@ -253,6 +279,12 @@ const mapDispatchToProps = (dispatch: any) => {
       dispatch(postsActions.LIKE_POST(post_uid, liker_uid, post_owner_uid)),
     UNLIKE_POST: (post_uid: any, unliker_uid: any) =>
       dispatch(postsActions.UNLIKE_POST(post_uid, unliker_uid)),
+    DISLIKE_POST: (post_uid: any, disliker_uid: any, post_owner_uid: any) =>
+      dispatch(
+        postsActions.DISLIKE_POST(post_uid, disliker_uid, post_owner_uid)
+      ),
+    UNDISLIKE_POST: (post_uid: any, undisliker_uid: any) =>
+      dispatch(postsActions.UNDISLIKE_POST(post_uid, undisliker_uid)),
   };
 };
 
