@@ -1,6 +1,6 @@
 import Feed from "../../components/Feed";
 import { connect } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, Fragment } from "react";
 import Loader from "../../components/Loader";
 import * as postsActions from "../../redux/post/postsActions";
 import { FiMeh } from "react-icons/fi";
@@ -31,22 +31,27 @@ const Homepage = ({
   const history = useHistory();
 
   return (
-    <div className={styles.Homepage}>
-      {loading ? <Loader /> : null}
-      {feed.length > 0 && !loading ? (
-        <Feed posts={feed} />
-      ) : (
-        <div className={styles.meh}>
-          <span>
-            <FiMeh />
-          </span>
-          <p>Follow people to start seeing their posts.</p>
-          <button onClick={() => history.push("/explore")}>
-            Find people to follow
-          </button>
+    <Fragment>
+      {loading && <Loader fullPage />}
+
+      {!loading && (
+        <div className={styles.Homepage}>
+          {feed.length < 0 ? (
+            <div className={styles.meh}>
+              <span>
+                <FiMeh />
+              </span>
+              <p>Follow people to start seeing their posts.</p>
+              <button onClick={() => history.push("/explore")}>
+                Find people to follow
+              </button>
+            </div>
+          ) : (
+            <Feed posts={feed} />
+          )}
         </div>
       )}
-    </div>
+    </Fragment>
   );
 };
 
