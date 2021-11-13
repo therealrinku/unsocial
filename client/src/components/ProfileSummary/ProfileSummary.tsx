@@ -34,7 +34,7 @@ const ProfileSummary = ({
       <div className={styles.ProfileSummary}>
         <img
           src={ProfilePicPlaceholder}
-          data-src={`https://picsum.photos/seed/${Math.random()}/200/300`}
+          data-src="https://i.picsum.photos/id/467/200/300.jpg?hmac=sQK5ibuk2pXpFclSCs5TxY7X9hsRsRbb4r5JhWqRErc"
           alt="cover-image"
           onLoad={lazyLoadImage}
           className={`lazy-image ${styles.CoverImage}`}
