@@ -72,10 +72,10 @@ const NotificationsPage = ({ currentUserUid }: NotificationsPageTypes) => {
                       : noti.notification === "follow"
                       ? "started following you."
                       : ""}
-                    <b style={{ color: "grey" }}>
+                    <i>
                       {" "}
                       <Moment fromNow>{noti.date}</Moment>
-                    </b>
+                    </i>
                   </p>
 
                   {noti.post_image && (
