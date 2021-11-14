@@ -58,11 +58,13 @@ const Comment = ({
         />
 
         <div style={{ display: "flex", flexDirection: "column" }}>
-          <div>
-            <p className={styles.Username}>
+          <div style={{ display: "flex", alignItems: "flex-start" }}>
+            <p style={{ fontWeight: "bold" }}>
               <NavLink to={`/${comment.poster_username}`}>
                 {comment.poster_username}
-              </NavLink>{" "}
+              </NavLink>
+            </p>
+            <p style={{ wordBreak: "break-all", marginLeft: "5px" }}>
               {comment.comment}
             </p>
           </div>
@@ -71,10 +73,10 @@ const Comment = ({
             style={{
               display: "flex",
               alignItems: "center",
-              marginTop: "-15px",
+              marginTop: "-18px",
             }}
           >
-            <p style={{ marginRight: "4px" }}>
+            <p style={{ marginRight: "5px" }}>
               <Moment fromNow>{comment.posted_date}</Moment>
             </p>
             &#183;
