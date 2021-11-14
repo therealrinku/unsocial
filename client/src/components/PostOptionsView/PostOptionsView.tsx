@@ -35,7 +35,7 @@ const PostOptionsView = ({
 
   const copyToClipBoard = () => {
     toggle();
-    navigator.clipboard.writeText(`https://instacloone.web.app/p/${post_id}`);
+    navigator.clipboard.writeText(`https://uns0cial.web.app/p/${post_id}`);
     AddMessage("Link successfully copied to clipboard.");
     setTimeout(() => {
       AddMessage(null);
