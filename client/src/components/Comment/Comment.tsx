@@ -5,6 +5,7 @@ import Backdrop from "./../Backdrop";
 import UserListView from "./../UserListView";
 import lazyLoadImage from "../../utilities/lazyLoadImage.js";
 import ProfilePicPlaceholder from "../../assets/avatar.jpg";
+import Moment from "react-moment";
 import styles from "./Comment.module.scss";
 
 type CommentTypes = {
@@ -73,11 +74,15 @@ const Comment = ({
               marginTop: "-15px",
             }}
           >
-            <p>1h</p>
+            <p style={{ marginRight: "4px" }}>
+              <Moment fromNow>{comment.posted_date}</Moment>
+            </p>
+            &#183;
             <button onClick={loadCommentLikers}>
               {comment.comment_likes_count || 0}{" "}
               {comment.comment_likes_count === 1 ? "like" : "likes"}
             </button>
+            &#183;
             <button
               onClick={() =>
                 likeUnlikeComment(
@@ -88,6 +93,7 @@ const Comment = ({
             >
               {comment.liked_by_me ? "unlike" : "like"}
             </button>
+            &#183;
             <button
               style={
                 currentUserUid === comment.post_owner_uid ||

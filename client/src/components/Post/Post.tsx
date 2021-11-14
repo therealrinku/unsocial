@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import * as postsActions from "../../redux/post/postsActions";
 import UserListView from "../UserListView";
+import Moment from "react-moment";
 import {
   FiThumbsUp,
   FiThumbsDown,
@@ -159,7 +160,9 @@ const Post = ({
             />
             <Link to={`/user/${poster_username}`}>{poster_username}</Link>
             &#183;
-            <p>7min</p>
+            <p>
+              <Moment fromNow>{post_postedDate}</Moment>
+            </p>
           </span>
 
           <button onClick={() => toggleModal(setShowPostOptionsModal)}>

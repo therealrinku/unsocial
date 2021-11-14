@@ -8,6 +8,7 @@ import { connect } from "react-redux";
 import placeholderImage from "../../assets/placeholder.jpg";
 import lazyLoadImage from "../../utilities/lazyLoadImage.js";
 import ProfilePicPlaceholder from "../../assets/avatar.jpg";
+import Moment from "react-moment";
 
 type NotificationsPageTypes = {
   currentUserUid: string;
@@ -71,7 +72,10 @@ const NotificationsPage = ({ currentUserUid }: NotificationsPageTypes) => {
                       : noti.notification === "follow"
                       ? "started following you."
                       : ""}
-                    <b style={{ color: "grey" }}>{noti.date}</b>
+                    <b style={{ color: "grey" }}>
+                      {" "}
+                      <Moment fromNow>{noti.date}</Moment>
+                    </b>
                   </p>
 
                   {noti.post_image && (
