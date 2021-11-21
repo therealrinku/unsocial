@@ -36,7 +36,7 @@ const PostOptionsView = ({
   const copyToClipBoard = () => {
     toggle();
     navigator.clipboard.writeText(`https://uns0cial.web.app/p/${post_id}`);
-    AddMessage("Link successfully copied to clipboard.");
+    AddMessage("Post link copied.");
     setTimeout(() => {
       AddMessage(null);
     }, 3000);
