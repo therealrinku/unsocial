@@ -79,12 +79,12 @@ const Comment = ({
             <p style={{ marginRight: "5px" }}>
               <Moment fromNow>{comment.posted_date}</Moment>
             </p>
-            &#183;
+            <span>&#183;</span>
             <button onClick={loadCommentLikers}>
               {comment.comment_likes_count || 0}{" "}
               {comment.comment_likes_count === 1 ? "like" : "likes"}
             </button>
-            &#183;
+            <span>&#183;</span>
             <button
               onClick={() =>
                 likeUnlikeComment(
@@ -95,7 +95,7 @@ const Comment = ({
             >
               {comment.liked_by_me ? "unlike" : "like"}
             </button>
-            &#183;
+            <span>&#183;</span>
             <button
               style={
                 currentUserUid === comment.post_owner_uid ||
