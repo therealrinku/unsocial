@@ -95,18 +95,17 @@ const Comment = ({
             >
               {comment.liked_by_me ? "unlike" : "like"}
             </button>
-            <span>&#183;</span>
-            <button
-              style={
-                currentUserUid === comment.post_owner_uid ||
-                currentUsername === comment.poster_username
-                  ? { color: "red" }
-                  : { display: "none" }
-              }
-              onClick={() => deleteComment(comment.comment_uid)}
-            >
-              delete
-            </button>
+            {currentUserUid === comment.post_owner_uid && (
+              <>
+                <span>&#183;</span>
+                <button
+                  style={{ color: "red" }}
+                  onClick={() => deleteComment(comment.comment_uid)}
+                >
+                  delete
+                </button>
+              </>
+            )}
           </div>
         </div>
       </div>
