@@ -1,7 +1,6 @@
 import { ReactEventHandler } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../Logo";
-import Loader from "../Loader";
 import styles from "./Form.module.scss";
 
 type Form = {
@@ -80,7 +79,7 @@ export default function Form({
                 justifyContent: "center",
               }}
             >
-              <Loader />
+              ...
             </span>
           )}
         </button>

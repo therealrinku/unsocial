@@ -135,7 +135,7 @@ const Profilepage = ({
             FOLLOW={follow}
             LOAD_FOLLOWERS={LOAD_FOLLOWERS}
             LOAD_FOLLOWINGS={LOAD_FOLLOWINGS}
-          />
+         />  
 
           {profileData[0].posts.length > 0 && (
             <section className={styles.PostsGrid}>
