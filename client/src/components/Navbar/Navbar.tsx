@@ -1,21 +1,53 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useState, useRef } from "react";
 import { connect } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import Badge from "@material-ui/core/Badge";
 import firestore from "../../firebase/firestore";
 import Logo from "../Logo";
-import { FiHome, FiSearch, FiBell, FiUser,FiX } from "react-icons/fi";
+import { FiHome, FiSearch, FiBell, FiUser, FiX } from "react-icons/fi";
 import SearchUsers from "../SearchUsers";
+import lazyLoadImage from "../../utilities/lazyLoadImage.js";
+import ProfilePicPlaceholder from "../../assets/avatar.jpg";
+import * as userActions from "../../redux/user/userActions";
+import ProfileOptionsModal from "../ProfileOptionsModal";
 import styles from "./Navbar.module.scss";
 
 type NavbarTypes = {
   currentUsername: string;
   currentUserUid: string;
+  currentUserProfileImage: string;
+  LOGOUT: Function;
 };
 
-const Navbar = ({ currentUsername, currentUserUid }: NavbarTypes) => {
+function useOutsideAlerter(ref: any, toggle: any) {
+  useEffect(() => {
+    function handleClickOutside(event: any) {
+      if (ref.current && !ref.current.contains(event.target)) {
+        toggle();
+      }
+    }
+
+    // Bind the event listener
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      // Unbind the event listener on clean up
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [ref]);
+}
+
+const Navbar = ({
+  currentUsername,
+  currentUserUid,
+  currentUserProfileImage,
+  LOGOUT,
+}: NavbarTypes) => {
   const [notificationsCount, setNotificationsCount] = useState(0);
+
   const [showSearchBox, setShowSearchBox] = useState(false);
+  const [showProfileOptions, setShowProfileOptions] = useState(false);
+
+  const history = useHistory();
 
   useEffect(() => {
     if (currentUserUid) {
@@ -31,6 +63,15 @@ const Navbar = ({ currentUsername, currentUserUid }: NavbarTypes) => {
         });
     }
   }, []);
+
+  const Logout = () => {
+    LOGOUT();
+    history.push("/");
+    localStorage.removeItem("token");
+  };
+
+  const wrapperRef = useRef(null);
+  useOutsideAlerter(wrapperRef, () => setShowProfileOptions(false));
 
   return (
     <nav className={styles.navbar}>
@@ -50,7 +91,10 @@ const Navbar = ({ currentUsername, currentUserUid }: NavbarTypes) => {
                     <FiHome />
                   </NavLink>
 
-                  <button onClick={() => setShowSearchBox(true)}>
+                  <button
+                    onClick={() => setShowSearchBox(true)}
+                    className={styles.SearchButton}
+                  >
                     <FiSearch />
                   </button>
 
@@ -68,13 +112,28 @@ const Navbar = ({ currentUsername, currentUserUid }: NavbarTypes) => {
                     </Badge>
                   </NavLink>
 
-                  <NavLink
-                    to={`/user/${currentUsername}`}
-                    exact
-                    activeStyle={{ color: "tomato" }}
-                  >
-                    <FiUser />
-                  </NavLink>
+                  <div ref={wrapperRef} style={{ position: "relative" }}>
+                    <button
+                      onClick={() => setShowProfileOptions((prev) => !prev)}
+                      className={styles.ProfileOptionsButton}
+                    >
+                      <img
+                        data-src={currentUserProfileImage}
+                        src={ProfilePicPlaceholder}
+                        className={`lazy-image ${styles.ProfileImage}`}
+                        onLoad={lazyLoadImage}
+                        alt="profile image"
+                      />
+                    </button>
+
+                    {showProfileOptions && (
+                      <ProfileOptionsModal
+                        toggle={() => setShowProfileOptions(false)}
+                        LOGOUT={Logout}
+                        currentUsername={currentUsername}
+                      />
+                    )}
+                  </div>
                 </>
               )}
 
@@ -87,9 +146,21 @@ const Navbar = ({ currentUsername, currentUserUid }: NavbarTypes) => {
           </>
         </div>
       ) : (
-        <section style={{display:"flex",justifyContent:"center",alignItems:"center",width:"300px"}}>
-          <SearchUsers closeFunc={()=>setShowSearchBox(false)}/>
-          <button className={styles.CloseButton} onClick={()=>setShowSearchBox(false)}><FiX/></button>
+        <section
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "300px",
+          }}
+        >
+          <SearchUsers closeFunc={() => setShowSearchBox(false)} />
+          <button
+            className={styles.CloseButton}
+            onClick={() => setShowSearchBox(false)}
+          >
+            <FiX />
+          </button>
         </section>
       )}
     </nav>
@@ -100,7 +171,14 @@ const mapStateToProps = (state: any) => {
   return {
     currentUserUid: state.user.currentUserData.uid,
     currentUsername: state.user.currentUserData.username,
+    currentUserProfileImage: state.user.currentUserData.profile_image_url,
   };
 };
 
-export default connect(mapStateToProps)(Navbar);
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    LOGOUT: () => dispatch(userActions.LOGOUT()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

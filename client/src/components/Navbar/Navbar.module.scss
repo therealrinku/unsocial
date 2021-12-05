@@ -20,7 +20,7 @@
     height: 100%;
   }
 
-  a,button {
+  a,.ProfileOptionsButton,.SearchButton,.CloseButton {
     background:none;
     border:none;
     outline:none;
@@ -34,17 +34,27 @@
     align-items: center;
   }
 
-  ul:last-child a,button {
+  ul:last-child a,.ProfileOptionsButton,.SearchButton,.CloseButton{
     font-size: 24px;
   }
 
-  ul:last-child a:not(:first-child),button {
+  ul:last-child a:not(:first-child),.ProfileOptionsButton,.SearchButton,.CloseButton {
     margin-left: 1.5rem;
   }
 
   .CloseButton{
     margin-top:5px;
     margin-left:5px;
+  }
+
+  .ProfileImage{
+    width:25px;
+    height:25px;
+    border-radius:50%;
+  }
+
+  .ProfileOptionsButton{
+    position: relative;
   }
 }
 

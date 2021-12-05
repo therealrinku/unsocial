@@ -1,6 +1,5 @@
-import { useState } from "react";
+import { useState} from "react";
 import { useHistory } from "react-router-dom";
-import Modal from "../Modal";
 import {
   FiCornerUpRight,
   FiTrash2,
@@ -8,7 +7,7 @@ import {
   FiX,
   FiAlertCircle,
 } from "react-icons/fi";
-import styles from "./PostOptionsView.module.scss";
+import styles from "./PostOptionsModal.module.scss";
 
 type PostOptionsViewTypes = {
   post_id: string;
@@ -43,8 +42,7 @@ const PostOptionsView = ({
   };
 
   return (
-    <Modal hideTitleBar>
-      <div className={styles.PostOptionsView}>
+      <div className={styles.PostOptionsModal}>
         {showDeleteConfirmer ? (
           <div className={styles.DeleteView}>
             <div>
@@ -84,14 +82,9 @@ const PostOptionsView = ({
               <FiClipboard />
               <p>Copy link</p>
             </button>
-            <button onClick={toggle}>
-              <FiX />
-              <p>Cancel</p>
-            </button>
           </div>
         )}
       </div>
-    </Modal>
   );
 };
 

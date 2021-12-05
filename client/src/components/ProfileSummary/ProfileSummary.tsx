@@ -1,16 +1,14 @@
 import { Fragment } from "react";
-import { BiDotsHorizontal, BiUserCheck, FiPlus } from "react-icons/all";
+import { BiUserCheck, FiPlus } from "react-icons/all";
 import { useHistory } from "react-router-dom";
 import ProfilePicPlaceholder from "../../assets/avatar.jpg";
 import lazyLoadImage from "../../utilities/lazyLoadImage";
 import CoverImage from "../../assets/coverImage.jpg";
-import Linkify from "react-linkify";
 import styles from "./ProfileSummary.module.scss";
 
 type ProfileSummaryTypes = {
   profileData: any;
   isMyProfile: boolean;
-  toggleProfileOptions: any;
   toggleUnfollowPrompt: any;
   showPostUploadModal: any;
   FOLLOW: any;
@@ -21,7 +19,6 @@ type ProfileSummaryTypes = {
 const ProfileSummary = ({
   profileData,
   isMyProfile,
-  toggleProfileOptions,
   toggleUnfollowPrompt,
   showPostUploadModal,
   FOLLOW,
@@ -33,11 +30,7 @@ const ProfileSummary = ({
   return (
     <Fragment>
       <div className={styles.ProfileSummary}>
-        <img
-          src={CoverImage}
-          alt="cover-image"
-          className={styles.CoverImage}
-        />
+        <img src={CoverImage} alt="cover-image" className={styles.CoverImage} />
 
         <section>
           <img
@@ -86,9 +79,8 @@ const ProfileSummary = ({
               <button
                 className={styles.UnfollowButton}
                 onClick={toggleUnfollowPrompt}
-                style={{ fontSize: "20px" }}
               >
-                <BiUserCheck />
+                Unfollow
               </button>
             )}
 
@@ -100,10 +92,6 @@ const ProfileSummary = ({
                 <FiPlus />
               </button>
             )}
-
-            <button onClick={toggleProfileOptions} style={{ fontSize: "20px" }}>
-              <BiDotsHorizontal />
-            </button>
           </div>
         </section>
       </div>

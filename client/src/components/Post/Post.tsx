@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useState,useEffect,useRef } from "react";
 import { connect } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import * as postsActions from "../../redux/post/postsActions";
@@ -12,7 +12,7 @@ import {
 } from "react-icons/fi";
 import Backdrop from "../Backdrop";
 import overflowToggler from "../../utilities/overflowToggler";
-import PostOptionsView from "../PostOptionsView";
+import PostOptionsModal from "../PostOptionsModal";
 import placeholderImage from "../../assets/placeholder.jpg";
 import lazyLoadImage from "../../utilities/lazyLoadImage.js";
 import ProfilePicPlaceholder from "../../assets/avatar.jpg";
@@ -50,6 +50,23 @@ type PostTypes = {
   toggleLoginPrompt?: any;
   fullHeightPostImage?: boolean;
 };
+
+function useOutsideAlerter(ref: any, toggle: any) {
+  useEffect(() => {
+    function handleClickOutside(event: any) {
+      if (ref.current && !ref.current.contains(event.target)) {
+        toggle()
+      }
+    }
+
+    // Bind the event listener
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      // Unbind the event listener on clean up
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [ref]);
+}
 
 const Post = ({
   post_commentsCount,
@@ -146,6 +163,9 @@ const Post = ({
     DELETE_POST(post_uid);
   };
 
+  const wrapperRef = useRef(null);
+  useOutsideAlerter(wrapperRef, ()=>setShowPostOptionsModal(false));
+
   return (
     <Fragment>
       <div className={styles.Post}>
@@ -165,9 +185,23 @@ const Post = ({
             </p>
           </span>
 
-          <button onClick={() => toggleModal(setShowPostOptionsModal)}>
-            <FiMoreHorizontal />
-          </button>
+          <div style={{ position: "relative" }} ref={wrapperRef}>
+            <button onClick={() => setShowPostOptionsModal((prev) => !prev)}>
+              <FiMoreHorizontal />
+            </button>
+
+            {showPostOptionsModal && (
+              <Fragment>
+                <PostOptionsModal
+                  toggle={() => setShowPostOptionsModal((prev) => !prev)}
+                  isMyPost={poster_username === currentUsername}
+                  deletePost={deletePost}
+                  post_id={post_id}
+                  AddMessage={ADD_MESSAGE}
+                />
+              </Fragment>
+            )}
+          </div>
         </section>
 
         <p className={styles.Status}>{post_status}</p>
@@ -203,16 +237,24 @@ const Post = ({
             style={haveIDisliked ? { color: "tomato" } : undefined}
           >
             <FiThumbsDown />
-            <p> {typeof post_dislikesCount === "object" || post_dislikesCount === 0
+            <p>
+              {" "}
+              {typeof post_dislikesCount === "object" ||
+              post_dislikesCount === 0
                 ? ""
-                : post_dislikesCount}</p>
+                : post_dislikesCount}
+            </p>
           </button>
 
           <button onClick={() => history.push(`/p/${post_id}`)}>
             <FiMessageSquare />
-            <p> {typeof post_commentsCount === "object" || post_commentsCount === 0
+            <p>
+              {" "}
+              {typeof post_commentsCount === "object" ||
+              post_commentsCount === 0
                 ? ""
-                : post_commentsCount}</p>
+                : post_commentsCount}
+            </p>
           </button>
         </section>
 
@@ -246,22 +288,6 @@ const Post = ({
           <Backdrop
             show={showLikers}
             toggle={() => toggleModal(setShowLikers)}
-          />
-        </Fragment>
-      )}
-
-      {showPostOptionsModal && (
-        <Fragment>
-          <PostOptionsView
-            toggle={() => toggleModal(setShowPostOptionsModal)}
-            isMyPost={poster_username === currentUsername}
-            deletePost={deletePost}
-            post_id={post_id}
-            AddMessage={ADD_MESSAGE}
-          />
-          <Backdrop
-            show={showPostOptionsModal}
-            toggle={() => toggleModal(setShowPostOptionsModal)}
           />
         </Fragment>
       )}

@@ -3,13 +3,11 @@ import ProfileSummary from "../../components/ProfileSummary";
 import * as profileActions from "../../redux/profile/ProfileActions";
 import { connect } from "react-redux";
 import overflowToggler from "../../utilities/overflowToggler";
-import ProfileOptionsView from "../../components/ProfileOptionsView";
 import Backdrop from "../../components/Backdrop";
 import UnfollowPrompt from "../../components/UnfollowPrompt";
 import PostsGrid from "../../components/PostsGrid";
 import UserListView from "../../components/UserListView";
 import Loader from "../../components/Loader";
-import * as userActions from "../../redux/user/userActions";
 import LoginPrompt from "../../components/LoginPrompt";
 import PostUploadView from "../../components/PostUploadView";
 import styles from "./ProfilePage.module.scss";
@@ -56,9 +54,6 @@ const Profilepage = ({
   const [showLoginNeededPrompt, setShowLoginNeededPrompt] = useState(false);
   const [showPostUploadModal, setShowPostUploadModal] = useState(false);
 
-  //
-  const [showSavedPosts, setShowSavedPosts] = useState(false);
-
   //followers and following list
   const followersList = profiles.filter(
     (profile) => profile.username === profileUsername
@@ -84,13 +79,6 @@ const Profilepage = ({
   const toggleModal = (setModal: Function) => {
     setModal((prev: any) => !prev);
     overflowToggler();
-  };
-
-  const Logout = () => {
-    toggleModal(setShowProfileOptionsModal);
-    LOGOUT();
-    history.push("/");
-    localStorage.removeItem("token");
   };
 
   const follow = () => {
@@ -129,38 +117,17 @@ const Profilepage = ({
           <ProfileSummary
             showPostUploadModal={() => toggleModal(setShowPostUploadModal)}
             profileData={profileData[0] || []}
-            toggleProfileOptions={() => toggleModal(setShowProfileOptionsModal)}
             toggleUnfollowPrompt={() => toggleModal(setShowUnfollowPrompt)}
             isMyProfile={currentUsername === profileUsername}
             FOLLOW={follow}
             LOAD_FOLLOWERS={LOAD_FOLLOWERS}
             LOAD_FOLLOWINGS={LOAD_FOLLOWINGS}
-         />  
+          />
 
           {profileData[0].posts.length > 0 && (
             <section className={styles.PostsGrid}>
-              <PostsGrid
-                userPosts={
-                  showSavedPosts
-                    ? profileData[0]?.savedPosts
-                    : profileData[0]?.posts || []
-                }
-              />
+              <PostsGrid userPosts={profileData[0]?.posts || []} />
             </section>
-          )}
-
-          {showProfileOptionsModal && (
-            <Fragment>
-              <ProfileOptionsView
-                toggle={() => toggleModal(setShowProfileOptionsModal)}
-                isMyProfile={currentUsername === profileUsername}
-                LOGOUT={Logout}
-              />
-              <Backdrop
-                show={showProfileOptionsModal}
-                toggle={() => toggleModal(setShowProfileOptionsModal)}
-              />
-            </Fragment>
           )}
 
           {showUnfollowPrompt && (
@@ -244,7 +211,6 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    LOGOUT: () => dispatch(userActions.LOGOUT()),
     FETCH_FOLLOWERS: (username: string) =>
       dispatch(profileActions.FETCH_FOLLOWERS(username)),
     FETCH_FOLLOWINGS: (username: string) =>
