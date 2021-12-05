@@ -8,7 +8,7 @@ import { connect } from "react-redux";
 import placeholderImage from "../../assets/placeholder.jpg";
 import lazyLoadImage from "../../utilities/lazyLoadImage.js";
 import ProfilePicPlaceholder from "../../assets/avatar.jpg";
-import Moment from "react-moment";
+import Moment from "react-moment"
 
 type NotificationsPageTypes = {
   currentUserUid: string;
@@ -52,7 +52,7 @@ const NotificationsPage = ({ currentUserUid }: NotificationsPageTypes) => {
                       : ""
                   }
                 >
-                  <img
+                    <img
                     data-src={noti.profile_image_url}
                     src={ProfilePicPlaceholder}
                     className={`lazy-image ${styles.ProfilePic}`}
@@ -79,7 +79,7 @@ const NotificationsPage = ({ currentUserUid }: NotificationsPageTypes) => {
                   </p>
 
                   {noti.post_image && (
-                    <img
+                      <img
                       data-src={noti.post_image}
                       src={placeholderImage}
                       className={`lazy-image ${styles.PostImage}`}

@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import ProfilePicPlaceholder from "../../assets/avatar.jpg";
 import lazyLoadImage from "../../utilities/lazyLoadImage";
 import CoverImage from "../../assets/coverImage.jpg";
+import Linkify from "react-linkify";
 import styles from "./ProfileSummary.module.scss";
 
 type ProfileSummaryTypes = {

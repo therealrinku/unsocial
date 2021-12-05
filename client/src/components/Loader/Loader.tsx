@@ -15,7 +15,7 @@ export default function Loader({ fullPage }: LoaderTypes) {
       setLoaderWidth(width)
 
       if(width>=200) clearInterval(timer)
-    },1000)
+    },500)
   },[])
 
   return (

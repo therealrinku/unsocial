@@ -191,7 +191,11 @@ const Post = ({
             style={haveILiked ? { color: "tomato" } : undefined}
           >
             <FiThumbsUp />
-            <p>{post_likesCount === null ? 0 : post_likesCount}</p>
+            <p>
+              {typeof post_likesCount === "object" || post_likesCount === 0
+                ? ""
+                : post_likesCount}
+            </p>
           </button>
 
           <button
@@ -199,12 +203,16 @@ const Post = ({
             style={haveIDisliked ? { color: "tomato" } : undefined}
           >
             <FiThumbsDown />
-            <p>{post_dislikesCount === null ? 0 : post_dislikesCount}</p>
+            <p> {typeof post_dislikesCount === "object" || post_dislikesCount === 0
+                ? ""
+                : post_dislikesCount}</p>
           </button>
 
           <button onClick={() => history.push(`/p/${post_id}`)}>
             <FiMessageSquare />
-            <p>{post_commentsCount}</p>
+            <p> {typeof post_commentsCount === "object" || post_commentsCount === 0
+                ? ""
+                : post_commentsCount}</p>
           </button>
         </section>
 
