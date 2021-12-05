@@ -20,7 +20,10 @@
     height: 100%;
   }
 
-  a {
+  a,button {
+    background:none;
+    border:none;
+    outline:none;
     text-decoration: none;
     color: black;
   }
@@ -31,12 +34,17 @@
     align-items: center;
   }
 
-  ul:last-child a {
+  ul:last-child a,button {
     font-size: 24px;
   }
 
-  ul:last-child a:not(:first-child) {
+  ul:last-child a:not(:first-child),button {
     margin-left: 1.5rem;
+  }
+
+  .CloseButton{
+    margin-top:5px;
+    margin-left:5px;
   }
 }
 

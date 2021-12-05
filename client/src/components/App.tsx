@@ -1,7 +1,6 @@
 import React, { useEffect, Fragment } from "react";
 import { connect } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import ExplorePage from "../pages/ExplorePage";
 import HomePage from "../pages/HomePage";
 import PostViewPage from "../pages/PostViewPage";
 import ProfilePage from "../pages/ProfilePage";
@@ -90,7 +89,6 @@ const App = ({
                   <Route path="/" exact component={HomePage} />
                 )}
                 <Route path="/edit/profile" exact component={EditProfilePage} />
-                <Route path="/explore" exact component={ExplorePage} />
                 <Route path="/user/:username" exact component={ProfilePage} />
                 <Route path="/p/:post_id" exact component={PostViewPage} />
                 <Route

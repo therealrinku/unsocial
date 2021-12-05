@@ -24,15 +24,16 @@ const SearchUsers = () => {
         placeholder="Search for users"
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
-        style={
-          searchQuery.trim().length === 0
-            ? { borderBottomLeftRadius: "5px", borderBottomRightRadius: "5px" }
-            : undefined
-        }
       />
 
       <section
-        style={searchQuery.trim() === "" ? { display: "none" } : undefined}
+        style={
+          searchQuery.trim() === ""
+            ? { display: "none" }
+            : searchResults.length <= 0
+            ? { marginTop: "93px" }
+            : undefined
+        }
       >
         {searchResults.length >= 1 ? (
           searchResults.map((user: any) => {
