@@ -3,7 +3,7 @@ import { BiDotsHorizontal, BiUserCheck, FiPlus } from "react-icons/all";
 import { useHistory } from "react-router-dom";
 import ProfilePicPlaceholder from "../../assets/avatar.jpg";
 import lazyLoadImage from "../../utilities/lazyLoadImage";
-import Linkify from "react-linkify";
+import CoverImage from "../../assets/coverImage.jpg";
 import styles from "./ProfileSummary.module.scss";
 
 type ProfileSummaryTypes = {
@@ -33,11 +33,9 @@ const ProfileSummary = ({
     <Fragment>
       <div className={styles.ProfileSummary}>
         <img
-          src={ProfilePicPlaceholder}
-          data-src="https://i.picsum.photos/id/467/200/300.jpg?hmac=sQK5ibuk2pXpFclSCs5TxY7X9hsRsRbb4r5JhWqRErc"
+          src={CoverImage}
           alt="cover-image"
-          onLoad={lazyLoadImage}
-          className={`lazy-image ${styles.CoverImage}`}
+          className={styles.CoverImage}
         />
 
         <section>
