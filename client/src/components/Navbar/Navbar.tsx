@@ -88,7 +88,7 @@ const Navbar = ({ currentUsername, currentUserUid }: NavbarTypes) => {
         </div>
       ) : (
         <section style={{display:"flex",justifyContent:"center",alignItems:"center",width:"300px"}}>
-          <SearchUsers />
+          <SearchUsers closeFunc={()=>setShowSearchBox(false)}/>
           <button className={styles.CloseButton} onClick={()=>setShowSearchBox(false)}><FiX/></button>
         </section>
       )}

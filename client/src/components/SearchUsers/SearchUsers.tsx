@@ -5,7 +5,11 @@ import lazyLoadImage from "../../utilities/lazyLoadImage.js";
 import ProfilePicPlaceholder from "../../assets/avatar.jpg";
 import styles from "./SearchUsers.module.scss";
 
-const SearchUsers = () => {
+type SearchUserTypes={
+  closeFunc:any;
+}
+
+const SearchUsers = ({closeFunc}:SearchUserTypes) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
@@ -16,6 +20,11 @@ const SearchUsers = () => {
       });
     }
   }, [searchQuery]);
+
+  const handleClick=()=>{
+    setSearchQuery("")
+    closeFunc()
+  }
 
   return (
     <div className={styles["Search-Users-Box"]}>
@@ -39,7 +48,7 @@ const SearchUsers = () => {
           searchResults.map((user: any) => {
             return (
               <Link
-                onClick={() => setSearchQuery("")}
+                onClick={()=>handleClick()}
                 to={`/user/${user.username}`}
                 key={user.username}
                 className={styles["Searched-User"]}
