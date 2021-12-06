@@ -21,7 +21,7 @@ const ProfileOptionsModal = ({
   };
 
   return (
-    <div className={styles.ProfileOptionsModal}>
+    <section className={styles.ProfileOptionsModal}>
       <button onClick={() => goTo(`/user/${currentUsername}`)}>
         <FiUser />
         <p>My profile</p>
@@ -38,7 +38,7 @@ const ProfileOptionsModal = ({
         <FiArrowDownLeft />
         <p>Log out</p>
       </button>
-    </div>
+    </section>
   );
 };
 
