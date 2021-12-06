@@ -46,7 +46,7 @@ const PostOptionsView = ({
         {showDeleteConfirmer ? (
           <div className={styles.DeleteView}>
             <div>
-              <p>Are you sure want to delete this post?</p>
+              <p>Are you sure?</p>
             </div>
 
             <div>
