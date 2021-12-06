@@ -46,6 +46,8 @@ const Comment = ({
     }
   };
 
+  console.log(currentUserUid, comment.post_owner_uid);
+
   return (
     <Fragment>
       <div className={styles.Comment}>
@@ -95,7 +97,9 @@ const Comment = ({
             >
               {comment.liked_by_me ? "unlike" : "like"}
             </button>
-            {currentUserUid === comment.post_owner_uid && (
+
+            {(currentUserUid === comment.post_owner_uid ||
+              currentUsername === comment.poster_username) && (
               <>
                 <span>&#183;</span>
                 <button
