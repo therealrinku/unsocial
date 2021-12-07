@@ -1,6 +1,6 @@
 import Logo from "../../components/Logo";
 import styles from "./LandingPage.module.scss";
-import { GrConnect, GrShareOption, GrContact } from "react-icons/gr";
+import { GrConnect, GrShareOption, GrDocument,GrActions } from "react-icons/gr";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 
@@ -19,11 +19,11 @@ const Landingpage = () => {
           </span>
           <span>
             <GrShareOption />
-            <p>Share your world.</p>
+            <p>Share your photos with your friends.</p>
           </span>
           <span>
-            <GrContact />
-            <p>Chat with your people.</p>
+            <GrActions />
+            <p>And many more.</p>
           </span>
         </div>
       </section>
