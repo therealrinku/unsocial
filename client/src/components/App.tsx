@@ -11,9 +11,8 @@ import Layout from "./Layout";
 import * as userActions from "../redux/user/userActions";
 import * as postActions from "../redux/post/postsActions";
 import Logo from "./Logo";
-import EditProfilePage from "../pages/EditProfilePage";
+import SettingsPage from "../pages/SettingsPage";
 import MessageView from "./MessageView";
-import EditPasswordPage from "../pages/EditPasswordPage";
 import NotificationsPage from "../pages/NotificationsPage";
 
 type AppTypes = {
@@ -88,14 +87,9 @@ const App = ({
                 {currentUsername && (
                   <Route path="/" exact component={HomePage} />
                 )}
-                <Route path="/edit/profile" exact component={EditProfilePage} />
+                <Route path="/settings" exact component={SettingsPage} />
                 <Route path="/user/:username" exact component={ProfilePage} />
                 <Route path="/p/:post_id" exact component={PostViewPage} />
-                <Route
-                  path="/edit/password"
-                  exact
-                  component={EditPasswordPage}
-                />
                 <Route
                   path="/notifications"
                   exact

@@ -1,6 +1,11 @@
 import { useHistory } from "react-router-dom";
 import styles from "./ProfileOptionsModal.module.scss";
-import { FiEdit, FiUser, FiRotateCw, FiArrowDownLeft } from "react-icons/fi";
+import {
+  FiSettings,
+  FiUser,
+  FiRotateCw,
+  FiArrowDownLeft,
+} from "react-icons/fi";
 
 type ProfileOptionsViewTypes = {
   toggle: any;
@@ -26,13 +31,9 @@ const ProfileOptionsModal = ({
         <FiUser />
         <p>My profile</p>
       </button>
-      <button onClick={() => goTo("/edit/profile")}>
-        <FiEdit />
-        <p>Edit profile</p>
-      </button>
-      <button onClick={() => goTo("/edit/password")}>
-        <FiRotateCw />
-        <p>Change password</p>
+      <button onClick={() => goTo("/settings")}>
+        <FiSettings />
+        <p>Settings</p>
       </button>
       <button onClick={LOGOUT} style={{ color: "tomato" }}>
         <FiArrowDownLeft />

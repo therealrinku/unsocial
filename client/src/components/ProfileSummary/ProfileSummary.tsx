@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { BiUserCheck, FiPlus } from "react-icons/all";
+import { FiPlus, FiSettings } from "react-icons/all";
 import { useHistory } from "react-router-dom";
 import ProfilePicPlaceholder from "../../assets/avatar.jpg";
 import lazyLoadImage from "../../utilities/lazyLoadImage";
@@ -62,10 +62,11 @@ const ProfileSummary = ({
           <div className={styles.ActionButtons}>
             {isMyProfile && (
               <button
-                onClick={() => history.push("/edit/profile")}
+                onClick={() => history.push("/settings")}
                 className={styles["Profile-Edit-Button"]}
+                style={{ fontSize: "18px" }}
               >
-                Edit Profile
+                <FiSettings />
               </button>
             )}
 
