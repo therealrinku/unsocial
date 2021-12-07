@@ -159,7 +159,6 @@ const Post = ({
   };
 
   const deletePost = () => {
-    toggleModal(setShowPostOptionsModal);
     DELETE_POST(post_uid);
   };
 
