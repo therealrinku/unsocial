@@ -1,4 +1,4 @@
-import { useState} from "react";
+import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import {
   FiCornerUpRight,
@@ -42,49 +42,49 @@ const PostOptionsView = ({
   };
 
   return (
-      <div className={styles.PostOptionsModal}>
-        {showDeleteConfirmer ? (
-          <div className={styles.DeleteView}>
-            <div>
-              <p>Are you sure?</p>
-            </div>
+    <div className={styles.PostOptionsModal}>
+      {showDeleteConfirmer ? (
+        <div className={styles.DeleteView}>
+          <div>
+            <p>Are you sure?</p>
+          </div>
 
-            <div>
-              <button style={{ color: "tomato" }} onClick={deletePost}>
-                <FiTrash2 />
-                <p>Delete</p>
-              </button>
-              <button onClick={toggle}>
-                <FiX />
-                <p>Cancel</p>
-              </button>
-            </div>
-          </div>
-        ) : (
-          <div className={styles.PostOptions}>
-            <button onClick={goToPost}>
-              <FiCornerUpRight />
-              <p>Go to post</p>
+          <div>
+            <button style={{ color: "tomato" }} onClick={deletePost}>
+              <FiTrash2 />
+              <p>Delete</p>
             </button>
-            {!isMyPost && (
-              <button onClick={toggle}>
-                <FiAlertCircle />
-                <p>Report</p>
-              </button>
-            )}
-            {isMyPost && (
-              <button onClick={() => setShowDeleteConfirmer((prev) => !prev)}>
-                <FiTrash2 />
-                <p>Delete</p>
-              </button>
-            )}
-            <button onClick={copyToClipBoard}>
-              <FiClipboard />
-              <p>Copy link</p>
+            <button onClick={toggle}>
+              <FiX />
+              <p>Cancel</p>
             </button>
           </div>
-        )}
-      </div>
+        </div>
+      ) : (
+        <div className={styles.PostOptions}>
+          <button onClick={goToPost}>
+            <FiCornerUpRight />
+            <p>Go to post</p>
+          </button>
+          {!isMyPost && (
+            <button onClick={toggle}>
+              <FiAlertCircle />
+              <p>Report</p>
+            </button>
+          )}
+          {isMyPost && (
+            <button onClick={() => setShowDeleteConfirmer((prev) => !prev)}>
+              <FiTrash2 />
+              <p>Delete</p>
+            </button>
+          )}
+          <button onClick={copyToClipBoard} style={{ borderBottom: "none" }}>
+            <FiClipboard />
+            <p>Copy link</p>
+          </button>
+        </div>
+      )}
+    </div>
   );
 };
 

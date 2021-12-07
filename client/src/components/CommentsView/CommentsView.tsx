@@ -21,23 +21,27 @@ const CommentsView = ({
   gettingCommentLikers,
 }: CommentsViewTypes) => {
   return (
-    <div className={styles.CommentView}>
-      {comments.map((comment: any) => {
-        return (
-          <Comment
-            comments={comments}
-            comment={comment}
-            currentUserUid={currentUserUid}
-            currentUsername={currentUsername}
-            likeUnlikeComment={likeUnlikeComment}
-            deleteComment={deleteComment}
-            key={comment.comment_uid}
-            gettingCommentLikers={gettingCommentLikers}
-            getCommentLikers={getCommentLikers}
-          />
-        );
-      })}
-    </div>
+    <>
+      {comments.length > 0 && (
+        <div className={styles.CommentView}>
+          {comments.map((comment: any) => {
+            return (
+              <Comment
+                comments={comments}
+                comment={comment}
+                currentUserUid={currentUserUid}
+                currentUsername={currentUsername}
+                likeUnlikeComment={likeUnlikeComment}
+                deleteComment={deleteComment}
+                key={comment.comment_uid}
+                gettingCommentLikers={gettingCommentLikers}
+                getCommentLikers={getCommentLikers}
+              />
+            );
+          })}
+        </div>
+      )}
+    </>
   );
 };
 

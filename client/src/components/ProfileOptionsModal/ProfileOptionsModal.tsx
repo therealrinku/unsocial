@@ -35,7 +35,10 @@ const ProfileOptionsModal = ({
         <FiSettings />
         <p>Settings</p>
       </button>
-      <button onClick={LOGOUT} style={{ color: "tomato" }}>
+      <button
+        onClick={LOGOUT}
+        style={{ color: "tomato", borderBottom: "none" }}
+      >
         <FiArrowDownLeft />
         <p>Log out</p>
       </button>

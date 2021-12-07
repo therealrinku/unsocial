@@ -1,4 +1,4 @@
-import { Fragment, useState,useEffect,useRef } from "react";
+import { Fragment, useState, useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import * as postsActions from "../../redux/post/postsActions";
@@ -55,7 +55,7 @@ function useOutsideAlerter(ref: any, toggle: any) {
   useEffect(() => {
     function handleClickOutside(event: any) {
       if (ref.current && !ref.current.contains(event.target)) {
-        toggle()
+        toggle();
       }
     }
 
@@ -163,7 +163,7 @@ const Post = ({
   };
 
   const wrapperRef = useRef(null);
-  useOutsideAlerter(wrapperRef, ()=>setShowPostOptionsModal(false));
+  useOutsideAlerter(wrapperRef, () => setShowPostOptionsModal(false));
 
   return (
     <Fragment>
@@ -185,7 +185,10 @@ const Post = ({
           </span>
 
           <div style={{ position: "relative" }} ref={wrapperRef}>
-            <button onClick={() => setShowPostOptionsModal((prev) => !prev)}>
+            <button
+              onClick={() => setShowPostOptionsModal((prev) => !prev)}
+              className={styles.OptionsButton}
+            >
               <FiMoreHorizontal />
             </button>
 
