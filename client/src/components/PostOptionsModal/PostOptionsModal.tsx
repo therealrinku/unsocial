@@ -56,7 +56,7 @@ const PostOptionsView = ({
               <FiTrash2 />
               <p>Delete</p>
             </button>
-            <button onClick={toggle}>
+            <button onClick={toggle} style={{ borderBottom: "none" }}>
               <FiX />
               <p>Cancel</p>
             </button>
