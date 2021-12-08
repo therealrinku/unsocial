@@ -15,6 +15,7 @@ type PostOptionsViewTypes = {
   toggle: any;
   deletePost: any;
   AddMessage: any;
+  hideGoToPost: boolean | undefined;
 };
 
 const PostOptionsView = ({
@@ -23,6 +24,7 @@ const PostOptionsView = ({
   toggle,
   deletePost,
   AddMessage,
+  hideGoToPost,
 }: PostOptionsViewTypes) => {
   const [showDeleteConfirmer, setShowDeleteConfirmer] = useState(false);
   const history = useHistory();
@@ -62,7 +64,10 @@ const PostOptionsView = ({
         </div>
       ) : (
         <div className={styles.PostOptions}>
-          <button onClick={goToPost}>
+          <button
+            onClick={goToPost}
+            style={hideGoToPost ? { display: "none" } : undefined}
+          >
             <FiCornerUpRight />
             <p>Go to post</p>
           </button>

@@ -195,6 +195,7 @@ const Post = ({
             {showPostOptionsModal && (
               <Fragment>
                 <PostOptionsModal
+                  hideGoToPost={fullHeightPostImage}
                   toggle={() => setShowPostOptionsModal((prev) => !prev)}
                   isMyPost={poster_username === currentUsername}
                   deletePost={deletePost}
