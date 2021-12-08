@@ -47,12 +47,17 @@ const Profilepage = ({
   );
 
   //modal handlers
-  const [showProfileOptionsModal, setShowProfileOptionsModal] = useState(false);
   const [showUnfollowPrompt, setShowUnfollowPrompt] = useState(false);
   const [showFollowers, setShowFollowers] = useState(false);
   const [showFollowings, setShowFollowings] = useState(false);
   const [showLoginNeededPrompt, setShowLoginNeededPrompt] = useState(false);
   const [showPostUploadModal, setShowPostUploadModal] = useState(false);
+
+  const [profileLoading, setProfileLoading] = useState(true);
+
+  useEffect(() => {
+    if (!loading) setProfileLoading(false);
+  }, [loading]);
 
   //followers and following list
   const followersList = profiles.filter(
@@ -104,7 +109,7 @@ const Profilepage = ({
 
   return (
     <Fragment>
-      {loading ? (
+      {loading || profileLoading ? (
         <Loader fullPage />
       ) : !loading && profileData.length < 1 ? (
         <p
