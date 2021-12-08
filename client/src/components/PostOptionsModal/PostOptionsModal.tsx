@@ -1,12 +1,6 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
-import {
-  FiCornerUpRight,
-  FiTrash2,
-  FiClipboard,
-  FiX,
-  FiAlertCircle,
-} from "react-icons/fi";
+import { FiCornerUpRight, FiTrash2, FiClipboard, FiX } from "react-icons/fi";
 import styles from "./PostOptionsModal.module.scss";
 
 type PostOptionsViewTypes = {
@@ -71,12 +65,6 @@ const PostOptionsView = ({
             <FiCornerUpRight />
             <p>Go to post</p>
           </button>
-          {!isMyPost && (
-            <button onClick={toggle}>
-              <FiAlertCircle />
-              <p>Report</p>
-            </button>
-          )}
           {isMyPost && (
             <button onClick={() => setShowDeleteConfirmer((prev) => !prev)}>
               <FiTrash2 />
