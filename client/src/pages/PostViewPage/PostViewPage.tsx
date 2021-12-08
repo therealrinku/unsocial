@@ -57,6 +57,12 @@ const PostViewPage = ({
   const thisPostComments = currentPost[0]?.comments;
   const post_uid = currentPost[0]?.post_uid;
 
+  const [postLoading, setPostLoading] = useState(true);
+
+  useEffect(() => {
+    if (!loading) setPostLoading(false);
+  }, [loading]);
+
   const toggleModal = (setModal: any) => {
     setModal((prev: any) => !prev);
     overflowToggler();
@@ -107,7 +113,7 @@ const PostViewPage = ({
 
   return (
     <Fragment>
-      {loading ? (
+      {loading || postLoading ? (
         <Loader />
       ) : //checking if post exiists
       !loading && !currentPost[0]?.post_image ? (
