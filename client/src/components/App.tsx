@@ -43,6 +43,9 @@ const App = ({
         ADD_MESSAGE("Uploading your post. it may take couple of seconds.");
       } else {
         ADD_MESSAGE("Successfully uploaded a post.");
+         setTimeout(() => {
+          ADD_MESSAGE(null);
+        }, 3000);
       }
     }
   }, [uploadingPost]);
