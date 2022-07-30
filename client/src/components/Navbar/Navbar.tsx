@@ -36,12 +36,7 @@ function useOutsideAlerter(ref: any, toggle: any) {
   }, [ref]);
 }
 
-const Navbar = ({
-  currentUsername,
-  currentUserUid,
-  currentUserProfileImage,
-  LOGOUT,
-}: NavbarTypes) => {
+const Navbar = ({ currentUsername, currentUserUid, currentUserProfileImage, LOGOUT }: NavbarTypes) => {
   const [notificationsCount, setNotificationsCount] = useState(0);
 
   const [showSearchBox, setShowSearchBox] = useState(false);
@@ -91,23 +86,12 @@ const Navbar = ({
                     <FiHome />
                   </NavLink>
 
-                  <button
-                    onClick={() => setShowSearchBox(true)}
-                    className={styles.SearchButton}
-                  >
+                  <NavLink to="/explore" exact activeStyle={{ color: "tomato" }}>
                     <FiSearch />
-                  </button>
+                  </NavLink>
 
-                  <NavLink
-                    to="/notifications"
-                    exact
-                    activeStyle={{ color: "tomato" }}
-                  >
-                    <Badge
-                      badgeContent={notificationsCount}
-                      color="error"
-                      style={{ marginTop: "-8px" }}
-                    >
+                  <NavLink to="/notifications" exact activeStyle={{ color: "tomato" }}>
+                    <Badge badgeContent={notificationsCount} color="error" style={{ marginTop: "-8px" }}>
                       <FiBell />
                     </Badge>
                   </NavLink>
@@ -155,10 +139,7 @@ const Navbar = ({
           }}
         >
           <SearchUsers closeFunc={() => setShowSearchBox(false)} />
-          <button
-            className={styles.CloseButton}
-            onClick={() => setShowSearchBox(false)}
-          >
+          <button className={styles.CloseButton} onClick={() => setShowSearchBox(false)}>
             <FiX />
           </button>
         </section>

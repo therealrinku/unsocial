@@ -14,6 +14,7 @@ import Logo from "./Logo";
 import SettingsPage from "../pages/SettingsPage";
 import MessageView from "./MessageView";
 import NotificationsPage from "../pages/NotificationsPage";
+import ExplorePage from "../pages/ExplorePage";
 
 type AppTypes = {
   currentUsername: string;
@@ -81,6 +82,7 @@ const App = ({
               <>
                 {currentUsername && <Route path="/" exact component={HomePage} />}
                 <Route path="/settings" exact component={SettingsPage} />
+                <Route path="/explore" exact component={ExplorePage} />
                 <Route path="/user/:username" exact component={ProfilePage} />
                 <Route path="/p/:post_id" exact component={PostViewPage} />
                 <Route path="/notifications" exact component={NotificationsPage} />

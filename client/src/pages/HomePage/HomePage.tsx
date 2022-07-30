@@ -15,13 +15,7 @@ type HomePageTypes = {
   feedLoaded: boolean;
 };
 
-const Homepage = ({
-  currentUserUid,
-  feed,
-  GET_FEED,
-  loading,
-  feedLoaded,
-}: HomePageTypes) => {
+const Homepage = ({ currentUserUid, feed, GET_FEED, loading, feedLoaded }: HomePageTypes) => {
   useEffect(() => {
     if (!feedLoaded) {
       GET_FEED(currentUserUid);
@@ -36,15 +30,16 @@ const Homepage = ({
 
       {!loading && (
         <div className={styles.Homepage}>
-          {feed.length < 0 ? (
+          {feed.length <= 0 ? (
             <div className={styles.meh}>
               <span>
                 <FiMeh />
               </span>
-              <p>Follow people to start seeing their posts.</p>
-              <button onClick={() => history.push("/explore")}>
-                Find people to follow
-              </button>
+              <p style={{ textAlign: "center" }}>
+                Oops your feed is empty. <br />
+                Follow people to start seeing their posts.
+              </p>
+              <button onClick={() => history.push("/explore")}>Find people to follow</button>
             </div>
           ) : (
             <Feed posts={feed} />
