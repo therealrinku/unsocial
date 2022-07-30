@@ -42,9 +42,6 @@ const App = ({
         ADD_MESSAGE("Uploading your post. it may take couple of seconds.");
       } else {
         ADD_MESSAGE("Successfully uploaded a post.");
-        setTimeout(() => {
-          ADD_MESSAGE(null);
-        }, 3000);
       }
     }
   }, [uploadingPost]);
@@ -76,25 +73,17 @@ const App = ({
           {message ? <MessageView message={message} /> : null}
 
           <Switch>
-            {!currentUsername && (
-              <Route path="/" exact component={LandingPage} />
-            )}
+            {!currentUsername && <Route path="/" exact component={LandingPage} />}
             <Route path="/login" exact component={LoginPage} />
             <Route path="/register" exact component={RegisterPage} />
 
             <Layout>
               <>
-                {currentUsername && (
-                  <Route path="/" exact component={HomePage} />
-                )}
+                {currentUsername && <Route path="/" exact component={HomePage} />}
                 <Route path="/settings" exact component={SettingsPage} />
                 <Route path="/user/:username" exact component={ProfilePage} />
                 <Route path="/p/:post_id" exact component={PostViewPage} />
-                <Route
-                  path="/notifications"
-                  exact
-                  component={NotificationsPage}
-                />
+                <Route path="/notifications" exact component={NotificationsPage} />
               </>
             </Layout>
           </Switch>
@@ -117,8 +106,7 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    ADD_MESSAGE: (message: string) =>
-      dispatch(postActions.ADD_MESSAGE(message)),
+    ADD_MESSAGE: (message: string) => dispatch(postActions.ADD_MESSAGE(message)),
     LOGIN_WITH_UID: (uid: string) => dispatch(userActions.LOGIN_WITH_UID(uid)),
   };
 };
