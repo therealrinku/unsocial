@@ -48,6 +48,14 @@ const App = ({
         }, 3000);
       }
     }
+
+    const messageClearTimeout = setTimeout(() => {
+      ADD_MESSAGE(null);
+    }, 4000);
+
+    return () => {
+      clearInterval(messageClearTimeout);
+    };
   }, [uploadingPost]);
 
   useEffect(() => {
