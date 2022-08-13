@@ -13,14 +13,15 @@ type HomePageTypes = {
   GET_FEED: Function;
   loading: boolean;
   feedLoaded: boolean;
+  token: string;
 };
 
-const Homepage = ({ currentUserUid, feed, GET_FEED, loading, feedLoaded }: HomePageTypes) => {
+const Homepage = ({ currentUserUid, feed, GET_FEED, loading, feedLoaded, token }: HomePageTypes) => {
   useEffect(() => {
     if (!feedLoaded) {
       GET_FEED(currentUserUid);
     }
-  }, [currentUserUid, feedLoaded]);
+  }, [currentUserUid, feedLoaded, token]);
 
   const history = useHistory();
 
@@ -58,6 +59,7 @@ const mapStateToProps = (state: any) => {
     currentUsername: state.user.currentUserData.username,
     currentUserUid: state.user.currentUserData.uid,
     currentUserProfileImage: state.user.currentUserData.profile_image_url,
+    token: state.user.token,
   };
 };
 

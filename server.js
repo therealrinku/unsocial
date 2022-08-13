@@ -1,10 +1,12 @@
 const express = require("express");
 const http = require("http");
 const cors = require("cors");
+const dotenv = require("dotenv");
 
 const app = express();
 app.use(express.json());
 app.use(cors());
+dotenv.config();
 
 //server setup
 const port = process.env.PORT || 4000;

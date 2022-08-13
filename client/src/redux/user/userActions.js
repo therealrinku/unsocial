@@ -1,4 +1,4 @@
-import { loginUser, loginWithUid } from "../../services/authServices";
+import { loginUser, getUserData } from "../../services/authServices";
 import { getRecommendedUsers } from "../../services/userServices";
 import userActionTypes from "./userActionTypes";
 import { followUser, unfollowUser } from "../../services/profileServices";
@@ -10,10 +10,7 @@ export const UPDATE_PROFILE_LOCALLY = (data) => (dispatch) => {
   dispatch({ type: userActionTypes.UPDATE_PROFILE_LOCALLY, payload: data });
 };
 
-export const UNFOLLOW_RECOMMENDED = (
-  currentUserUid,
-  unfollowingUserUid
-) => async (dispatch) => {
+export const UNFOLLOW_RECOMMENDED = (currentUserUid, unfollowingUserUid) => async (dispatch) => {
   try {
     dispatch({
       type: userActionTypes.UNFOLLOW_RECOMMENDED,
@@ -28,9 +25,7 @@ export const UNFOLLOW_RECOMMENDED = (
   }
 };
 
-export const FOLLOW_RECOMMENDED = (currentUserUid, FollowingUserUid) => async (
-  dispatch
-) => {
+export const FOLLOW_RECOMMENDED = (currentUserUid, FollowingUserUid) => async (dispatch) => {
   try {
     dispatch({
       type: userActionTypes.FOLLOW_RECOMMENDED,
@@ -59,10 +54,10 @@ export const GET_RECOMMENDED = (uid) => async (dispatch) => {
   }
 };
 
-export const LOGIN_WITH_UID = (uid) => async (dispatch) => {
+export const GET_USER_DATA = () => async (dispatch) => {
   try {
     dispatch({ type: userActionTypes.LOADING });
-    const data = await loginWithUid(uid);
+    const data = await getUserData();
     dispatch({ type: userActionTypes.LOGIN, payload: data[0] });
   } catch (err) {
     dispatch({
@@ -78,7 +73,7 @@ export const LOGIN = (username, password) => async (dispatch) => {
     const response = await loginUser(username, password);
     if (typeof response === "object") {
       dispatch({ type: userActionTypes.LOGIN, payload: response });
-      localStorage.setItem("token", response.uid);
+      localStorage.setItem("token", response.token);
     } else {
       throw new Error(response);
     }

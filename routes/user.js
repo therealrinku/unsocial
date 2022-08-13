@@ -1,37 +1,29 @@
 const db = require("../database/db");
 const router = require("express").Router();
 const bcrypt = require("bcrypt");
+const TokenVerifier = require("../tokenVerifyMiddleware");
+const jwt = require("jsonwebtoken");
 
 //update password
-router.post("/updatePassword", (req, res) => {
-  db.query(
-    `SELECT password FROM users WHERE (uid)::text='${req.body.userUid}'`,
-    (err, res1) => {
-      console.log(req.body);
-      bcrypt.compare(
-        req.body.initialPassword,
-        res1.rows[0].password,
-        (err2, result) => {
-          if (result) {
-            bcrypt.hash(req.body.newPassword, 10, (err2, hash) => {
-              db.query(
-                `UPDATE users SET password='${hash}' WHERE (uid)::text ='${req.body.userUid}'`,
-                (err3, res2) => {
-                  res.send("success");
-                }
-              );
-            });
-          } else {
-            res.send("current password doesnot match.");
-          }
-        }
-      );
-    }
-  );
+router.post("/updatePassword", TokenVerifier, (req, res) => {
+  db.query(`SELECT password FROM users WHERE (uid)::text='${req.body.userUid}'`, (err, res1) => {
+    console.log(req.body);
+    bcrypt.compare(req.body.initialPassword, res1.rows[0].password, (err2, result) => {
+      if (result) {
+        bcrypt.hash(req.body.newPassword, 10, (err2, hash) => {
+          db.query(`UPDATE users SET password='${hash}' WHERE (uid)::text ='${req.body.userUid}'`, (err3, res2) => {
+            res.send("success");
+          });
+        });
+      } else {
+        res.send("current password doesnot match.");
+      }
+    });
+  });
 });
 
 //update profile picture
-router.post("/updateProfilePicture", (req, res) => {
+router.post("/updateProfilePicture", TokenVerifier, (req, res) => {
   db.query(
     `UPDATE users SET profile_image_url='${req.body.imageUrl}' WHERE (uid)::text='${req.body.userUid}'`,
     (err, res1) => {
@@ -42,7 +34,7 @@ router.post("/updateProfilePicture", (req, res) => {
 });
 
 //get notifications
-router.get("/getNotifications/:user_uid", (req, res) => {
+router.get("/getNotifications/:user_uid", TokenVerifier, (req, res) => {
   db.query(
     `SELECT posts.post_id as post_id,image_url as post_image,
     username,
@@ -59,31 +51,25 @@ router.get("/getNotifications/:user_uid", (req, res) => {
 });
 
 //update profile
-router.post("/updateprofile", (req, res) => {
-  db.query(
-    `SELECT username FROM users WHERE username='${req.body.username}'`,
-    (err, res1) => {
-      if (
-        res1.rows.length <= 0 ||
-        req.body.initial_username === `${req.body.username}`
-      ) {
-        db.query(
-          `UPDATE users SET username='${req.body.username}',email='${req.body.email}',bio='${req.body.bio}'
+router.post("/updateprofile", TokenVerifier, (req, res) => {
+  db.query(`SELECT username FROM users WHERE username='${req.body.username}'`, (err, res1) => {
+    if (res1.rows.length <= 0 || req.body.initial_username === `${req.body.username}`) {
+      db.query(
+        `UPDATE users SET username='${req.body.username}',email='${req.body.email}',bio='${req.body.bio}'
           WHERE username='${req.body.initial_username}'`,
-          (err2, res2) => {
-            if (!err2) res.send("success");
-            else throw err2;
-          }
-        );
-      } else {
-        res.send("username taken");
-      }
+        (err2, res2) => {
+          if (!err2) res.send("success");
+          else throw err2;
+        }
+      );
+    } else {
+      res.send("username taken");
     }
-  );
+  });
 });
 
 //get recommended users
-router.get("/getrecommended/:currentUserUid", (req, res) => {
+router.get("/getrecommended/:currentUserUid", TokenVerifier, (req, res) => {
   db.query(
     `SELECT username,profile_image_url,uid,
     ${false} as i_am_following
@@ -166,14 +152,11 @@ const RemoveFollower = (unfollowing_user_uid, unfollower_user_uid) => {
   });
 };
 
-router.post("/unfollow", (req, res) => {
+router.post("/unfollow", TokenVerifier, (req, res) => {
   RemoveFollowing(req.body.unfollowing_user_uid, req.body.unfollower_user_uid)
     .then((res0) => {
       if (res0 === "done") {
-        RemoveFollower(
-          req.body.unfollowing_user_uid,
-          req.body.unfollower_user_uid
-        )
+        RemoveFollower(req.body.unfollowing_user_uid, req.body.unfollower_user_uid)
           .then((res1) => {
             if (res1 === "done") {
               res.send("done");
@@ -226,7 +209,7 @@ const AddFollower = (following_user_uid, follower_user_uid) => {
   });
 };
 
-router.post("/follow", (req, res) => {
+router.post("/follow", TokenVerifier, (req, res) => {
   AddFollowing(req.body.following_user_uid, req.body.follower_user_uid)
     .then((res0) => {
       if (res0 === "done") {
@@ -238,9 +221,7 @@ router.post("/follow", (req, res) => {
             db.query(
               `INSERT INTO notifications(notification,owner_uid,interactor_uid,date)
                   VALUES('follow',
-                  '${req.body.following_user_uid}','${
-                req.body.follower_user_uid
-              }','${new Date()}')`
+                  '${req.body.following_user_uid}','${req.body.follower_user_uid}','${new Date()}')`
             );
           })
           .catch((err1) => {
@@ -254,17 +235,20 @@ router.post("/follow", (req, res) => {
 });
 
 //get current user data
-router.get("/loggedinuserinfo/:uid", (req, res) => {
-  db.query(
-    `SELECT username,uid,profile_image_url,email,bio FROM users WHERE (uid)::text='${req.params.uid}'`,
-    (err, res0) => {
-      if (err) {
-        throw err;
-      } else {
-        res.send(res0.rows);
-      }
+router.get("/loggedinuserinfo", TokenVerifier, (req, res) => {
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1];
+
+  let email;
+  jwt.verify(token, process.env.JWT_SECRET_KEY, (err, user) => (email = user.email));
+
+  db.query(`SELECT username,uid,profile_image_url,email,bio FROM users WHERE email='${email}'`, (err, res0) => {
+    if (err) {
+      throw err;
+    } else {
+      res.send(res0.rows);
     }
-  );
+  });
 });
 
 //get visited profile info

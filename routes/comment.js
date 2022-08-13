@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const db = require("../database/db");
+const TokenVerifier = require("../tokenVerifyMiddleware");
 
 //get comment likers
 router.get("/likers/:comment_uid", (req, res) => {
@@ -15,22 +16,17 @@ router.get("/likers/:comment_uid", (req, res) => {
 });
 
 //delete comment
-router.post("/delete", (req, res) => {
-  db.query(
-    `DELETE FROM comments WHERE (comment_uid)::text='${req.body.comment_uid}'`,
-    (err, res1) => {
-      if (!err) res.send("success");
-      else throw err;
+router.post("/delete", TokenVerifier, (req, res) => {
+  db.query(`DELETE FROM comments WHERE (comment_uid)::text='${req.body.comment_uid}'`, (err, res1) => {
+    if (!err) res.send("success");
+    else throw err;
 
-      db.query(
-        `DELETE FROM notifications WHERE (comment_uid)::text='${req.body.comment_uid}'`
-      );
-    }
-  );
+    db.query(`DELETE FROM notifications WHERE (comment_uid)::text='${req.body.comment_uid}'`);
+  });
 });
 
 //like comment
-router.post("/like", (req, res) => {
+router.post("/like", TokenVerifier, (req, res) => {
   db.query(
     `UPDATE comments SET likers=array_append(likers,'${req.body.liker_uid}') 
   WHERE (comment_uid)::text='${req.body.comment_uid}'`,
@@ -42,7 +38,7 @@ router.post("/like", (req, res) => {
 });
 
 //unlike comment
-router.post("/unlike", (req, res) => {
+router.post("/unlike", TokenVerifier, (req, res) => {
   db.query(
     `UPDATE comments SET likers=array_remove(likers,'${req.body.unliker_uid}') 
   WHERE (comment_uid)::text='${req.body.comment_uid}'`,
@@ -70,7 +66,7 @@ router.get("/getcomments/:post_uid/:current_user_uid", (req, res) => {
   );
 });
 
-router.post("/addcomment", (req, res) => {
+router.post("/addcomment", TokenVerifier, (req, res) => {
   db.query(
     `INSERT INTO comments(comment,commenter_uid,post_uid,post_owner_uid,posted_date)
     VALUES('${req.body.comment}','${req.body.commenter_uid}',
@@ -84,9 +80,7 @@ router.post("/addcomment", (req, res) => {
         db.query(
           `INSERT INTO notifications(notification,owner_uid,interactor_uid,date,post_uid,comment_uid)
             VALUES('comment added',
-            '${req.body.post_owner_uid}','${
-            req.body.commenter_uid
-          }','${new Date()}','${req.body.post_uid}','${
+            '${req.body.post_owner_uid}','${req.body.commenter_uid}','${new Date()}','${req.body.post_uid}','${
             res1.rows[0].comment_uid
           }'  )`
         );

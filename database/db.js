@@ -1,16 +1,13 @@
 const pg = require("pg");
-const dbUrl = require("./dbUrl");
 
-const db = new pg.Client(dbUrl);
-
-//db url deleted for security reasons. layout is const dbUrl="url" and export default dbUrl; that's it.
+const db = new pg.Client(process.env.DB_URL);
 
 db.connect()
-	.then(() => {
-		console.log("connected to postgres successfully.");
-	})
-	.catch((err) => {
-		console.log(err);
-	});
+  .then(() => {
+    console.log("connected to postgres successfully.");
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 module.exports = db;

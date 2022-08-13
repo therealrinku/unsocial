@@ -1,8 +1,9 @@
 const router = require("express").Router();
 const db = require("../database/db");
+const TokenVerifier = require("../tokenVerifyMiddleware");
 
 //get posts for explore page
-router.get("/exploreposts", (req, res) => {
+router.get("/exploreposts", TokenVerifier, (req, res) => {
   db.query(
     `SELECT post_id,image_url as post_image,posted_date as post_posted_date FROM posts order BY posted_date`,
     (err, res1) => {
@@ -41,7 +42,7 @@ router.get("/getpost/:post_id/:current_user_uid", (req, res) => {
 });
 
 //get saved posts
-router.get("/savedposts/:current_user_uid", (req, res) => {
+router.get("/savedposts/:current_user_uid", TokenVerifier, (req, res) => {
   db.query(
     `SELECT post_id,image_url as post_image FROM posts WHERE (post_uid)::text
     IN (SELECT unnest(saved_posts_uids) 
@@ -78,7 +79,7 @@ router.get("/posts/:current_user_uid/:owner_uid", (req, res) => {
 });
 
 //upload post
-router.post("/upload/new", (req, res) => {
+router.post("/upload/new", TokenVerifier, (req, res) => {
   db.query(
     `INSERT INTO posts(owner_uid,image_url,status,posted_date) 
       VALUES('${req.body.owner_uid}','${req.body.image_url}',
@@ -92,18 +93,13 @@ router.post("/upload/new", (req, res) => {
 });
 
 //delete post
-router.post("/delete", (req, res) => {
-  db.query(
-    `DELETE FROM posts WHERE post_uid='${req.body.post_uid}'`,
-    (err, res1) => {
-      if (!err) res.send("done");
-      else throw err;
+router.post("/delete", TokenVerifier, (req, res) => {
+  db.query(`DELETE FROM posts WHERE post_uid='${req.body.post_uid}'`, (err, res1) => {
+    if (!err) res.send("done");
+    else throw err;
 
-      db.query(
-        `DELETE FROM notifications WHERE post_uid='${req.body.post_uid}'`
-      );
-    }
-  );
+    db.query(`DELETE FROM notifications WHERE post_uid='${req.body.post_uid}'`);
+  });
 });
 
 //get post likers
@@ -122,7 +118,7 @@ router.get("/likers/:post_uid", (req, res) => {
 //get dislikers not created yet lol
 
 //unsave post
-router.post("/unsave", (req, res) => {
+router.post("/unsave", TokenVerifier, (req, res) => {
   db.query(
     `UPDATE users SET saved_posts_uids=array_remove(saved_posts_uids,'${req.body.post_uid}')
         WHERE username='${req.body.unsaver_username}'`,
@@ -134,7 +130,7 @@ router.post("/unsave", (req, res) => {
 });
 
 //save post
-router.post("/save", (req, res) => {
+router.post("/save", TokenVerifier, (req, res) => {
   db.query(
     `UPDATE users SET saved_posts_uids=array_append(saved_posts_uids,'${req.body.post_uid}')
       WHERE username='${req.body.saver_username}'`,
@@ -146,7 +142,7 @@ router.post("/save", (req, res) => {
 });
 
 //unlike post
-router.post("/unlike", (req, res) => {
+router.post("/unlike", TokenVerifier, (req, res) => {
   db.query(
     `UPDATE posts SET likers=array_remove(likers,'${req.body.unliker_uid}') WHERE post_uid='${req.body.post_uid}'`,
     (err, _) => {
@@ -163,7 +159,7 @@ router.post("/unlike", (req, res) => {
 });
 
 //like post
-router.post("/like", (req, res) => {
+router.post("/like", TokenVerifier, (req, res) => {
   db.query(
     `UPDATE posts SET likers=array_append(likers,'${req.body.liker_uid}') WHERE post_uid='${req.body.post_uid}'`,
     (err, _) => {
@@ -174,9 +170,7 @@ router.post("/like", (req, res) => {
         db.query(
           `INSERT INTO notifications(notification,owner_uid,interactor_uid,post_uid,date)
               VALUES('like post',
-              '${req.body.post_owner_uid}','${req.body.liker_uid}','${
-            req.body.post_uid
-          }','${new Date()}')`
+              '${req.body.post_owner_uid}','${req.body.liker_uid}','${req.body.post_uid}','${new Date()}')`
         );
       }
     }
@@ -184,7 +178,7 @@ router.post("/like", (req, res) => {
 });
 
 //undislike post
-router.post("/undislike", (req, res) => {
+router.post("/undislike", TokenVerifier, (req, res) => {
   db.query(
     `UPDATE posts SET dislikers=array_remove(dislikers,'${req.body.undisliker_uid}') WHERE post_uid='${req.body.post_uid}'`,
     (err, _) => {
@@ -201,7 +195,7 @@ router.post("/undislike", (req, res) => {
 });
 
 //dislike post
-router.post("/dislike", (req, res) => {
+router.post("/dislike", TokenVerifier, (req, res) => {
   db.query(
     `UPDATE posts SET dislikers=array_append(dislikers,'${req.body.disliker_uid}') WHERE post_uid='${req.body.post_uid}'`,
     (err, _) => {
@@ -212,9 +206,7 @@ router.post("/dislike", (req, res) => {
         db.query(
           `INSERT INTO notifications(notification,owner_uid,interactor_uid,post_uid,date)
               VALUES('dislike post',
-              '${req.body.post_owner_uid}','${req.body.disliker_uid}','${
-            req.body.post_uid
-          }','${new Date()}')`
+              '${req.body.post_owner_uid}','${req.body.disliker_uid}','${req.body.post_uid}','${new Date()}')`
         );
       }
     }
@@ -222,7 +214,7 @@ router.post("/dislike", (req, res) => {
 });
 
 //getFeed
-router.get("/feed/:user_uid", (req, res) => {
+router.get("/feed/:user_uid", TokenVerifier, (req, res) => {
   db.query(
     `SELECT 
     '${req.params.user_uid}' = ANY (likers) AS liked_by_me,

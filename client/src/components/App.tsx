@@ -15,11 +15,12 @@ import SettingsPage from "../pages/SettingsPage";
 import MessageView from "./MessageView";
 import NotificationsPage from "../pages/NotificationsPage";
 import ExplorePage from "../pages/ExplorePage";
+import axios from "axios";
 
 type AppTypes = {
   currentUsername: string;
   uploadingPost: boolean;
-  LOGIN_WITH_UID: any;
+  GET_USER_DATA: any;
   token: string;
   userDataLoaded: boolean;
   feedLoaded: boolean;
@@ -30,7 +31,7 @@ type AppTypes = {
 const App = ({
   currentUsername,
   uploadingPost,
-  LOGIN_WITH_UID,
+  GET_USER_DATA,
   token,
   userDataLoaded,
   feedLoaded,
@@ -43,7 +44,7 @@ const App = ({
         ADD_MESSAGE("Uploading your post. it may take couple of seconds.");
       } else {
         ADD_MESSAGE("Successfully uploaded a post.");
-         setTimeout(() => {
+        setTimeout(() => {
           ADD_MESSAGE(null);
         }, 3000);
       }
@@ -59,8 +60,13 @@ const App = ({
   }, [uploadingPost]);
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  }, []);
+
+  useEffect(() => {
     if (token) {
-      LOGIN_WITH_UID(token);
+      GET_USER_DATA(token);
     }
   }, [token]);
 
@@ -120,7 +126,7 @@ const mapStateToProps = (state: any) => {
 const mapDispatchToProps = (dispatch: any) => {
   return {
     ADD_MESSAGE: (message: string) => dispatch(postActions.ADD_MESSAGE(message)),
-    LOGIN_WITH_UID: (uid: string) => dispatch(userActions.LOGIN_WITH_UID(uid)),
+    GET_USER_DATA: () => dispatch(userActions.GET_USER_DATA()),
   };
 };
 
