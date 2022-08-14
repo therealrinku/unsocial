@@ -34,22 +34,21 @@ export const ADD_MESSAGE = (msg) => (dispatch) => {
   }
 };
 
-export const GET_COMMENT_LIKERS =
-  (comment_uid, post_uid) => async (dispatch) => {
-    try {
-      dispatch({ type: postActionTypes.GETTING_COMMENT_LIKERS });
-      const likers = await getCommentLikers(comment_uid);
-      dispatch({
-        type: postActionTypes.ADD_COMMENT_LIKERS,
-        payload: { likers, comment_uid, post_uid },
-      });
-    } catch (err) {
-      dispatch({
-        type: postActionTypes.SOMETHING_WENT_WRONG,
-        payload: err.message,
-      });
-    }
-  };
+export const GET_COMMENT_LIKERS = (comment_uid, post_uid) => async (dispatch) => {
+  try {
+    dispatch({ type: postActionTypes.GETTING_COMMENT_LIKERS });
+    const likers = await getCommentLikers(comment_uid);
+    dispatch({
+      type: postActionTypes.ADD_COMMENT_LIKERS,
+      payload: { likers, comment_uid, post_uid },
+    });
+  } catch (err) {
+    dispatch({
+      type: postActionTypes.SOMETHING_WENT_WRONG,
+      payload: err.message,
+    });
+  }
+};
 
 export const DELETE_COMMENT = (comment_uid, post_uid) => async (dispatch) => {
   try {
@@ -66,76 +65,59 @@ export const DELETE_COMMENT = (comment_uid, post_uid) => async (dispatch) => {
   }
 };
 
-export const LIKE_COMMENT =
-  (comment_uid, liker_uid, post_uid) => async (dispatch) => {
-    try {
-      dispatch({
-        type: postActionTypes.LIKE_COMMENT,
-        payload: { comment_uid, post_uid },
-      });
-      await likeComment(comment_uid, liker_uid);
-    } catch (err) {
-      dispatch({
-        type: postActionTypes.SOMETHING_WENT_WRONG,
-        payload: err.message,
-      });
-    }
-  };
+export const LIKE_COMMENT = (comment_uid, liker_uid, post_uid) => async (dispatch) => {
+  try {
+    dispatch({
+      type: postActionTypes.LIKE_COMMENT,
+      payload: { comment_uid, post_uid },
+    });
+    await likeComment(comment_uid, liker_uid);
+  } catch (err) {
+    dispatch({
+      type: postActionTypes.SOMETHING_WENT_WRONG,
+      payload: err.message,
+    });
+  }
+};
 
-export const UNLIKE_COMMENT =
-  (comment_uid, unliker_uid, post_uid) => async (dispatch) => {
-    try {
-      dispatch({
-        type: postActionTypes.UNLIKE_COMMENT,
-        payload: { comment_uid, post_uid },
-      });
-      await unlikeComment(comment_uid, unliker_uid);
-    } catch (err) {
-      dispatch({
-        type: postActionTypes.SOMETHING_WENT_WRONG,
-        payload: err.message,
-      });
-    }
-  };
+export const UNLIKE_COMMENT = (comment_uid, unliker_uid, post_uid) => async (dispatch) => {
+  try {
+    dispatch({
+      type: postActionTypes.UNLIKE_COMMENT,
+      payload: { comment_uid, post_uid },
+    });
+    await unlikeComment(comment_uid, unliker_uid);
+  } catch (err) {
+    dispatch({
+      type: postActionTypes.SOMETHING_WENT_WRONG,
+      payload: err.message,
+    });
+  }
+};
 
-export const GET_COMMENTS =
-  (post_uid, current_user_uid) => async (dispatch) => {
-    try {
-      dispatch({ type: postActionTypes.GETTING_COMMENTS });
-      const comments = await getComments(post_uid, current_user_uid);
-      dispatch({
-        type: postActionTypes.ADD_COMMENTS,
-        payload: { post_uid: post_uid, comments: comments },
-      });
-    } catch (err) {
-      dispatch({
-        type: postActionTypes.SOMETHING_WENT_WRONG,
-        payload: err.message,
-      });
-    }
-  };
+export const GET_COMMENTS = (post_uid, current_user_uid) => async (dispatch) => {
+  try {
+    dispatch({ type: postActionTypes.GETTING_COMMENTS });
+    const comments = await getComments(post_uid, current_user_uid);
+    dispatch({
+      type: postActionTypes.ADD_COMMENTS,
+      payload: { post_uid: post_uid, comments: comments },
+    });
+  } catch (err) {
+    dispatch({
+      type: postActionTypes.SOMETHING_WENT_WRONG,
+      payload: err.message,
+    });
+  }
+};
 
 export const ADD_COMMENT =
-  (
-    comment,
-    commenter_uid,
-    post_uid,
-    post_owner_uid,
-    posted_date,
-    currentUserProfileImage,
-    currentUsername
-  ) =>
+  (comment, commenter_uid, post_uid, post_owner_uid, posted_date, currentUserProfileImage, currentUsername) =>
   async (dispatch) => {
     try {
       console.log(commenter_uid, post_owner_uid, post_uid);
       dispatch({ type: postActionTypes.ADDING_COMMENT });
-      const response = await addComment(
-        comment,
-        commenter_uid,
-        post_uid,
-        post_owner_uid,
-        posted_date
-      );
+      const response = await addComment(comment, commenter_uid, post_uid, post_owner_uid, posted_date);
       dispatch({
         type: postActionTypes.ADD_COMMENT,
         payload: {
@@ -190,10 +172,10 @@ export const GET_POST = (post_id, current_user_uid) => async (dispatch) => {
   }
 };
 
-export const GET_FEED = (user_uid) => async (dispatch) => {
+export const GET_FEED = () => async (dispatch) => {
   try {
     dispatch({ type: postActionTypes.GETTING_FEED });
-    const feed = await fetchFeed(user_uid);
+    const feed = await fetchFeed();
     dispatch({ type: postActionTypes.SET_FEED, payload: feed });
   } catch (err) {
     dispatch({
@@ -203,75 +185,71 @@ export const GET_FEED = (user_uid) => async (dispatch) => {
   }
 };
 
-export const DISLIKE_POST =
-  (post_uid, disliker_uid, post_owner_uid) => async (dispatch) => {
-    try {
-      dispatch({
-        type: postActionTypes.DISLIKE_POST,
-        payload: { post_uid },
-      });
-      await dislikePost(post_uid, disliker_uid, post_owner_uid);
-      if (disliker_uid !== post_owner_uid) {
-        notificationPusher(post_owner_uid);
-      }
-    } catch (err) {
-      dispatch({
-        type: postActionTypes.SOMETHING_WENT_WRONG,
-        payload: err.message,
-      });
+export const DISLIKE_POST = (post_uid, disliker_uid, post_owner_uid) => async (dispatch) => {
+  try {
+    dispatch({
+      type: postActionTypes.DISLIKE_POST,
+      payload: { post_uid },
+    });
+    await dislikePost(post_uid, disliker_uid, post_owner_uid);
+    if (disliker_uid !== post_owner_uid) {
+      notificationPusher(post_owner_uid);
     }
-  };
+  } catch (err) {
+    dispatch({
+      type: postActionTypes.SOMETHING_WENT_WRONG,
+      payload: err.message,
+    });
+  }
+};
 
-export const UNDISLIKE_POST =
-  (post_uid, undisliker_uid, post_owner_uid) => async (dispatch) => {
-    try {
-      dispatch({
-        type: postActionTypes.UNDISLIKE_POST,
-        payload: { post_uid },
-      });
-      await undislikePost(post_uid, undisliker_uid, post_owner_uid);
-    } catch (err) {
-      dispatch({
-        type: postActionTypes.SOMETHING_WENT_WRONG,
-        payload: err.message,
-      });
-    }
-  };
+export const UNDISLIKE_POST = (post_uid, undisliker_uid, post_owner_uid) => async (dispatch) => {
+  try {
+    dispatch({
+      type: postActionTypes.UNDISLIKE_POST,
+      payload: { post_uid },
+    });
+    await undislikePost(post_uid, undisliker_uid, post_owner_uid);
+  } catch (err) {
+    dispatch({
+      type: postActionTypes.SOMETHING_WENT_WRONG,
+      payload: err.message,
+    });
+  }
+};
 
-export const LIKE_POST =
-  (post_uid, liker_uid, post_owner_uid) => async (dispatch) => {
-    try {
-      dispatch({
-        type: postActionTypes.LIKE_POST,
-        payload: { post_uid },
-      });
-      await likePost(post_uid, liker_uid, post_owner_uid);
-      if (liker_uid !== post_owner_uid) {
-        notificationPusher(post_owner_uid);
-      }
-    } catch (err) {
-      dispatch({
-        type: postActionTypes.SOMETHING_WENT_WRONG,
-        payload: err.message,
-      });
+export const LIKE_POST = (post_uid, liker_uid, post_owner_uid) => async (dispatch) => {
+  try {
+    dispatch({
+      type: postActionTypes.LIKE_POST,
+      payload: { post_uid },
+    });
+    await likePost(post_uid, liker_uid, post_owner_uid);
+    if (liker_uid !== post_owner_uid) {
+      notificationPusher(post_owner_uid);
     }
-  };
+  } catch (err) {
+    dispatch({
+      type: postActionTypes.SOMETHING_WENT_WRONG,
+      payload: err.message,
+    });
+  }
+};
 
-export const UNLIKE_POST =
-  (post_uid, unliker_uid, post_owner_uid) => async (dispatch) => {
-    try {
-      dispatch({
-        type: postActionTypes.UNLIKE_POST,
-        payload: { post_uid },
-      });
-      await unlikePost(post_uid, unliker_uid, post_owner_uid);
-    } catch (err) {
-      dispatch({
-        type: postActionTypes.SOMETHING_WENT_WRONG,
-        payload: err.message,
-      });
-    }
-  };
+export const UNLIKE_POST = (post_uid, unliker_uid, post_owner_uid) => async (dispatch) => {
+  try {
+    dispatch({
+      type: postActionTypes.UNLIKE_POST,
+      payload: { post_uid },
+    });
+    await unlikePost(post_uid, unliker_uid, post_owner_uid);
+  } catch (err) {
+    dispatch({
+      type: postActionTypes.SOMETHING_WENT_WRONG,
+      payload: err.message,
+    });
+  }
+};
 
 export const SAVE_POST = (post_uid, saver_username) => async (dispatch) => {
   try {

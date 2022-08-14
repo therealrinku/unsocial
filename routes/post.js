@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const db = require("../database/db");
 const TokenVerifier = require("../tokenVerifyMiddleware");
+const jwt = require("jsonwebtoken");
 
 //get posts for explore page
 router.get("/exploreposts", TokenVerifier, (req, res) => {
@@ -214,12 +215,17 @@ router.post("/dislike", TokenVerifier, (req, res) => {
 });
 
 //getFeed
-router.get("/feed/:user_uid", TokenVerifier, (req, res) => {
+router.get("/feed", TokenVerifier, (req, res) => {
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1];
+  let user_uid = "wdewfef";
+  jwt.verify(token, process.env.JWT_SECRET_KEY, (err, user) => (user_uid = user.uid));
+
   db.query(
     `SELECT 
-    '${req.params.user_uid}' = ANY (likers) AS liked_by_me,
-    '${req.params.user_uid}' = ANY (dislikers) AS disliked_by_me,
-    (post_uid)::text=ANY(SELECT unnest(saved_posts_uids) FROM users WHERE uid='${req.params.user_uid}') AS i_have_saved,
+    '${user_uid}' = ANY (likers) AS liked_by_me,
+    '${user_uid}' = ANY (dislikers) AS disliked_by_me,
+    (post_uid)::text=ANY(SELECT unnest(saved_posts_uids) FROM users WHERE uid='${user_uid}') AS i_have_saved,
     (SELECT CAST(COUNT(*) AS int) FROM comments WHERE (post_uid)::uuid=posts.post_uid) AS post_comments_count,
     post_uid,username as poster_username,
     post_id,
@@ -232,8 +238,8 @@ router.get("/feed/:user_uid", TokenVerifier, (req, res) => {
     posted_date as post_posted_date,
     status as post_status
     FROM posts INNER JOIN users ON (posts.owner_uid)=(users.uid)::text 
-    WHERE posts.owner_uid=ANY(SELECT unnest(array_append(following,'${req.params.user_uid}')) 
-    FROM users WHERE uid='${req.params.user_uid}')
+    WHERE posts.owner_uid=ANY(SELECT unnest(array_append(following,'${user_uid}')) 
+    FROM users WHERE uid='${user_uid}')
     `,
     (err, res0) => {
       if (err) {

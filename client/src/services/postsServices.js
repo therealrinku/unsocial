@@ -6,11 +6,9 @@ import Compressor from "compressorjs";
 
 export const getExplorePosts = async () => {
   try {
-    const posts = await axios
-      .get(server_url + `/post/exploreposts`)
-      .then((res) => {
-        return res.data;
-      });
+    const posts = await axios.get(server_url + `/post/exploreposts`).then((res) => {
+      return res.data;
+    });
     return posts;
   } catch (err) {
     throw new Error(err.message);
@@ -20,12 +18,7 @@ export const getExplorePosts = async () => {
 export const loadPost = async (post_id, current_user_uid) => {
   try {
     const postData = await axios
-      .get(
-        server_url +
-          `/post/getpost/${post_id}/${
-            current_user_uid || "56f6a34b-23b3-4daa-a53c-b4c364a6cad8"
-          }`
-      )
+      .get(server_url + `/post/getpost/${post_id}/${current_user_uid || "56f6a34b-23b3-4daa-a53c-b4c364a6cad8"}`)
       .then((res) => {
         return res.data;
       });
@@ -35,13 +28,11 @@ export const loadPost = async (post_id, current_user_uid) => {
   }
 };
 
-export const fetchFeed = async (user_uid) => {
+export const fetchFeed = async () => {
   try {
-    const feed = await axios
-      .get(server_url + `/post/feed/${user_uid}`)
-      .then((res) => {
-        return res.data;
-      });
+    const feed = await axios.get(server_url + "/post/feed").then((res) => {
+      return res.data;
+    });
     return feed;
   } catch (err) {
     throw new Error(err.message);
@@ -60,11 +51,7 @@ export const dislikePost = async (post_uid, disliker_uid, post_owner_uid) => {
   }
 };
 
-export const undislikePost = async (
-  post_uid,
-  undisliker_uid,
-  post_owner_uid
-) => {
+export const undislikePost = async (post_uid, undisliker_uid, post_owner_uid) => {
   try {
     await axios.post(server_url + "/post/undislike", {
       post_uid,
@@ -121,9 +108,7 @@ export const unsavePost = async (post_uid, unsaver_username) => {
 
 export const getLikers = async (post_uid) => {
   try {
-    const likers = await axios
-      .get(server_url + `/post/likers/${post_uid}`)
-      .then((res) => res.data);
+    const likers = await axios.get(server_url + `/post/likers/${post_uid}`).then((res) => res.data);
     return likers;
   } catch (err) {
     throw new Error(err.message);
@@ -143,9 +128,7 @@ export const uploadPost = async (data, callMeAfterUploadDone) => {
     new Compressor(data.image, {
       quality: 0.6,
       success(result) {
-        const uploadedImage = storage
-          .ref(`/posts/${data.owner_uid}/${result.name}`)
-          .put(result);
+        const uploadedImage = storage.ref(`/posts/${data.owner_uid}/${result.name}`).put(result);
         uploadedImage.on(
           "state_changed",
           (snapshot) => {},
@@ -163,11 +146,7 @@ export const uploadPost = async (data, callMeAfterUploadDone) => {
                     status: data.status,
                   })
                   .then((res) => {
-                    callMeAfterUploadDone(
-                      image_url,
-                      res.data[0].post_uid,
-                      res.data[0].post_id
-                    );
+                    callMeAfterUploadDone(image_url, res.data[0].post_uid, res.data[0].post_id);
                   });
               });
           }

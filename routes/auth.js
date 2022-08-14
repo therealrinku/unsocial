@@ -13,7 +13,7 @@ router.post("/login", (req, res) => {
         bcrypt.compare(req.body.password, password, (err, result) => {
           if (result) {
             //generating jwt token
-            const token = jwt.sign({ email }, process.env.JWT_SECRET_KEY, {
+            const token = jwt.sign({ email, uid }, process.env.JWT_SECRET_KEY, {
               expiresIn: "7d",
             });
             res.status(200).send({ profile_image_url, uid, username, bio, email, token });

@@ -9,7 +9,7 @@ const intialState = {
     bio: null,
   },
   user_data_loaded: false,
-  token: localStorage.getItem("token"),
+  token: null,
   error: null,
   loading: false,
   recommendedUsers: [],
@@ -28,9 +28,7 @@ const userReducer = (state = intialState, action) => {
 
     case userActionTypes.FOLLOW_RECOMMENDED:
       const copyA = [...state.recommendedUsers];
-      const followedUserIndexA = copyA.findIndex(
-        (profile) => profile.uid === action.payload
-      );
+      const followedUserIndexA = copyA.findIndex((profile) => profile.uid === action.payload);
       copyA[followedUserIndexA].i_am_following = true;
       return {
         ...state,
@@ -39,9 +37,7 @@ const userReducer = (state = intialState, action) => {
 
     case userActionTypes.UNFOLLOW_RECOMMENDED:
       const copyB = [...state.recommendedUsers];
-      const unfollowedUserIndexB = copyB.findIndex(
-        (profile) => profile.uid === action.payload
-      );
+      const unfollowedUserIndexB = copyB.findIndex((profile) => profile.uid === action.payload);
       copyB[unfollowedUserIndexB].i_am_following = false;
       return {
         ...state,
@@ -74,6 +70,7 @@ const userReducer = (state = intialState, action) => {
         currentUserData: action.payload,
         loading: false,
         error: null,
+        token: action.payload.token,
         user_data_loaded: true,
       };
 

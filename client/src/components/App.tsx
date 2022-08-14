@@ -26,6 +26,8 @@ type AppTypes = {
   feedLoaded: boolean;
   ADD_MESSAGE: any;
   message: string;
+  GET_FEED: () => void;
+  currentUserUid: string;
 };
 
 const App = ({
@@ -37,6 +39,7 @@ const App = ({
   feedLoaded,
   ADD_MESSAGE,
   message,
+  GET_FEED,
 }: AppTypes) => {
   useEffect(() => {
     if (feedLoaded) {
@@ -60,13 +63,24 @@ const App = ({
   }, [uploadingPost]);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-  }, []);
-
-  useEffect(() => {
+    axios.interceptors.response.use(
+      (response) => {
+        return response;
+      },
+      (error) => {
+        if (error.response.status === 401) {
+          localStorage.clear();
+          window.location.reload();
+        }
+        return error;
+      }
+    );
     if (token) {
       GET_USER_DATA(token);
+      if (!feedLoaded) {
+        GET_FEED();
+      }
     }
   }, [token]);
 
@@ -120,6 +134,7 @@ const mapStateToProps = (state: any) => {
     userDataLoaded: state.user.user_data_loaded,
     token: state.user.token,
     currentUsername: state.user.currentUserData.username,
+    currentUserUid: state.user.currentUserData.uid,
   };
 };
 
@@ -127,6 +142,7 @@ const mapDispatchToProps = (dispatch: any) => {
   return {
     ADD_MESSAGE: (message: string) => dispatch(postActions.ADD_MESSAGE(message)),
     GET_USER_DATA: () => dispatch(userActions.GET_USER_DATA()),
+    GET_FEED: () => dispatch(postActions.GET_FEED()),
   };
 };
 
