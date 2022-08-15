@@ -43,7 +43,7 @@ router.get("/getpost/:post_id/:current_user_uid", (req, res) => {
 });
 
 //get saved posts
-router.get("/savedposts/:current_user_uid", TokenVerifier, (req, res) => {
+router.get("/savedposts/:current_user_uid", (req, res) => {
   db.query(
     `SELECT post_id,image_url as post_image FROM posts WHERE (post_uid)::text
     IN (SELECT unnest(saved_posts_uids) 
