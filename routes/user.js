@@ -246,7 +246,7 @@ router.get("/loggedinuserinfo", TokenVerifier, (req, res) => {
     if (err) {
       throw err;
     } else {
-      res.send(res0.rows);
+      res.send(res0.rows[0]);
     }
   });
 });

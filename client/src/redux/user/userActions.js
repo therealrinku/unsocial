@@ -58,7 +58,7 @@ export const GET_USER_DATA = () => async (dispatch) => {
   try {
     dispatch({ type: userActionTypes.LOADING });
     const data = await getUserData();
-    dispatch({ type: userActionTypes.LOGIN, payload: data[0] });
+    dispatch({ type: userActionTypes.LOGIN, payload: data });
   } catch (err) {
     dispatch({
       type: userActionTypes.SOMETHING_WENT_WRONG,

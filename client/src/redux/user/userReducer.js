@@ -9,7 +9,7 @@ const intialState = {
     bio: null,
   },
   user_data_loaded: false,
-  token: null,
+  token: localStorage.getItem("token"),
   error: null,
   loading: false,
   recommendedUsers: [],
