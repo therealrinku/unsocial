@@ -39,15 +39,10 @@ const postsReducer = (state = initial_state, action) => {
       };
 
     case postActionTypes.ADD_COMMENT_LIKERS:
-      console.log(action.payload.comment_uid);
       const postsCopyR = [...state.posts];
-      const postIndexR = postsCopyR.findIndex(
-        (post) => post.post_uid === action.payload.post_uid
-      );
+      const postIndexR = postsCopyR.findIndex((post) => post.post_uid === action.payload.post_uid);
       const commentsR = [...postsCopyR[postIndexR].comments];
-      const commentIndexR = commentsR.findIndex(
-        (comment) => comment.comment_uid === action.payload.comment_uid
-      );
+      const commentIndexR = commentsR.findIndex((comment) => comment.comment_uid === action.payload.comment_uid);
       commentsR[commentIndexR].likers = action.payload.likers;
       return {
         ...state,
@@ -57,16 +52,11 @@ const postsReducer = (state = initial_state, action) => {
 
     case postActionTypes.LIKE_COMMENT:
       const postsCopyU = [...state.posts];
-      const postIndexU = postsCopyU.findIndex(
-        (post) => post.post_uid === action.payload.post_uid
-      );
+      const postIndexU = postsCopyU.findIndex((post) => post.post_uid === action.payload.post_uid);
       const comments = [...postsCopyU[postIndexU].comments];
-      const commentIndex = comments.findIndex(
-        (comment) => comment.comment_uid === action.payload.comment_uid
-      );
+      const commentIndex = comments.findIndex((comment) => comment.comment_uid === action.payload.comment_uid);
       comments[commentIndex].liked_by_me = true;
-      comments[commentIndex].comment_likes_count =
-        comments[commentIndex].comment_likes_count + 1;
+      comments[commentIndex].comment_likes_count = comments[commentIndex].comment_likes_count + 1;
       postsCopyU[postIndexU].comments = comments;
       return {
         ...state,
@@ -75,16 +65,11 @@ const postsReducer = (state = initial_state, action) => {
 
     case postActionTypes.UNLIKE_COMMENT:
       const postsCopyV = [...state.posts];
-      const postIndexV = postsCopyV.findIndex(
-        (post) => post.post_uid === action.payload.post_uid
-      );
+      const postIndexV = postsCopyV.findIndex((post) => post.post_uid === action.payload.post_uid);
       const commentsV = [...postsCopyV[postIndexV].comments];
-      const commentIndexV = commentsV.findIndex(
-        (comment) => comment.comment_uid === action.payload.comment_uid
-      );
+      const commentIndexV = commentsV.findIndex((comment) => comment.comment_uid === action.payload.comment_uid);
       commentsV[commentIndexV].liked_by_me = false;
-      commentsV[commentIndexV].comment_likes_count =
-        commentsV[commentIndexV].comment_likes_count - 1;
+      commentsV[commentIndexV].comment_likes_count = commentsV[commentIndexV].comment_likes_count - 1;
       postsCopyV[postIndexV].comments = commentsV;
       return {
         ...state,
@@ -93,14 +78,11 @@ const postsReducer = (state = initial_state, action) => {
 
     case postActionTypes.DELETE_COMMENT:
       const postsCopyJ = [...state.posts];
-      const postIndexJ = postsCopyJ.findIndex(
-        (post) => post.post_uid === action.payload.post_uid
-      );
+      const postIndexJ = postsCopyJ.findIndex((post) => post.post_uid === action.payload.post_uid);
       const commentsJ = [...postsCopyJ[postIndexJ].comments].filter(
         (comment) => comment.comment_uid !== action.payload.comment_uid
       );
-      postsCopyJ[postIndexJ].post_comments_count =
-        postsCopyJ[postIndexJ].post_comments_count - 1;
+      postsCopyJ[postIndexJ].post_comments_count = postsCopyJ[postIndexJ].post_comments_count - 1;
       postsCopyJ[postIndexJ].comments = commentsJ;
 
       return {
@@ -116,9 +98,7 @@ const postsReducer = (state = initial_state, action) => {
 
     case postActionTypes.ADD_COMMENTS:
       const postsCopy = [...state.posts];
-      const postIndex = postsCopy.findIndex(
-        (post) => post.post_uid === action.payload.post_uid
-      );
+      const postIndex = postsCopy.findIndex((post) => post.post_uid === action.payload.post_uid);
       postsCopy[postIndex].comments = action.payload.comments;
 
       return {
@@ -136,16 +116,10 @@ const postsReducer = (state = initial_state, action) => {
 
     case postActionTypes.ADD_COMMENT:
       const postsCopyX = [...state.posts];
-      const postIndexX = postsCopyX.findIndex(
-        (post) => post.post_uid === action.payload.post_uid
-      );
-      postsCopyX[postIndexX].post_comments_count =
-        postsCopyX[postIndexX].post_comments_count + 1;
+      const postIndexX = postsCopyX.findIndex((post) => post.post_uid === action.payload.post_uid);
+      postsCopyX[postIndexX].post_comments_count = postsCopyX[postIndexX].post_comments_count + 1;
       postsCopyX[postIndexX].comments
-        ? (postsCopyX[postIndexX].comments = [
-            ...postsCopyX[postIndexX].comments,
-            action.payload,
-          ])
+        ? (postsCopyX[postIndexX].comments = [...postsCopyX[postIndexX].comments, action.payload])
         : (postsCopyX[postIndexX].comments = [action.payload]);
 
       return {
@@ -186,12 +160,9 @@ const postsReducer = (state = initial_state, action) => {
 
     case postActionTypes.LIKE_POST:
       const postsCopyA = [...state.posts];
-      const indexToUpdateA = postsCopyA.findIndex(
-        (post) => post.post_uid === action.payload.post_uid
-      );
+      const indexToUpdateA = postsCopyA.findIndex((post) => post.post_uid === action.payload.post_uid);
       postsCopyA[indexToUpdateA].liked_by_me = true;
-      postsCopyA[indexToUpdateA].post_likes_count =
-        postsCopyA[indexToUpdateA].post_likes_count + 1;
+      postsCopyA[indexToUpdateA].post_likes_count = postsCopyA[indexToUpdateA].post_likes_count + 1;
 
       return {
         ...state,
@@ -200,12 +171,9 @@ const postsReducer = (state = initial_state, action) => {
 
     case postActionTypes.UNLIKE_POST:
       const postsCopyB = [...state.posts];
-      const indexToUpdateB = postsCopyB.findIndex(
-        (post) => post.post_uid === action.payload.post_uid
-      );
+      const indexToUpdateB = postsCopyB.findIndex((post) => post.post_uid === action.payload.post_uid);
       postsCopyB[indexToUpdateB].liked_by_me = false;
-      postsCopyB[indexToUpdateB].post_likes_count =
-        postsCopyB[indexToUpdateB].post_likes_count - 1;
+      postsCopyB[indexToUpdateB].post_likes_count = postsCopyB[indexToUpdateB].post_likes_count - 1;
 
       return {
         ...state,
@@ -214,12 +182,9 @@ const postsReducer = (state = initial_state, action) => {
 
     case postActionTypes.DISLIKE_POST:
       const postsCopyDI = [...state.posts];
-      const indexToUpdateDI = postsCopyDI.findIndex(
-        (post) => post.post_uid === action.payload.post_uid
-      );
+      const indexToUpdateDI = postsCopyDI.findIndex((post) => post.post_uid === action.payload.post_uid);
       postsCopyDI[indexToUpdateDI].disliked_by_me = true;
-      postsCopyDI[indexToUpdateDI].post_dislikes_count =
-        postsCopyDI[indexToUpdateDI].post_dislikes_count + 1;
+      postsCopyDI[indexToUpdateDI].post_dislikes_count = postsCopyDI[indexToUpdateDI].post_dislikes_count + 1;
 
       return {
         ...state,
@@ -228,12 +193,9 @@ const postsReducer = (state = initial_state, action) => {
 
     case postActionTypes.UNDISLIKE_POST:
       const postsCopyUNDI = [...state.posts];
-      const indexToUpdateUNDI = postsCopyUNDI.findIndex(
-        (post) => post.post_uid === action.payload.post_uid
-      );
+      const indexToUpdateUNDI = postsCopyUNDI.findIndex((post) => post.post_uid === action.payload.post_uid);
       postsCopyUNDI[indexToUpdateUNDI].disliked_by_me = false;
-      postsCopyUNDI[indexToUpdateUNDI].post_dislikes_count =
-        postsCopyUNDI[indexToUpdateUNDI].post_dislikes_count - 1;
+      postsCopyUNDI[indexToUpdateUNDI].post_dislikes_count = postsCopyUNDI[indexToUpdateUNDI].post_dislikes_count - 1;
 
       return {
         ...state,
@@ -242,9 +204,7 @@ const postsReducer = (state = initial_state, action) => {
 
     case postActionTypes.SAVE_POST:
       const postsCopyC = [...state.posts];
-      const indexToUpdateC = postsCopyC.findIndex(
-        (post) => post.post_uid === action.payload.post_uid
-      );
+      const indexToUpdateC = postsCopyC.findIndex((post) => post.post_uid === action.payload.post_uid);
       postsCopyC[indexToUpdateC].i_have_saved = true;
 
       return {
@@ -254,9 +214,7 @@ const postsReducer = (state = initial_state, action) => {
 
     case postActionTypes.UNSAVE_POST:
       const postsCopyD = [...state.posts];
-      const indexToUpdateD = postsCopyD.findIndex(
-        (post) => post.post_uid === action.payload.post_uid
-      );
+      const indexToUpdateD = postsCopyD.findIndex((post) => post.post_uid === action.payload.post_uid);
       postsCopyD[indexToUpdateD].i_have_saved = false;
 
       return {
@@ -286,9 +244,7 @@ const postsReducer = (state = initial_state, action) => {
 
     case postActionTypes.SET_POST_LIKERS:
       const postsCopyE = [...state.posts];
-      const indexToUpdateE = postsCopyE.findIndex(
-        (post) => post.post_uid === action.payload.post_uid
-      );
+      const indexToUpdateE = postsCopyE.findIndex((post) => post.post_uid === action.payload.post_uid);
       postsCopyE[indexToUpdateE].post_likers = action.payload.likers;
       return {
         ...state,
@@ -314,9 +270,7 @@ const postsReducer = (state = initial_state, action) => {
     case postActionTypes.DELETE_POST:
       return {
         ...state,
-        posts: state.posts.filter(
-          (post) => post.post_uid !== action.payload.post_uid
-        ),
+        posts: state.posts.filter((post) => post.post_uid !== action.payload.post_uid),
       };
 
     case postActionTypes.UPLOADING_POST:

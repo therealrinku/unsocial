@@ -1,13 +1,12 @@
 const db = require("../database/db");
 const router = require("express").Router();
 const bcrypt = require("bcrypt");
-const TokenVerifier = require("../tokenVerifyMiddleware");
-const jwt = require("jsonwebtoken");
+const tokenVerifier = require("../utils/tokenVerifyMiddleware");
+const getFromHeader = require("../utils/getFromHeader");
 
 //update password
-router.post("/updatePassword", TokenVerifier, (req, res) => {
+router.post("/updatePassword", tokenVerifier, (req, res) => {
   db.query(`SELECT password FROM users WHERE (uid)::text='${req.body.userUid}'`, (err, res1) => {
-    console.log(req.body);
     bcrypt.compare(req.body.initialPassword, res1.rows[0].password, (err2, result) => {
       if (result) {
         bcrypt.hash(req.body.newPassword, 10, (err2, hash) => {
@@ -23,7 +22,7 @@ router.post("/updatePassword", TokenVerifier, (req, res) => {
 });
 
 //update profile picture
-router.post("/updateProfilePicture", TokenVerifier, (req, res) => {
+router.post("/updateProfilePicture", tokenVerifier, (req, res) => {
   db.query(
     `UPDATE users SET profile_image_url='${req.body.imageUrl}' WHERE (uid)::text='${req.body.userUid}'`,
     (err, res1) => {
@@ -34,7 +33,9 @@ router.post("/updateProfilePicture", TokenVerifier, (req, res) => {
 });
 
 //get notifications
-router.get("/getNotifications/:user_uid", TokenVerifier, (req, res) => {
+router.get("/getNotifications/:user_uid", tokenVerifier, (req, res) => {
+  const user_uid = getFromHeader(req.headers, "uid") || "09bdd5a4-4cdd-3ae1-9122-dfb66f8afc23";
+
   db.query(
     `SELECT posts.post_id as post_id,image_url as post_image,
     username,
@@ -42,7 +43,7 @@ router.get("/getNotifications/:user_uid", TokenVerifier, (req, res) => {
     date,profile_image_url FROM notifications 
     LEFT JOIN users ON users.uid=(notifications.interactor_uid)::uuid
     LEFT JOIN posts ON posts.post_uid=(notifications.post_uid)::uuid
-    WHERE notifications.owner_uid='${req.params.user_uid}'`,
+    WHERE notifications.owner_uid='${user_uid}'`,
     (err, res0) => {
       if (err) console.log(err);
       if (!err) res.send(res0.rows);
@@ -51,7 +52,7 @@ router.get("/getNotifications/:user_uid", TokenVerifier, (req, res) => {
 });
 
 //update profile
-router.post("/updateprofile", TokenVerifier, (req, res) => {
+router.post("/updateProfile", tokenVerifier, (req, res) => {
   db.query(`SELECT username FROM users WHERE username='${req.body.username}'`, (err, res1) => {
     if (res1.rows.length <= 0 || req.body.initial_username === `${req.body.username}`) {
       db.query(
@@ -69,14 +70,16 @@ router.post("/updateprofile", TokenVerifier, (req, res) => {
 });
 
 //get recommended users
-router.get("/getrecommended/:currentUserUid", TokenVerifier, (req, res) => {
+router.get("/getRecommendedUsers", (req, res) => {
+  const user_uid = getFromHeader(req.headers, "uid") || "09bdd5a4-4cdd-3ae1-9122-dfb66f8afc23";
+
   db.query(
     `SELECT username,profile_image_url,uid,
     ${false} as i_am_following
     FROM users WHERE (uid)::text NOT IN (SELECT unnest(following) 
-    FROM users WHERE (uid)::text='${req.params.currentUserUid}') 
+    FROM users WHERE (uid)::text='${user_uid}') 
     AND 
-    uid !='${req.params.currentUserUid}' LIMIT 15 `,
+    uid !='${user_uid}' LIMIT 15 `,
     (err, res1) => {
       if (!err) res.send(res1.rows);
       else throw err;
@@ -152,7 +155,7 @@ const RemoveFollower = (unfollowing_user_uid, unfollower_user_uid) => {
   });
 };
 
-router.post("/unfollow", TokenVerifier, (req, res) => {
+router.post("/unfollow", tokenVerifier, (req, res) => {
   RemoveFollowing(req.body.unfollowing_user_uid, req.body.unfollower_user_uid)
     .then((res0) => {
       if (res0 === "done") {
@@ -209,7 +212,7 @@ const AddFollower = (following_user_uid, follower_user_uid) => {
   });
 };
 
-router.post("/follow", TokenVerifier, (req, res) => {
+router.post("/follow", tokenVerifier, (req, res) => {
   AddFollowing(req.body.following_user_uid, req.body.follower_user_uid)
     .then((res0) => {
       if (res0 === "done") {
@@ -235,12 +238,8 @@ router.post("/follow", TokenVerifier, (req, res) => {
 });
 
 //get current user data
-router.get("/loggedinuserinfo", TokenVerifier, (req, res) => {
-  const authHeader = req.headers["authorization"];
-  const token = authHeader && authHeader.split(" ")[1];
-
-  let email;
-  jwt.verify(token, process.env.JWT_SECRET_KEY, (err, user) => (email = user.email));
+router.get("/getUserInfo", tokenVerifier, (req, res) => {
+  const email = getFromHeader(req.headers, "email");
 
   db.query(`SELECT username,uid,profile_image_url,email,bio FROM users WHERE email='${email}'`, (err, res0) => {
     if (err) {
@@ -252,12 +251,14 @@ router.get("/loggedinuserinfo", TokenVerifier, (req, res) => {
 });
 
 //get visited profile info
-router.get("/visiteduserinfo/:username/:current_user_uid", (req, res) => {
+router.get("/foreignProfileInfo/:username", (req, res) => {
+  const user_uid = getFromHeader(req.headers, "uid") || "09bdd5a4-4cdd-3ae1-9122-dfb66f8afc23";
+
   db.query(
-    `SELECT username,uid,profile_image_url,
+    `SELECT username,profile_image_url,uid,
     bio,
     (SELECT COUNT(*) FROM posts WHERE owner_uid=(uid)::text)::int AS posts_count,
-    '${req.params.current_user_uid}'=ANY(followers) AS followed_by_me,
+    '${user_uid}'=ANY(followers) AS followed_by_me,
     array_length(followers,1) as followers_count,
     array_length(following,1) as following_count
     FROM users WHERE username='${req.params.username}'`,

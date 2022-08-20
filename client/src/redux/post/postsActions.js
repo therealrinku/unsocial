@@ -95,10 +95,10 @@ export const UNLIKE_COMMENT = (comment_uid, unliker_uid, post_uid) => async (dis
   }
 };
 
-export const GET_COMMENTS = (post_uid, current_user_uid) => async (dispatch) => {
+export const GET_COMMENTS = (post_uid) => async (dispatch) => {
   try {
     dispatch({ type: postActionTypes.GETTING_COMMENTS });
-    const comments = await getComments(post_uid, current_user_uid);
+    const comments = await getComments(post_uid);
     dispatch({
       type: postActionTypes.ADD_COMMENTS,
       payload: { post_uid: post_uid, comments: comments },
@@ -115,7 +115,6 @@ export const ADD_COMMENT =
   (comment, commenter_uid, post_uid, post_owner_uid, posted_date, currentUserProfileImage, currentUsername) =>
   async (dispatch) => {
     try {
-      console.log(commenter_uid, post_owner_uid, post_uid);
       dispatch({ type: postActionTypes.ADDING_COMMENT });
       const response = await addComment(comment, commenter_uid, post_uid, post_owner_uid, posted_date);
       dispatch({

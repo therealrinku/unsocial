@@ -3,7 +3,7 @@ import server_url from "../server_url";
 
 export const getUserData = async (uid) => {
   try {
-    const response = await axios.get(server_url + "/user/loggedinuserinfo").then((res) => res.data);
+    const response = await axios.get(server_url + "/user/getUserInfo").then((res) => res.data);
     return response;
   } catch (err) {
     throw new Error(err.message);

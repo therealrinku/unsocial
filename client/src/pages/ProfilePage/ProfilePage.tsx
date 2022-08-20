@@ -42,9 +42,7 @@ const Profilepage = ({
   LOGOUT,
 }: ProfilePageTypes) => {
   const profileUsername = history.location.pathname.slice(6);
-  const profileData = profiles.filter(
-    (profile) => profile?.username === profileUsername
-  );
+  const profileData = profiles.filter((profile) => profile?.username === profileUsername);
 
   //modal handlers
   const [showUnfollowPrompt, setShowUnfollowPrompt] = useState(false);
@@ -60,12 +58,8 @@ const Profilepage = ({
   }, [loading]);
 
   //followers and following list
-  const followersList = profiles.filter(
-    (profile) => profile.username === profileUsername
-  )[0]?.followers;
-  const followingList = profiles.filter(
-    (profile) => profile.username === profileUsername
-  )[0]?.followings;
+  const followersList = profiles.filter((profile) => profile.username === profileUsername)[0]?.followers;
+  const followingList = profiles.filter((profile) => profile.username === profileUsername)[0]?.followings;
 
   const LOAD_FOLLOWERS = () => {
     if (!followersList) {
@@ -112,11 +106,7 @@ const Profilepage = ({
       {loading || profileLoading ? (
         <Loader fullPage />
       ) : !loading && profileData.length < 1 ? (
-        <p
-          style={{ marginTop: "100px", textAlign: "center", fontSize: "15px" }}
-        >
-          This link is broken
-        </p>
+        <p style={{ marginTop: "100px", textAlign: "center", fontSize: "15px" }}>This link is broken</p>
       ) : (
         <div className={styles.ProfilePage}>
           <ProfileSummary
@@ -137,10 +127,7 @@ const Profilepage = ({
 
           {showUnfollowPrompt && (
             <Fragment>
-              <Backdrop
-                show={showUnfollowPrompt}
-                toggle={() => toggleModal(setShowUnfollowPrompt)}
-              />
+              <Backdrop show={showUnfollowPrompt} toggle={() => toggleModal(setShowUnfollowPrompt)} />
               <UnfollowPrompt
                 profileUsername={profileUsername}
                 profileImage={profileData[0]?.profile_image_url}
@@ -152,35 +139,22 @@ const Profilepage = ({
 
           {showPostUploadModal && (
             <Fragment>
-              <Backdrop
-                show={showPostUploadModal}
-                toggle={() => toggleModal(setShowPostUploadModal)}
-              />
-              <PostUploadView
-                toggle={() => toggleModal(setShowPostUploadModal)}
-              />
+              <Backdrop show={showPostUploadModal} toggle={() => toggleModal(setShowPostUploadModal)} />
+              <PostUploadView toggle={() => toggleModal(setShowPostUploadModal)} />
             </Fragment>
           )}
 
           {(showFollowers || showFollowings) && (
             <Fragment>
               <Backdrop
-                toggle={() =>
-                  showFollowers
-                    ? toggleModal(setShowFollowers)
-                    : toggleModal(setShowFollowings)
-                }
+                toggle={() => (showFollowers ? toggleModal(setShowFollowers) : toggleModal(setShowFollowings))}
                 show={showFollowers || showFollowings}
               />
               <UserListView
                 title={showFollowers ? "Followers" : "Following"}
                 loading={loading_followers_or_following}
                 users={(showFollowers ? followersList : followingList) || []}
-                toggle={() =>
-                  showFollowers
-                    ? toggleModal(setShowFollowers)
-                    : toggleModal(setShowFollowings)
-                }
+                toggle={() => (showFollowers ? toggleModal(setShowFollowers) : toggleModal(setShowFollowings))}
               />
             </Fragment>
           )}
@@ -189,14 +163,8 @@ const Profilepage = ({
 
       {showLoginNeededPrompt && (
         <Fragment>
-          <LoginPrompt
-            profilePage={true}
-            toggle={() => toggleModal(setShowLoginNeededPrompt)}
-          />
-          <Backdrop
-            show={showLoginNeededPrompt}
-            toggle={() => toggleModal(setShowLoginNeededPrompt)}
-          />
+          <LoginPrompt profilePage={true} toggle={() => toggleModal(setShowLoginNeededPrompt)} />
+          <Backdrop show={showLoginNeededPrompt} toggle={() => toggleModal(setShowLoginNeededPrompt)} />
         </Fragment>
       )}
     </Fragment>
@@ -209,27 +177,19 @@ const mapStateToProps = (state: any) => {
     currentUsername: state.user.currentUserData.username,
     currentUserUid: state.user.currentUserData.uid,
     profiles: state.profile.profiles,
-    loading_followers_or_following:
-      state.profile.loading_followers_or_following,
+    loading_followers_or_following: state.profile.loading_followers_or_following,
   };
 };
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    FETCH_FOLLOWERS: (username: string) =>
-      dispatch(profileActions.FETCH_FOLLOWERS(username)),
-    FETCH_FOLLOWINGS: (username: string) =>
-      dispatch(profileActions.FETCH_FOLLOWINGS(username)),
+    FETCH_FOLLOWERS: (username: string) => dispatch(profileActions.FETCH_FOLLOWERS(username)),
+    FETCH_FOLLOWINGS: (username: string) => dispatch(profileActions.FETCH_FOLLOWINGS(username)),
     UNFOLLOW: (unfollowing_user_uid: string, unfollower_user_uid: string) =>
-      dispatch(
-        profileActions.UNFOLLOW(unfollowing_user_uid, unfollower_user_uid)
-      ),
+      dispatch(profileActions.UNFOLLOW(unfollowing_user_uid, unfollower_user_uid)),
     FOLLOW: (following_user_uid: string, follower_user_uid: string) =>
       dispatch(profileActions.FOLLOW(following_user_uid, follower_user_uid)),
-    GET_PROFILE_DATA: (profile_username: string, current_user_uid: string) =>
-      dispatch(
-        profileActions.GET_PROFILE_DATA(profile_username, current_user_uid)
-      ),
+    GET_PROFILE_DATA: (profile_username: string) => dispatch(profileActions.GET_PROFILE_DATA(profile_username)),
   };
 };
 

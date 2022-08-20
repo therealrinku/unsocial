@@ -82,6 +82,8 @@ const App = ({
         GET_FEED();
       }
     }
+
+    console.log("hola i changed", token);
   }, [token]);
 
   return (

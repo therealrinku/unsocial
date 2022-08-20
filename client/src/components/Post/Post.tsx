@@ -4,12 +4,7 @@ import { Link, useHistory } from "react-router-dom";
 import * as postsActions from "../../redux/post/postsActions";
 import UserListView from "../UserListView";
 import Moment from "react-moment";
-import {
-  FiThumbsUp,
-  FiThumbsDown,
-  FiMessageSquare,
-  FiMoreHorizontal,
-} from "react-icons/fi";
+import { FiThumbsUp, FiThumbsDown, FiMessageSquare, FiMoreHorizontal } from "react-icons/fi";
 import Backdrop from "../Backdrop";
 import overflowToggler from "../../utilities/overflowToggler";
 import PostOptionsModal from "../PostOptionsModal";
@@ -100,9 +95,7 @@ const Post = ({
   toggleLoginPrompt,
   fullHeightPostImage,
 }: PostTypes) => {
-  const thisPostLikers = feedPosts.filter(
-    (post: any) => post.post_uid === post_uid
-  )[0]?.post_likers;
+  const thisPostLikers = feedPosts.filter((post: any) => post.post_uid === post_uid)[0]?.post_likers;
   const [showLikers, setShowLikers] = useState(false);
   const [showPostOptionsModal, setShowPostOptionsModal] = useState(false);
 
@@ -111,12 +104,12 @@ const Post = ({
   const likeUnlikePost = () => {
     if (currentUsername) {
       if (haveILiked) {
-        UNLIKE_POST(post_uid, currentUserUid, post_owner_uid);
+        UNLIKE_POST(post_uid);
       } else {
         if (haveIDisliked) {
-          UNDISLIKE_POST(post_uid, currentUserUid, post_owner_uid);
+          UNDISLIKE_POST(post_uid);
         }
-        LIKE_POST(post_uid, currentUserUid, post_owner_uid);
+        LIKE_POST(post_uid, post_owner_uid);
       }
     } else {
       toggleLoginPrompt();
@@ -126,12 +119,12 @@ const Post = ({
   const dislikeUndislikePost = () => {
     if (currentUsername) {
       if (haveIDisliked) {
-        UNDISLIKE_POST(post_uid, currentUserUid, post_owner_uid);
+        UNDISLIKE_POST(post_uid);
       } else {
         if (haveILiked) {
-          UNLIKE_POST(post_uid, currentUserUid, post_owner_uid);
+          UNLIKE_POST(post_uid);
         }
-        DISLIKE_POST(post_uid, currentUserUid, post_owner_uid);
+        DISLIKE_POST(post_uid, post_owner_uid);
       }
     } else {
       toggleLoginPrompt();
@@ -185,10 +178,7 @@ const Post = ({
           </span>
 
           <div style={{ position: "relative" }} ref={wrapperRef}>
-            <button
-              onClick={() => setShowPostOptionsModal((prev) => !prev)}
-              className={styles.OptionsButton}
-            >
+            <button onClick={() => setShowPostOptionsModal((prev) => !prev)} className={styles.OptionsButton}>
               <FiMoreHorizontal />
             </button>
 
@@ -223,41 +213,19 @@ const Post = ({
         </section>
 
         <section className={styles.ActionButtons}>
-          <button
-            onClick={likeUnlikePost}
-            style={haveILiked ? { color: "tomato" } : undefined}
-          >
+          <button onClick={likeUnlikePost} style={haveILiked ? { color: "tomato" } : undefined}>
             <FiThumbsUp />
-            <p>
-              {typeof post_likesCount === "object" || post_likesCount === 0
-                ? ""
-                : post_likesCount}
-            </p>
+            <p>{typeof post_likesCount === "object" || post_likesCount === 0 ? "" : post_likesCount}</p>
           </button>
 
-          <button
-            onClick={dislikeUndislikePost}
-            style={haveIDisliked ? { color: "tomato" } : undefined}
-          >
+          <button onClick={dislikeUndislikePost} style={haveIDisliked ? { color: "tomato" } : undefined}>
             <FiThumbsDown />
-            <p>
-              {" "}
-              {typeof post_dislikesCount === "object" ||
-              post_dislikesCount === 0
-                ? ""
-                : post_dislikesCount}
-            </p>
+            <p> {typeof post_dislikesCount === "object" || post_dislikesCount === 0 ? "" : post_dislikesCount}</p>
           </button>
 
           <button onClick={() => history.push(`/p/${post_id}`)}>
             <FiMessageSquare />
-            <p>
-              {" "}
-              {typeof post_commentsCount === "object" ||
-              post_commentsCount === 0
-                ? ""
-                : post_commentsCount}
-            </p>
+            <p> {typeof post_commentsCount === "object" || post_commentsCount === 0 ? "" : post_commentsCount}</p>
           </button>
         </section>
 
@@ -288,10 +256,7 @@ const Post = ({
             users={thisPostLikers || []}
             toggle={() => toggleModal(setShowLikers)}
           />
-          <Backdrop
-            show={showLikers}
-            toggle={() => toggleModal(setShowLikers)}
-          />
+          <Backdrop show={showLikers} toggle={() => toggleModal(setShowLikers)} />
         </Fragment>
       )}
     </Fragment>
@@ -311,23 +276,15 @@ const mapStateToProps = (state: any) => {
 const mapDispatchToProps = (dispatch: any) => {
   return {
     ADD_MESSAGE: (message: any) => dispatch(postsActions.ADD_MESSAGE(message)),
-    DELETE_POST: (post_uid: any) =>
-      dispatch(postsActions.DELETE_POST(post_uid)),
+    DELETE_POST: (post_uid: any) => dispatch(postsActions.DELETE_POST(post_uid)),
     GET_LIKERS: (post_uid: any) => dispatch(postsActions.GET_LIKERS(post_uid)),
-    SAVE_POST: (post_uid: any, saver_username: any) =>
-      dispatch(postsActions.SAVE_POST(post_uid, saver_username)),
+    SAVE_POST: (post_uid: any, saver_username: any) => dispatch(postsActions.SAVE_POST(post_uid, saver_username)),
     UNSAVE_POST: (post_uid: any, unsaver_username: any) =>
       dispatch(postsActions.UNSAVE_POST(post_uid, unsaver_username)),
-    LIKE_POST: (post_uid: any, liker_uid: any, post_owner_uid: any) =>
-      dispatch(postsActions.LIKE_POST(post_uid, liker_uid, post_owner_uid)),
-    UNLIKE_POST: (post_uid: any, unliker_uid: any) =>
-      dispatch(postsActions.UNLIKE_POST(post_uid, unliker_uid)),
-    DISLIKE_POST: (post_uid: any, disliker_uid: any, post_owner_uid: any) =>
-      dispatch(
-        postsActions.DISLIKE_POST(post_uid, disliker_uid, post_owner_uid)
-      ),
-    UNDISLIKE_POST: (post_uid: any, undisliker_uid: any) =>
-      dispatch(postsActions.UNDISLIKE_POST(post_uid, undisliker_uid)),
+    LIKE_POST: (post_uid: any, post_owner_uid: any) => dispatch(postsActions.LIKE_POST(post_uid, post_owner_uid)),
+    UNLIKE_POST: (post_uid: any) => dispatch(postsActions.UNLIKE_POST(post_uid)),
+    DISLIKE_POST: (post_uid: any, post_owner_uid: any) => dispatch(postsActions.DISLIKE_POST(post_uid, post_owner_uid)),
+    UNDISLIKE_POST: (post_uid: any) => dispatch(postsActions.UNDISLIKE_POST(post_uid)),
   };
 };
 

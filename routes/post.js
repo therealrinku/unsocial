@@ -1,10 +1,11 @@
 const router = require("express").Router();
 const db = require("../database/db");
-const TokenVerifier = require("../tokenVerifyMiddleware");
+const tokenVerifier = require("../utils/tokenVerifyMiddleware");
 const jwt = require("jsonwebtoken");
+const getFromHeader = require("../utils/getFromHeader");
 
 //get posts for explore page
-router.get("/exploreposts", TokenVerifier, (req, res) => {
+router.get("/explorePosts", tokenVerifier, (req, res) => {
   db.query(
     `SELECT post_id,image_url as post_image,posted_date as post_posted_date FROM posts order BY posted_date`,
     (err, res1) => {
@@ -15,15 +16,17 @@ router.get("/exploreposts", TokenVerifier, (req, res) => {
 });
 
 //get selected post
-router.get("/getpost/:post_id/:current_user_uid", (req, res) => {
+router.get("/getPost/:post_id", (req, res) => {
+  const user_uid = getFromHeader(req.headers, "uid") || "09bdd5a4-4cdd-3ae1-9122-dfb66f8afc23";
+
   db.query(
     `SELECT 
-    '${req.params.current_user_uid}' = ANY (likers) AS liked_by_me,
-    '${req.params.current_user_uid}' = ANY (dislikers) AS disliked_by_me,
-    (post_uid)::text=ANY(SELECT unnest(saved_posts_uids) FROM users WHERE uid='${req.params.current_user_uid}') 
+    '${user_uid}' = ANY (likers) AS liked_by_me,
+    '${user_uid}' = ANY (dislikers) AS disliked_by_me,
+    (post_uid)::text=ANY(SELECT unnest(saved_posts_uids) FROM users WHERE uid='${user_uid}') 
     AS i_have_saved,
     (SELECT CAST(COUNT(*) AS int) FROM comments WHERE (post_uid)::uuid=posts.post_uid) AS post_comments_count,
-    '${req.params.current_user_uid}'=ANY(followers) AS followed_by_me,
+    '${user_uid}'=ANY(followers) AS followed_by_me,
     post_uid,username as poster_username,
     post_id,
     owner_uid as poster_uid,
@@ -43,11 +46,13 @@ router.get("/getpost/:post_id/:current_user_uid", (req, res) => {
 });
 
 //get saved posts
-router.get("/savedposts/:current_user_uid", (req, res) => {
+router.get("/savedPosts", (req, res) => {
+  const user_uid = getFromHeader(req.headers, "uid") || "09bdd5a4-4cdd-3ae1-9122-dfb66f8afc23";
+
   db.query(
     `SELECT post_id,image_url as post_image FROM posts WHERE (post_uid)::text
     IN (SELECT unnest(saved_posts_uids) 
-    FROM users WHERE (uid)::text='${req.params.current_user_uid}')`,
+    FROM users WHERE (uid)::text='${user_uid}')`,
     (err, res1) => {
       if (!err) res.send(res1.rows);
       else throw err;
@@ -56,11 +61,13 @@ router.get("/savedposts/:current_user_uid", (req, res) => {
 });
 
 //get visited profile posts
-router.get("/posts/:current_user_uid/:owner_uid", (req, res) => {
+router.get("/posts/:owner_username", (req, res) => {
+  const user_uid = getFromHeader(req.headers, "uid") || "09bdd5a4-4cdd-3ae1-9122-dfb66f8afc23";
+
   db.query(
     `SELECT 
-    '${req.params.current_user_uid}' = ANY (likers) AS liked_by_me,
-    (post_uid)::text=ANY(SELECT unnest(saved_posts_uids) FROM users WHERE uid='${req.params.current_user_uid}') 
+    '${user_uid}' = ANY (likers) AS liked_by_me,
+    (post_uid)::text=ANY(SELECT unnest(saved_posts_uids) FROM users WHERE uid='${user_uid}') 
     AS i_have_saved,
     post_uid,username as poster_username,
     post_id,
@@ -70,7 +77,7 @@ router.get("/posts/:current_user_uid/:owner_uid", (req, res) => {
     posted_date as post_posted_date,
     status as post_status
     FROM posts INNER JOIN users ON (posts.owner_uid)=(users.uid)::text 
-    WHERE posts.owner_uid='${req.params.owner_uid}'
+    WHERE users.username='${req.params.owner_username}'
     `,
     (err, res0) => {
       if (err) throw err;
@@ -80,7 +87,7 @@ router.get("/posts/:current_user_uid/:owner_uid", (req, res) => {
 });
 
 //upload post
-router.post("/upload/new", TokenVerifier, (req, res) => {
+router.post("/upload/new", tokenVerifier, (req, res) => {
   db.query(
     `INSERT INTO posts(owner_uid,image_url,status,posted_date) 
       VALUES('${req.body.owner_uid}','${req.body.image_url}',
@@ -94,7 +101,7 @@ router.post("/upload/new", TokenVerifier, (req, res) => {
 });
 
 //delete post
-router.post("/delete", TokenVerifier, (req, res) => {
+router.post("/delete", tokenVerifier, (req, res) => {
   db.query(`DELETE FROM posts WHERE post_uid='${req.body.post_uid}'`, (err, res1) => {
     if (!err) res.send("done");
     else throw err;
@@ -119,7 +126,7 @@ router.get("/likers/:post_uid", (req, res) => {
 //get dislikers not created yet lol
 
 //unsave post
-router.post("/unsave", TokenVerifier, (req, res) => {
+router.post("/unsave", tokenVerifier, (req, res) => {
   db.query(
     `UPDATE users SET saved_posts_uids=array_remove(saved_posts_uids,'${req.body.post_uid}')
         WHERE username='${req.body.unsaver_username}'`,
@@ -131,7 +138,7 @@ router.post("/unsave", TokenVerifier, (req, res) => {
 });
 
 //save post
-router.post("/save", TokenVerifier, (req, res) => {
+router.post("/save", tokenVerifier, (req, res) => {
   db.query(
     `UPDATE users SET saved_posts_uids=array_append(saved_posts_uids,'${req.body.post_uid}')
       WHERE username='${req.body.saver_username}'`,
@@ -143,15 +150,17 @@ router.post("/save", TokenVerifier, (req, res) => {
 });
 
 //unlike post
-router.post("/unlike", TokenVerifier, (req, res) => {
+router.post("/unlike", tokenVerifier, (req, res) => {
+  const unliker_uid = getFromHeader(req.headers, "uid") || "09bdd5a4-4cdd-3ae1-9122-dfb66f8afc23";
+
   db.query(
-    `UPDATE posts SET likers=array_remove(likers,'${req.body.unliker_uid}') WHERE post_uid='${req.body.post_uid}'`,
+    `UPDATE posts SET likers=array_remove(likers,'${unliker_uid}') WHERE post_uid='${req.body.post_uid}'`,
     (err, _) => {
       if (!err) res.send("done");
       else throw err;
 
       db.query(
-        `DELETE FROM notifications WHERE interactor_uid='${req.body.unliker_uid}' 
+        `DELETE FROM notifications WHERE interactor_uid='${unliker_uid}' 
         AND post_uid='${req.body.post_uid}'
         AND notification='like post'`
       );
@@ -160,18 +169,19 @@ router.post("/unlike", TokenVerifier, (req, res) => {
 });
 
 //like post
-router.post("/like", TokenVerifier, (req, res) => {
+router.post("/like", tokenVerifier, (req, res) => {
+  const liker_uid = getFromHeader(req.headers, "uid") || "09bdd5a4-4cdd-3ae1-9122-dfb66f8afc23";
   db.query(
-    `UPDATE posts SET likers=array_append(likers,'${req.body.liker_uid}') WHERE post_uid='${req.body.post_uid}'`,
+    `UPDATE posts SET likers=array_append(likers,'${liker_uid}') WHERE post_uid='${req.body.post_uid}'`,
     (err, _) => {
       if (!err) res.send("done");
       else throw err;
 
-      if (req.body.liker_uid !== req.body.post_owner_uid) {
+      if (liker_uid !== req.body.post_owner_uid) {
         db.query(
           `INSERT INTO notifications(notification,owner_uid,interactor_uid,post_uid,date)
               VALUES('like post',
-              '${req.body.post_owner_uid}','${req.body.liker_uid}','${req.body.post_uid}','${new Date()}')`
+              '${req.body.post_owner_uid}','${liker_uid}','${req.body.post_uid}','${new Date()}')`
         );
       }
     }
@@ -179,15 +189,16 @@ router.post("/like", TokenVerifier, (req, res) => {
 });
 
 //undislike post
-router.post("/undislike", TokenVerifier, (req, res) => {
+router.post("/undislike", tokenVerifier, (req, res) => {
+  const undisliker_uid = getFromHeader(req.headers, "uid") || "09bdd5a4-4cdd-3ae1-9122-dfb66f8afc23";
   db.query(
-    `UPDATE posts SET dislikers=array_remove(dislikers,'${req.body.undisliker_uid}') WHERE post_uid='${req.body.post_uid}'`,
+    `UPDATE posts SET dislikers=array_remove(dislikers,'${undisliker_uid}') WHERE post_uid='${req.body.post_uid}'`,
     (err, _) => {
       if (!err) res.send("done");
       else throw err;
 
       db.query(
-        `DELETE FROM notifications WHERE interactor_uid='${req.body.undisliker_uid}' 
+        `DELETE FROM notifications WHERE interactor_uid='${undisliker_uid}' 
         AND post_uid='${req.body.post_uid}'
         AND notification='dislike post'`
       );
@@ -196,18 +207,19 @@ router.post("/undislike", TokenVerifier, (req, res) => {
 });
 
 //dislike post
-router.post("/dislike", TokenVerifier, (req, res) => {
+router.post("/dislike", tokenVerifier, (req, res) => {
+  const disliker_uid = getFromHeader(req.headers, "uid") || "09bdd5a4-4cdd-3ae1-9122-dfb66f8afc23";
   db.query(
-    `UPDATE posts SET dislikers=array_append(dislikers,'${req.body.disliker_uid}') WHERE post_uid='${req.body.post_uid}'`,
+    `UPDATE posts SET dislikers=array_append(dislikers,'${disliker_uid}') WHERE post_uid='${req.body.post_uid}'`,
     (err, _) => {
       if (!err) res.send("done");
       else throw err;
 
-      if (req.body.disliker_uid !== req.body.post_owner_uid) {
+      if (disliker_uid !== req.body.post_owner_uid) {
         db.query(
           `INSERT INTO notifications(notification,owner_uid,interactor_uid,post_uid,date)
               VALUES('dislike post',
-              '${req.body.post_owner_uid}','${req.body.disliker_uid}','${req.body.post_uid}','${new Date()}')`
+              '${req.body.post_owner_uid}','${disliker_uid}','${req.body.post_uid}','${new Date()}')`
         );
       }
     }
@@ -215,11 +227,8 @@ router.post("/dislike", TokenVerifier, (req, res) => {
 });
 
 //getFeed
-router.get("/feed", TokenVerifier, (req, res) => {
-  const authHeader = req.headers["authorization"];
-  const token = authHeader && authHeader.split(" ")[1];
-  let user_uid = "wdewfef";
-  jwt.verify(token, process.env.JWT_SECRET_KEY, (err, user) => (user_uid = user.uid));
+router.get("/feed", tokenVerifier, (req, res) => {
+  const user_uid = getFromHeader(req.headers, "uid") || "09bdd5a4-4cdd-3ae1-9122-dfb66f8afc23";
 
   db.query(
     `SELECT 

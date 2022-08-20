@@ -52,9 +52,7 @@ export const FETCH_FOLLOWERS = (username) => async (dispatch) => {
   }
 };
 
-export const UNFOLLOW = (unfollowing_user_uid, unfollower_user_uid) => async (
-  dispatch
-) => {
+export const UNFOLLOW = (unfollowing_user_uid, unfollower_user_uid) => async (dispatch) => {
   try {
     dispatch({
       type: profileActionTypes.UNFOLLOW,
@@ -69,9 +67,7 @@ export const UNFOLLOW = (unfollowing_user_uid, unfollower_user_uid) => async (
   }
 };
 
-export const FOLLOW = (following_user_uid, follower_user_uid) => async (
-  dispatch
-) => {
+export const FOLLOW = (following_user_uid, follower_user_uid) => async (dispatch) => {
   try {
     dispatch({
       type: profileActionTypes.FOLLOW,
@@ -87,21 +83,13 @@ export const FOLLOW = (following_user_uid, follower_user_uid) => async (
   }
 };
 
-export const GET_PROFILE_DATA = (profile_username, current_user_uid) => async (
-  dispatch
-) => {
+export const GET_PROFILE_DATA = (profile_username) => async (dispatch) => {
   try {
     dispatch({ type: profileActionTypes.LOADING_PROFILE });
-    const profileData = await getProfileData(
-      profile_username,
-      current_user_uid
-    );
-    const profilePosts = await getProfilePosts(
-      current_user_uid,
-      profileData[0]?.uid || null
-    );
+    const profileData = await getProfileData(profile_username);
+    const profilePosts = await getProfilePosts(profile_username);
 
-    const profileSavedPosts = await getProfileSavedPosts(current_user_uid);
+    const profileSavedPosts = await getProfileSavedPosts();
 
     dispatch({
       type: profileActionTypes.SET_PROFILE,

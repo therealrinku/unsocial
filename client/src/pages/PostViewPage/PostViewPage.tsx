@@ -6,10 +6,7 @@ import overflowToggler from "../../utilities/overflowToggler";
 import Backdrop from "../../components/Backdrop";
 import CommentInput from "../../components/CommentInput";
 import CommentsView from "../../components/CommentsView";
-import {
-  deleteComment,
-  getCommentLikers,
-} from "../../services/commentServices";
+import { deleteComment, getCommentLikers } from "../../services/commentServices";
 import LoginPrompt from "../../components/LoginPrompt";
 import Post from "../../components/Post";
 import styles from "./PostViewPage.module.scss";
@@ -70,7 +67,7 @@ const PostViewPage = ({
 
   const getComments = () => {
     if (!thisPostComments) {
-      GET_COMMENTS(post_uid, currentUserUid);
+      GET_COMMENTS(post_uid);
     }
   };
 
@@ -117,9 +114,7 @@ const PostViewPage = ({
         <Loader />
       ) : //checking if post exiists
       !loading && !currentPost[0]?.post_image ? (
-        <p
-          style={{ marginTop: "100px", textAlign: "center", fontSize: "15px" }}
-        >
+        <p style={{ marginTop: "100px", textAlign: "center", fontSize: "15px" }}>
           Post deleted or something went wrong!
         </p>
       ) : (
@@ -147,9 +142,7 @@ const PostViewPage = ({
           <CommentInput
             post_uid={post_uid}
             post_owner_uid={currentPost[0]?.poster_uid}
-            toggleLoginNeededPrompt={() =>
-              toggleModal(setShowLoginNeededPrompt)
-            }
+            toggleLoginNeededPrompt={() => toggleModal(setShowLoginNeededPrompt)}
           />
 
           {thisPostComments !== undefined && (
@@ -169,10 +162,7 @@ const PostViewPage = ({
       {showLoginNeededPrompt ? (
         <Fragment>
           <LoginPrompt toggle={() => toggleModal(setShowLoginNeededPrompt)} />
-          <Backdrop
-            show={showLoginNeededPrompt}
-            toggle={() => toggleModal(setShowLoginNeededPrompt)}
-          />
+          <Backdrop show={showLoginNeededPrompt} toggle={() => toggleModal(setShowLoginNeededPrompt)} />
         </Fragment>
       ) : null}
     </Fragment>
@@ -197,16 +187,13 @@ const mapDispatchToProps = (dispatch: any) => {
     ADD_MESSAGE: (message: any) => dispatch(PostsActions.ADD_MESSAGE(message)),
     GET_COMMENT_LIKERS: (comment_uid: any, post_uid: any) =>
       dispatch(PostsActions.GET_COMMENT_LIKERS(comment_uid, post_uid)),
-    DELETE_COMMENT: (comment_uid: any, post_uid: any) =>
-      dispatch(PostsActions.DELETE_COMMENT(comment_uid, post_uid)),
+    DELETE_COMMENT: (comment_uid: any, post_uid: any) => dispatch(PostsActions.DELETE_COMMENT(comment_uid, post_uid)),
     LIKE_COMMENT: (comment_uid: any, liker_uid: any, post_uid: any) =>
       dispatch(PostsActions.LIKE_COMMENT(comment_uid, liker_uid, post_uid)),
     UNLIKE_COMMENT: (comment_uid: any, unliker_uid: any, post_uid: any) =>
       dispatch(PostsActions.UNLIKE_COMMENT(comment_uid, unliker_uid, post_uid)),
-    GET_COMMENTS: (post_uid: any, currentUserUid: any) =>
-      dispatch(PostsActions.GET_COMMENTS(post_uid, currentUserUid)),
-    LOAD_POST: (post_id: any, current_user_uid: any) =>
-      dispatch(PostsActions.GET_POST(post_id, current_user_uid)),
+    GET_COMMENTS: (post_uid: any) => dispatch(PostsActions.GET_COMMENTS(post_uid)),
+    LOAD_POST: (post_id: any, current_user_uid: any) => dispatch(PostsActions.GET_POST(post_id, current_user_uid)),
   };
 };
 

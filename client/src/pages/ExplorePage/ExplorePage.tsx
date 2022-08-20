@@ -28,7 +28,7 @@ const Profilepage = ({ currentUserUid }: ProfilePageTypes) => {
   }, [searchQuery]);
 
   useEffect(() => {
-    getRecommendedUsers(currentUserUid).then((res) => {
+    getRecommendedUsers().then((res) => {
       setSearchResults(res);
     });
 

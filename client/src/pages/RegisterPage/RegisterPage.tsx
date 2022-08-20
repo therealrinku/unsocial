@@ -15,8 +15,6 @@ const Signuppage = () => {
   const history = useHistory();
   const loc = useLocation();
 
-  console.log(loc);
-
   useEffect(() => {
     if (loc.search.includes("email")) {
       setEmail(loc.search.slice(loc.search.indexOf("=") + 1));
@@ -36,11 +34,7 @@ const Signuppage = () => {
     if (success) {
       setLoading(true);
 
-      const response = await signupUser(
-        email,
-        username.trim().toLowerCase(),
-        password
-      );
+      const response = await signupUser(email, username.trim().toLowerCase(), password);
       if (response !== "success") {
         setError(response);
         setLoading(false);

@@ -3,9 +3,7 @@ import server_url from "../server_url";
 
 export const getCommentLikers = async (comment_uid) => {
   try {
-    const likers = await axios
-      .get(server_url + `/comment/likers/${comment_uid}`)
-      .then((res) => res.data);
+    const likers = await axios.get(server_url + `/comment/likers/${comment_uid}`).then((res) => res.data);
     return likers;
   } catch (err) {
     throw new Error(err.message);
@@ -39,24 +37,16 @@ export const unlikeComment = async (comment_uid, unliker_uid) => {
   }
 };
 
-export const getComments = async (post_uid, current_user_uid) => {
+export const getComments = async (post_uid) => {
   try {
-    const comments = await axios
-      .get(server_url + `/comment/getcomments/${post_uid}/${current_user_uid}`)
-      .then((res) => res.data);
+    const comments = await axios.get(server_url + `/comment/getComments/${post_uid}`).then((res) => res.data);
     return comments;
   } catch (err) {
     throw new Error(err.message);
   }
 };
 
-export const addComment = async (
-  comment,
-  commenter_uid,
-  post_uid,
-  post_owner_uid,
-  posted_date
-) => {
+export const addComment = async (comment, commenter_uid, post_uid, post_owner_uid, posted_date) => {
   try {
     const response = await axios
       .post(server_url + "/comment/addcomment", {

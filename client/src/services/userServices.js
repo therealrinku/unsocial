@@ -1,16 +1,11 @@
 import axios from "axios";
 import server_url from "../server_url";
 
-export const updateUserData = async (
-  username,
-  email,
-  bio,
-  initial_username
-) => {
+export const updateUserData = async (username, email, bio, initial_username) => {
   try {
     return new Promise((resolve) => {
       return axios
-        .post(server_url + `/user/updateprofile`, {
+        .post(server_url + `/user/updateProfile`, {
           username,
           email,
           bio,
@@ -25,14 +20,12 @@ export const updateUserData = async (
   }
 };
 
-export const getRecommendedUsers = async (uid) => {
+export const getRecommendedUsers = async () => {
   try {
     return new Promise((resolve) => {
-      return axios
-        .get(server_url + `/user/getrecommended/${uid}`)
-        .then((res) => {
-          resolve(res.data);
-        });
+      return axios.get(server_url + `/user/getRecommendedUsers`).then((res) => {
+        resolve(res.data);
+      });
     });
   } catch (err) {
     throw new Error(err.message);
@@ -54,11 +47,9 @@ export const getSearchedUsers = async (query) => {
 export const updateProfilePicture = async (userUid, imageUrl) => {
   try {
     return new Promise((resolve) => {
-      return axios
-        .post(server_url + `/user/updateProfilePicture/`, { userUid, imageUrl })
-        .then((res) => {
-          resolve("done");
-        });
+      return axios.post(server_url + `/user/updateProfilePicture/`, { userUid, imageUrl }).then((res) => {
+        resolve("done");
+      });
     });
   } catch (err) {
     throw new Error(err.message);

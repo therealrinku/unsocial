@@ -30,9 +30,7 @@ const Comment = ({
   gettingCommentLikers,
 }: CommentTypes) => {
   const [showCommentLikers, setShowCommentLikers] = useState(false);
-  const commentLikers = comments.filter(
-    (cmt: any) => cmt.comment_uid === comment.comment_uid
-  )[0]?.likers;
+  const commentLikers = comments.filter((cmt: any) => cmt.comment_uid === comment.comment_uid)[0]?.likers;
 
   const toggleModal = (setModal: any) => {
     setModal((prev: any) => !prev);
@@ -45,8 +43,6 @@ const Comment = ({
       getCommentLikers(comment.comment_uid);
     }
   };
-
-  console.log(currentUserUid, comment.post_owner_uid);
 
   return (
     <Fragment>
@@ -62,13 +58,9 @@ const Comment = ({
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div style={{ display: "flex", alignItems: "flex-start" }}>
             <p style={{ fontWeight: "bold" }}>
-              <NavLink to={`/user/${comment.poster_username}`}>
-                {comment.poster_username}
-              </NavLink>
+              <NavLink to={`/user/${comment.poster_username}`}>{comment.poster_username}</NavLink>
             </p>
-            <p style={{ wordBreak: "break-all", marginLeft: "5px" }}>
-              {comment.comment}
-            </p>
+            <p style={{ wordBreak: "break-all", marginLeft: "5px" }}>{comment.comment}</p>
           </div>
 
           <div
@@ -83,29 +75,17 @@ const Comment = ({
             </p>
             <span>&#183;</span>
             <button onClick={loadCommentLikers}>
-              {comment.comment_likes_count || 0}{" "}
-              {comment.comment_likes_count === 1 ? "like" : "likes"}
+              {comment.comment_likes_count || 0} {comment.comment_likes_count === 1 ? "like" : "likes"}
             </button>
             <span>&#183;</span>
-            <button
-              onClick={() =>
-                likeUnlikeComment(
-                  comment.liked_by_me ? "unlike" : "like",
-                  comment.comment_uid
-                )
-              }
-            >
+            <button onClick={() => likeUnlikeComment(comment.liked_by_me ? "unlike" : "like", comment.comment_uid)}>
               {comment.liked_by_me ? "unlike" : "like"}
             </button>
 
-            {(currentUserUid === comment.post_owner_uid ||
-              currentUsername === comment.poster_username) && (
+            {(currentUserUid === comment.post_owner_uid || currentUsername === comment.poster_username) && (
               <>
                 <span>&#183;</span>
-                <button
-                  style={{ color: "red" }}
-                  onClick={() => deleteComment(comment.comment_uid)}
-                >
+                <button style={{ color: "red" }} onClick={() => deleteComment(comment.comment_uid)}>
                   delete
                 </button>
               </>
@@ -122,10 +102,7 @@ const Comment = ({
             toggle={() => toggleModal(setShowCommentLikers)}
             users={commentLikers || []}
           />
-          <Backdrop
-            show={showCommentLikers}
-            toggle={() => toggleModal(setShowCommentLikers)}
-          />
+          <Backdrop show={showCommentLikers} toggle={() => toggleModal(setShowCommentLikers)} />
         </Fragment>
       ) : null}
     </Fragment>

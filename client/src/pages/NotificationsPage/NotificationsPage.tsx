@@ -8,7 +8,7 @@ import { connect } from "react-redux";
 import placeholderImage from "../../assets/placeholder.jpg";
 import lazyLoadImage from "../../utilities/lazyLoadImage.js";
 import ProfilePicPlaceholder from "../../assets/avatar.jpg";
-import Moment from "react-moment"
+import Moment from "react-moment";
 
 type NotificationsPageTypes = {
   currentUserUid: string;
@@ -20,14 +20,14 @@ const NotificationsPage = ({ currentUserUid }: NotificationsPageTypes) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    clearNotification(currentUserUid);
+    if (currentUserUid) {
+      clearNotification(currentUserUid);
+    }
 
-    axios
-      .get(`${server_url}/user/getNotifications/${currentUserUid}`)
-      .then((res) => {
-        setNotifications(res.data);
-        setLoading(false);
-      });
+    axios.get(`${server_url}/user/getNotifications/${currentUserUid}`).then((res) => {
+      setNotifications(res.data);
+      setLoading(false);
+    });
   }, []);
 
   return (
@@ -52,7 +52,7 @@ const NotificationsPage = ({ currentUserUid }: NotificationsPageTypes) => {
                       : ""
                   }
                 >
-                    <img
+                  <img
                     data-src={noti.profile_image_url}
                     src={ProfilePicPlaceholder}
                     className={`lazy-image ${styles.ProfilePic}`}
@@ -79,7 +79,7 @@ const NotificationsPage = ({ currentUserUid }: NotificationsPageTypes) => {
                   </p>
 
                   {noti.post_image && (
-                      <img
+                    <img
                       data-src={noti.post_image}
                       src={placeholderImage}
                       className={`lazy-image ${styles.PostImage}`}
@@ -91,24 +91,10 @@ const NotificationsPage = ({ currentUserUid }: NotificationsPageTypes) => {
               );
             })
         ) : (
-          <p
-            style={
-              loading
-                ? { display: "none" }
-                : { textAlign: "center", fontSize: "14px" }
-            }
-          >
-            No notifications
-          </p>
+          <p style={loading ? { display: "none" } : { textAlign: "center", fontSize: "14px" }}>No notifications</p>
         )}
       </div>
-      <div
-        style={
-          !loading
-            ? { display: "none" }
-            : { textAlign: "center", fontSize: "14px" }
-        }
-      >
+      <div style={!loading ? { display: "none" } : { textAlign: "center", fontSize: "14px" }}>
         <p>Loading...</p>
       </div>
     </div>
