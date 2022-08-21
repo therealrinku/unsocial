@@ -5,13 +5,13 @@ import { render, screen } from "@testing-library/react";
 test("if the likeUnlike button text is 'unlike' if i have liked the post", () => {
   render(<Comment comment={{ liked_by_me: true }} comments={[]} />);
 
-  expect(screen.getByRole("button", { name: "unlike" })).toBeInTheDocument();
+  expect(screen.getByTestId("likeUnlikeButton").textContent).toEqual("unlike");
 });
 
 test("if the likeUnlike button text is 'like' if i have not liked the post", () => {
   render(<Comment comment={{ liked_by_me: false }} comments={[]} />);
 
-  expect(screen.getByRole("button", { name: "like" })).toBeInTheDocument();
+  expect(screen.getByTestId("likeUnlikeButton").textContent).toEqual("like");
 });
 
 test("if the delete comment button is visible if i am the owner of the post", () => {

@@ -78,7 +78,10 @@ const Comment = ({
               {comment.comment_likes_count || 0} {comment.comment_likes_count === 1 ? "like" : "likes"}
             </button>
             <span>&#183;</span>
-            <button onClick={() => likeUnlikeComment(comment.liked_by_me ? "unlike" : "like", comment.comment_uid)}>
+            <button
+              data-testid="likeUnlikeButton"
+              onClick={() => likeUnlikeComment(comment.liked_by_me ? "unlike" : "like", comment.comment_uid)}
+            >
               {comment.liked_by_me ? "unlike" : "like"}
             </button>
 
