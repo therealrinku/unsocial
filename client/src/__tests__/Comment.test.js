@@ -1,6 +1,10 @@
 import Comment from "../components/Comment";
 import "@testing-library/jest-dom";
-import { render, screen } from "@testing-library/react";
+import { cleanup, render, screen } from "@testing-library/react";
+
+afterEach(() => {
+  cleanup();
+});
 
 test("if the likeUnlike button text is 'unlike' if i have liked the post", () => {
   render(<Comment comment={{ liked_by_me: true }} comments={[]} />);
