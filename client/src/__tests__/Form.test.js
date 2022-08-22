@@ -1,6 +1,10 @@
 import Form from "../components/Form";
 import "@testing-library/jest-dom";
-import { render, screen } from "@testing-library/react";
+import { cleanup, render, screen } from "@testing-library/react";
+
+afterEach(() => {
+  cleanup();
+});
 
 test("If submit button is disabled in login page if username and password are less than 5 characters", () => {
   render(<Form formType="Login" username="user" password="pass" />);
