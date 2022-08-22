@@ -41,6 +41,10 @@
     justify-content: center;
   }
 
+  button:disabled{
+    opacity:0.8;
+  }
+
   button:hover:not(:disabled) {
     background: rgb(214, 47, 50);
   }
