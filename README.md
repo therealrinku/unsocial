@@ -1,4 +1,4 @@
-## Social media app.
+## Full stack Social media app.
 
 ### Live Website
 * https://uns0cial.web.app
