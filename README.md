@@ -6,7 +6,7 @@
 ### Used Technologies
 * React and Redux
 * Sass
-* Firebase hosting
+* Firebase and Heroku hosting
 * Node and Express
 * Firebase storage bucket
 * Image compressor
