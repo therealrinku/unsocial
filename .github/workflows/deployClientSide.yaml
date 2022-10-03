@@ -1,0 +1,24 @@
+name: Deploy to firebase
+
+on: [push]
+
+jobs:
+  deploy-to-firebase:
+     steps:
+        uses: action/checkout@v3
+        name: Use Node.js
+        uses: action/setup-node@v3
+        with:
+          node-version: "14.x"
+        - name: Build the code
+          run: npm build
+          working-directory: client
+        - name: Deploy to firebase
+          uses: w9jds/firebase-action@master
+          working-directory: client
+          with:
+            args: deploy --only hosting
+          env:
+            FIREBASE_TOKEN: ${{secrets.FIREBASE_TOKEN}}
+        - run: echo succesfully deployed to the firebase lmao
+

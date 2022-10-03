@@ -58,7 +58,7 @@ const Comment = ({
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div style={{ display: "flex", alignItems: "flex-start" }}>
             <p style={{ fontWeight: "bold" }}>
-              {/* <NavLink to={`/user/${comment.poster_username}`}>{comment.poster_username}</NavLink> */}
+              <NavLink to={`/user/${comment.poster_username}`}>{comment.poster_username}</NavLink>
             </p>
             <p style={{ wordBreak: "break-all", marginLeft: "5px" }}>{comment.comment}</p>
           </div>
