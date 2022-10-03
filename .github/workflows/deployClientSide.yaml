@@ -18,6 +18,7 @@ jobs:
         with:
           args: deploy --only hosting
         env:
+          PROJECT_PATH: ./client
           FIREBASE_TOKEN: ${{secrets.FIREBASE_TOKEN}}
         working-directory: client
       - run: echo succesfully deployed to the firebase lmao
