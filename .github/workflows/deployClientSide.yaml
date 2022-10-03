@@ -1,20 +1,19 @@
-name: Deploy to firebase
-
+name: Deploy code
 on: [push]
 
 jobs:
-  deploy-to-firebase:
-     runs-on: ubuntu-latest
-     steps:
-        uses: action/checkout@v3
-        name: Use Node.js
-        uses: action/setup-node@v3
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v3
         with:
           node-version: "14.x"
-        - name: Build the code
+      - name: Build the code
           run: npm build
           working-directory: client
-        - name: Deploy to firebase
+      - name: Deploy to firebase
           uses: w9jds/firebase-action@master
           working-directory: client
           with:
@@ -22,4 +21,3 @@ jobs:
           env:
             FIREBASE_TOKEN: ${{secrets.FIREBASE_TOKEN}}
         - run: echo succesfully deployed to the firebase lmao
-
