@@ -7,6 +7,7 @@ jobs:
     steps:
       - run: cd ..
       - run: cd ..
+      - run: cd client
       - run: npm install
       - run: npm test
       - run: echo "🍏 This job's status is ${{ job.status }}."
