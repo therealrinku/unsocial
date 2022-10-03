@@ -1,18 +1,20 @@
 name: Run Testcases
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+
 on: [push]
-strategy:
-  matrix:
-    node-version: [10.x, 12.x, 14.x, 15.x]
+
 jobs:
   run-react-app-tests:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+          with:
+            node-version: '12.x'
       - run: cd ..
       - run: cd ..
       - run: cd client
-      - run: npm install
+      - name: Install dependencies
+        run: npm install
       - run: npm test
       - run: echo "🍏 This job's status is ${{ job.status }}."
