@@ -11,7 +11,7 @@ jobs:
         with:
           node-version: "14.x"
       - name: Build the code
-        run: npm build
+        run: npm run build
         working-directory: client
       - name: Deploy to firebase
         uses: w9jds/firebase-action@master
