@@ -1,11 +1,15 @@
 name: Run Testcases
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on: [push]
+strategy:
+  matrix:
+    node-version: [10.x, 12.x, 14.x, 15.x]
 jobs:
   run-react-app-tests:
     runs-on: ubuntu-latest
     steps:
-      - run: cd ..
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
       - run: cd ..
       - run: cd ..
       - run: cd client
