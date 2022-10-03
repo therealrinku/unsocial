@@ -70,7 +70,7 @@ const userReducer = (state = intialState, action) => {
         currentUserData: action.payload,
         loading: false,
         error: null,
-        token: state.token || action.payload.token,
+        token: action.payload.token,
         user_data_loaded: true,
       };
 

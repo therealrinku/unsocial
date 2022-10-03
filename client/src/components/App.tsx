@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment } from "react";
+import { useEffect, Fragment } from "react";
 import { connect } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import HomePage from "../pages/HomePage";
@@ -82,8 +82,6 @@ const App = ({
         GET_FEED();
       }
     }
-
-    console.log("hola i changed", token);
   }, [token]);
 
   return (

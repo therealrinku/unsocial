@@ -95,9 +95,9 @@ export default function Form({
         <p style={{ color: "red", fontSize: "13px" }}>{errorMessage}</p>
         <div>
           <p>{formType === "Register" ? "Already have an account?" : "Don't have an account?"}</p>
-          {/* <Link to={formType === "Register" ? "/login" : "/register"}>
+          <Link to={formType === "Register" ? "/login" : "/register"}>
             {formType === "Register" ? "Login" : "Register"}
-          </Link> */}
+          </Link>
         </div>
       </form>
     </div>

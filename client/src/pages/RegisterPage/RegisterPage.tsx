@@ -35,8 +35,8 @@ const Signuppage = () => {
       setLoading(true);
 
       const response = await signupUser(email, username.trim().toLowerCase(), password);
-      if (response !== "success") {
-        setError(response);
+      if (response.error) {
+        setError(response.message);
         setLoading(false);
       } else {
         history.push("/login");

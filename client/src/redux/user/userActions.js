@@ -71,11 +71,11 @@ export const LOGIN = (username, password) => async (dispatch) => {
   try {
     dispatch({ type: userActionTypes.LOADING });
     const response = await loginUser(username, password);
-    if (typeof response === "object") {
-      dispatch({ type: userActionTypes.LOGIN, payload: response });
-    } else {
-      throw new Error(response);
+    if (response?.error) {
+      throw new Error(response.message);
     }
+    dispatch({ type: userActionTypes.LOGIN, payload: response });
+    localStorage.setItem("token", response.token);
   } catch (err) {
     dispatch({
       type: userActionTypes.SOMETHING_WENT_WRONG,
