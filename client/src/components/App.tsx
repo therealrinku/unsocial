@@ -63,23 +63,25 @@ const App = ({
   }, [uploadingPost]);
 
   useEffect(() => {
-    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-    axios.interceptors.response.use(
-      (response) => {
-        return response;
-      },
-      (error) => {
-        if (error.response.status === 401) {
-          localStorage.clear();
-          window.location.reload();
-        }
-        return error;
-      }
-    );
     if (token) {
-      GET_USER_DATA(token);
-      if (!feedLoaded) {
-        GET_FEED();
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      axios.interceptors.response.use(
+        (response) => {
+          return response;
+        },
+        (error) => {
+          if (error.response.status === 401) {
+            localStorage.clear();
+            window.location.reload();
+          }
+          return error;
+        }
+      );
+      if (token) {
+        GET_USER_DATA(token);
+        if (!feedLoaded) {
+          GET_FEED();
+        }
       }
     }
   }, [token]);
