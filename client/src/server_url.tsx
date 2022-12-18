@@ -1,3 +1,3 @@
-const server_url = "https://uns0cial.herokuapp.com";
+const server_url = "https://unsocial-backend.vercel.app";
 
 export default server_url;
