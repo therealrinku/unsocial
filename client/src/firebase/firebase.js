@@ -1,16 +1,16 @@
 import firebase from "firebase/app";
 import "firebase/storage";
 
-const config = {
-  apiKey: "AIzaSyC0UB2wAM1IIBgdatyrAy0G2Ie2Qeo0f6I",
-  authDomain: "instacloone.firebaseapp.com",
-  projectId: "instacloone",
-  storageBucket: "instacloone.appspot.com",
-  messagingSenderId: "315649415271",
-  appId: "1:315649415271:web:654e7769f08597d5725cc2",
-  measurementId: "G-ZV1718DND2",
+const firebaseConfig = {
+  apiKey: "AIzaSyCULMQk_Nv61qdPACYDnIXTp0AYfXpV7hw",
+  authDomain: "uns0cial.firebaseapp.com",
+  projectId: "uns0cial",
+  storageBucket: "uns0cial.appspot.com",
+  messagingSenderId: "1020518259432",
+  appId: "1:1020518259432:web:6eb0e9a030b9cfb047c75d",
+  measurementId: "G-QHLCGJL01L"
 };
 
-firebase.initializeApp(config);
+firebase.initializeApp(firebaseConfig);
 
 export default firebase;
