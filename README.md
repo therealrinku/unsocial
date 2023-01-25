@@ -7,7 +7,7 @@
 * React and Redux
 * SASS
 * Firebase and Heroku hosting
-* Node and Express.js
+* Node and Express
 * Firebase storage bucket
 * Image compressor
 * PostgreSQL
