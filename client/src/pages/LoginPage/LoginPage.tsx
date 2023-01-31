@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, FormEvent } from "react";
 import Form from "../../components/Form";
 import * as userActions from "../../redux/user/userActions";
 import { connect } from "react-redux";
@@ -22,7 +22,7 @@ const Loginpage = ({
 
   const history = useHistory();
 
-  const login = (e: any) => {
+  const login = (e: FormEvent) => {
     e.preventDefault();
     LOGIN(username, password);
   };

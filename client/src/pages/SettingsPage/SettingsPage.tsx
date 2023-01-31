@@ -1,10 +1,6 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { connect } from "react-redux";
-import {
-  updateUserData,
-  updateProfilePicture,
-  updatePassword,
-} from "../../services/userServices";
+import { updateUserData, updateProfilePicture, updatePassword } from "../../services/userServices";
 import storage from "../../firebase/storage";
 import Compressor from "compressorjs";
 import { Link } from "react-router-dom";
@@ -18,8 +14,8 @@ type SettingsPageTypes = {
   currentUserUid: string;
   currentUserBio: string;
   currentUserEmail: string;
-  ADD_MESSAGE: any;
-  UPDATE_PROFILE_LOCALLY: any;
+  ADD_MESSAGE: Function;
+  UPDATE_PROFILE_LOCALLY: Function;
 };
 
 const SettingsPage = ({
@@ -40,18 +36,16 @@ const SettingsPage = ({
   const [updatingProfilePicture, setUpdatingProfilePicture] = useState(false);
 
   //image file
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const newImage = selectedImage ? URL.createObjectURL(selectedImage) : null;
 
-  const updateImage = (e: any) => {
-    const file = e.target.files[0];
+  const updateImage = (e: FormEvent) => {
+    const files = (e.target as HTMLInputElement).files;
+    if (!files) return;
+    let file = files[0] || "";
     if (file) {
-      if (
-        file.name
-          .slice(file.name.slice(file.name.lastIndexOf(".")))
-          .includes("jpg", "png", "jpeg")
-      ) {
-        setSelectedImage(e.target.files[0]);
+      if (["jpg", "png", "jpeg"].includes(file.name.slice(file.name.indexOf(".") + 1))) {
+        setSelectedImage(file);
       } else {
         ADD_MESSAGE("Image must be on jpg,png or jpeg format.");
       }
@@ -68,9 +62,7 @@ const SettingsPage = ({
       new Compressor(selectedImage, {
         quality: 0.6,
         success(result: any) {
-          const uploadedImage = storage
-            .ref(`/profilePics/${currentUserUid}/${result.name}`)
-            .put(result);
+          const uploadedImage = storage.ref(`/profilePics/${currentUserUid}/${result.name}`).put(result);
           uploadedImage.on(
             "state_changed",
             (snapshot) => {},
@@ -103,25 +95,12 @@ const SettingsPage = ({
     e.preventDefault();
     setUpdating(true);
 
-    if (
-      username === currentUserName &&
-      email === currentUserEmail &&
-      bio === currentUserBio
-    ) {
+    if (username === currentUserName && email === currentUserEmail && bio === currentUserBio) {
       ADD_MESSAGE("Nothing to Update.");
       setUpdating(false);
     } else {
-      if (
-        !username.trim().includes(" ") &&
-        username.trim().length >= 5 &&
-        username.trim().length <= 25
-      ) {
-        updateUserData(
-          username.trim().toLowerCase(),
-          email || "",
-          bio || "",
-          currentUserName
-        ).then((res) => {
+      if (!username.trim().includes(" ") && username.trim().length >= 5 && username.trim().length <= 25) {
+        updateUserData(username.trim().toLowerCase(), email || "", bio || "", currentUserName).then((res) => {
           if (res !== "success") {
             ADD_MESSAGE(res);
           } else {
@@ -151,19 +130,17 @@ const SettingsPage = ({
     setUpdating(true);
     if (newPassword1 === newPassword2) {
       if (newPassword1.trim().length >= 5 && newPassword1.trim().length <= 25) {
-        updatePassword(currentUserUid, initialPassword, newPassword1).then(
-          (res) => {
-            setUpdating(false);
-            if (res === "success") {
-              ADD_MESSAGE("Successfully changed password");
-              setInitialPassword("");
-              setNewPassword1("");
-              setNewPassword2("");
-            } else {
-              ADD_MESSAGE(res);
-            }
+        updatePassword(currentUserUid, initialPassword, newPassword1).then((res) => {
+          setUpdating(false);
+          if (res === "success") {
+            ADD_MESSAGE("Successfully changed password");
+            setInitialPassword("");
+            setNewPassword1("");
+            setNewPassword2("");
+          } else {
+            ADD_MESSAGE(res);
           }
-        );
+        });
       } else {
         setUpdating(false);
         ADD_MESSAGE("new passwords must be between 5 to 25 characters.");
@@ -181,16 +158,10 @@ const SettingsPage = ({
   return (
     <div className={styles.SettingsPage}>
       <div className={styles.Tabs}>
-        <button
-          onClick={() => setMode(1)}
-          className={mode === 1 ? styles.ActiveTabButton : ""}
-        >
+        <button onClick={() => setMode(1)} className={mode === 1 ? styles.ActiveTabButton : ""}>
           Update Profile
         </button>
-        <button
-          onClick={() => setMode(2)}
-          className={mode === 2 ? styles.ActiveTabButton : ""}
-        >
+        <button onClick={() => setMode(2)} className={mode === 2 ? styles.ActiveTabButton : ""}>
           Change Password
         </button>
       </div>
@@ -198,41 +169,20 @@ const SettingsPage = ({
       {mode === 1 && (
         <div>
           <section className={styles.SectionOne}>
-            <img
-              src={newImage || currentUserProfileImage}
-              alt="profile-image"
-            />
+            <img src={newImage || currentUserProfileImage} alt="profile-image" />
 
             <div>
               <p>{currentUserName}</p>
-              <label
-                htmlFor="image"
-                style={newImage ? { display: "none" } : undefined}
-              >
+              <label htmlFor="image" style={newImage ? { display: "none" } : undefined}>
                 Change Profile Photo
               </label>
-              <label
-                htmlFor="u-btn"
-                style={!newImage ? { display: "none" } : undefined}
-              >
-                {updatingProfilePicture
-                  ? "Updating Profile Picture.."
-                  : "Confirm New Profile Photo"}
+              <label htmlFor="u-btn" style={!newImage ? { display: "none" } : undefined}>
+                {updatingProfilePicture ? "Updating Profile Picture.." : "Confirm New Profile Photo"}
               </label>
-              <button
-                style={{ display: "none" }}
-                id="u-btn"
-                onClick={updateProfilePictureFinal}
-              >
+              <button style={{ display: "none" }} id="u-btn" onClick={updateProfilePictureFinal}>
                 Update Profile Photo
               </button>
-              <input
-                type="file"
-                style={{ display: "none" }}
-                id="image"
-                onChange={updateImage}
-                accept="image/*"
-              />
+              <input type="file" style={{ display: "none" }} id="image" onChange={updateImage} accept="image/*" />
             </div>
           </section>
 
@@ -246,21 +196,11 @@ const SettingsPage = ({
                 onChange={(e) => setUsername(e.target.value)}
               />
               <label htmlFor="email">Email</label>
-              <input
-                type="text"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
+              <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
               <label htmlFor="Bio">Bio</label>
-              <textarea onChange={(e) => setBio(e.target.value)}>
-                {bio}
-              </textarea>
+              <textarea onChange={(e) => setBio(e.target.value)}>{bio}</textarea>
 
-              <button
-                disabled={updating}
-                className={styles.SubmitButton}
-                onClick={updateProfile}
-              >
+              <button disabled={updating} className={styles.SubmitButton} onClick={updateProfile}>
                 Submit
               </button>
             </form>
@@ -279,17 +219,9 @@ const SettingsPage = ({
               onChange={(e) => setInitialPassword(e.target.value)}
             />
             <label htmlFor="password2">New Password</label>
-            <input
-              type="password"
-              value={newPassword1}
-              onChange={(e) => setNewPassword1(e.target.value)}
-            />
+            <input type="password" value={newPassword1} onChange={(e) => setNewPassword1(e.target.value)} />
             <label htmlFor="password3">Retype New Password</label>
-            <input
-              type="password"
-              value={newPassword2}
-              onChange={(e) => setNewPassword2(e.target.value)}
-            />
+            <input type="password" value={newPassword2} onChange={(e) => setNewPassword2(e.target.value)} />
             <button disabled={updating} className={styles.SubmitButton}>
               Submit
             </button>
@@ -312,8 +244,7 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    UPDATE_PROFILE_LOCALLY: (data: any) =>
-      dispatch(userActions.UPDATE_PROFILE_LOCALLY(data)),
+    UPDATE_PROFILE_LOCALLY: (data: any) => dispatch(userActions.UPDATE_PROFILE_LOCALLY(data)),
     ADD_MESSAGE: (message: any) => dispatch(postActions.ADD_MESSAGE(message)),
   };
 };

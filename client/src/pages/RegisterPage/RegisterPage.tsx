@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, FormEvent } from "react";
 import Form from "../../components/Form";
 import { signupUser } from "../../services/authServices";
 import { useHistory, useLocation } from "react-router-dom";
@@ -21,7 +21,7 @@ const Signuppage = () => {
     }
   }, [loc]);
 
-  const SIGNUP = async (e: any) => {
+  const SIGNUP = async (e: FormEvent) => {
     e.preventDefault();
 
     const { message, success } = FormValidator({

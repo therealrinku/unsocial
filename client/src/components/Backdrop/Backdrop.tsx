@@ -1,4 +1,4 @@
-type BackdropTypes = { show: boolean; toggle: any };
+type BackdropTypes = { show: boolean; toggle: ()=>void };
 
 const Backdrop = ({ show, toggle }: BackdropTypes) => {
   return (

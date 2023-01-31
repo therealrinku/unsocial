@@ -20,11 +20,11 @@ import axios from "axios";
 type AppTypes = {
   currentUsername: string;
   uploadingPost: boolean;
-  GET_USER_DATA: any;
+  GET_USER_DATA: Function;
   token: string;
   userDataLoaded: boolean;
   feedLoaded: boolean;
-  ADD_MESSAGE: any;
+  ADD_MESSAGE: Function;
   message: string;
   GET_FEED: () => void;
   currentUserUid: string;
@@ -128,7 +128,7 @@ const App = ({
   );
 };
 
-const mapStateToProps = (state: any) => {
+const mapStateToProps = (state:any) => {
   return {
     message: state.posts.message,
     feedLoaded: state.posts.feed_loaded,

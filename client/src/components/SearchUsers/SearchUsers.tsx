@@ -6,7 +6,7 @@ import ProfilePicPlaceholder from "../../assets/avatar.jpg";
 import styles from "./SearchUsers.module.scss";
 
 type SearchUserTypes={
-  closeFunc:any;
+  closeFunc:Function;
 }
 
 const SearchUsers = ({closeFunc}:SearchUserTypes) => {
