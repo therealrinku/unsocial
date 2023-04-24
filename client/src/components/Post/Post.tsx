@@ -109,7 +109,7 @@ const Post = ({
         if (haveIDisliked) {
           UNDISLIKE_POST(post_uid);
         }
-        LIKE_POST(post_uid, post_owner_uid);
+        LIKE_POST(post_uid, currentUserUid, post_owner_uid);
       }
     } else {
       toggleLoginPrompt();
@@ -124,7 +124,7 @@ const Post = ({
         if (haveILiked) {
           UNLIKE_POST(post_uid);
         }
-        DISLIKE_POST(post_uid, post_owner_uid);
+        DISLIKE_POST(post_uid, currentUserUid, post_owner_uid);
       }
     } else {
       toggleLoginPrompt();

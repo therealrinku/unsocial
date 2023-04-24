@@ -190,7 +190,7 @@ export const DISLIKE_POST = (post_uid, disliker_uid, post_owner_uid) => async (d
       type: postActionTypes.DISLIKE_POST,
       payload: { post_uid },
     });
-    await dislikePost(post_uid, disliker_uid, post_owner_uid);
+    await dislikePost(post_uid, post_owner_uid);
     if (disliker_uid !== post_owner_uid) {
       notificationPusher(post_owner_uid);
     }
@@ -202,13 +202,13 @@ export const DISLIKE_POST = (post_uid, disliker_uid, post_owner_uid) => async (d
   }
 };
 
-export const UNDISLIKE_POST = (post_uid, undisliker_uid, post_owner_uid) => async (dispatch) => {
+export const UNDISLIKE_POST = (post_uid) => async (dispatch) => {
   try {
     dispatch({
       type: postActionTypes.UNDISLIKE_POST,
       payload: { post_uid },
     });
-    await undislikePost(post_uid, undisliker_uid, post_owner_uid);
+    await undislikePost(post_uid);
   } catch (err) {
     dispatch({
       type: postActionTypes.SOMETHING_WENT_WRONG,
@@ -223,7 +223,7 @@ export const LIKE_POST = (post_uid, liker_uid, post_owner_uid) => async (dispatc
       type: postActionTypes.LIKE_POST,
       payload: { post_uid },
     });
-    await likePost(post_uid, liker_uid, post_owner_uid);
+    await likePost(post_uid, post_owner_uid);
     if (liker_uid !== post_owner_uid) {
       notificationPusher(post_owner_uid);
     }
@@ -235,13 +235,13 @@ export const LIKE_POST = (post_uid, liker_uid, post_owner_uid) => async (dispatc
   }
 };
 
-export const UNLIKE_POST = (post_uid, unliker_uid, post_owner_uid) => async (dispatch) => {
+export const UNLIKE_POST = (post_uid) => async (dispatch) => {
   try {
     dispatch({
       type: postActionTypes.UNLIKE_POST,
       payload: { post_uid },
     });
-    await unlikePost(post_uid, unliker_uid, post_owner_uid);
+    await unlikePost(post_uid);
   } catch (err) {
     dispatch({
       type: postActionTypes.SOMETHING_WENT_WRONG,
