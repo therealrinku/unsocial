@@ -4,14 +4,14 @@ import { Link, useHistory } from "react-router-dom";
 import * as postsActions from "../../redux/post/postsActions";
 import UserListView from "../UserListView";
 import Moment from "react-moment";
-import { FiThumbsUp, FiThumbsDown, FiMessageSquare, FiMoreHorizontal } from "react-icons/fi";
 import Backdrop from "../Backdrop";
 import overflowToggler from "../../utilities/overflowToggler";
 import PostOptionsModal from "../PostOptionsModal";
 import placeholderImage from "../../assets/placeholder.jpg";
 import lazyLoadImage from "../../utilities/lazyLoadImage.js";
 import ProfilePicPlaceholder from "../../assets/avatar.jpg";
-import styles from "./Post.module.scss";
+import { AiOutlineHeart, AiFillHeart, AiOutlineComment, AiOutlineShareAlt } from "react-icons/ai";
+import { BiDotsHorizontal } from "react-icons/bi";
 
 type PostTypes = {
   post_commentsCount: number;
@@ -116,20 +116,20 @@ const Post = ({
     }
   };
 
-  const dislikeUndislikePost = () => {
-    if (currentUsername) {
-      if (haveIDisliked) {
-        UNDISLIKE_POST(post_uid);
-      } else {
-        if (haveILiked) {
-          UNLIKE_POST(post_uid);
-        }
-        DISLIKE_POST(post_uid, currentUserUid, post_owner_uid);
-      }
-    } else {
-      toggleLoginPrompt();
-    }
-  };
+  // const dislikeUndislikePost = () => {
+  //   if (currentUsername) {
+  //     if (haveIDisliked) {
+  //       UNDISLIKE_POST(post_uid);
+  //     } else {
+  //       if (haveILiked) {
+  //         UNLIKE_POST(post_uid);
+  //       }
+  //       DISLIKE_POST(post_uid, currentUserUid, post_owner_uid);
+  //     }
+  //   } else {
+  //     toggleLoginPrompt();
+  //   }
+  // };
 
   /*const saveUnsavePost = () => {
     if (haveISaved) {
@@ -158,28 +158,35 @@ const Post = ({
   const wrapperRef = useRef(null);
   useOutsideAlerter(wrapperRef, () => setShowPostOptionsModal(false));
 
+  const copyToClipBoard = () => {
+    navigator.clipboard.writeText(`https://uns0cial.web.app/p/${post_id}`);
+    ADD_MESSAGE("Post link copied.");
+  };
+
   return (
     <Fragment>
-      <div className={styles.Post}>
-        <section className={styles.TopSection}>
-          <span>
+      <div className="w-[100%] md:w-[500px] bg-white px-5 border-b-0 last:border-b py-5 text-sm border">
+        <section className="flex items-center justify-between border-b mb-4">
+          <span className="flex items-center gap-1 mb-4">
             <img
               data-src={poster_profileImage}
               src={ProfilePicPlaceholder}
-              className="lazy-image"
+              className="lazy-image h-7 w-7 rounded-full mr-1"
               onLoad={lazyLoadImage}
               alt="post_user_image"
             />
-            <Link to={`/user/${poster_username}`}>{poster_username}</Link>
+            <Link className="hover:underline" to={`/user/${poster_username}`}>
+              {poster_username}
+            </Link>
             &#183;
             <p>
               <Moment fromNow>{post_postedDate}</Moment>
             </p>
           </span>
 
-          <div style={{ position: "relative" }} ref={wrapperRef}>
-            <button onClick={() => setShowPostOptionsModal((prev) => !prev)} className={styles.OptionsButton}>
-              <FiMoreHorizontal />
+          <div className="relative" ref={wrapperRef}>
+            <button onClick={() => setShowPostOptionsModal((prev) => !prev)}>
+              <BiDotsHorizontal size={20} />
             </button>
 
             {showPostOptionsModal && (
@@ -197,9 +204,9 @@ const Post = ({
           </div>
         </section>
 
-        <p className={styles.Status}>{post_status}</p>
+        <p>{post_status}</p>
 
-        <section className={styles.ImageSection}>
+        <section>
           <Link to={`/p/${post_id}`}>
             <img
               className="lazy-image"
@@ -212,20 +219,24 @@ const Post = ({
           </Link>
         </section>
 
-        <section className={styles.ActionButtons}>
-          <button onClick={likeUnlikePost} style={haveILiked ? { color: "tomato" } : undefined}>
-            <FiThumbsUp />
+        <section className="flex items-center gap-4 mt-4">
+          <button className="flex items-center" onClick={likeUnlikePost}>
+            {haveILiked ? <AiFillHeart color="#EE323D" size={20} /> : <AiOutlineHeart size={20} />}
             <p>{typeof post_likesCount === "object" || post_likesCount === 0 ? "" : post_likesCount}</p>
           </button>
 
-          <button onClick={dislikeUndislikePost} style={haveIDisliked ? { color: "tomato" } : undefined}>
+          {/* <button className="flex items-center" onClick={dislikeUndislikePost} style={haveIDisliked ? { color: "tomato" } : undefined}>
             <FiThumbsDown />
             <p> {typeof post_dislikesCount === "object" || post_dislikesCount === 0 ? "" : post_dislikesCount}</p>
+          </button> */}
+
+          <button className="flex items-center" onClick={() => history.push(`/p/${post_id}`)}>
+            <AiOutlineComment size={20} />
+            <p> {typeof post_commentsCount === "object" || post_commentsCount === 0 ? "" : post_commentsCount}</p>
           </button>
 
-          <button onClick={() => history.push(`/p/${post_id}`)}>
-            <FiMessageSquare />
-            <p> {typeof post_commentsCount === "object" || post_commentsCount === 0 ? "" : post_commentsCount}</p>
+          <button className="flex items-center" onClick={copyToClipBoard}>
+            <AiOutlineShareAlt size={20} />
           </button>
         </section>
 

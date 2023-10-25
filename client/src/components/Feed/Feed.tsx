@@ -1,5 +1,4 @@
 import Post from "../Post";
-import styles from "./Feed.module.scss";
 
 type FeedTypes = {
   posts: any;
@@ -7,7 +6,7 @@ type FeedTypes = {
 
 const Feed = ({ posts }: FeedTypes) => {
   return (
-    <div className={styles.Feed}>
+    <div className="w-[100%] md:w-[80%] mx-auto">
       {posts
         .sort((a: any, b: any) => {
           return (

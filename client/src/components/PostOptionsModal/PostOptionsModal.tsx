@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { FiCornerUpRight, FiTrash2, FiClipboard, FiX } from "react-icons/fi";
-import styles from "./PostOptionsModal.module.scss";
 
 type PostOptionsViewTypes = {
   post_id: string;
@@ -12,14 +11,7 @@ type PostOptionsViewTypes = {
   hideGoToPost: boolean | undefined;
 };
 
-const PostOptionsView = ({
-  post_id,
-  isMyPost,
-  toggle,
-  deletePost,
-  AddMessage,
-  hideGoToPost,
-}: PostOptionsViewTypes) => {
+const PostOptionsView = ({ post_id, isMyPost, toggle, deletePost, AddMessage, hideGoToPost }: PostOptionsViewTypes) => {
   const [showDeleteConfirmer, setShowDeleteConfirmer] = useState(false);
   const history = useHistory();
 
@@ -38,27 +30,28 @@ const PostOptionsView = ({
   };
 
   return (
-    <div className={styles.PostOptionsModal}>
+    <div className="absolute w-[150px] bg-white flex flex-col border text-sm px-3">
       {showDeleteConfirmer ? (
-        <div className={styles.DeleteView}>
+        <div>
           <div>
-            <p>Are you sure?</p>
+            <p className="py-3">Are you sure?</p>
           </div>
 
-          <div>
-            <button style={{ color: "tomato" }} onClick={deletePost}>
-              <FiTrash2 />
-              <p>Delete</p>
+          <div className="flex flex-col">
+            <button className="flex items-center gap-1 border-b py-2" onClick={deletePost}>
+              <FiTrash2 color="red" />
+              <p className="text-red-500">Delete</p>
             </button>
-            <button onClick={toggle} style={{ borderBottom: "none" }}>
+            <button className="flex items-center gap-1 py-2" onClick={toggle}>
               <FiX />
               <p>Cancel</p>
             </button>
           </div>
         </div>
       ) : (
-        <div className={styles.PostOptions}>
+        <div className="flex flex-col gap-2">
           <button
+            className="flex items-center gap-1 border-b py-2"
             onClick={goToPost}
             style={hideGoToPost ? { display: "none" } : undefined}
           >
@@ -66,12 +59,15 @@ const PostOptionsView = ({
             <p>Go to post</p>
           </button>
           {isMyPost && (
-            <button onClick={() => setShowDeleteConfirmer((prev) => !prev)}>
-              <FiTrash2 />
-              <p>Delete</p>
+            <button
+              className="flex items-center gap-1 border-b py-2"
+              onClick={() => setShowDeleteConfirmer((prev) => !prev)}
+            >
+              <FiTrash2 color="red" />
+              <p className="text-red-500">Delete</p>
             </button>
           )}
-          <button onClick={copyToClipBoard} style={{ borderBottom: "none" }}>
+          <button className="flex items-center gap-1 py-2" onClick={copyToClipBoard}>
             <FiClipboard />
             <p>Copy link</p>
           </button>
