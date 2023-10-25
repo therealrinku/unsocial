@@ -1,6 +1,5 @@
 import Modal from "../Modal";
 import { FiUserMinus, FiX } from "react-icons/fi";
-import styles from "./UnfollowPrompt.module.scss";
 
 type UnfollowPromptTypes = {
   UNFOLLOW: any;
@@ -9,31 +8,27 @@ type UnfollowPromptTypes = {
   profileUsername: string;
 };
 
-const UnfollowPrompt = ({
-  UNFOLLOW,
-  toggle,
-  profileImage,
-  profileUsername,
-}: UnfollowPromptTypes) => {
+const UnfollowPrompt = ({ UNFOLLOW, toggle, profileImage, profileUsername }: UnfollowPromptTypes) => {
   const unfollow = () => {
     UNFOLLOW();
     toggle();
   };
   return (
     <Modal hideTitleBar>
-      <div className={styles.UnfollowPrompt}>
+      <div className="flex flex-col items-center gap-2 text-sm">
         <div>
-          <img src={profileImage} alt="profile_image" />
+          <img className="h-20 w-20" src={profileImage} alt="profile_image" />
         </div>
 
-        <button style={{ color: "tomato" }} onClick={unfollow}>
-          <FiUserMinus />
-          <p>Unfollow {profileUsername}</p>
-        </button>
-        <button onClick={toggle}>
-          <FiX />
-          <p>Cancel</p>
-        </button>
+        <div className="flex w-full flex-col items-center gap-2 mt-5">
+          <button className="w-full text-sm mt-5 bg-[#EE323D] text-white p-[6px] px-5" onClick={unfollow}>
+            <p>Unfollow {profileUsername}</p>
+          </button>
+
+          <button className="mt-3" onClick={toggle}>
+            <p>Cancel</p>
+          </button>
+        </div>
       </div>
     </Modal>
   );

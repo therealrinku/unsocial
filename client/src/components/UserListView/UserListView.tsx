@@ -2,7 +2,6 @@ import { NavLink } from "react-router-dom";
 import lazyLoadImage from "../../utilities/lazyLoadImage.js";
 import ProfilePicPlaceholder from "../../assets/avatar.jpg";
 import Modal from "../Modal";
-import styles from "./UserListView.module.scss";
 
 type UserListViewTypes = {
   title: string;
@@ -13,26 +12,24 @@ type UserListViewTypes = {
 
 const UserListView = ({ title, loading, toggle, users }: UserListViewTypes) => {
   return (
-    <Modal title={title}>
-      <div className={styles.UserListView}>
+    <Modal title={title} onClose={toggle}>
+      <div>
         {loading ? (
-          <div style={{ textAlign: "center", fontSize: "14px" }}>
-            Loading....
-          </div>
+          <div>Loading....</div>
         ) : (
-          <div className={styles.UserList}>
+          <div className="flex flex-col gap-3">
             {users.length > 0 ? (
               users.map((user: any) => {
                 return (
-                  <div key={new Date().valueOf() * Math.random()}>
+                  <div key={new Date().valueOf() * Math.random()} className="flex items-center gap-2">
                     <img
                       alt="profile_img"
                       data-src={user.profile_image_url}
                       src={ProfilePicPlaceholder}
-                      className="lazy-image"
+                      className="lazy-image h-7 w-7 rounded-full"
                       onLoad={lazyLoadImage}
                     />
-                    <NavLink to={`/user/${user.username}`} onClick={toggle}>
+                    <NavLink className="hover:underline" to={`/user/${user.username}`} onClick={toggle}>
                       {user.username}
                     </NavLink>
                   </div>
