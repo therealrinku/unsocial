@@ -165,13 +165,13 @@ const Post = ({
 
   return (
     <Fragment>
-      <div className="w-[100%] md:w-[500px] bg-white px-5 border-b-0 last:border-b py-5 text-sm border">
+      <div className="w-[100%] bg-white px-5 border-b-0 last:border-b py-5 text-sm border">
         <section className="flex items-center justify-between border-b mb-4">
           <span className="flex items-center gap-1 mb-4">
             <img
               data-src={poster_profileImage}
               src={ProfilePicPlaceholder}
-              className="lazy-image h-7 w-7 rounded-full mr-1"
+              className="lazy-image h-8 w-8 rounded-full mr-1"
               onLoad={lazyLoadImage}
               alt="post_user_image"
             />
@@ -204,17 +204,17 @@ const Post = ({
           </div>
         </section>
 
-        <p>{post_status}</p>
+        <p className="mb-2">{post_status}</p>
 
         <section>
           <Link to={`/p/${post_id}`}>
             <img
-              className="lazy-image"
+              className="lazy-image w-full"
               src={placeholderImage}
               alt="post_main_img"
               data-src={post_image}
               onLoad={lazyLoadImage}
-              style={fullHeightPostImage ? { height: "auto" } : undefined}
+              style={fullHeightPostImage ? { height: "auto" } : { maxHeight: "500px", objectFit: "cover" }}
             />
           </Link>
         </section>

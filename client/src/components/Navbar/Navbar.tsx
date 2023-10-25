@@ -10,7 +10,6 @@ import lazyLoadImage from "../../utilities/lazyLoadImage.js";
 import ProfilePicPlaceholder from "../../assets/avatar.jpg";
 import * as userActions from "../../redux/user/userActions";
 import ProfileOptionsModal from "../ProfileOptionsModal";
-import styles from "./Navbar.module.scss";
 import { AiOutlineHome, AiOutlineBell, AiOutlineCompass } from "react-icons/ai";
 
 type NavbarTypes = {
@@ -147,7 +146,7 @@ const Navbar = ({ currentUsername, currentUserUid, currentUserProfileImage, LOGO
           }}
         >
           <SearchUsers closeFunc={() => setShowSearchBox(false)} />
-          <button className={styles.CloseButton} onClick={() => setShowSearchBox(false)}>
+          <button onClick={() => setShowSearchBox(false)}>
             <FiX />
           </button>
         </section>
