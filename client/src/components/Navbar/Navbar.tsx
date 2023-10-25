@@ -1,16 +1,17 @@
-import { Fragment, useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import { connect } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
 import Badge from "@material-ui/core/Badge";
 import firestore from "../../firebase/firestore";
 import Logo from "../Logo";
-import { FiHome, FiSearch, FiBell, FiUser, FiX } from "react-icons/fi";
+import { FiUser, FiX } from "react-icons/fi";
 import SearchUsers from "../SearchUsers";
 import lazyLoadImage from "../../utilities/lazyLoadImage.js";
 import ProfilePicPlaceholder from "../../assets/avatar.jpg";
 import * as userActions from "../../redux/user/userActions";
 import ProfileOptionsModal from "../ProfileOptionsModal";
 import styles from "./Navbar.module.scss";
+import { AiOutlineHome, AiOutlineBell, AiOutlineCompass } from "react-icons/ai";
 
 type NavbarTypes = {
   currentUsername: string;
@@ -69,42 +70,49 @@ const Navbar = ({ currentUsername, currentUserUid, currentUserProfileImage, LOGO
   useOutsideAlerter(wrapperRef, () => setShowProfileOptions(false));
 
   return (
-    <nav className={styles.navbar}>
+    <nav className="z-10 fixed top-0 left-0 w-screen flex items-center justify-center border-b h-[50px] bg-white">
       {!showSearchBox ? (
-        <div>
+        <div className="w-[70%] flex items-center justify-between">
           <>
-            <ul>
+            <ul className="flex items-center gap-2">
               <NavLink to="/">
                 <Logo />
+              </NavLink>
+
+              <NavLink to="/explore" exact activeStyle={{ color: "#018e23" }}>
+                <AiOutlineCompass size={25} />
               </NavLink>
             </ul>
 
             <ul>
               {currentUsername && (
-                <>
-                  <NavLink to="/" exact activeStyle={{ color: "tomato" }}>
-                    <FiHome />
+                <div className="flex items-center gap-6">
+                  <NavLink to="/" exact activeStyle={{ color: "#018e23" }}>
+                    <AiOutlineHome size={25} />
                   </NavLink>
 
-                  <NavLink to="/explore" exact activeStyle={{ color: "tomato" }}>
-                    <FiSearch />
-                  </NavLink>
-
-                  <NavLink to="/notifications" exact activeStyle={{ color: "tomato" }}>
-                    <Badge badgeContent={notificationsCount} color="error" style={{ marginTop: "-8px" }}>
-                      <FiBell />
+                  <NavLink to="/notifications" exact activeStyle={{ color: "#018e23" }}>
+                    <Badge badgeContent={notificationsCount} color="error" style={{ marginTop: "-4px" }}>
+                      <AiOutlineBell size={25} />
                     </Badge>
                   </NavLink>
 
-                  <div ref={wrapperRef} style={{ position: "relative" }}>
-                    <button
-                      onClick={() => setShowProfileOptions((prev) => !prev)}
-                      className={styles.ProfileOptionsButton}
-                    >
+                  <NavLink to={`/user/${currentUsername}`} exact activeStyle={{ color: "#018e23" }}>
+                    <img
+                      data-src={currentUserProfileImage}
+                      src={ProfilePicPlaceholder}
+                      className={`lazy-image h-[25px] w-[25px] rounded-full`}
+                      onLoad={lazyLoadImage}
+                      alt="profile image"
+                    />
+                  </NavLink>
+
+                  {/* <div ref={wrapperRef} className="relative mt-1">
+                    <button onClick={() => setShowProfileOptions((prev) => !prev)}>
                       <img
                         data-src={currentUserProfileImage}
                         src={ProfilePicPlaceholder}
-                        className={`lazy-image ${styles.ProfileImage}`}
+                        className={`lazy-image h-6 w-6 rounded-full`}
                         onLoad={lazyLoadImage}
                         alt="profile image"
                       />
@@ -117,8 +125,8 @@ const Navbar = ({ currentUsername, currentUserUid, currentUserProfileImage, LOGO
                         currentUsername={currentUsername}
                       />
                     )}
-                  </div>
-                </>
+                  </div> */}
+                </div>
               )}
 
               {!currentUsername && (
