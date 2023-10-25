@@ -1,11 +1,12 @@
+import { Link } from "react-router-dom";
 import styles from "./Logo.module.scss";
 
 export default function Logo() {
   return (
-    <div className={styles.logo}>
+    <Link to={"/"} className={styles.logo}>
       <p>
-        <i>un</i>social
+        <i>robo</i>social
       </p>
-    </div>
+    </Link>
   );
 }

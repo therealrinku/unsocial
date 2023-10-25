@@ -97,7 +97,7 @@ const Profilepage = ({
     }
 
     return () => {
-      document.title = "unsocial";
+      document.title = "robosocial";
     };
   }, [profileUsername, currentUserUid]);
 

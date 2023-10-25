@@ -37,7 +37,7 @@ const Profilepage = ({ currentUserUid }: ProfilePageTypes) => {
     document.title = "Explore";
 
     return () => {
-      document.title = "unsocial";
+      document.title = "robosocial";
     };
   }, []);
 
