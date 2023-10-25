@@ -50,7 +50,7 @@ const Comment = ({
         <img
           data-src={comment.poster_profile_image}
           src={ProfilePicPlaceholder}
-          className="lazy-image h-7 w-7 rounded-full"
+          className="lazy-image h-7 w-7 rounded-full object-cover"
           onLoad={lazyLoadImage}
           alt="profile-image"
         />

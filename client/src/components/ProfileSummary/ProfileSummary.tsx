@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { AiFillPlusCircle, AiOutlinePlusSquare, AiOutlineSetting } from "react-icons/all";
+import { AiOutlinePlusSquare, AiOutlinePoweroff, AiOutlineSetting } from "react-icons/all";
 import { useHistory } from "react-router-dom";
 import ProfilePicPlaceholder from "../../assets/avatar.jpg";
 import lazyLoadImage from "../../utilities/lazyLoadImage";
@@ -12,6 +12,8 @@ type ProfileSummaryTypes = {
   FOLLOW: any;
   LOAD_FOLLOWERS: any;
   LOAD_FOLLOWINGS: any;
+  LOGOUT: () => void;
+  currentUsername: string;
 };
 
 const ProfileSummary = ({
@@ -22,6 +24,8 @@ const ProfileSummary = ({
   FOLLOW,
   LOAD_FOLLOWERS,
   LOAD_FOLLOWINGS,
+  LOGOUT,
+  currentUsername,
 }: ProfileSummaryTypes) => {
   const history = useHistory();
 
@@ -34,7 +38,7 @@ const ProfileSummary = ({
             data-src={profileData.profile_image_url}
             alt="profile_image"
             onLoad={lazyLoadImage}
-            className="lazy-image mb-4 h-36 w-36"
+            className="lazy-image mb-4 h-36 w-36 object-cover"
           />
 
           <p className="text-lg font-bold">{profileData.username}</p>
@@ -78,6 +82,11 @@ const ProfileSummary = ({
             {isMyProfile && (
               <button onClick={showPostUploadModal}>
                 <AiOutlinePlusSquare size={20} />
+              </button>
+            )}
+            {isMyProfile && currentUsername && (
+              <button onClick={LOGOUT}>
+                <AiOutlinePoweroff size={20} />
               </button>
             )}
           </div>

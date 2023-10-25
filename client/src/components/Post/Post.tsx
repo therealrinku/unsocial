@@ -171,7 +171,7 @@ const Post = ({
             <img
               data-src={poster_profileImage}
               src={ProfilePicPlaceholder}
-              className="lazy-image h-8 w-8 rounded-full mr-1"
+              className="lazy-image h-8 w-8 rounded-full mr-1 object-cover"
               onLoad={lazyLoadImage}
               alt="post_user_image"
             />

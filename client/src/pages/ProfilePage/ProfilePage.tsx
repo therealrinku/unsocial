@@ -12,6 +12,7 @@ import LoginPrompt from "../../components/LoginPrompt";
 import PostUploadView from "../../components/PostUploadView";
 import TwoColumnLayout from "../../components/TwoColumnLayout";
 import MainSideview from "../../components/MainSideview";
+import * as userActions from "../../redux/user/userActions";
 
 type ProfilePageTypes = {
   history: any;
@@ -25,7 +26,7 @@ type ProfilePageTypes = {
   FETCH_FOLLOWINGS: Function;
   loading: boolean;
   loading_followers_or_following: boolean;
-  LOGOUT: Function;
+  LOGOUT: () => void;
 };
 
 const Profilepage = ({
@@ -123,9 +124,11 @@ const Profilepage = ({
                   FOLLOW={follow}
                   LOAD_FOLLOWERS={LOAD_FOLLOWERS}
                   LOAD_FOLLOWINGS={LOAD_FOLLOWINGS}
+                  LOGOUT={LOGOUT}
+                  currentUsername={currentUsername}
                 />
 
-                {profileData[0].posts.length > 0 && (
+                {profileData[0]?.posts?.length > 0 && (
                   <section className={`bg-white border-t`}>
                     <PostsGrid userPosts={profileData[0]?.posts || []} />
                   </section>
@@ -200,6 +203,7 @@ const mapDispatchToProps = (dispatch: any) => {
     FOLLOW: (following_user_uid: string, follower_user_uid: string) =>
       dispatch(profileActions.FOLLOW(following_user_uid, follower_user_uid)),
     GET_PROFILE_DATA: (profile_username: string) => dispatch(profileActions.GET_PROFILE_DATA(profile_username)),
+    LOGOUT: () => dispatch(userActions.LOGOUT()),
   };
 };
 

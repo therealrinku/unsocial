@@ -100,7 +100,7 @@ const Navbar = ({ currentUsername, currentUserUid, currentUserProfileImage, LOGO
                     <img
                       data-src={currentUserProfileImage}
                       src={ProfilePicPlaceholder}
-                      className={`lazy-image h-[25px] w-[25px] rounded-full`}
+                      className={`lazy-image h-[25px] w-[25px] rounded-full object-cover`}
                       onLoad={lazyLoadImage}
                       alt="profile image"
                     />
@@ -129,8 +129,8 @@ const Navbar = ({ currentUsername, currentUserUid, currentUserProfileImage, LOGO
               )}
 
               {!currentUsername && (
-                <NavLink to="/login" exact>
-                  <FiUser />
+                <NavLink to="/" exact>
+                  <FiUser size={25} />
                 </NavLink>
               )}
             </ul>

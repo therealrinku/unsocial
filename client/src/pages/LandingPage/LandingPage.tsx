@@ -7,7 +7,7 @@ const Landingpage = () => {
   const [mode, setMode] = useState("login");
 
   return (
-    <div className="flex flex-col flex-col-reverse md:flex-row gap-10">
+    <div className="flex flex-col flex-col-reverse md:flex-row gap-10 bg-white">
       <section className="w-[100%] md:w-[50%]">
         <img src={MainImage} className="h-screen	 w-full object-cover" />
       </section>

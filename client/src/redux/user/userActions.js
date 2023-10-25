@@ -85,6 +85,10 @@ export const LOGIN = (username, password) => async (dispatch) => {
 };
 
 export const LOGOUT = () => (dispatch) => {
+  dispatch({
+    type: postActionTypes.ADD_MESSAGE,
+    payload: "Successfully logged out.",
+  });
   dispatch({ type: userActionTypes.LOGOUT });
   dispatch({ type: postActionTypes.CLEAR_POSTS });
   dispatch({ type: profileActionTypes.CLEAR_PROFILES });

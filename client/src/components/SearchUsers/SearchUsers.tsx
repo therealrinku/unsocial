@@ -57,7 +57,7 @@ const SearchUsers = ({closeFunc}:SearchUserTypes) => {
                   alt="profileimage"
                   data-src={user.profile_image_url}
                   src={ProfilePicPlaceholder}
-                  className="lazy-image"
+                  className="lazy-image object-cover"
                   onLoad={lazyLoadImage}
                 />
                 <p>{user.username}</p>

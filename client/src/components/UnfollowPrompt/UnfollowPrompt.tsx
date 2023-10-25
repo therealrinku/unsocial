@@ -17,7 +17,7 @@ const UnfollowPrompt = ({ UNFOLLOW, toggle, profileImage, profileUsername }: Unf
     <Modal hideTitleBar>
       <div className="flex flex-col items-center gap-2 text-sm">
         <div>
-          <img className="h-20 w-20" src={profileImage} alt="profile_image" />
+          <img className="h-20 w-20 object-cover" src={profileImage} alt="profile_image" />
         </div>
 
         <div className="flex w-full flex-col items-center gap-2 mt-5">

@@ -26,7 +26,7 @@ const UserListView = ({ title, loading, toggle, users }: UserListViewTypes) => {
                       alt="profile_img"
                       data-src={user.profile_image_url}
                       src={ProfilePicPlaceholder}
-                      className="lazy-image h-7 w-7 rounded-full"
+                      className="lazy-image h-7 w-7 rounded-full object-cover"
                       onLoad={lazyLoadImage}
                     />
                     <NavLink className="hover:underline" to={`/user/${user.username}`} onClick={toggle}>

@@ -159,7 +159,7 @@ const SettingsPage = ({
       {mode === 1 && (
         <div>
           <section className="flex items-start mt-5 gap-2">
-            <img className="h-7 w-7 rounded-full" src={newImage || currentUserProfileImage} alt="profile-image" />
+            <img className="h-7 w-7 rounded-full object-cover" src={newImage || currentUserProfileImage} alt="profile-image" />
 
             <div>
               <p>{currentUserName}</p>
