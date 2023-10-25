@@ -23,18 +23,11 @@
 
   button {
     border: none;
-    color: tomato;
     background: inherit;
   }
 
   button:disabled {
     opacity: 0.6;
     cursor: unset;
-  }
-}
-
-@media (max-width: 750px) {
-  .CommentInput {
-    width: 99%;
   }
 }

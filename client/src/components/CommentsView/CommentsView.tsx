@@ -1,5 +1,4 @@
 import Comment from "../Comment";
-import styles from "./CommentsView.module.scss";
 
 type CommentsViewTypes = {
   comments: any;
@@ -23,7 +22,7 @@ const CommentsView = ({
   return (
     <>
       {comments.length > 0 && (
-        <div className={styles.CommentView}>
+        <div className="bg-white p-3 mt-[-15px] border border-t-0">
           {comments.map((comment: any) => {
             return (
               <Comment

@@ -118,7 +118,7 @@ const PostViewPage = ({
           Post deleted or something went wrong!
         </p>
       ) : (
-        <div className="mt-[50px] md:mt-24 w-full lg:w-[85%] xl:w-[75%] mx-auto flex justify-center gap-24">
+        <div className="mt-[50px] mb-[25px] md:mt-24 w-full lg:w-[85%] xl:w-[75%] mx-auto flex justify-center gap-24">
           <section className="w-full md:w-[75%] lg:w-[70%] xl:w-[55%]">
             <Post
               key={currentPost[0].post_uid}

@@ -6,7 +6,7 @@ import UserListView from "./../UserListView";
 import lazyLoadImage from "../../utilities/lazyLoadImage.js";
 import ProfilePicPlaceholder from "../../assets/avatar.jpg";
 import Moment from "react-moment";
-import styles from "./Comment.module.scss";
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 
 type CommentTypes = {
   comments: any;
@@ -46,49 +46,41 @@ const Comment = ({
 
   return (
     <Fragment>
-      <div className={styles.Comment}>
+      <div className="flex items-start text-sm my-5">
         <img
           data-src={comment.poster_profile_image}
           src={ProfilePicPlaceholder}
-          className="lazy-image"
+          className="lazy-image h-7 w-7 rounded-full"
           onLoad={lazyLoadImage}
           alt="profile-image"
         />
 
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <div style={{ display: "flex", alignItems: "flex-start" }}>
-            <p style={{ fontWeight: "bold" }}>
+        <div className="flex flex-col items-start ml-2">
+          <div className="flex items-center">
+            <p className="font-bold hover:underline">
               <NavLink to={`/user/${comment.poster_username}`}>{comment.poster_username}</NavLink>
             </p>
-            <p style={{ wordBreak: "break-all", marginLeft: "5px" }}>{comment.comment}</p>
+            <p className="ml-2 break-all">{comment.comment}</p>
           </div>
 
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              marginTop: "-18px",
-            }}
-          >
-            <p style={{ marginRight: "5px" }}>
+          <div className="flex gap-1">
+            <p>
               <Moment fromNow>{comment.posted_date}</Moment>
             </p>
             <span>&#183;</span>
-            <button onClick={loadCommentLikers}>
-              {comment.comment_likes_count || 0} {comment.comment_likes_count === 1 ? "like" : "likes"}
-            </button>
-            <span>&#183;</span>
             <button
-              data-testid="likeUnlikeButton"
+              className="flex items-center gap-1"
               onClick={() => likeUnlikeComment(comment.liked_by_me ? "unlike" : "like", comment.comment_uid)}
             >
-              {comment.liked_by_me ? "unlike" : "like"}
+              {comment.liked_by_me ? <AiFillHeart color="#EE323D" size={15} /> : <AiOutlineHeart size={15} />}
+              {comment.comment_likes_count || 0}
             </button>
 
             {(currentUserUid === comment.post_owner_uid || currentUsername === comment.poster_username) && (
               <>
                 <span>&#183;</span>
-                <button style={{ color: "red" }} onClick={() => deleteComment(comment.comment_uid)}>
+
+                <button className="hover:text-[#EE323D]" onClick={() => deleteComment(comment.comment_uid)}>
                   delete
                 </button>
               </>

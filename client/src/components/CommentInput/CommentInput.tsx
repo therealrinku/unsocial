@@ -49,10 +49,10 @@ const CommentInput = ({
   };
 
   return (
-    <div className={`${styles.CommentInput} border-t px-3`}>
+    <div className={`${styles.CommentInput} border px-3 text-sm`}>
       <form onSubmit={addComment}>
         <input type="text" value={comment} onChange={(e) => setComment(e.target.value)} placeholder="Add comment.." />
-        <button disabled={comment.trim().length <= 3 || addingComment}>Post</button>
+        <button className="text-[#EE323D]" disabled={comment.trim().length <= 3 || addingComment}>Post</button>
       </form>
     </div>
   );
