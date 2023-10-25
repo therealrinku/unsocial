@@ -1,47 +1,23 @@
-import Logo from "../../components/Logo";
-import styles from "./LandingPage.module.scss";
-import { GrConnect, GrShareOption, GrDocument,GrActions } from "react-icons/gr";
 import { useState } from "react";
-import { useHistory } from "react-router-dom";
+import MainImage from "../../assets/main.jpg";
+import Register from "../../components/Register";
+import Login from "../../components/Login";
 
 const Landingpage = () => {
-  const [email, setEmail] = useState("");
-  const history = useHistory();
+  const [mode, setMode] = useState("login");
 
   return (
-    <div className={styles.LandingPage}>
-      <section>
-        <Logo />
-        <div>
-          <span>
-            <GrConnect />
-            <p>Connect with your friends.</p>
-          </span>
-          <span>
-            <GrShareOption />
-            <p>Share your photos with your friends.</p>
-          </span>
-          <span>
-            <GrActions />
-            <p>And many more.</p>
-          </span>
-        </div>
+    <div className="flex flex-col flex-col-reverse md:flex-row gap-10">
+      <section className="w-[100%] md:w-[50%]">
+        <img src={MainImage} className="h-screen	 w-full object-cover" />
       </section>
 
-      <section>
-        <div>
-          <input
-            type="text"
-            placeholder="Type your email here"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <button
-            onClick={() => history.push(`/register?email=${email.trim()}`)}
-          >
-            Join Now
+      <section className="w-[100%] md:w-[50%]">
+        <div className="w-[85%] md:w-[70%] mx-auto mt-10 md:mt-24">
+          {mode === "login" ? <Login /> : <Register />}
+          <button className="text-sm" onClick={() => setMode(mode === "login" ? "signup" : "login")}>
+            <p>{mode === "signup" ? "Already have an account? Login" : "Don't have an account? Register"} </p>
           </button>
-          <button onClick={() => history.push("/login")}>Login</button>
         </div>
       </section>
     </div>

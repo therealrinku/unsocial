@@ -5,8 +5,6 @@ import HomePage from "../pages/HomePage";
 import PostViewPage from "../pages/PostViewPage";
 import ProfilePage from "../pages/ProfilePage";
 import LandingPage from "../pages/LandingPage";
-import LoginPage from "../pages/LoginPage";
-import RegisterPage from "../pages/RegisterPage";
 import Layout from "./Layout";
 import * as userActions from "../redux/user/userActions";
 import * as postActions from "../redux/post/postsActions";
@@ -108,9 +106,6 @@ const App = ({
 
           <Switch>
             {!currentUsername && <Route path="/" exact component={LandingPage} />}
-            <Route path="/login" exact component={LoginPage} />
-            <Route path="/register" exact component={RegisterPage} />
-
             <Layout>
               <>
                 {currentUsername && <Route path="/" exact component={HomePage} />}

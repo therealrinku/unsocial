@@ -1,11 +1,10 @@
 import { Link } from "react-router-dom";
-import styles from "./Logo.module.scss";
 
 export default function Logo() {
   return (
-    <Link to={"/"} className={styles.logo}>
-      <p>
-        <i>robo</i>social
+    <Link to={"/"} className="flex items-center">
+      <p className="tracking-widest	font-bold text-lg">
+        <i className="text-[#018e23]">robo</i>social
       </p>
     </Link>
   );

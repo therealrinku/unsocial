@@ -1,7 +1,6 @@
-import { ReactEventHandler } from "react";
+import { Fragment, ReactEventHandler } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../Logo";
-import styles from "./Form.module.scss";
 
 type Form = {
   username: string;
@@ -50,56 +49,68 @@ export default function Form({
   };
 
   return (
-    <div className={styles.formWrapper}>
+    <Fragment>
       <Logo />
 
-      <form className={styles.form} onSubmit={onFormSubmit}>
+      <form className="mt-12 flex flex-col gap-5" onSubmit={onFormSubmit}>
         {formType === "Register" && (
-          <>
-            <label>Email</label>
-            <input type="email" value={email} onChange={(e) => onEmailChange(e.target.value)} />
-          </>
+          <div className="flex flex-col gap-2">
+            <label className="text-sm">Email</label>
+            <input
+              className="text-sm border px-2 py-[6px] focus:border-[#24B35A]"
+              type="email"
+              value={email}
+              onChange={(e) => onEmailChange(e.target.value)}
+            />
+          </div>
         )}
-        <label>Username</label>
-        <input type="text" value={username} onChange={(e) => onUsernameChange(e.target.value)} />
-        <label>Password</label>
-        <input type="password" value={password} onChange={(e) => onPasswordChange(e.target.value)} />
+
+        <div className="flex flex-col gap-2">
+          <label className="text-sm">Username</label>
+          <input
+            className="text-sm border px-2 py-[6px] focus:border-[#24B35A]"
+            type="text"
+            value={username}
+            onChange={(e) => onUsernameChange(e.target.value)}
+          />
+        </div>
+
+        <div className="flex flex-col gap-2">
+          <label className="text-sm">Password</label>
+          <input
+            className="text-sm border px-2 py-[6px] focus:border-[#24B35A]"
+            type="password"
+            value={password}
+            onChange={(e) => onPasswordChange(e.target.value)}
+          />
+        </div>
+
         {formType === "Register" && (
-          <>
-            <label>Repeat Password</label>
-            <input type="password" value={repeatPassword} onChange={(e) => onRepeatPasswordChange(e.target.value)} />
-          </>
+          <div className="flex flex-col gap-2">
+            <label className="text-sm">Repeat Password</label>
+            <input
+              className="text-sm border px-2 py-[6px] focus:border-[#24B35A]"
+              type="password"
+              value={repeatPassword}
+              onChange={(e) => onRepeatPasswordChange(e.target.value)}
+            />
+          </div>
         )}
-        <button type="submit" disabled={shouldSubmitButtonBeDisabled()}>
+
+        <button
+          className="text-sm mt-3 bg-[#018e23] text-white py-[6px] disabled:cursor-default"
+          type="submit"
+          disabled={shouldSubmitButtonBeDisabled()}
+        >
           {!loading ? (
             <>{formType === "Login" ? "Login" : "Register"}</>
           ) : (
-            <span
-              style={{
-                display: "flex",
-                justifyContent: "center",
-              }}
-            >
-              ...
-            </span>
+            <span className="flex justify-center font-bold">...</span>
           )}
         </button>
-        {formType === "Register" && (
-          <>
-            <i style={{ fontSize: "13px", color: "blue", marginTop: "8px" }}>
-              Username and password should be minimum 5 characters long.
-            </i>
-            <p style={{ fontSize: "13px", color: "gray" }}>By signing up, you agree to our terms and policies.</p>
-          </>
-        )}
-        <p style={{ color: "red", fontSize: "13px" }}>{errorMessage}</p>
-        <div>
-          <p>{formType === "Register" ? "Already have an account?" : "Don't have an account?"}</p>
-          <Link to={formType === "Register" ? "/login" : "/register"}>
-            {formType === "Register" ? "Login" : "Register"}
-          </Link>
-        </div>
+
+        <p className="text-red-500 text-sm mb-3">{errorMessage}</p>
       </form>
-    </div>
+    </Fragment>
   );
 }

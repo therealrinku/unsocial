@@ -1,10 +1,10 @@
 import { useState, useEffect, FormEvent } from "react";
-import Form from "../../components/Form";
+import Form from "../Form";
 import { signupUser } from "../../services/authServices";
 import { useHistory, useLocation } from "react-router-dom";
 import { FormValidator } from "../../utilities/formValidator";
 
-const Signuppage = () => {
+const Register = () => {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -64,4 +64,4 @@ const Signuppage = () => {
   );
 };
 
-export default Signuppage;
+export default Register;

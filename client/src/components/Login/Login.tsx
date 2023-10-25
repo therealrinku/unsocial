@@ -1,22 +1,22 @@
 import { useState, useEffect, FormEvent } from "react";
-import Form from "../../components/Form";
+import Form from "../Form";
 import * as userActions from "../../redux/user/userActions";
 import { connect } from "react-redux";
 import { useHistory } from "react-router";
 
-type LoginPageProps = {
+type LoginProps = {
   error: string;
   loading: boolean;
   currentUsername: String;
   LOGIN: Function;
 };
 
-const Loginpage = ({
+const Login = ({
   error,
   loading,
   currentUsername,
   LOGIN,
-}: LoginPageProps) => {
+}: LoginProps) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -64,4 +64,4 @@ const mapDispatchToProps = (dispatch: any) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Loginpage);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
