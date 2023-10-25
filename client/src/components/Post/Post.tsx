@@ -220,7 +220,7 @@ const Post = ({
         </section>
 
         <section className="flex items-center gap-4 mt-4">
-          <button className="flex items-center" onClick={likeUnlikePost}>
+          <button className="flex items-center gap-1" onClick={likeUnlikePost}>
             {haveILiked ? <AiFillHeart color="#EE323D" size={20} /> : <AiOutlineHeart size={20} />}
             <p>{typeof post_likesCount === "object" || post_likesCount === 0 ? "" : post_likesCount}</p>
           </button>
@@ -230,7 +230,7 @@ const Post = ({
             <p> {typeof post_dislikesCount === "object" || post_dislikesCount === 0 ? "" : post_dislikesCount}</p>
           </button> */}
 
-          <button className="flex items-center" onClick={() => history.push(`/p/${post_id}`)}>
+          <button className="flex items-center gap-1" onClick={() => history.push(`/p/${post_id}`)}>
             <AiOutlineComment size={20} />
             <p> {typeof post_commentsCount === "object" || post_commentsCount === 0 ? "" : post_commentsCount}</p>
           </button>
