@@ -1,11 +1,11 @@
 ## Full stack Social media app.
 
 ### Live Website
-* https://uns0cial.web.app
+* https://robosocial.web.app
 
 ### Used Technologies
 * React and Redux
-* SASS
+* SASS (migrating to tailwindcss)
 * Firebase and Heroku hosting
 * Node and Express
 * Firebase storage bucket
