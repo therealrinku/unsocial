@@ -121,7 +121,7 @@ const PostViewPage = ({
       ) : (
         <TwoColumnLayout
           component1={() => (
-            <div className="mt-[50px] md:mt-20">
+            <Fragment>
               <Post
                 key={currentPost[0].post_uid}
                 post_id={currentPost[0].post_id}
@@ -158,7 +158,7 @@ const PostViewPage = ({
                   gettingCommentLikers={gettingCommentLikers}
                 />
               )}
-            </div>
+            </Fragment>
           )}
           component2={() => <MainSideview />}
         />

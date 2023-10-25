@@ -27,7 +27,7 @@ const ProfileSummary = ({
 
   return (
     <Fragment>
-      <div className="bg-white text-sm mt-20">
+      <div className="bg-white text-sm">
         <section className="px-5 py-4">
           <img
             src={ProfilePicPlaceholder}

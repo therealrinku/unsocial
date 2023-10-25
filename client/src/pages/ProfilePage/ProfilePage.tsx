@@ -10,7 +10,8 @@ import UserListView from "../../components/UserListView";
 import Loader from "../../components/Loader";
 import LoginPrompt from "../../components/LoginPrompt";
 import PostUploadView from "../../components/PostUploadView";
-import styles from "./ProfilePage.module.scss";
+import TwoColumnLayout from "../../components/TwoColumnLayout";
+import MainSideview from "../../components/MainSideview";
 
 type ProfilePageTypes = {
   history: any;
@@ -102,72 +103,77 @@ const Profilepage = ({
   }, [profileUsername, currentUserUid]);
 
   return (
-    <Fragment>
-      {loading || profileLoading ? (
-        <Loader fullPage />
-      ) : !loading && profileData.length < 1 ? (
-        <p style={{ marginTop: "100px", textAlign: "center", fontSize: "15px" }}>This link is broken</p>
-      ) : (
-        <div className={styles.ProfilePage}>
-          <ProfileSummary
-            showPostUploadModal={() => toggleModal(setShowPostUploadModal)}
-            profileData={profileData[0] || []}
-            toggleUnfollowPrompt={() => toggleModal(setShowUnfollowPrompt)}
-            isMyProfile={currentUsername === profileUsername}
-            FOLLOW={follow}
-            LOAD_FOLLOWERS={LOAD_FOLLOWERS}
-            LOAD_FOLLOWINGS={LOAD_FOLLOWINGS}
-          />
-
-          {profileData[0].posts.length > 0 && (
-            <section className={`${styles.PostsGrid} border-t`}>
-              <PostsGrid userPosts={profileData[0]?.posts || []} />
-            </section>
-          )}
-
-          {showUnfollowPrompt && (
-            <Fragment>
-              <Backdrop show={showUnfollowPrompt} toggle={() => toggleModal(setShowUnfollowPrompt)} />
-              <UnfollowPrompt
-                profileUsername={profileUsername}
-                profileImage={profileData[0]?.profile_image_url}
-                toggle={() => toggleModal(setShowUnfollowPrompt)}
-                UNFOLLOW={() => UNFOLLOW(profileData[0].uid, currentUserUid)}
-              />
-            </Fragment>
-          )}
-
-          {showPostUploadModal && (
-            <Fragment>
-              <Backdrop show={showPostUploadModal} toggle={() => toggleModal(setShowPostUploadModal)} />
-              <PostUploadView toggle={() => toggleModal(setShowPostUploadModal)} />
-            </Fragment>
-          )}
-
-          {(showFollowers || showFollowings) && (
-            <Fragment>
-              <Backdrop
-                toggle={() => (showFollowers ? toggleModal(setShowFollowers) : toggleModal(setShowFollowings))}
-                show={showFollowers || showFollowings}
-              />
-              <UserListView
-                title={showFollowers ? "Followers" : "Following"}
-                loading={loading_followers_or_following}
-                users={(showFollowers ? followersList : followingList) || []}
-                toggle={() => (showFollowers ? toggleModal(setShowFollowers) : toggleModal(setShowFollowings))}
-              />
-            </Fragment>
-          )}
-        </div>
-      )}
-
-      {showLoginNeededPrompt && (
+    <TwoColumnLayout
+      component1={() => (
         <Fragment>
-          <LoginPrompt profilePage={true} toggle={() => toggleModal(setShowLoginNeededPrompt)} />
-          <Backdrop show={showLoginNeededPrompt} toggle={() => toggleModal(setShowLoginNeededPrompt)} />
+          {loading || profileLoading ? (
+            <Loader fullPage />
+          ) : !loading && profileData.length < 1 ? (
+            <p style={{ marginTop: "100px", textAlign: "center", fontSize: "15px" }}>This link is broken</p>
+          ) : (
+            <div>
+              <ProfileSummary
+                showPostUploadModal={() => toggleModal(setShowPostUploadModal)}
+                profileData={profileData[0] || []}
+                toggleUnfollowPrompt={() => toggleModal(setShowUnfollowPrompt)}
+                isMyProfile={currentUsername === profileUsername}
+                FOLLOW={follow}
+                LOAD_FOLLOWERS={LOAD_FOLLOWERS}
+                LOAD_FOLLOWINGS={LOAD_FOLLOWINGS}
+              />
+
+              {profileData[0].posts.length > 0 && (
+                <section className={`bg-white border-t`}>
+                  <PostsGrid userPosts={profileData[0]?.posts || []} />
+                </section>
+              )}
+
+              {showUnfollowPrompt && (
+                <Fragment>
+                  <Backdrop show={showUnfollowPrompt} toggle={() => toggleModal(setShowUnfollowPrompt)} />
+                  <UnfollowPrompt
+                    profileUsername={profileUsername}
+                    profileImage={profileData[0]?.profile_image_url}
+                    toggle={() => toggleModal(setShowUnfollowPrompt)}
+                    UNFOLLOW={() => UNFOLLOW(profileData[0].uid, currentUserUid)}
+                  />
+                </Fragment>
+              )}
+
+              {showPostUploadModal && (
+                <Fragment>
+                  <Backdrop show={showPostUploadModal} toggle={() => toggleModal(setShowPostUploadModal)} />
+                  <PostUploadView toggle={() => toggleModal(setShowPostUploadModal)} />
+                </Fragment>
+              )}
+
+              {(showFollowers || showFollowings) && (
+                <Fragment>
+                  <Backdrop
+                    toggle={() => (showFollowers ? toggleModal(setShowFollowers) : toggleModal(setShowFollowings))}
+                    show={showFollowers || showFollowings}
+                  />
+                  <UserListView
+                    title={showFollowers ? "Followers" : "Following"}
+                    loading={loading_followers_or_following}
+                    users={(showFollowers ? followersList : followingList) || []}
+                    toggle={() => (showFollowers ? toggleModal(setShowFollowers) : toggleModal(setShowFollowings))}
+                  />
+                </Fragment>
+              )}
+            </div>
+          )}
+
+          {showLoginNeededPrompt && (
+            <Fragment>
+              <LoginPrompt profilePage={true} toggle={() => toggleModal(setShowLoginNeededPrompt)} />
+              <Backdrop show={showLoginNeededPrompt} toggle={() => toggleModal(setShowLoginNeededPrompt)} />
+            </Fragment>
+          )}
         </Fragment>
       )}
-    </Fragment>
+      component2={() => <MainSideview />}
+    />
   );
 };
 

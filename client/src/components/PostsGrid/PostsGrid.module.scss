@@ -33,9 +33,3 @@
     height: 85%;
   }
 }
-
-@media (min-width: 1250px) {
-  .Posts-Grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
