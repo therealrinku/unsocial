@@ -40,18 +40,14 @@ const PostUploadModal = ({
   const thumbs = files.map((file: any) => (
     <div key={file.name}>
       <div>
-        <img src={file.preview} className={styles["Post-Image"]} />
+        <img src={file.preview} className="w-full" />
       </div>
     </div>
   ));
 
   const uploadPost = () => {
     if (files) {
-      if (
-        ["jpg", "png", "jpeg"].includes(
-          files[0].name.slice(files[0].name.lastIndexOf(".") + 1)
-        )
-      ) {
+      if (["jpg", "png", "jpeg"].includes(files[0].name.slice(files[0].name.lastIndexOf(".") + 1))) {
         toggle();
         UPLOAD_POST({
           owner_uid: currentUserUid,
@@ -68,40 +64,36 @@ const PostUploadModal = ({
   };
 
   return (
-    <Modal title="Add Post">
-      <div className={styles["Post-Upload-View"]}>
+    <Modal title="Add Post" onClose={toggle}>
+      <div className="text-sm flex flex-col items-center">
         {files.length < 1 && (
-          <section {...getRootProps()} className={styles.Dropzone}>
+          <section {...getRootProps()} className="flex flex-col items-center gap-5">
             <input {...getInputProps()} />
             {isDragActive ? (
               <p>Drop the files here ...</p>
             ) : (
               <>
-                <span style={{ fontSize: "50px" }}>
-                  <FiImage />
-                </span>
+                <FiImage size={50} />
                 <p>Drop your Image here</p>
-                <button>Select from device</button>
+                <button className="text-white px-5 py-1 bg-[#018e23]">Select from device</button>
               </>
             )}
           </section>
         )}
 
         {files.length > 0 && (
-          <section className={styles.FinalStep}>
-            <span>
-              <img
-                src={currentUserProfileImage}
-                alt="profile_image"
-                className={styles.UserImage}
-              />
+          <section className="flex flex-col gap-5 w-full">
+            <span className="flex items-center justify-between">
               <input
                 type="text"
                 value={status}
+                className="ml-1"
                 onChange={(e) => setStatus(e.target.value)}
-                placeholder="Type your status here"
+                placeholder="Status(optional)..."
               />
-              <button onClick={uploadPost}>upload</button>
+              <button className="text-[#018e23]" onClick={uploadPost}>
+                Submit
+              </button>
             </span>
 
             {thumbs}
@@ -122,8 +114,7 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    UPLOAD_POST: (post_data: any) =>
-      dispatch(postsActions.UPLOAD_POST(post_data)),
+    UPLOAD_POST: (post_data: any) => dispatch(postsActions.UPLOAD_POST(post_data)),
   };
 };
 

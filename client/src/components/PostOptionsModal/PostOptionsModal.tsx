@@ -30,7 +30,7 @@ const PostOptionsView = ({ post_id, isMyPost, toggle, deletePost, AddMessage, hi
   };
 
   return (
-    <div className="absolute w-[150px] bg-white flex flex-col border text-sm px-3">
+    <div className="absolute w-[150px] right-0 top-[37px] bg-white flex flex-col border text-sm px-3">
       {showDeleteConfirmer ? (
         <div>
           <div>

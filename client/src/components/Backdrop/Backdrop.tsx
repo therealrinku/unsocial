@@ -1,20 +1,7 @@
-type BackdropTypes = { show: boolean; toggle: ()=>void };
+type BackdropTypes = { show: boolean; toggle: () => void };
 
 const Backdrop = ({ show, toggle }: BackdropTypes) => {
-  return (
-    <div
-      style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        width: "100%",
-        height: "100vh",
-        background: "rgba(0,0,0,0.7)",
-        zIndex: 4,
-      }}
-      onClick={toggle}
-    ></div>
-  );
+  return <div className="fixed top-0 left-0 w-full h-screen z-30 bg-black bg-opacity-70" onClick={toggle}></div>;
 };
 
 export default Backdrop;

@@ -34,8 +34,8 @@
   }
 }
 
-@media (max-width: 750px) {
+@media (min-width: 1250px) {
   .Posts-Grid {
-    grid-gap: 5px;
+    grid-template-columns: repeat(4, 1fr);
   }
 }

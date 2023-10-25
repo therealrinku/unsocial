@@ -55,7 +55,7 @@ const Comment = ({
           alt="profile-image"
         />
 
-        <div className="flex flex-col items-start ml-2">
+        <div className="flex flex-col items-start ml-2 gap-1">
           <div className="flex items-center">
             <p className="font-bold hover:underline">
               <NavLink to={`/user/${comment.poster_username}`}>{comment.poster_username}</NavLink>

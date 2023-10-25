@@ -71,7 +71,7 @@ const Navbar = ({ currentUsername, currentUserUid, currentUserProfileImage, LOGO
   return (
     <nav className="z-10 fixed top-0 left-0 w-screen flex items-center justify-center border-b h-[50px] bg-white">
       {!showSearchBox ? (
-        <div className="w-[70%] flex items-center justify-between">
+        <div className="w-[90%] md:w-[70%] flex items-center justify-between">
           <>
             <ul className="flex items-center gap-2">
               <NavLink to="/">
