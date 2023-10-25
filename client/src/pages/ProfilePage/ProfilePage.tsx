@@ -120,7 +120,7 @@ const Profilepage = ({
           />
 
           {profileData[0].posts.length > 0 && (
-            <section className={styles.PostsGrid}>
+            <section className={`${styles.PostsGrid} border-t`}>
               <PostsGrid userPosts={profileData[0]?.posts || []} />
             </section>
           )}

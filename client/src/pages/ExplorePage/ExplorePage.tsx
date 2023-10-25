@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import styles from "./ExplorePage.module.scss";
-import CoverImage from "../../assets/coverImage.jpg";
 import { getRecommendedUsers, getSearchedUsers } from "../../services/userServices";
 import { Link } from "react-router-dom";
 import lazyLoadImage from "../../utilities/lazyLoadImage.js";
@@ -43,7 +42,6 @@ const Profilepage = ({ currentUserUid }: ProfilePageTypes) => {
 
   return (
     <div className={styles.ExplorePage}>
-      <img src={CoverImage} alt="cover-image" className={styles.CoverImage} />
       <input
         type="search"
         value={searchQuery}

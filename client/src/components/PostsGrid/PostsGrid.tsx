@@ -1,4 +1,4 @@
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import placeholderImage from "../../assets/placeholder.jpg";
 import lazyLoadImage from "../../utilities/lazyLoadImage.js";
 import styles from "./PostsGrid.module.scss";
@@ -8,8 +8,6 @@ type PostsGridTypes = {
 };
 
 const PostsGrid = ({ userPosts }: PostsGridTypes) => {
-  const history = useHistory();
-
   return (
     <div className={styles["Posts-Grid"]}>
       {userPosts

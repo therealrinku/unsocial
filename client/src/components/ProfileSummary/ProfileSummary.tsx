@@ -1,10 +1,8 @@
 import { Fragment } from "react";
-import { FiPlus, FiSettings } from "react-icons/all";
+import { AiFillPlusCircle, AiOutlinePlusSquare, AiOutlineSetting } from "react-icons/all";
 import { useHistory } from "react-router-dom";
 import ProfilePicPlaceholder from "../../assets/avatar.jpg";
 import lazyLoadImage from "../../utilities/lazyLoadImage";
-import CoverImage from "../../assets/coverImage.jpg";
-import styles from "./ProfileSummary.module.scss";
 
 type ProfileSummaryTypes = {
   profileData: any;
@@ -29,68 +27,57 @@ const ProfileSummary = ({
 
   return (
     <Fragment>
-      <div className={styles.ProfileSummary}>
-        <img src={CoverImage} alt="cover-image" className={styles.CoverImage} />
-
-        <section>
+      <div className="bg-white text-sm mt-20">
+        <section className="px-5 py-4">
           <img
             src={ProfilePicPlaceholder}
             data-src={profileData.profile_image_url}
             alt="profile_image"
             onLoad={lazyLoadImage}
-            className="lazy-image"
+            className="lazy-image mb-4 h-36 w-36"
           />
 
-          <p className={styles.username}>{profileData.username}</p>
-          <p style={{ fontSize: "15px" }}>{profileData.bio}</p>
+          <p className="text-lg font-bold">{profileData.username}</p>
+          <p className="my-3">{profileData.bio}</p>
 
-          <div className={styles.UserSummary}>
-            <button>{profileData.posts_count} posts</button>
+          <div className="flex items-center gap-1">
+            <button>
+              <b>{profileData.posts_count}</b> posts
+            </button>
             &#183;
             <button onClick={LOAD_FOLLOWERS}>
-              {profileData.followers_count || 0}{" "}
-              {profileData.followers_count === 1 ? "follower" : "followers"}
+              <b>{profileData.followers_count || 0}</b> {profileData.followers_count === 1 ? "follower" : "followers"}
             </button>
             &#183;
             <button onClick={LOAD_FOLLOWINGS}>
-              {profileData.following_count || 0} following
+              <b>{profileData.following_count || 0}</b> following
             </button>
           </div>
 
           <br />
 
-          <div className={styles.ActionButtons}>
+          <div className="flex items-center gap-4">
             {isMyProfile && (
-              <button
-                onClick={() => history.push("/settings")}
-                className={styles["Profile-Edit-Button"]}
-                style={{ fontSize: "18px" }}
-              >
-                <FiSettings />
+              <button onClick={() => history.push("/settings")}>
+                <AiOutlineSetting size={20} />
               </button>
             )}
 
             {!isMyProfile && !profileData.followed_by_me && (
-              <button className={styles.FollowButton} onClick={FOLLOW}>
+              <button className="text-white px-5 py-1 bg-[#018e23]" onClick={FOLLOW}>
                 Follow
               </button>
             )}
 
             {!isMyProfile && profileData.followed_by_me && (
-              <button
-                className={styles.UnfollowButton}
-                onClick={toggleUnfollowPrompt}
-              >
+              <button className="text-white px-5 py-1 bg-[#EE323D]" onClick={toggleUnfollowPrompt}>
                 Unfollow
               </button>
             )}
 
             {isMyProfile && (
-              <button
-                style={{ fontSize: "20px" }}
-                onClick={showPostUploadModal}
-              >
-                <FiPlus />
+              <button onClick={showPostUploadModal}>
+                <AiOutlinePlusSquare size={20} />
               </button>
             )}
           </div>
