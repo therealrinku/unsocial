@@ -45,19 +45,8 @@ const App = ({
         ADD_MESSAGE("Uploading your post. it may take couple of seconds.");
       } else {
         ADD_MESSAGE("Successfully uploaded a post.");
-        setTimeout(() => {
-          ADD_MESSAGE(null);
-        }, 3000);
       }
     }
-
-    const messageClearTimeout = setTimeout(() => {
-      ADD_MESSAGE(null);
-    }, 4000);
-
-    return () => {
-      clearInterval(messageClearTimeout);
-    };
   }, [uploadingPost]);
 
   useEffect(() => {
@@ -83,6 +72,12 @@ const App = ({
       }
     }
   }, [token]);
+
+  useEffect(() => {
+    if (message) {
+      setTimeout(() => ADD_MESSAGE(null), 3000);
+    }
+  }, [message]);
 
   return (
     <BrowserRouter>
@@ -123,7 +118,7 @@ const App = ({
   );
 };
 
-const mapStateToProps = (state:any) => {
+const mapStateToProps = (state: any) => {
   return {
     message: state.posts.message,
     feedLoaded: state.posts.feed_loaded,

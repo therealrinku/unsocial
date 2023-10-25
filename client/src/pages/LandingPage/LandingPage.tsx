@@ -15,7 +15,7 @@ const Landingpage = () => {
       <section className="w-[100%] md:w-[50%]">
         <div className="w-[85%] md:w-[70%] mx-auto mt-10 md:mt-24">
           {mode === "login" ? <Login /> : <Register />}
-          <button className="text-sm" onClick={() => setMode(mode === "login" ? "signup" : "login")}>
+          <button className="text-sm mt-5" onClick={() => setMode(mode === "login" ? "signup" : "login")}>
             <p>{mode === "signup" ? "Already have an account? Login" : "Don't have an account? Register"} </p>
           </button>
         </div>

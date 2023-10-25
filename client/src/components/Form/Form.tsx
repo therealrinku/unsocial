@@ -1,6 +1,7 @@
 import { Fragment, ReactEventHandler } from "react";
-import { Link } from "react-router-dom";
 import Logo from "../Logo";
+import * as postActions from "../../redux/post/postsActions";
+import { connect } from "react-redux";
 
 type Form = {
   username: string;
@@ -8,6 +9,7 @@ type Form = {
   email?: string;
   onEmailChange: Function;
   password: string;
+  ADD_MESSAGE: Function;
   onPasswordChange: Function;
   repeatPassword?: string;
   onRepeatPasswordChange: Function;
@@ -17,7 +19,7 @@ type Form = {
   loading: boolean;
 };
 
-export default function Form({
+function Form({
   username,
   onUsernameChange,
   email,
@@ -30,6 +32,7 @@ export default function Form({
   errorMessage,
   onFormSubmit,
   loading,
+  ADD_MESSAGE,
 }: Form) {
   const shouldSubmitButtonBeDisabled = () => {
     if (loading) return true;
@@ -47,6 +50,10 @@ export default function Form({
 
     return false;
   };
+
+  if (errorMessage) {
+    ADD_MESSAGE(errorMessage);
+  }
 
   return (
     <Fragment>
@@ -108,9 +115,15 @@ export default function Form({
             <span className="flex justify-center font-bold">...</span>
           )}
         </button>
-
-        <p className="text-red-500 text-sm mb-3">{errorMessage}</p>
       </form>
     </Fragment>
   );
 }
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    ADD_MESSAGE: (message: string) => dispatch(postActions.ADD_MESSAGE(message)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(Form);
