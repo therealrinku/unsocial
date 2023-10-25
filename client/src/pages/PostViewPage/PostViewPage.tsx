@@ -9,7 +9,7 @@ import CommentsView from "../../components/CommentsView";
 import { deleteComment, getCommentLikers } from "../../services/commentServices";
 import LoginPrompt from "../../components/LoginPrompt";
 import Post from "../../components/Post";
-import styles from "./PostViewPage.module.scss";
+import MainSideview from "../../components/MainSideview";
 
 type PostViewPageTypes = {
   currentUsername: string;
@@ -118,44 +118,50 @@ const PostViewPage = ({
           Post deleted or something went wrong!
         </p>
       ) : (
-        <div className={styles.PostViewPage}>
-          <Post
-            key={currentPost[0].post_uid}
-            post_id={currentPost[0].post_id}
-            haveILiked={currentPost[0].liked_by_me}
-            haveIDisliked={currentPost[0].disliked_by_me}
-            post_uid={currentPost[0].post_uid}
-            poster_username={currentPost[0].poster_username}
-            poster_profileImage={currentPost[0].poster_profileimage}
-            post_image={currentPost[0].post_image}
-            post_postedDate={currentPost[0].post_posted_date}
-            post_likesCount={currentPost[0].post_likes_count}
-            post_dislikesCount={currentPost[0].post_dislikes_count}
-            post_status={currentPost[0].post_status}
-            post_owner_uid={currentPost[0].poster_uid}
-            post_commentsCount={currentPost[0].post_comments_count}
-            haveISaved={currentPost[0].i_have_saved}
-            toggleLoginPrompt={() => toggleModal(setShowLoginNeededPrompt)}
-            fullHeightPostImage
-          />
-
-          <CommentInput
-            post_uid={post_uid}
-            post_owner_uid={currentPost[0]?.poster_uid}
-            toggleLoginNeededPrompt={() => toggleModal(setShowLoginNeededPrompt)}
-          />
-
-          {thisPostComments !== undefined && (
-            <CommentsView
-              comments={thisPostComments || []}
-              likeUnlikeComment={likeUnlikeComment}
-              currentUserUid={currentUserUid}
-              deleteComment={deleteComment}
-              currentUsername={currentUsername}
-              getCommentLikers={getCommentLikers}
-              gettingCommentLikers={gettingCommentLikers}
+        <div className="mt-[50px] md:mt-24 w-full lg:w-[85%] xl:w-[75%] mx-auto flex justify-center gap-24">
+          <section className="w-full md:w-[75%] lg:w-[70%] xl:w-[55%]">
+            <Post
+              key={currentPost[0].post_uid}
+              post_id={currentPost[0].post_id}
+              haveILiked={currentPost[0].liked_by_me}
+              haveIDisliked={currentPost[0].disliked_by_me}
+              post_uid={currentPost[0].post_uid}
+              poster_username={currentPost[0].poster_username}
+              poster_profileImage={currentPost[0].poster_profileimage}
+              post_image={currentPost[0].post_image}
+              post_postedDate={currentPost[0].post_posted_date}
+              post_likesCount={currentPost[0].post_likes_count}
+              post_dislikesCount={currentPost[0].post_dislikes_count}
+              post_status={currentPost[0].post_status}
+              post_owner_uid={currentPost[0].poster_uid}
+              post_commentsCount={currentPost[0].post_comments_count}
+              haveISaved={currentPost[0].i_have_saved}
+              toggleLoginPrompt={() => toggleModal(setShowLoginNeededPrompt)}
+              fullHeightPostImage
             />
-          )}
+
+            <CommentInput
+              post_uid={post_uid}
+              post_owner_uid={currentPost[0]?.poster_uid}
+              toggleLoginNeededPrompt={() => toggleModal(setShowLoginNeededPrompt)}
+            />
+
+            {thisPostComments !== undefined && (
+              <CommentsView
+                comments={thisPostComments || []}
+                likeUnlikeComment={likeUnlikeComment}
+                currentUserUid={currentUserUid}
+                deleteComment={deleteComment}
+                currentUsername={currentUsername}
+                getCommentLikers={getCommentLikers}
+                gettingCommentLikers={gettingCommentLikers}
+              />
+            )}
+          </section>
+
+          <div className="hidden lg:block lg:w-[35%] xl:w-[30%] sticky top-[80px]  h-[300px]">
+            <MainSideview />
+          </div>
         </div>
       )}
 
