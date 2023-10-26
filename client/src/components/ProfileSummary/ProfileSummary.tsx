@@ -49,7 +49,9 @@ const ProfileSummary = ({
 
           <p className="text-lg font-bold">{profileData.username ?? "User not found"}</p>
           <p className="my-3">
-            {profileData.bio ?? "This user doesn't exist or this account might have been deleted."}
+            {profileData.username
+              ? profileData.bio
+              : "This user doesn't exist or this account might have been deleted."}
           </p>
 
           {profileData.username && (
