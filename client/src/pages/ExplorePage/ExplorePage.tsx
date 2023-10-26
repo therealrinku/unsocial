@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getRecommendedUsers, getSearchedUsers } from "../../services/userServices";
+import { getSearchedUsers } from "../../services/userServices";
 import { Link } from "react-router-dom";
 import lazyLoadImage from "../../utilities/lazyLoadImage.js";
 import ProfilePicPlaceholder from "../../assets/avatar.jpg";
@@ -14,29 +14,34 @@ type ProfilePageTypes = {
   profiles: Array<any>;
   GET_PROFILE_DATA: Function;
   currentUsername: string;
+  recommendedUsers: Array<any>;
+  isLoading: boolean;
 };
 
-const Profilepage = ({ currentUserUid }: ProfilePageTypes) => {
+const Profilepage = ({ currentUserUid, isLoading, recommendedUsers }: ProfilePageTypes) => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [searchResults, setSearchResults] = useState(recommendedUsers);
+  const [loading, setLoading] = useState(isLoading);
 
   useEffect(() => {
-    setLoading(true);
-    
+    setLoading(isLoading);
+  }, [isLoading]);
+
+  useEffect(() => {
+    setSearchResults(recommendedUsers);
+  }, [recommendedUsers]);
+
+  useEffect(() => {
     if (searchQuery.trim() !== "") {
+      setLoading(true);
       getSearchedUsers(searchQuery.trim().toLowerCase()).then((res) => {
         setSearchResults(res);
+        setLoading(false);
       });
     }
   }, [searchQuery]);
 
   useEffect(() => {
-    getRecommendedUsers().then((res) => {
-      setSearchResults(res);
-      setLoading(false);
-    });
-
     document.body.style.overflow = "auto";
     //set document title
     document.title = "Explore";
@@ -98,6 +103,8 @@ const Profilepage = ({ currentUserUid }: ProfilePageTypes) => {
 
 const mapStateToProps = (state: any) => {
   return {
+    isLoading: state.user.loading,
+    recommendedUsers: state.user.recommendedUsers || [],
     currentUserUid: state.user.currentUserData.uid,
   };
 };

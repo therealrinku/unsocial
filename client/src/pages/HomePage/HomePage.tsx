@@ -21,7 +21,7 @@ const Homepage = ({ feed, loading }: HomePageTypes) => {
 
       {!loading && (
         <div>
-          {feed.length > 0 ? (
+          {feed.length <= 0 ? (
             <TwoColumnLayout
               component1={() => (
                 <div className="border text-sm bg-white p-5 h-[307px] flex flex-col items-center justify-center">
@@ -39,7 +39,7 @@ const Homepage = ({ feed, loading }: HomePageTypes) => {
                     onClick={() => history.push("/explore")}
                   >
                     <FiCompass />
-                    Explore people
+                    Explore
                   </button>
                 </div>
               )}

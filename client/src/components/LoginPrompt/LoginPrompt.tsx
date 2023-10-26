@@ -16,12 +16,12 @@ const LoginPrompt = ({ toggle, profilePage }: LoginPromptTypes) => {
 
   return (
     <Modal hideTitleBar>
-      <div className="text-sm">
+      <div className="text-sm flex flex-col gap-2 items-center">
         <p>You need to login to interact with the {profilePage ? "profile" : "post"}.</p>
-        <button className="mt-5 bg-[#018e23] text-white py-[6px] px-5" onClick={goToLoginPage}>
+        <button className="w-full text-sm mt-5 bg-[#018e2e] text-white p-[6px] px-5" onClick={goToLoginPage}>
           Login
         </button>
-        <button className="ml-3" onClick={toggle}>
+        <button className="mt-3 hover:underline" onClick={toggle}>
           Not interested
         </button>
       </div>

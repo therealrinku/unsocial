@@ -25,7 +25,7 @@ const UnfollowPrompt = ({ UNFOLLOW, toggle, profileImage, profileUsername }: Unf
             <p>Unfollow {profileUsername}</p>
           </button>
 
-          <button className="mt-3" onClick={toggle}>
+          <button className="mt-3 hover:underline" onClick={toggle}>
             <p>Cancel</p>
           </button>
         </div>
