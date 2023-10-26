@@ -166,81 +166,85 @@ const Post = ({
   return (
     <Fragment>
       <div className="w-[100%] bg-white px-5 border-b-0 last:border-b py-5 text-sm border">
-        <section className="flex items-center justify-between border-b mb-4">
-          <span className="flex items-center gap-1 mb-4">
-            <img
-              data-src={poster_profileImage}
-              src={ProfilePicPlaceholder}
-              className="lazy-image h-8 w-8 rounded-full mr-1 object-cover"
-              onLoad={lazyLoadImage}
-              alt="post_user_image"
-            />
-            <Link className="hover:underline" to={`/user/${poster_username}`}>
-              {poster_username}
-            </Link>
-            &#183;
-            <p>
-              <Moment fromNow>{post_postedDate}</Moment>
-            </p>
-          </span>
-
-          <div className="relative" ref={wrapperRef}>
-            <button onClick={() => setShowPostOptionsModal((prev) => !prev)}>
-              <BiDotsHorizontal size={20} />
-            </button>
-
-            {showPostOptionsModal && (
-              <Fragment>
-                <PostOptionsModal
-                  hideGoToPost={fullHeightPostImage}
-                  toggle={() => setShowPostOptionsModal((prev) => !prev)}
-                  isMyPost={poster_username === currentUsername}
-                  deletePost={deletePost}
-                  post_id={post_id}
-                  AddMessage={ADD_MESSAGE}
+        {!post_id && !post_owner_uid ? (
+          <p className="my-[123px] flex flex-col items-center">Post deleted or never existed.</p>
+        ) : (
+          <Fragment>
+            <section className="flex items-center justify-between border-b mb-4">
+              <span className="flex items-center gap-1 mb-4">
+                <img
+                  data-src={poster_profileImage}
+                  src={ProfilePicPlaceholder}
+                  className="lazy-image h-8 w-8 rounded-full mr-1 object-cover"
+                  onLoad={lazyLoadImage}
+                  alt="post_user_image"
                 />
-              </Fragment>
-            )}
-          </div>
-        </section>
+                <Link className="hover:underline" to={`/user/${poster_username}`}>
+                  {poster_username}
+                </Link>
+                &#183;
+                <p>
+                  <Moment fromNow>{post_postedDate}</Moment>
+                </p>
+              </span>
 
-        <p className="mb-2">{post_status}</p>
+              <div className="relative" ref={wrapperRef}>
+                <button onClick={() => setShowPostOptionsModal((prev) => !prev)}>
+                  <BiDotsHorizontal size={20} />
+                </button>
 
-        <section>
-          <Link to={`/p/${post_id}`}>
-            <img
-              className="lazy-image w-full"
-              src={placeholderImage}
-              alt="post_main_img"
-              data-src={post_image}
-              onLoad={lazyLoadImage}
-              style={fullHeightPostImage ? { height: "auto" } : { maxHeight: "500px", objectFit: "cover" }}
-            />
-          </Link>
-        </section>
+                {showPostOptionsModal && (
+                  <Fragment>
+                    <PostOptionsModal
+                      hideGoToPost={fullHeightPostImage}
+                      toggle={() => setShowPostOptionsModal((prev) => !prev)}
+                      isMyPost={poster_username === currentUsername}
+                      deletePost={deletePost}
+                      post_id={post_id}
+                      AddMessage={ADD_MESSAGE}
+                    />
+                  </Fragment>
+                )}
+              </div>
+            </section>
 
-        <section className="flex items-center gap-4 mt-4">
-          <button className="flex items-center gap-1" onClick={likeUnlikePost}>
-            {haveILiked ? <AiFillHeart color="#EE323D" size={20} /> : <AiOutlineHeart size={20} />}
-            <p>{typeof post_likesCount === "object" || post_likesCount === 0 ? "" : post_likesCount}</p>
-          </button>
+            <p className="mb-2">{post_status}</p>
 
-          {/* <button className="flex items-center" onClick={dislikeUndislikePost} style={haveIDisliked ? { color: "tomato" } : undefined}>
+            <section>
+              <Link to={`/p/${post_id}`}>
+                <img
+                  className="lazy-image w-full"
+                  src={placeholderImage}
+                  alt="post_main_img"
+                  data-src={post_image}
+                  onLoad={lazyLoadImage}
+                  style={fullHeightPostImage ? { height: "auto" } : { maxHeight: "500px", objectFit: "cover" }}
+                />
+              </Link>
+            </section>
+
+            <section className="flex items-center gap-4 mt-4">
+              <button className="flex items-center gap-1" onClick={likeUnlikePost}>
+                {haveILiked ? <AiFillHeart color="#EE323D" size={20} /> : <AiOutlineHeart size={20} />}
+                <p>{typeof post_likesCount === "object" || post_likesCount === 0 ? "" : post_likesCount}</p>
+              </button>
+
+              {/* <button className="flex items-center" onClick={dislikeUndislikePost} style={haveIDisliked ? { color: "tomato" } : undefined}>
             <FiThumbsDown />
             <p> {typeof post_dislikesCount === "object" || post_dislikesCount === 0 ? "" : post_dislikesCount}</p>
           </button> */}
 
-          <button className="flex items-center gap-1" onClick={() => history.push(`/p/${post_id}`)}>
-            <AiOutlineComment size={20} />
-            <p> {typeof post_commentsCount === "object" || post_commentsCount === 0 ? "" : post_commentsCount}</p>
-          </button>
+              <button className="flex items-center gap-1" onClick={() => history.push(`/p/${post_id}`)}>
+                <AiOutlineComment size={20} />
+                <p> {typeof post_commentsCount === "object" || post_commentsCount === 0 ? "" : post_commentsCount}</p>
+              </button>
 
-          <button className="flex items-center" onClick={copyToClipBoard}>
-            <AiOutlineShareAlt size={20} />
-          </button>
-        </section>
+              <button className="flex items-center" onClick={copyToClipBoard}>
+                <AiOutlineShareAlt size={20} />
+              </button>
+            </section>
 
-        {/*<p>{post_status}</p>
+            {/*<p>{post_status}</p>
       
 
       <div>
@@ -257,6 +261,8 @@ const Post = ({
        
       </div>
   */}
+          </Fragment>
+        )}
       </div>
 
       {showLikers && (

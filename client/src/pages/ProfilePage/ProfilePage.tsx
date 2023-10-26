@@ -105,11 +105,7 @@ const Profilepage = ({
 
   return (
     <Fragment>
-      {loading || profileLoading ? (
-        <Loader fullPage />
-      ) : !loading && profileData.length < 1 ? (
-        <p style={{ marginTop: "100px", textAlign: "center", fontSize: "15px" }}>This link is broken</p>
-      ) : null}
+      {(loading || profileLoading) && <Loader fullPage />}
 
       <TwoColumnLayout
         component1={() => (
@@ -129,7 +125,7 @@ const Profilepage = ({
                 />
 
                 {profileData[0]?.posts?.length > 0 && (
-                  <section className={`bg-white border-t`}>
+                  <section className={`bg-white`}>
                     <PostsGrid userPosts={profileData[0]?.posts || []} />
                   </section>
                 )}

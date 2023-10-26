@@ -9,7 +9,6 @@ import SearchUsers from "../SearchUsers";
 import lazyLoadImage from "../../utilities/lazyLoadImage.js";
 import ProfilePicPlaceholder from "../../assets/avatar.jpg";
 import * as userActions from "../../redux/user/userActions";
-import ProfileOptionsModal from "../ProfileOptionsModal";
 import { AiOutlineHome, AiOutlineBell, AiOutlineCompass } from "react-icons/ai";
 
 type NavbarTypes = {
@@ -58,12 +57,6 @@ const Navbar = ({ currentUsername, currentUserUid, currentUserProfileImage, LOGO
         });
     }
   }, []);
-
-  const Logout = () => {
-    LOGOUT();
-    history.push("/");
-    localStorage.removeItem("token");
-  };
 
   const wrapperRef = useRef(null);
   useOutsideAlerter(wrapperRef, () => setShowProfileOptions(false));

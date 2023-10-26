@@ -111,58 +111,54 @@ const PostViewPage = ({
 
   return (
     <Fragment>
-      {loading || postLoading ? (
-        <Loader />
-      ) : //checking if post exiists
-      !loading && !currentPost[0]?.post_image ? (
-        <p style={{ marginTop: "100px", textAlign: "center", fontSize: "15px" }}>
-          Post deleted or something went wrong!
-        </p>
-      ) : (
-        <TwoColumnLayout
-          component1={() => (
-            <Fragment>
-              <Post
-                key={currentPost[0].post_uid}
-                post_id={currentPost[0].post_id}
-                haveILiked={currentPost[0].liked_by_me}
-                haveIDisliked={currentPost[0].disliked_by_me}
-                post_uid={currentPost[0].post_uid}
-                poster_username={currentPost[0].poster_username}
-                poster_profileImage={currentPost[0].poster_profileimage}
-                post_image={currentPost[0].post_image}
-                post_postedDate={currentPost[0].post_posted_date}
-                post_likesCount={currentPost[0].post_likes_count}
-                post_dislikesCount={currentPost[0].post_dislikes_count}
-                post_status={currentPost[0].post_status}
-                post_owner_uid={currentPost[0].poster_uid}
-                post_commentsCount={currentPost[0].post_comments_count}
-                haveISaved={currentPost[0].i_have_saved}
-                toggleLoginPrompt={() => toggleModal(setShowLoginNeededPrompt)}
-                fullHeightPostImage
-              />
+      {(loading || postLoading) && <Loader fullPage />}
+
+      <TwoColumnLayout
+        component1={() => (
+          <Fragment>
+            <Post
+              key={currentPost[0]?.post_uid}
+              post_id={currentPost[0]?.post_id}
+              haveILiked={currentPost[0]?.liked_by_me}
+              haveIDisliked={currentPost[0]?.disliked_by_me}
+              post_uid={currentPost[0]?.post_uid}
+              poster_username={currentPost[0]?.poster_username}
+              poster_profileImage={currentPost[0]?.poster_profileimage}
+              post_image={currentPost[0]?.post_image}
+              post_postedDate={currentPost[0]?.post_posted_date}
+              post_likesCount={currentPost[0]?.post_likes_count}
+              post_dislikesCount={currentPost[0]?.post_dislikes_count}
+              post_status={currentPost[0]?.post_status}
+              post_owner_uid={currentPost[0]?.poster_uid}
+              post_commentsCount={currentPost[0]?.post_comments_count}
+              haveISaved={currentPost[0]?.i_have_saved}
+              toggleLoginPrompt={() => toggleModal(setShowLoginNeededPrompt)}
+              fullHeightPostImage
+            />
+
+            {post_uid && (
               <CommentInput
                 post_uid={post_uid}
                 post_owner_uid={currentPost[0]?.poster_uid}
                 toggleLoginNeededPrompt={() => toggleModal(setShowLoginNeededPrompt)}
               />
+            )}
 
-              {thisPostComments !== undefined && (
-                <CommentsView
-                  comments={thisPostComments || []}
-                  likeUnlikeComment={likeUnlikeComment}
-                  currentUserUid={currentUserUid}
-                  deleteComment={deleteComment}
-                  currentUsername={currentUsername}
-                  getCommentLikers={getCommentLikers}
-                  gettingCommentLikers={gettingCommentLikers}
-                />
-              )}
-            </Fragment>
-          )}
-          component2={() => <MainSideview />}
-        />
-      )}
+            {thisPostComments !== undefined && (
+              <CommentsView
+                comments={thisPostComments || []}
+                likeUnlikeComment={likeUnlikeComment}
+                currentUserUid={currentUserUid}
+                deleteComment={deleteComment}
+                currentUsername={currentUsername}
+                getCommentLikers={getCommentLikers}
+                gettingCommentLikers={gettingCommentLikers}
+              />
+            )}
+          </Fragment>
+        )}
+        component2={() => <MainSideview />}
+      />
 
       {showLoginNeededPrompt ? (
         <Fragment>

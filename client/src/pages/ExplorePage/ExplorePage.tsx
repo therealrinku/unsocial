@@ -50,7 +50,7 @@ const Profilepage = ({ currentUserUid }: ProfilePageTypes) => {
   return (
     <TwoColumnLayout
       component1={() => (
-        <div className="text-sm bg-white p-5">
+        <div className="text-sm bg-white p-5 border">
           <input
             type="search"
             className="text-sm border px-2 py-[6px] w-full mb-5 focus:border-[#24B35A]"

@@ -9,7 +9,7 @@ type PostsGridTypes = {
 
 const PostsGrid = ({ userPosts }: PostsGridTypes) => {
   return (
-    <div className={styles["Posts-Grid"]}>
+    <div className={`${styles["Posts-Grid"]} border`}>
       {userPosts
         .sort((a: any, b: any) => {
           return (
