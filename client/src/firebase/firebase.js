@@ -1,6 +1,7 @@
 import firebase from "firebase/app";
 import "firebase/storage";
 
+// this config is outdated but i have updated  it in my local setup 😌
 const firebaseConfig = {
   apiKey: "AIzaSyCULMQk_Nv61qdPACYDnIXTp0AYfXpV7hw",
   authDomain: "uns0cial.firebaseapp.com",

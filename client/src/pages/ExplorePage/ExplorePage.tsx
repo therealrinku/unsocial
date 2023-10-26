@@ -5,7 +5,6 @@ import lazyLoadImage from "../../utilities/lazyLoadImage.js";
 import ProfilePicPlaceholder from "../../assets/avatar.jpg";
 import { connect } from "react-redux";
 import TwoColumnLayout from "../../components/TwoColumnLayout";
-import MainSideview from "../../components/MainSideview";
 import { AiOutlineInbox } from "react-icons/ai";
 import { FiRefreshCw } from "react-icons/fi";
 
@@ -93,7 +92,6 @@ const Profilepage = ({ currentUserUid }: ProfilePageTypes) => {
           </div>
         </div>
       )}
-      component2={() => <MainSideview />}
     />
   );
 };

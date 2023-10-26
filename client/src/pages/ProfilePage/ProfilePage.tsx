@@ -11,7 +11,6 @@ import Loader from "../../components/Loader";
 import LoginPrompt from "../../components/LoginPrompt";
 import PostUploadView from "../../components/PostUploadView";
 import TwoColumnLayout from "../../components/TwoColumnLayout";
-import MainSideview from "../../components/MainSideview";
 import * as userActions from "../../redux/user/userActions";
 
 type ProfilePageTypes = {
@@ -174,7 +173,6 @@ const Profilepage = ({
             )}
           </Fragment>
         )}
-        component2={() => <MainSideview />}
       />
     </Fragment>
   );

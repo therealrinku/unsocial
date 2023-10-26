@@ -39,7 +39,6 @@ const Feed = ({ posts }: FeedTypes) => {
             })}
         </Fragment>
       )}
-      component2={() => <MainSideview />}
     />
   );
 };

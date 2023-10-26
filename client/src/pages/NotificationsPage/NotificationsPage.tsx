@@ -9,7 +9,6 @@ import lazyLoadImage from "../../utilities/lazyLoadImage.js";
 import ProfilePicPlaceholder from "../../assets/avatar.jpg";
 import Moment from "react-moment";
 import TwoColumnLayout from "../../components/TwoColumnLayout";
-import MainSideview from "../../components/MainSideview";
 import Loader from "../../components/Loader";
 
 type NotificationsPageTypes = {
@@ -36,7 +35,6 @@ const NotificationsPage = ({ currentUserUid }: NotificationsPageTypes) => {
     <Fragment>
       {loading && <Loader fullPage />}
       <TwoColumnLayout
-        component2={() => <MainSideview />}
         component1={() => (
           <div className="bg-white p-5 text-sm border">
             <div className="flex flex-col gap-2">

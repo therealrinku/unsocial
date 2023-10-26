@@ -1,17 +1,12 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { getRecommendedUsers } from "../../services/userServices";
 import { AiOutlineGithub } from "react-icons/ai";
+import { connect } from "react-redux";
+import * as userActions from "../../redux/user/userActions";
 
-export default function MainSideview() {
-  const [loading, setLoading] = useState(true);
-  const [recommendedUsers, setRecommendedUsers] = useState([]);
-
+function MainSideview({ recommendedUsers, GET_RECOMMENDED_USERS }: any) {
   useEffect(() => {
-    getRecommendedUsers().then((res) => {
-      setRecommendedUsers(res);
-      setLoading(false);
-    });
+    GET_RECOMMENDED_USERS();
   }, []);
 
   return (
@@ -20,7 +15,7 @@ export default function MainSideview() {
         <p className="border-b pb-2 px-5">People you may like to follow</p>
 
         <div className="mt-5 flex flex-col gap-4 px-5 pb-2">
-          {recommendedUsers.slice(0, 5).map((user: any) => {
+          {recommendedUsers?.slice(0, 5)?.map((user: any) => {
             return (
               <Link to={`/user/${user.username}`} className="flex items-center gap-2 hover:underline">
                 <img className="w-8 h-8 rounded-full object-cover" src={user.profile_image_url} />
@@ -31,11 +26,11 @@ export default function MainSideview() {
         </div>
       </section>
 
-      <div className="flex gap-2 mt-3">
+      <div className="flex gap-1 mt-3">
         <a
           target="_blank"
           href="https://github.com/therealrinku/robosocial"
-          className="hover:underline text-sm flex items-center gap-1"
+          className="hover:underline text-sm flex items-center"
         >
           <AiOutlineGithub size={18} />
         </a>
@@ -44,3 +39,17 @@ export default function MainSideview() {
     </Fragment>
   );
 }
+
+const mapStateToProps = (state: any) => {
+  return {
+    recommendedUsers: state.user.recommendedUsers || [],
+  };
+};
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    GET_RECOMMENDED_USERS: () => dispatch(userActions.GET_RECOMMENDED()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MainSideview);

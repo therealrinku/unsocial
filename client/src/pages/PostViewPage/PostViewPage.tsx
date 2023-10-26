@@ -9,7 +9,6 @@ import CommentsView from "../../components/CommentsView";
 import { deleteComment, getCommentLikers } from "../../services/commentServices";
 import LoginPrompt from "../../components/LoginPrompt";
 import Post from "../../components/Post";
-import MainSideview from "../../components/MainSideview";
 import TwoColumnLayout from "../../components/TwoColumnLayout";
 
 type PostViewPageTypes = {
@@ -157,7 +156,6 @@ const PostViewPage = ({
             )}
           </Fragment>
         )}
-        component2={() => <MainSideview />}
       />
 
       {showLoginNeededPrompt ? (
