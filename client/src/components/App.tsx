@@ -107,7 +107,7 @@ const App = ({
       ) : (
         <Fragment>
           {/* @ts-ignore */}
-          {banner?.bannerText && (
+          {banner?.bannerText && currentUsername && (
             <Fragment>
               <Banner banner={banner} />
               <div className="mb-24"></div>
