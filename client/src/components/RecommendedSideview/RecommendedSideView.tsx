@@ -1,10 +1,9 @@
 import { Fragment, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { AiOutlineGithub } from "react-icons/ai";
 import { connect } from "react-redux";
 import * as userActions from "../../redux/user/userActions";
 
-function MainSideview({ recommendedUsers, GET_RECOMMENDED_USERS }: any) {
+function RecommendedSideview({ recommendedUsers, GET_RECOMMENDED_USERS }: any) {
   useEffect(() => {
     GET_RECOMMENDED_USERS();
   }, []);
@@ -25,17 +24,6 @@ function MainSideview({ recommendedUsers, GET_RECOMMENDED_USERS }: any) {
           })}
         </div>
       </section>
-
-      <div className="flex gap-1 mt-3">
-        <a
-          target="_blank"
-          href="https://github.com/therealrinku/robosocial"
-          className="hover:underline text-sm flex items-center"
-        >
-          <AiOutlineGithub size={18} />
-        </a>
-        <p className="text-sm font-bold ">2023@robosocial</p>
-      </div>
     </Fragment>
   );
 }
@@ -52,4 +40,4 @@ const mapDispatchToProps = (dispatch: any) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MainSideview);
+export default connect(mapStateToProps, mapDispatchToProps)(RecommendedSideview);

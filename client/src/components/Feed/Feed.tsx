@@ -1,5 +1,4 @@
 import Post from "../Post";
-import MainSideview from "../MainSideview";
 import TwoColumnLayout from "../TwoColumnLayout";
 import { Fragment } from "react";
 
