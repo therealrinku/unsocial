@@ -18,9 +18,13 @@ export default function Loader({ fullPage }: LoaderTypes) {
   }, []);
 
   return (
-    <div className="z-10 top-0 fixed h-full w-full bg-white flex flex-col justify-center items-center">
-      <div className="w-[200px] bg-[#f0f2f5] h-[10px]">
-        <div style={{ width: loaderWidth }} className="bg-[#EE323D] h-full"></div>
+    <div
+      className={`${
+        fullPage ? "z-10 top-0 fixed h-full w-full bg-white" : "mt-3"
+      } flex flex-col justify-center items-center mx-auto`}
+    >
+      <div className="w-[200px] bg-[#f0f2f5] h-[12px]">
+        <div style={{ width: loaderWidth }} className="bg-[#018e23] h-full"></div>
       </div>
     </div>
   );

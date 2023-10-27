@@ -1,4 +1,4 @@
-import { useEffect, Fragment } from "react";
+import { useEffect, Fragment, useState } from "react";
 import { connect } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import HomePage from "../pages/HomePage";
@@ -14,6 +14,7 @@ import MessageView from "./MessageView";
 import NotificationsPage from "../pages/NotificationsPage";
 import ExplorePage from "../pages/ExplorePage";
 import axios from "axios";
+import Loader from "./Loader";
 
 type AppTypes = {
   currentUsername: string;
@@ -39,6 +40,8 @@ const App = ({
   message,
   GET_FEED,
 }: AppTypes) => {
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     if (feedLoaded) {
       if (uploadingPost) {
@@ -79,21 +82,17 @@ const App = ({
     }
   }, [message]);
 
+  useEffect(() => {
+    //for fake loading animation for at least 2 sec
+    setTimeout(() => setIsLoading(false), 2000);
+  }, []);
+
   return (
     <BrowserRouter>
-      {token && !userDataLoaded ? (
-        <div
-          style={{
-            width: "100vw",
-            height: "100vh",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            fontSize: "75px",
-          }}
-        >
+      {(token && !userDataLoaded) || isLoading ? (
+        <div className="bg-white flex flex-col w-full h-screen text-sm justify-center items-center">
           <Logo />
+          <Loader />
         </div>
       ) : (
         <Fragment>
