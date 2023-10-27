@@ -1,8 +1,5 @@
 ## Full stack Social media app.
 
-### Live Website
-* https://robosocial.web.app
-
 ### Used Technologies
 * React and Redux
 * SASS (migrating to tailwindcss)
