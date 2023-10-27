@@ -4,6 +4,18 @@ const bcrypt = require("bcrypt");
 const tokenVerifier = require("../utils/tokenVerifyMiddleware");
 const getFromHeader = require("../utils/getFromHeader");
 
+router.get("/getBanner", async (_, res) => {
+  const resp = await (
+    await fetch("https://nerdev-plum.vercel.app/api/data", {
+      headers: {
+        "x-content-key": process.env.BANNER_API_KEY,
+      },
+    })
+  ).json();
+
+  res.status(200).json(resp.data);
+});
+
 //update password
 router.post("/updatePassword", tokenVerifier, (req, res) => {
   db.query(`SELECT password FROM users WHERE (uid)::text='${req.body.userUid}'`, (err, res1) => {

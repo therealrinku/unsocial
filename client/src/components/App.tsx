@@ -16,6 +16,7 @@ import ExplorePage from "../pages/ExplorePage";
 import axios from "axios";
 import Loader from "./Loader";
 import Banner from "./Banner";
+import server_url from "../server_url";
 
 type AppTypes = {
   currentUsername: string;
@@ -46,15 +47,9 @@ const App = ({
   const [banner, setBanner] = useState({});
 
   useEffect(() => {
-    axios
-      .get("https://nerdev-plum.vercel.app/api/data", {
-        headers: {
-          "x-content-key": "0e45d770-42f2-4b69-b3ad-a5926df45c81",
-        },
-      })
-      .then((res) => {
-        setBanner(res.data?.data?.banner ?? {});
-      });
+    axios.get(`${server_url}/user/getBanner`).then((res) => {
+      setBanner(res.data?.banner ?? {});
+    });
   }, []);
 
   useEffect(() => {
