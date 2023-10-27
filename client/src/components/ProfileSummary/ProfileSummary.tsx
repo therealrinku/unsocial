@@ -44,11 +44,11 @@ const ProfileSummary = ({
             data-src={profileData.profile_image_url ?? ProfilePicPlaceholder}
             alt="profile_image"
             onLoad={lazyLoadImage}
-            className="lazy-image mb-4 h-36 w-36 object-cover"
+            className="lazy-image mb-4 h-20 w-20 md:h-36 md:w-36 object-cover"
           />
 
           <p className="text-lg font-bold">{profileData.username ?? "User not found"}</p>
-          <p className="my-3">
+          <p className="my-3 break-all">
             {profileData.username
               ? profileData.bio
               : "This user doesn't exist or this account might have been deleted."}

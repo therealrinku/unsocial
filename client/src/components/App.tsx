@@ -15,6 +15,8 @@ import NotificationsPage from "../pages/NotificationsPage";
 import ExplorePage from "../pages/ExplorePage";
 import axios from "axios";
 import Loader from "./Loader";
+import Banner from "./Banner";
+import server_url from "../server_url";
 
 type AppTypes = {
   currentUsername: string;
@@ -41,6 +43,14 @@ const App = ({
   GET_FEED,
 }: AppTypes) => {
   const [isLoading, setIsLoading] = useState(true);
+
+  const [banner, setBanner] = useState({});
+
+  useEffect(() => {
+    axios.get(`${server_url}/user/getBanner`).then((res) => {
+      setBanner(res.data?.banner ?? {});
+    });
+  }, []);
 
   useEffect(() => {
     if (feedLoaded) {
@@ -96,6 +106,14 @@ const App = ({
         </div>
       ) : (
         <Fragment>
+          {/* @ts-ignore */}
+          {banner?.bannerText && (
+            <Fragment>
+              <Banner banner={banner} />
+              <div className="mb-24"></div>
+            </Fragment>
+          )}
+
           {message ? <MessageView message={message} /> : null}
 
           <Switch>
