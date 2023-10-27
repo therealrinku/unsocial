@@ -15,6 +15,7 @@ import NotificationsPage from "../pages/NotificationsPage";
 import ExplorePage from "../pages/ExplorePage";
 import axios from "axios";
 import Loader from "./Loader";
+import Banner from "./Banner";
 
 type AppTypes = {
   currentUsername: string;
@@ -41,6 +42,20 @@ const App = ({
   GET_FEED,
 }: AppTypes) => {
   const [isLoading, setIsLoading] = useState(true);
+
+  const [banner, setBanner] = useState({});
+
+  useEffect(() => {
+    axios
+      .get("https://nerdev-plum.vercel.app/api/data", {
+        headers: {
+          "x-content-key": "0e45d770-42f2-4b69-b3ad-a5926df45c81",
+        },
+      })
+      .then((res) => {
+        setBanner(res.data?.data?.banner ?? {});
+      });
+  }, []);
 
   useEffect(() => {
     if (feedLoaded) {
@@ -96,6 +111,14 @@ const App = ({
         </div>
       ) : (
         <Fragment>
+          {/* @ts-ignore */}
+          {banner?.bannerText && (
+            <Fragment>
+              <Banner banner={banner} />
+              <div className="mb-24"></div>
+            </Fragment>
+          )}
+
           {message ? <MessageView message={message} /> : null}
 
           <Switch>

@@ -17,3 +17,13 @@ button {
 button:hover {
   cursor: pointer;
 }
+
+
+@media (max-width:768px){
+  body{
+    background: white;
+  }
+  .border{
+    border:none;
+  }
+}
