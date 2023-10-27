@@ -23,7 +23,7 @@ button:hover {
   body{
     background: white;
   }
-  .border{
+  .border:not(input){
     border:none;
   }
 }
