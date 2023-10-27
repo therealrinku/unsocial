@@ -8,7 +8,7 @@ function AdView({ banner }: any) {
         <p className="text-center">{banner.bannerText}</p>
         {banner.bannerLink && (
           <a target="_blank" className="text-xs underline mx-3" href={banner.bannerLink}>
-            Learn more
+            {banner.bannerLinkTitle}
           </a>
         )}
       </div>
