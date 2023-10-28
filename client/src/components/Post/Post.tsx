@@ -4,7 +4,6 @@ import { Link, useHistory } from "react-router-dom";
 import * as postsActions from "../../redux/post/postsActions";
 import UserListView from "../UserListView";
 import Moment from "react-moment";
-import Backdrop from "../Backdrop";
 import overflowToggler from "../../utilities/overflowToggler";
 import PostOptionsModal from "../PostOptionsModal";
 import placeholderImage from "../../assets/placeholder.jpg";
@@ -273,7 +272,6 @@ const Post = ({
             users={thisPostLikers || []}
             toggle={() => toggleModal(setShowLikers)}
           />
-          <Backdrop show={showLikers} toggle={() => toggleModal(setShowLikers)} />
         </Fragment>
       )}
     </Fragment>

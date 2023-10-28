@@ -1,7 +1,6 @@
 import { Fragment, useState } from "react";
 import { NavLink } from "react-router-dom";
 import overflowToggler from "../../utilities/overflowToggler";
-import Backdrop from "./../Backdrop";
 import UserListView from "./../UserListView";
 import lazyLoadImage from "../../utilities/lazyLoadImage.js";
 import ProfilePicPlaceholder from "../../assets/avatar.jpg";
@@ -97,7 +96,6 @@ const Comment = ({
             toggle={() => toggleModal(setShowCommentLikers)}
             users={commentLikers || []}
           />
-          <Backdrop show={showCommentLikers} toggle={() => toggleModal(setShowCommentLikers)} />
         </Fragment>
       ) : null}
     </Fragment>

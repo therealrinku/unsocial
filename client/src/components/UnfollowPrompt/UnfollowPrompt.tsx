@@ -1,5 +1,4 @@
 import Modal from "../Modal";
-import { FiUserMinus, FiX } from "react-icons/fi";
 
 type UnfollowPromptTypes = {
   UNFOLLOW: any;

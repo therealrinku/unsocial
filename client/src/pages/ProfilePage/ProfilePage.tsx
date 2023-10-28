@@ -3,7 +3,6 @@ import ProfileSummary from "../../components/ProfileSummary";
 import * as profileActions from "../../redux/profile/ProfileActions";
 import { connect } from "react-redux";
 import overflowToggler from "../../utilities/overflowToggler";
-import Backdrop from "../../components/Backdrop";
 import UnfollowPrompt from "../../components/UnfollowPrompt";
 import PostsGrid from "../../components/PostsGrid";
 import UserListView from "../../components/UserListView";
@@ -131,7 +130,6 @@ const Profilepage = ({
 
                 {showUnfollowPrompt && (
                   <Fragment>
-                    <Backdrop show={showUnfollowPrompt} toggle={() => toggleModal(setShowUnfollowPrompt)} />
                     <UnfollowPrompt
                       profileUsername={profileUsername}
                       profileImage={profileData[0]?.profile_image_url}
@@ -143,17 +141,12 @@ const Profilepage = ({
 
                 {showPostUploadModal && (
                   <Fragment>
-                    <Backdrop show={showPostUploadModal} toggle={() => toggleModal(setShowPostUploadModal)} />
                     <PostUploadView toggle={() => toggleModal(setShowPostUploadModal)} />
                   </Fragment>
                 )}
 
                 {(showFollowers || showFollowings) && (
                   <Fragment>
-                    <Backdrop
-                      toggle={() => (showFollowers ? toggleModal(setShowFollowers) : toggleModal(setShowFollowings))}
-                      show={showFollowers || showFollowings}
-                    />
                     <UserListView
                       title={showFollowers ? "Followers" : "Following"}
                       loading={loading_followers_or_following}
@@ -168,7 +161,6 @@ const Profilepage = ({
             {showLoginNeededPrompt && (
               <Fragment>
                 <LoginPrompt profilePage={true} toggle={() => toggleModal(setShowLoginNeededPrompt)} />
-                <Backdrop show={showLoginNeededPrompt} toggle={() => toggleModal(setShowLoginNeededPrompt)} />
               </Fragment>
             )}
           </Fragment>

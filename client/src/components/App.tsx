@@ -8,7 +8,6 @@ import LandingPage from "../pages/LandingPage";
 import Layout from "./Layout";
 import * as userActions from "../redux/user/userActions";
 import * as postActions from "../redux/post/postsActions";
-import SettingsPage from "../pages/SettingsPage";
 import MessageView from "./MessageView";
 import NotificationsPage from "../pages/NotificationsPage";
 import ExplorePage from "../pages/ExplorePage";
@@ -128,7 +127,6 @@ const App = ({
             <Layout>
               <>
                 {currentUsername && <Route path="/" exact component={HomePage} />}
-                <Route path="/settings" exact component={SettingsPage} />
                 <Route path="/explore" exact component={ExplorePage} />
                 <Route path="/user/:username" exact component={ProfilePage} />
                 <Route path="/p/:post_id" exact component={PostViewPage} />
