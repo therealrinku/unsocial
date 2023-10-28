@@ -8,7 +8,6 @@ import LandingPage from "../pages/LandingPage";
 import Layout from "./Layout";
 import * as userActions from "../redux/user/userActions";
 import * as postActions from "../redux/post/postsActions";
-import Logo from "./Logo";
 import SettingsPage from "../pages/SettingsPage";
 import MessageView from "./MessageView";
 import NotificationsPage from "../pages/NotificationsPage";
@@ -100,16 +99,24 @@ const App = ({
   return (
     <BrowserRouter>
       {(token && !userDataLoaded) || isLoading ? (
-        <div className="bg-white flex flex-col w-full h-screen text-sm justify-center items-center">
-          <Logo />
-          <Loader />
-        </div>
+        <Loader fullPage />
       ) : (
         <Fragment>
           {/* @ts-ignore */}
           {banner?.bannerText && currentUsername && (
             <Fragment>
-              <Banner banner={banner} />
+              <Banner
+                banner={banner}
+                onCancel={() => {
+                  setBanner({});
+                  const sideView = document.querySelector(".side-view");
+                  //move up the sidee viewww
+                  if (sideView) {
+                    sideView.classList.remove("top-[90px]");
+                    sideView.classList.add("top-[80px]");
+                  }
+                }}
+              />
               <div className="mb-24"></div>
             </Fragment>
           )}

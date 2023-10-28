@@ -1,6 +1,7 @@
 import { Fragment } from "react";
+import { FiX } from "react-icons/fi";
 
-function AdView({ banner }: any) {
+function AdView({ banner, onCancel }: any) {
   return (
     <Fragment>
       <div
@@ -12,6 +13,12 @@ function AdView({ banner }: any) {
           <a target="_blank" className="text-xs font-bold underline mx-3" href={banner.bannerLink}>
             {banner.bannerLinkTitle}
           </a>
+        )}
+
+        {banner.closeable && (
+          <button onClick={onCancel} className="absolute right-10">
+            <FiX size={20} />
+          </button>
         )}
       </div>
     </Fragment>
