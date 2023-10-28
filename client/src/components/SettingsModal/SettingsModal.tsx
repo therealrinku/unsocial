@@ -105,6 +105,7 @@ const SettingsModal = ({
           if (res !== "success") {
             ADD_MESSAGE(res);
           } else {
+            onClose()
             ADD_MESSAGE("Successfully updated the profile.");
             UPDATE_PROFILE_LOCALLY({ bio, username, email });
           }
@@ -134,6 +135,7 @@ const SettingsModal = ({
             setInitialPassword("");
             setNewPassword1("");
             setNewPassword2("");
+            onClose();
           } else {
             ADD_MESSAGE(res);
           }

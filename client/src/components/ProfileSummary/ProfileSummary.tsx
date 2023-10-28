@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import ProfilePicPlaceholder from "../../assets/avatar.jpg";
 import lazyLoadImage from "../../utilities/lazyLoadImage";
 import SettingsModal from "../SettingsModal";
+import LogoutPrompt from "../LogoutPrompt";
 
 type ProfileSummaryTypes = {
   profileData: any;
@@ -30,6 +31,7 @@ const ProfileSummary = ({
 }: ProfileSummaryTypes) => {
   const history = useHistory();
   const [showSettingsModal, setShowSettingsModal] = useState(false);
+  const [showLogoutPrompt, setShowLogoutPrompt] = useState(false);
 
   function logout() {
     history.push("/");
@@ -99,7 +101,7 @@ const ProfileSummary = ({
               </button>
             )}
             {isMyProfile && currentUsername && (
-              <button onClick={logout}>
+              <button onClick={() => setShowLogoutPrompt(true)}>
                 <AiOutlinePoweroff size={20} />
               </button>
             )}
@@ -108,6 +110,7 @@ const ProfileSummary = ({
       </div>
 
       {showSettingsModal && <SettingsModal onClose={() => setShowSettingsModal(false)} />}
+      {showLogoutPrompt && <LogoutPrompt logout={logout} toggle={() => setShowLogoutPrompt(false)} />}
     </Fragment>
   );
 };
