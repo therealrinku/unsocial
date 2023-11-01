@@ -5,8 +5,9 @@ import storage from "../../firebase/storage";
 import Compressor from "compressorjs";
 import * as postActions from "../../redux/post/postsActions";
 import * as userActions from "../../redux/user/userActions";
+import Modal from "../Modal";
 
-type SettingsPageTypes = {
+type SettingsModalProps = {
   currentUserProfileImage: string;
   currentUserName: string;
   currentUserUid: string;
@@ -14,9 +15,10 @@ type SettingsPageTypes = {
   currentUserEmail: string;
   ADD_MESSAGE: Function;
   UPDATE_PROFILE_LOCALLY: Function;
+  onClose: () => void;
 };
 
-const SettingsPage = ({
+const SettingsModal = ({
   currentUserProfileImage,
   currentUserName,
   currentUserUid,
@@ -24,7 +26,8 @@ const SettingsPage = ({
   currentUserEmail,
   ADD_MESSAGE,
   UPDATE_PROFILE_LOCALLY,
-}: SettingsPageTypes) => {
+  onClose,
+}: SettingsModalProps) => {
   const [mode, setMode] = useState(1);
 
   const [username, setUsername] = useState(currentUserName);
@@ -102,6 +105,7 @@ const SettingsPage = ({
           if (res !== "success") {
             ADD_MESSAGE(res);
           } else {
+            onClose()
             ADD_MESSAGE("Successfully updated the profile.");
             UPDATE_PROFILE_LOCALLY({ bio, username, email });
           }
@@ -131,6 +135,7 @@ const SettingsPage = ({
             setInitialPassword("");
             setNewPassword1("");
             setNewPassword2("");
+            onClose();
           } else {
             ADD_MESSAGE(res);
           }
@@ -146,101 +151,110 @@ const SettingsPage = ({
   };
 
   return (
-    <div className="text-sm w-full max-w-[700px] mx-auto mt-24 bg-white p-5">
-      <div className="flex items-center gap-5 border-b pb-2">
-        <button onClick={() => setMode(1)} className={mode === 1 ? "text-[#018e23]" : ""}>
-          Update Profile
-        </button>
-        <button onClick={() => setMode(2)} className={mode === 2 ? "text-[#018e23]" : ""}>
-          Change Password
-        </button>
-      </div>
+    <Modal title="Settings" onClose={onClose}>
+      <div>
+        <div className="flex items-center gap-5 border-b pb-2">
+          <button onClick={() => setMode(1)} className={mode === 1 ? "text-[#018e23]" : ""}>
+            Update Profile
+          </button>
+          <button onClick={() => setMode(2)} className={mode === 2 ? "text-[#018e23]" : ""}>
+            Change Password
+          </button>
+        </div>
 
-      {mode === 1 && (
-        <div>
-          <section className="flex items-start mt-5 gap-2">
-            <img className="h-7 w-7 rounded-full object-cover" src={newImage || currentUserProfileImage} alt="profile-image" />
+        {mode === 1 && (
+          <div>
+            <section className="flex items-start mt-5 gap-2">
+              <img
+                className="h-7 w-7 rounded-full object-cover"
+                src={newImage || currentUserProfileImage}
+                alt="profile-image"
+              />
 
-            <div>
-              <p>{currentUserName}</p>
-              <label className="text-[#EE323D]" htmlFor="image" style={newImage ? { display: "none" } : undefined}>
-                change profile photo
-              </label>
-              <label htmlFor="u-btn" style={!newImage ? { display: "none" } : undefined}>
-                {updatingProfilePicture ? "Updating Profile Picture.." : "Confirm New Profile Photo"}
-              </label>
-              <button style={{ display: "none" }} id="u-btn" onClick={updateProfilePictureFinal}>
-                Update Profile Photo
+              <div>
+                <p>{currentUserName}</p>
+                <label className="text-[#EE323D]" htmlFor="image" style={newImage ? { display: "none" } : undefined}>
+                  change profile photo
+                </label>
+                <label htmlFor="u-btn" style={!newImage ? { display: "none" } : undefined}>
+                  {updatingProfilePicture ? "Updating Profile Picture.." : "Confirm New Profile Photo"}
+                </label>
+                <button style={{ display: "none" }} id="u-btn" onClick={updateProfilePictureFinal}>
+                  Update Profile Photo
+                </button>
+                <input type="file" style={{ display: "none" }} id="image" onChange={updateImage} accept="image/*" />
+              </div>
+            </section>
+
+            <form onSubmit={updateProfile} className="flex flex-col gap-3 mt-5">
+              <label htmlFor="username">Username</label>
+              <input
+                type="text"
+                className="text-sm border px-2 py-[6px] focus:border-[#24B35A]"
+                value={username.toLowerCase()}
+                id="username"
+                onChange={(e) => setUsername(e.target.value)}
+              />
+              <label htmlFor="email">Email</label>
+              <input
+                className="text-sm border px-2 py-[6px] focus:border-[#24B35A]"
+                type="text"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <label htmlFor="Bio">Bio</label>
+              <textarea
+                className="text-sm border px-2 py-[6px] focus:border-[#24B35A]"
+                onChange={(e) => setBio(e.target.value)}
+              >
+                {bio}
+              </textarea>
+
+              <button
+                className="text-sm mt-5 bg-[#018e23] text-white py-[6px] disabled:cursor-default"
+                disabled={updating}
+                onClick={updateProfile}
+              >
+                Submit
               </button>
-              <input type="file" style={{ display: "none" }} id="image" onChange={updateImage} accept="image/*" />
-            </div>
-          </section>
+            </form>
+          </div>
+        )}
 
-          <form onSubmit={updateProfile} className="flex flex-col gap-3 mt-5">
-            <label htmlFor="username">Username</label>
+        {mode === 2 && (
+          <form onSubmit={updatePasswordFinal} className="flex flex-col gap-3 mt-5">
+            <label htmlFor="password1">Current Password</label>
             <input
-              type="text"
+              type="password"
               className="text-sm border px-2 py-[6px] focus:border-[#24B35A]"
-              value={username.toLowerCase()}
+              value={initialPassword}
               id="username"
-              onChange={(e) => setUsername(e.target.value)}
+              onChange={(e) => setInitialPassword(e.target.value)}
             />
-            <label htmlFor="email">Email</label>
+            <label htmlFor="password2">New Password</label>
             <input
               className="text-sm border px-2 py-[6px] focus:border-[#24B35A]"
-              type="text"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              type="password"
+              value={newPassword1}
+              onChange={(e) => setNewPassword1(e.target.value)}
             />
-            <label htmlFor="Bio">Bio</label>
-            <textarea
+            <label htmlFor="password3">Retype New Password</label>
+            <input
               className="text-sm border px-2 py-[6px] focus:border-[#24B35A]"
-              onChange={(e) => setBio(e.target.value)}
-            >
-              {bio}
-            </textarea>
-
+              type="password"
+              value={newPassword2}
+              onChange={(e) => setNewPassword2(e.target.value)}
+            />
             <button
               className="text-sm mt-5 bg-[#018e23] text-white py-[6px] disabled:cursor-default"
               disabled={updating}
-              onClick={updateProfile}
             >
               Submit
             </button>
           </form>
-        </div>
-      )}
-
-      {mode === 2 && (
-        <form onSubmit={updatePasswordFinal} className="flex flex-col gap-3 mt-5">
-          <label htmlFor="password1">Current Password</label>
-          <input
-            type="password"
-            className="text-sm border px-2 py-[6px] focus:border-[#24B35A]"
-            value={initialPassword}
-            id="username"
-            onChange={(e) => setInitialPassword(e.target.value)}
-          />
-          <label htmlFor="password2">New Password</label>
-          <input
-            className="text-sm border px-2 py-[6px] focus:border-[#24B35A]"
-            type="password"
-            value={newPassword1}
-            onChange={(e) => setNewPassword1(e.target.value)}
-          />
-          <label htmlFor="password3">Retype New Password</label>
-          <input
-            className="text-sm border px-2 py-[6px] focus:border-[#24B35A]"
-            type="password"
-            value={newPassword2}
-            onChange={(e) => setNewPassword2(e.target.value)}
-          />
-          <button className="text-sm mt-5 bg-[#018e23] text-white py-[6px] disabled:cursor-default" disabled={updating}>
-            Submit
-          </button>
-        </form>
-      )}
-    </div>
+        )}
+      </div>
+    </Modal>
   );
 };
 
@@ -261,4 +275,4 @@ const mapDispatchToProps = (dispatch: any) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SettingsPage);
+export default connect(mapStateToProps, mapDispatchToProps)(SettingsModal);

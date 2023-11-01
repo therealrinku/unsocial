@@ -3,7 +3,6 @@ import * as PostsActions from "../../redux/post/postsActions";
 import { connect } from "react-redux";
 import Loader from "../../components/Loader";
 import overflowToggler from "../../utilities/overflowToggler";
-import Backdrop from "../../components/Backdrop";
 import CommentInput from "../../components/CommentInput";
 import CommentsView from "../../components/CommentsView";
 import { deleteComment, getCommentLikers } from "../../services/commentServices";
@@ -161,7 +160,6 @@ const PostViewPage = ({
       {showLoginNeededPrompt ? (
         <Fragment>
           <LoginPrompt toggle={() => toggleModal(setShowLoginNeededPrompt)} />
-          <Backdrop show={showLoginNeededPrompt} toggle={() => toggleModal(setShowLoginNeededPrompt)} />
         </Fragment>
       ) : null}
     </Fragment>

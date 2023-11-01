@@ -20,7 +20,7 @@ export default function Loader({ fullPage }: LoaderTypes) {
   return (
     <div
       className={`${
-        fullPage ? "z-10 top-0 fixed h-full w-full bg-white" : "mt-3"
+        fullPage ? "z-50 top-0 fixed h-full w-full bg-white" : "mt-3"
       } flex flex-col justify-center items-center mx-auto`}
     >
       <div className="w-[200px] bg-[#f0f2f5] h-[12px]">

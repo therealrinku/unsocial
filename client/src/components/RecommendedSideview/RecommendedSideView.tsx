@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import * as userActions from "../../redux/user/userActions";
 
-function RecommendedSideview({ recommendedUsers, GET_RECOMMENDED_USERS }: any) {
+function RecommendedSideview({ recommendedUsers, GET_RECOMMENDED_USERS, recommendedLoaded }: any) {
   useEffect(() => {
-    GET_RECOMMENDED_USERS();
+    if (!recommendedLoaded) GET_RECOMMENDED_USERS();
   }, []);
 
   return (
@@ -30,6 +30,7 @@ function RecommendedSideview({ recommendedUsers, GET_RECOMMENDED_USERS }: any) {
 
 const mapStateToProps = (state: any) => {
   return {
+    recommendedLoaded: state.user.recommendedLoaded,
     recommendedUsers: state.user.recommendedUsers || [],
   };
 };
