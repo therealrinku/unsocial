@@ -6,7 +6,7 @@ const getFromHeader = require("../utils/getFromHeader");
 
 router.get("/getBanner", async (_, res) => {
   const resp = await (
-    await fetch("https://nerdev-plum.vercel.app/api/data", {
+    await fetch("https://robojson.vercel.app/api/data", {
       headers: {
         "x-content-key": process.env.BANNER_API_KEY,
       },
