@@ -164,12 +164,12 @@ const Post = ({
 
   return (
     <Fragment>
-      <div className="w-[100%] bg-white px-5 border-b-0 last:border-b py-5 text-sm border">
+      <div className="w-[100%] bg-white md:px-5 border-b-0 last:border-b py-5 text-sm border">
         {!post_id && !post_owner_uid ? (
           <p className="my-[123px] flex flex-col items-center">Post deleted or never existed.</p>
         ) : (
           <Fragment>
-            <section className="flex items-center justify-between border-b mb-4">
+            <section className="px-2 md:px-0 flex items-center justify-between border-b mb-4">
               <span className="flex items-center gap-1 mb-4">
                 <img
                   data-src={poster_profileImage}
@@ -207,7 +207,7 @@ const Post = ({
               </div>
             </section>
 
-            <p className="mb-2">{post_status}</p>
+            <p className="mb-2 px-2 md:px-0 ">{post_status}</p>
 
             <section>
               <Link to={`/p/${post_id}`}>
@@ -222,7 +222,7 @@ const Post = ({
               </Link>
             </section>
 
-            <section className="flex items-center gap-4 mt-4">
+            <section className="flex items-center gap-4 mt-4 px-2 md:px-0 ">
               <button className="flex items-center gap-1" onClick={likeUnlikePost}>
                 {haveILiked ? <AiFillHeart color="#EE323D" size={20} /> : <AiOutlineHeart size={20} />}
                 <p>{typeof post_likesCount === "object" || post_likesCount === 0 ? "" : post_likesCount}</p>

@@ -13,6 +13,7 @@ const intialState = {
   error: null,
   loading: false,
   recommendedUsers: [],
+  recommendedLoaded: false,
 };
 
 const userReducer = (state = intialState, action) => {
@@ -48,6 +49,7 @@ const userReducer = (state = intialState, action) => {
       return {
         ...state,
         loading: false,
+        recommendedLoaded: true,
         recommendedUsers: action.payload,
       };
 
