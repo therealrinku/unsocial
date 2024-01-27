@@ -37,7 +37,7 @@ To run this project locally, follow these steps:
    
 3. Get your firebase app config and add to firebase.js file in client folder
 
-4. Get your postgresql db setup and connection string(I got it from elephantSQL.com) and add it to db.js in backend folder.
+4. Get your postgresql db setup and connection string(I got it from elephantSQL.com) and add it to .env file(name is DB_URL) in backend folder.
 
 5. Run the backend/database/createTables.js script in the backend/database directory for creating the required database tables(posts, users, notifications and comments)
    ```bash
