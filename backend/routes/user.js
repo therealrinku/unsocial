@@ -253,13 +253,16 @@ router.post("/follow", tokenVerifier, (req, res) => {
 router.get("/getUserInfo", tokenVerifier, (req, res) => {
   const email = getFromHeader(req.headers, "email");
 
-  db.query(`SELECT username,uid,profile_image_url,email,bio FROM users WHERE email='${email}'`, (err, res0) => {
-    if (err) {
-      throw err;
-    } else {
-      res.send(res0.rows[0]);
+  db.query(
+    `SELECT username,joined_date,uid,profile_image_url,email,bio FROM users WHERE email='${email}'`,
+    (err, res0) => {
+      if (err) {
+        throw err;
+      } else {
+        res.send(res0.rows[0]);
+      }
     }
-  });
+  );
 });
 
 //get visited profile info
@@ -267,7 +270,7 @@ router.get("/foreignProfileInfo/:username", (req, res) => {
   const user_uid = getFromHeader(req.headers, "uid") || "09bdd5a4-4cdd-3ae1-9122-dfb66f8afc23";
 
   db.query(
-    `SELECT username,profile_image_url,uid,
+    `SELECT username,profile_image_url,uid,joined_date,
     bio,
     (SELECT COUNT(*) FROM posts WHERE owner_uid=(uid)::text)::int AS posts_count,
     '${user_uid}'=ANY(followers) AS followed_by_me,

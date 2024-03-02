@@ -64,6 +64,7 @@ function Form({
           <div className="flex flex-col gap-2">
             <label className="text-sm">Email</label>
             <input
+              data-testid="email"
               className="text-sm border px-2 py-[6px] focus:border-[#24B35A]"
               type="email"
               value={email}
@@ -75,6 +76,7 @@ function Form({
         <div className="flex flex-col gap-2">
           <label className="text-sm">Username</label>
           <input
+            data-testid="username"
             className="text-sm border px-2 py-[6px] focus:border-[#24B35A]"
             type="text"
             value={username}
@@ -85,6 +87,7 @@ function Form({
         <div className="flex flex-col gap-2">
           <label className="text-sm">Password</label>
           <input
+            data-testid="password"
             className="text-sm border px-2 py-[6px] focus:border-[#24B35A]"
             type="password"
             value={password}
@@ -96,6 +99,7 @@ function Form({
           <div className="flex flex-col gap-2">
             <label className="text-sm">Repeat Password</label>
             <input
+              data-testid="repeat-password"
               className="text-sm border px-2 py-[6px] focus:border-[#24B35A]"
               type="password"
               value={repeatPassword}
@@ -105,6 +109,7 @@ function Form({
         )}
 
         <button
+          role={formType === "Login" ? "login-btn" : "signup-btn"}
           className="text-sm mt-3 bg-[#018e23] text-white py-[6px] disabled:cursor-default"
           type="submit"
           disabled={shouldSubmitButtonBeDisabled()}
