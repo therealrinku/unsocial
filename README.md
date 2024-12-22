@@ -14,6 +14,10 @@
 
 🔥 Explore and find new people to connect with
 
+## Headshots
+<img width="1439" alt="Screenshot 2024-12-22 at 09 20 50" src="https://github.com/user-attachments/assets/20bc84c5-560c-44ce-951e-d7104203cc38" />
+<img width="1439" alt="Screenshot 2024-12-22 at 09 21 22" src="https://github.com/user-attachments/assets/1aeb7c93-8651-49f3-9a77-51a0d24f8375" />
+
 
 ## Technologies Used
 <img src="https://img.shields.io/badge/react-000000?style=for-the-badge&logo=react&logoColor=blue"/>
