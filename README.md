@@ -25,6 +25,7 @@
 <img src="https://img.shields.io/badge/tailwind-000000?style=for-the-badge&logo=tailwindcss&logoColor=blue"/>
 <img src="https://img.shields.io/badge/node-000000?style=for-the-badge&logo=nodedotjs&logoColor=yellow"/>
 <img src="https://img.shields.io/badge/javascript-000000?style=for-the-badge&logo=javascript&logoColor=yellow"/>
+<img src="https://img.shields.io/badge/typescript-000000?style=for-the-badge&logo=typescript&logoColor=blue"/>
 
 ## Development
 
